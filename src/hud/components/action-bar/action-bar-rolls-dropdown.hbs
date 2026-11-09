@@ -1,0 +1,58 @@
+<div class="illusive-dnd-util-dropdown illusive-dnd-util-dropdown-rolls" role="menu" aria-label="{{title}}">
+  <div class="illusive-dnd-util-dropdown-heading">{{title}}</div>
+  <label class="illusive-dnd-rolls-search">
+    <span class="fa-solid fa-magnifying-glass" aria-hidden="true"></span>
+    <input
+      type="search"
+      class="illusive-dnd-rolls-search-input"
+      placeholder="{{searchPlaceholder}}"
+      aria-label="{{searchPlaceholder}}"
+      autocomplete="off"
+      spellcheck="false"
+    >
+  </label>
+  <div class="illusive-dnd-rolls-tabs" role="tablist" aria-label="{{title}}">
+    {{#each sections}}
+    <button
+      type="button"
+      class="illusive-dnd-rolls-tab{{#if @first}} is-active{{/if}}"
+      role="tab"
+      id="illusive-dnd-rolls-tab-{{id}}"
+      data-rolls-tab="{{id}}"
+      aria-selected="{{#if @first}}true{{else}}false{{/if}}"
+      aria-controls="illusive-dnd-rolls-panel-{{id}}"
+      tabindex="{{#if @first}}0{{else}}-1{{/if}}"
+    >{{label}}</button>
+    {{/each}}
+  </div>
+  <div class="illusive-dnd-rolls-panels">
+    {{#each sections}}
+    <section
+      class="illusive-dnd-rolls-panel{{#if @first}} is-active{{/if}}"
+      id="illusive-dnd-rolls-panel-{{id}}"
+      role="tabpanel"
+      data-roll-section="{{id}}"
+      aria-labelledby="illusive-dnd-rolls-tab-{{id}}"
+      {{#unless @first}}hidden{{/unless}}
+    >
+      <div class="illusive-dnd-util-tile-grid">
+      {{#each entries}}
+      <button
+        type="button"
+        class="illusive-dnd-util-tile illusive-dnd-rolls-item"
+        data-roll-type="{{type}}"
+        data-roll-id="{{id}}"
+        data-roll-label="{{label}}"
+        role="menuitem"
+      >
+        <span class="illusive-dnd-util-tile-name">{{label}}</span>
+        {{#if modLabel}}
+        <span class="illusive-dnd-util-tile-meta">{{modLabel}}</span>
+        {{/if}}
+      </button>
+      {{/each}}
+      </div>
+    </section>
+    {{/each}}
+  </div>
+</div>

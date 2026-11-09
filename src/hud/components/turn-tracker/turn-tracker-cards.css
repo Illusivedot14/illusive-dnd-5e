@@ -1,0 +1,292 @@
+#illusive-dnd-turn-tracker .illusive-dnd-turn-card {
+  position: relative;
+  z-index: 1;
+  flex: 0 0 auto;
+  width: 88px;
+  text-align: center;
+  cursor: pointer;
+  pointer-events: auto;
+  transition: transform 0.25s ease, filter 0.25s ease, margin 0.25s ease;
+  transform-origin: center bottom;
+}
+
+#illusive-dnd-turn-tracker .illusive-dnd-turn-card.is-active {
+  /* Slight pop without changing horizontal spacing. */
+  transform: translateY(-2px) scale(1.04);
+  z-index: 3;
+}
+
+/*
+ * Soft outside glow only. The crisp gold edge comes from the ornate frame
+ * (::before). No hard `0 0 0 Npx` spread ring here — that read as a rectangular
+ * box outline around the portrait.
+ */
+#illusive-dnd-turn-tracker .illusive-dnd-turn-card.is-active .illusive-dnd-turn-portrait {
+  box-shadow:
+    0 0 10px 2px rgba(240, 221, 176, 0.3),
+    0 0 18px 5px rgba(184, 154, 92, 0.16),
+    0 4px 14px rgba(0, 0, 0, 0.55);
+  animation: illusive-dnd-turn-outer-glow 3.8s ease-in-out infinite;
+}
+
+@keyframes illusive-dnd-turn-outer-glow {
+  0%, 100% {
+    box-shadow:
+      0 0 8px 2px rgba(240, 221, 176, 0.24),
+      0 0 15px 4px rgba(184, 154, 92, 0.12),
+      0 4px 14px rgba(0, 0, 0, 0.55);
+  }
+  50% {
+    box-shadow:
+      0 0 13px 3px rgba(240, 221, 176, 0.4),
+      0 0 22px 6px rgba(184, 154, 92, 0.22),
+      0 4px 14px rgba(0, 0, 0, 0.55);
+  }
+}
+
+#illusive-dnd-turn-tracker .illusive-dnd-turn-card.is-defeated:not(.is-dead):not(.is-death-saving):not(.is-stabilized) {
+  filter: grayscale(1);
+  opacity: 0.72;
+}
+
+/* GM-only view of combatants hidden from players. */
+#illusive-dnd-turn-tracker .illusive-dnd-turn-card.is-secret {
+  opacity: 0.5;
+}
+
+#illusive-dnd-turn-tracker .illusive-dnd-turn-card.is-secret .illusive-dnd-turn-portrait.illusive-dnd-ornate-frame {
+  filter: grayscale(0.6) brightness(0.85);
+  outline: 1px dashed rgba(184, 154, 92, 0.7);
+  outline-offset: -2px;
+}
+
+#illusive-dnd-turn-tracker .illusive-dnd-turn-portrait {
+  position: relative;
+  width: 88px;
+  height: 112px;
+  border-radius: 6px;
+  background-color: #0a080f;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.55);
+  overflow: hidden;
+}
+
+#illusive-dnd-turn-tracker .illusive-dnd-turn-portrait-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+  z-index: 1;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+#illusive-dnd-turn-tracker .illusive-dnd-turn-portrait.illusive-dnd-ornate-frame {
+  border: none;
+  background-color: #0a080f;
+}
+
+#illusive-dnd-turn-tracker .illusive-dnd-turn-portrait.illusive-dnd-ornate-frame::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 2px solid #b89a5c;
+  border-radius: 6px;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.65) inset;
+  pointer-events: none;
+  z-index: 2;
+}
+
+#illusive-dnd-turn-tracker .illusive-dnd-turn-card.is-active .illusive-dnd-turn-portrait.illusive-dnd-ornate-frame::before {
+  border-color: #f0ddb0;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.25) inset;
+}
+
+#illusive-dnd-turn-tracker .illusive-dnd-turn-portrait .illusive-dnd-frame-corner {
+  z-index: 3;
+}
+
+#illusive-dnd-turn-tracker .illusive-dnd-turn-init {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  z-index: 4;
+  min-width: 20px;
+  padding: 1px 5px;
+  border-radius: 999px;
+  background: rgba(8, 6, 14, 0.88);
+  border: 1px solid rgba(184, 154, 92, 0.55);
+  font-family: "Signika", sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #f8f0dc;
+  line-height: 1.2;
+}
+
+#illusive-dnd-turn-tracker .illusive-dnd-turn-group-count {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  min-width: 20px;
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: rgba(8, 6, 14, 0.88);
+  border: 1px solid rgba(184, 154, 92, 0.55);
+  font-family: "Signika", sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #f8f0dc;
+  line-height: 1.2;
+  z-index: 5;
+}
+
+#illusive-dnd-turn-tracker .illusive-dnd-turn-group-count i {
+  font-size: 9px;
+  opacity: 0.85;
+}
+
+/* Stacked-card hint so a group reads as multiple combatants. */
+#illusive-dnd-turn-tracker .illusive-dnd-turn-card-group .illusive-dnd-turn-portrait {
+  box-shadow:
+    3px 3px 0 -1px rgba(8, 6, 14, 0.9),
+    4px 4px 0 -1px rgba(184, 154, 92, 0.55);
+}
+
+#illusive-dnd-turn-tracker .illusive-dnd-turn-init-roll {
+  cursor: pointer;
+  pointer-events: auto;
+  color: #f0ddb0;
+  border-color: rgba(184, 154, 92, 0.85);
+  transition: filter 0.12s ease, transform 0.12s ease;
+}
+
+#illusive-dnd-turn-tracker .illusive-dnd-turn-init-roll:hover {
+  filter: brightness(1.35);
+  transform: scale(1.12);
+}
+
+#illusive-dnd-turn-tracker .illusive-dnd-turn-hp {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 6px;
+  z-index: 4;
+  font-family: "Signika", sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #ffffff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.95);
+}
+
+/* Blood-red damage wash — same recipe as the party rail. */
+#illusive-dnd-turn-tracker .illusive-dnd-turn-damage-wash {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+  border-radius: inherit;
+  background:
+    linear-gradient(
+      to bottom,
+      transparent 0%,
+      transparent max(0%, calc(var(--illusive-dnd-hp-pct, 100%) - 24%)),
+      rgba(0, 0, 0, 0.05) max(0%, calc(var(--illusive-dnd-hp-pct, 100%) - 18%)),
+      rgba(0, 0, 0, 0.12) max(0%, calc(var(--illusive-dnd-hp-pct, 100%) - 12%)),
+      rgba(0, 0, 0, 0.22) max(0%, calc(var(--illusive-dnd-hp-pct, 100%) - 6%)),
+      rgba(0, 0, 0, 0.34) var(--illusive-dnd-hp-pct, 100%),
+      rgba(0, 0, 0, 0.5) 100%
+    ),
+    linear-gradient(
+      to bottom,
+      transparent 0%,
+      transparent max(0%, calc(var(--illusive-dnd-hp-pct, 100%) - 24%)),
+      var(--illusive-dnd-hp-damage-faint, rgba(196, 61, 79, 0.05)) max(0%, calc(var(--illusive-dnd-hp-pct, 100%) - 18%)),
+      var(--illusive-dnd-hp-damage-soft, rgba(196, 61, 79, 0.15)) max(0%, calc(var(--illusive-dnd-hp-pct, 100%) - 10%)),
+      var(--illusive-dnd-hp-damage, rgba(196, 61, 79, 0.42)) var(--illusive-dnd-hp-pct, 100%),
+      var(--illusive-dnd-hp-damage-strong, rgba(143, 36, 51, 0.65)) 100%
+    );
+}
+
+#illusive-dnd-turn-tracker .illusive-dnd-turn-card[data-hp-tier="healthy"] .illusive-dnd-turn-damage-wash {
+  --illusive-dnd-hp-damage-faint: rgba(170, 52, 62, 0.04);
+  --illusive-dnd-hp-damage-soft: rgba(170, 52, 62, 0.14);
+  --illusive-dnd-hp-damage: rgba(170, 52, 62, 0.4);
+  --illusive-dnd-hp-damage-strong: rgba(130, 32, 44, 0.6);
+}
+
+#illusive-dnd-turn-tracker .illusive-dnd-turn-card[data-hp-tier="warn"] .illusive-dnd-turn-damage-wash {
+  --illusive-dnd-hp-damage-faint: rgba(196, 72, 48, 0.05);
+  --illusive-dnd-hp-damage-soft: rgba(196, 72, 48, 0.17);
+  --illusive-dnd-hp-damage: rgba(196, 72, 48, 0.46);
+  --illusive-dnd-hp-damage-strong: rgba(168, 52, 32, 0.66);
+}
+
+#illusive-dnd-turn-tracker .illusive-dnd-turn-card[data-hp-tier="critical"] .illusive-dnd-turn-damage-wash {
+  --illusive-dnd-hp-damage-faint: rgba(210, 48, 62, 0.06);
+  --illusive-dnd-hp-damage-soft: rgba(210, 48, 62, 0.2);
+  --illusive-dnd-hp-damage: rgba(210, 48, 62, 0.52);
+  --illusive-dnd-hp-damage-strong: rgba(168, 24, 40, 0.72);
+}
+
+/* Center vitality glyph: unconscious / skull / resting */
+#illusive-dnd-turn-tracker .illusive-dnd-turn-vitality-icon {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 5;
+  font-size: 28px;
+  line-height: 1;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.75);
+}
+
+/* Death saving — greyed out + unconscious (same filters as party rail) */
+#illusive-dnd-turn-tracker .illusive-dnd-turn-card.is-death-saving .illusive-dnd-turn-portrait-img {
+  filter: grayscale(1) brightness(0.72);
+  opacity: 0.7;
+}
+
+#illusive-dnd-turn-tracker .illusive-dnd-turn-card.is-death-saving .illusive-dnd-turn-vitality-icon {
+  color: rgba(220, 220, 225, 0.88);
+}
+
+#illusive-dnd-turn-tracker .illusive-dnd-turn-card.is-death-saving .illusive-dnd-turn-portrait.illusive-dnd-ornate-frame::before {
+  box-shadow: inset 0 0 24px rgba(40, 40, 48, 0.55);
+}
+
+/* Dead — dark tint + skull */
+#illusive-dnd-turn-tracker .illusive-dnd-turn-card.is-dead .illusive-dnd-turn-portrait-img {
+  filter: grayscale(1) brightness(0.42);
+  opacity: 0.4;
+}
+
+#illusive-dnd-turn-tracker .illusive-dnd-turn-card.is-dead .illusive-dnd-turn-vitality-icon {
+  color: rgba(145, 145, 150, 0.95);
+  font-size: 30px;
+}
+
+#illusive-dnd-turn-tracker .illusive-dnd-turn-card.is-dead .illusive-dnd-turn-portrait.illusive-dnd-ornate-frame::before {
+  box-shadow: inset 0 0 32px rgba(0, 0, 0, 0.7);
+}
+
+/* Stabilized — dark blue tint + resting */
+#illusive-dnd-turn-tracker .illusive-dnd-turn-card.is-stabilized .illusive-dnd-turn-portrait-img {
+  filter: grayscale(0.25) brightness(0.7) sepia(0.15) hue-rotate(180deg);
+  opacity: 0.75;
+}
+
+#illusive-dnd-turn-tracker .illusive-dnd-turn-card.is-stabilized .illusive-dnd-turn-vitality-icon {
+  color: rgba(170, 195, 255, 0.9);
+}
+
+#illusive-dnd-turn-tracker .illusive-dnd-turn-card.is-stabilized .illusive-dnd-turn-portrait.illusive-dnd-ornate-frame::before {
+  box-shadow: inset 0 0 28px rgba(20, 40, 100, 0.55);
+}
+

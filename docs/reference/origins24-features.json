@@ -1,0 +1,380 @@
+[
+  {
+    "id": "phbsptAdrenaline",
+    "name": "Adrenaline Rush",
+    "featureType": "race",
+    "subtype": "",
+    "identifier": "adrenaline-rush",
+    "activities": [
+      {
+        "id": "jN5Zo6mDXll3c4Cz",
+        "name": "Adrenaline Rush: Dash",
+        "type": "heal",
+        "activation": "bonus"
+      }
+    ]
+  },
+  {
+    "id": "phbsptBrave00000",
+    "name": "Brave",
+    "featureType": "race",
+    "subtype": "",
+    "identifier": "brave",
+    "activities": []
+  },
+  {
+    "id": "phbsptBreathWeap",
+    "name": "Breath Weapon",
+    "featureType": "race",
+    "subtype": "",
+    "identifier": "breath-weapon",
+    "activities": [
+      {
+        "id": "dxCRYmNSSGp6L2yh",
+        "name": "Breath Weapon (Cone)",
+        "type": "save",
+        "activation": "action"
+      },
+      {
+        "id": "iyK44COq6gbdbkc2",
+        "name": "Breath Weapon (Line)",
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "phbsptCloudsJaun",
+    "name": "Cloud's Jaunt",
+    "featureType": "race",
+    "subtype": "",
+    "identifier": "clouds-jaunt",
+    "activities": [
+      {
+        "id": "t4npBWLqABsnPZwL",
+        "name": "Cloud's Jaunt",
+        "type": "utility",
+        "activation": "bonus"
+      }
+    ]
+  },
+  {
+    "id": "phbsptDraconicFl",
+    "name": "Draconic Flight",
+    "featureType": "race",
+    "subtype": "",
+    "identifier": "draconic-flight",
+    "activities": [
+      {
+        "id": "FrsJbUcch66Cr7OZ",
+        "name": "Draconic Flight",
+        "type": "utility",
+        "activation": "bonus"
+      }
+    ]
+  },
+  {
+    "id": "phbsptDwarvenRes",
+    "name": "Dwarven Resilience",
+    "featureType": "race",
+    "subtype": "",
+    "identifier": "dwarven-resilience",
+    "activities": []
+  },
+  {
+    "id": "phbsptDwarvenTou",
+    "name": "Dwarven Toughness",
+    "featureType": "race",
+    "subtype": "",
+    "identifier": "dwarven-toughness",
+    "activities": []
+  },
+  {
+    "id": "phbsptDrowElfLin",
+    "name": "Elven Lineage, Drow",
+    "featureType": "race",
+    "subtype": "",
+    "identifier": "elven-lineage-drow",
+    "activities": []
+  },
+  {
+    "id": "phbsptHighElfLin",
+    "name": "Elven Lineage, High Elf",
+    "featureType": "race",
+    "subtype": "",
+    "identifier": "elven-lineage-high-elf",
+    "activities": []
+  },
+  {
+    "id": "phbsptWoodElfLin",
+    "name": "Elven Lineage, Wood Elf",
+    "featureType": "race",
+    "subtype": "",
+    "identifier": "elven-lineage-wood-elf",
+    "activities": []
+  },
+  {
+    "id": "phbsptFeyAncestr",
+    "name": "Fey Ancestry",
+    "featureType": "race",
+    "subtype": "",
+    "identifier": "fey-ancestry",
+    "activities": []
+  },
+  {
+    "id": "phbsptAbyssalLeg",
+    "name": "Fiendish Legacy, Abyssal",
+    "featureType": "race",
+    "subtype": "",
+    "identifier": "fiendish-legacy-abyssal",
+    "activities": []
+  },
+  {
+    "id": "phbsptChthonicLe",
+    "name": "Fiendish Legacy, Chthonic",
+    "featureType": "race",
+    "subtype": "",
+    "identifier": "fiendish-legacy-chthonic",
+    "activities": []
+  },
+  {
+    "id": "phbsptInfernalLe",
+    "name": "Fiendish Legacy, Infernal",
+    "featureType": "race",
+    "subtype": "",
+    "identifier": "fiendish-legacy-infernal",
+    "activities": []
+  },
+  {
+    "id": "phbsptFiresBurn0",
+    "name": "Fire's Burn",
+    "featureType": "race",
+    "subtype": "",
+    "identifier": "fires-burn",
+    "activities": [
+      {
+        "id": "002cv19dj8WGzSl2",
+        "name": "Burn",
+        "type": "damage",
+        "activation": ""
+      }
+    ]
+  },
+  {
+    "id": "phbsptFrostsChil",
+    "name": "Frost's Chill",
+    "featureType": "race",
+    "subtype": "",
+    "identifier": "frosts-chill",
+    "activities": [
+      {
+        "id": "6goWQaWLexUqgig8",
+        "name": "Chill",
+        "type": "damage",
+        "activation": ""
+      }
+    ]
+  },
+  {
+    "id": "phbsptGiantAnces",
+    "name": "Giant Ancestry",
+    "featureType": "race",
+    "subtype": "",
+    "identifier": "giant-ancestry",
+    "activities": []
+  },
+  {
+    "id": "phbsptGnomishCun",
+    "name": "Gnomish Cunning",
+    "featureType": "race",
+    "subtype": "",
+    "identifier": "gnomish-cunning",
+    "activities": []
+  },
+  {
+    "id": "phbsptForestGnom",
+    "name": "Gnomish Lineage, Forest",
+    "featureType": "race",
+    "subtype": "",
+    "identifier": "gnomish-lineage-forest",
+    "activities": []
+  },
+  {
+    "id": "phbsptRockGnomeL",
+    "name": "Gnomish Lineage, Rock",
+    "featureType": "race",
+    "subtype": "",
+    "identifier": "gnomish-lineage-rock",
+    "activities": []
+  },
+  {
+    "id": "phbsptHalflingNi",
+    "name": "Halfling Nimbleness",
+    "featureType": "race",
+    "subtype": "",
+    "identifier": "halfling-nimbleness",
+    "activities": []
+  },
+  {
+    "id": "phbsptHillsTumbl",
+    "name": "Hill's Tumble",
+    "featureType": "race",
+    "subtype": "",
+    "identifier": "hills-tumble",
+    "activities": [
+      {
+        "id": "I2wKOUDxhIb5hHb7",
+        "name": "Hill's Tumble",
+        "type": "utility",
+        "activation": ""
+      }
+    ]
+  },
+  {
+    "id": "phbsptKeenSenses",
+    "name": "Keen Senses",
+    "featureType": "race",
+    "subtype": "",
+    "identifier": "keen-senses",
+    "activities": []
+  },
+  {
+    "id": "phbsptLargeForm0",
+    "name": "Large Form",
+    "featureType": "race",
+    "subtype": "",
+    "identifier": "large-form",
+    "activities": [
+      {
+        "id": "5jJ0wfYo2b4k26Em",
+        "name": "Enlarge",
+        "type": "utility",
+        "activation": "bonus"
+      }
+    ]
+  },
+  {
+    "id": "phbsptLuck000000",
+    "name": "Luck",
+    "featureType": "race",
+    "subtype": "",
+    "identifier": "luck",
+    "activities": []
+  },
+  {
+    "id": "phbsptNaturallyS",
+    "name": "Naturally Stealthy",
+    "featureType": "race",
+    "subtype": "",
+    "identifier": "naturally-stealthy",
+    "activities": []
+  },
+  {
+    "id": "phbsptOtherworld",
+    "name": "Otherworldly Presence",
+    "featureType": "race",
+    "subtype": "",
+    "identifier": "otherworldly-presence",
+    "activities": []
+  },
+  {
+    "id": "phbsptPowerfulBu",
+    "name": "Powerful Build",
+    "featureType": "race",
+    "subtype": "",
+    "identifier": "powerful-build",
+    "activities": []
+  },
+  {
+    "id": "phbsptRelentless",
+    "name": "Relentless Endurance",
+    "featureType": "race",
+    "subtype": "",
+    "identifier": "relentless-endurance",
+    "activities": [
+      {
+        "id": "DULUqgjDy0u99UKM",
+        "name": "Relentlessly Endure",
+        "type": "heal",
+        "activation": ""
+      }
+    ]
+  },
+  {
+    "id": "phbsptResourcefu",
+    "name": "Resourceful",
+    "featureType": "race",
+    "subtype": "",
+    "identifier": "resourceful",
+    "activities": []
+  },
+  {
+    "id": "phbsptSkillful00",
+    "name": "Skillful",
+    "featureType": "race",
+    "subtype": "",
+    "identifier": "skillful",
+    "activities": []
+  },
+  {
+    "id": "phbsptStonesEndu",
+    "name": "Stone's Endurance",
+    "featureType": "race",
+    "subtype": "",
+    "identifier": "stones-endurance",
+    "activities": [
+      {
+        "id": "vrWhAQ6Bj4gznxHq",
+        "name": "",
+        "type": "heal",
+        "activation": "reaction"
+      }
+    ]
+  },
+  {
+    "id": "phbsptStonecunni",
+    "name": "Stonecunning",
+    "featureType": "race",
+    "subtype": "",
+    "identifier": "stonecunning",
+    "activities": [
+      {
+        "id": "NTjnXm1AYqdOUJOB",
+        "name": "Stonecunning",
+        "type": "utility",
+        "activation": "bonus"
+      }
+    ]
+  },
+  {
+    "id": "phbsptStormsThun",
+    "name": "Storm's Thunder",
+    "featureType": "race",
+    "subtype": "",
+    "identifier": "storms-thunder",
+    "activities": [
+      {
+        "id": "3eWfDnXfYJVJqT1z",
+        "name": "Storm's Thunder",
+        "type": "damage",
+        "activation": "reaction"
+      }
+    ]
+  },
+  {
+    "id": "phbsptTrance0000",
+    "name": "Trance",
+    "featureType": "race",
+    "subtype": "",
+    "identifier": "trance",
+    "activities": []
+  },
+  {
+    "id": "phbsptVersatile0",
+    "name": "Versatile",
+    "featureType": "race",
+    "subtype": "",
+    "identifier": "versatile",
+    "activities": []
+  }
+]

@@ -1,0 +1,77 @@
+/* Early paint: hide Foundry chrome on phones before JS finishes.
+   html.illusive-dnd-mobile-boot is set from sessionStorage / heuristic in mobile-boot.mjs */
+
+html.illusive-dnd-mobile-boot,
+html.illusive-dnd-mobile-boot body,
+body.illusive-dnd-mobile-client {
+  background: #121116 !important;
+}
+
+html.illusive-dnd-mobile-boot #board,
+html.illusive-dnd-mobile-boot #ui-left,
+html.illusive-dnd-mobile-boot #ui-right,
+html.illusive-dnd-mobile-boot #ui-top,
+html.illusive-dnd-mobile-boot #ui-bottom,
+html.illusive-dnd-mobile-boot #sidebar,
+html.illusive-dnd-mobile-boot #navigation,
+html.illusive-dnd-mobile-boot #players,
+html.illusive-dnd-mobile-boot #hotbar,
+html.illusive-dnd-mobile-boot #fps,
+html.illusive-dnd-mobile-boot #logo,
+html.illusive-dnd-mobile-boot #pause,
+html.illusive-dnd-mobile-boot #controls,
+html.illusive-dnd-mobile-boot #scene-controls,
+html.illusive-dnd-mobile-boot #camera-views,
+html.illusive-dnd-mobile-boot #illusive-dnd-hud-overlay,
+html.illusive-dnd-mobile-boot #illusive-dnd-action-bar-dock,
+html.illusive-dnd-mobile-boot #illusive-dnd-party-status,
+html.illusive-dnd-mobile-boot #illusive-dnd-turn-tracker,
+html.illusive-dnd-mobile-boot #illusive-dnd-token-statuses,
+body.illusive-dnd-mobile-client #board,
+body.illusive-dnd-mobile-client #ui-left,
+body.illusive-dnd-mobile-client #ui-right,
+body.illusive-dnd-mobile-client #ui-top,
+body.illusive-dnd-mobile-client #ui-bottom,
+body.illusive-dnd-mobile-client #sidebar,
+body.illusive-dnd-mobile-client #navigation,
+body.illusive-dnd-mobile-client #players,
+body.illusive-dnd-mobile-client #hotbar,
+body.illusive-dnd-mobile-client #fps,
+body.illusive-dnd-mobile-client #logo,
+body.illusive-dnd-mobile-client #pause,
+body.illusive-dnd-mobile-client #controls,
+body.illusive-dnd-mobile-client #scene-controls,
+body.illusive-dnd-mobile-client #camera-views,
+body.illusive-dnd-mobile-client #illusive-dnd-hud-overlay,
+body.illusive-dnd-mobile-client #illusive-dnd-action-bar-dock,
+body.illusive-dnd-mobile-client #illusive-dnd-party-status,
+body.illusive-dnd-mobile-client #illusive-dnd-turn-tracker,
+body.illusive-dnd-mobile-client #illusive-dnd-token-statuses {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+html.illusive-dnd-mobile-boot #interface {
+  background: #121116 !important;
+}
+
+/* Heuristic cover for first visit before session flag exists (phones only). */
+@media (hover: none) and (pointer: coarse) and (max-width: 1024px) {
+  html:not(.illusive-dnd-mobile-force-desktop):not(.illusive-dnd-mobile-boot) #ui-left,
+  html:not(.illusive-dnd-mobile-force-desktop):not(.illusive-dnd-mobile-boot) #ui-right,
+  html:not(.illusive-dnd-mobile-force-desktop):not(.illusive-dnd-mobile-boot) #ui-top,
+  html:not(.illusive-dnd-mobile-force-desktop):not(.illusive-dnd-mobile-boot) #ui-bottom,
+  html:not(.illusive-dnd-mobile-force-desktop):not(.illusive-dnd-mobile-boot) #sidebar,
+  html:not(.illusive-dnd-mobile-force-desktop):not(.illusive-dnd-mobile-boot) #navigation,
+  html:not(.illusive-dnd-mobile-force-desktop):not(.illusive-dnd-mobile-boot) #players,
+  html:not(.illusive-dnd-mobile-force-desktop):not(.illusive-dnd-mobile-boot) #hotbar,
+  html:not(.illusive-dnd-mobile-force-desktop):not(.illusive-dnd-mobile-boot) #fps,
+  html:not(.illusive-dnd-mobile-force-desktop):not(.illusive-dnd-mobile-boot) #logo,
+  html:not(.illusive-dnd-mobile-force-desktop):not(.illusive-dnd-mobile-boot) #controls,
+  html:not(.illusive-dnd-mobile-force-desktop):not(.illusive-dnd-mobile-boot) #scene-controls {
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+}

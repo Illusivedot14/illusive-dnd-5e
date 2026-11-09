@@ -1,0 +1,7196 @@
+[
+  {
+    "id": "4H6YgYdKgnX6ZQ8M",
+    "name": "Acid Arrow",
+    "level": 2,
+    "school": "evo",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "attack",
+        "activation": "action"
+      },
+      {
+        "id": "dnd5eactivity200",
+        "name": null,
+        "type": "damage",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "JLTQyqXEaJDrTXyW",
+    "name": "Acid Splash",
+    "level": 0,
+    "school": "con",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "Cast",
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "Opwh2PdX4runSBlm",
+    "name": "Aid",
+    "level": 2,
+    "school": "abj",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "heal",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "7p9IuWrSWFgfyQo2",
+    "name": "Alarm",
+    "level": 1,
+    "school": "abj",
+    "source": "",
+    "concentration": false,
+    "ritual": true,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "ritual"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "Cast",
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "8RTDOt80u8aBv9qx",
+    "name": "Alter Self",
+    "level": 2,
+    "school": "trs",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "hDOENzjuj5WpLq7B",
+    "name": "Animal Friendship",
+    "level": 1,
+    "school": "enc",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "Cast",
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "X8w9EzYLGc4vQ1H2",
+    "name": "Animal Messenger",
+    "level": 2,
+    "school": "enc",
+    "source": "",
+    "concentration": false,
+    "ritual": true,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "ritual"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "ohqAIBg6de989CIo",
+    "name": "Animal Shapes",
+    "level": 8,
+    "school": "trs",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "oyE5nVppa5mde5gT",
+    "name": "Animate Dead",
+    "level": 3,
+    "school": "nec",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "ATo0Eb63TDtnu6iA",
+    "name": "Animate Objects",
+    "level": 5,
+    "school": "trs",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "wXzkqpeFP8eWgJzK",
+    "name": "Antilife Shell",
+    "level": 5,
+    "school": "abj",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "Eon0jzGzQRNluTPQ",
+    "name": "Antimagic Field",
+    "level": 8,
+    "school": "abj",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "GJ2WYm3SQFR0winH",
+    "name": "Antipathy/Sympathy",
+    "level": 8,
+    "school": "enc",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "ImlCJQwR1VL40Qem",
+    "name": "Arcane Eye",
+    "level": 4,
+    "school": "div",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "concentration",
+      "mgc"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "summon",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "a2KJHCIbY5Mi4Dmn",
+    "name": "Arcane Hand",
+    "level": 5,
+    "school": "evo",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "concentration",
+      "mgc"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "summon",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "8cse7rit0oswRPUP",
+    "name": "Arcane Lock",
+    "level": 2,
+    "school": "abj",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "LTDNWoFVJNLjiiNa",
+    "name": "Arcane Sword",
+    "level": 7,
+    "school": "evo",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "concentration",
+      "mgc"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "summon",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "RvEqsD89Zvd5yex4",
+    "name": "Arcanist's Magic Aura",
+    "level": 2,
+    "school": "ill",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "TIoadMIsUKD4edXi",
+    "name": "Astral Projection",
+    "level": 9,
+    "school": "nec",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "4v2H3hHb3Ph9XLNd",
+    "name": "Augury",
+    "level": 2,
+    "school": "div",
+    "source": "",
+    "concentration": false,
+    "ritual": true,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "ritual"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "MCEpGpvovcXagwQS",
+    "name": "Awaken",
+    "level": 5,
+    "school": "trs",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "95K2aUhAGV9qXjnf",
+    "name": "Bane",
+    "level": 1,
+    "school": "enc",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "Cast",
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "pxpb2eOB6bv4phAf",
+    "name": "Banishment",
+    "level": 4,
+    "school": "abj",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "JPwIEfgUPVebr5AH",
+    "name": "Barkskin",
+    "level": 2,
+    "school": "trs",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "ZU9d6woBdUP8pIPt",
+    "name": "Beacon of Hope",
+    "level": 3,
+    "school": "abj",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "pO4zGe5LmFIYqJiL",
+    "name": "Bestow Curse",
+    "level": 3,
+    "school": "nec",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "",
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "DGONTFbk5eORs5qv",
+    "name": "Black Tentacles",
+    "level": 4,
+    "school": "con",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "dLJhxDfeyOsc3zsY",
+    "name": "Blade Barrier",
+    "level": 6,
+    "school": "evo",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "8dzaICjGy6mTUaUr",
+    "name": "Bless",
+    "level": 1,
+    "school": "enc",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "Cast",
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "pybg5MNc3lkerH4Y",
+    "name": "Blight",
+    "level": 4,
+    "school": "nec",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "zwGsAv6kmwzYGhh3",
+    "name": "Blindness/Deafness",
+    "level": 2,
+    "school": "nec",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "GSvLWcdCZLQkilXT",
+    "name": "Blink",
+    "level": 3,
+    "school": "trs",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "UDUnlfPsOAbq2RSE",
+    "name": "Blur",
+    "level": 2,
+    "school": "ill",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "7UwUjJ6owIQkEPrs",
+    "name": "Branding Smite",
+    "level": 2,
+    "school": "evo",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "damage",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "5SuJewoa1CRWaj1F",
+    "name": "Burning Hands",
+    "level": 1,
+    "school": "evo",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "Cast",
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "ehvmg9U9fcMEhE4z",
+    "name": "Call Lightning",
+    "level": 3,
+    "school": "con",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      },
+      {
+        "id": "dnd5eactivity200",
+        "name": null,
+        "type": "damage",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "3MYDjS6k9IYL0aTj",
+    "name": "Calm Emotions",
+    "level": 2,
+    "school": "enc",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "QbTxN5dWIbYZ4jLU",
+    "name": "Chain Lightning",
+    "level": 6,
+    "school": "evo",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "eS7XnnApoxRxYXPs",
+    "name": "Charm Person",
+    "level": 1,
+    "school": "enc",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "Cast",
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "vrN18tbTw7io5MWd",
+    "name": "Chill Touch",
+    "level": 0,
+    "school": "nec",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "Cast",
+        "type": "attack",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "KeunEkg1JYbOCOhV",
+    "name": "Circle of Death",
+    "level": 6,
+    "school": "nec",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "cg50KpBkBdPK6vPL",
+    "name": "Clairvoyance",
+    "level": 3,
+    "school": "div",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "h830iyqParFleNqR",
+    "name": "Clone",
+    "level": 8,
+    "school": "nec",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "LkvI11Uue774QBKZ",
+    "name": "Cloudkill",
+    "level": 5,
+    "school": "con",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "LWTUqKkUQdMAmOe0",
+    "name": "Color Spray",
+    "level": 1,
+    "school": "ill",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "xX5MvhvLpIkLVxdX",
+        "name": "Cast",
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "arzCrMRgcNiQuh43",
+    "name": "Command",
+    "level": 1,
+    "school": "enc",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "Cast",
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "d54VDyFulD9xxY7J",
+    "name": "Commune",
+    "level": 5,
+    "school": "div",
+    "source": "",
+    "concentration": false,
+    "ritual": true,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "ritual"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "dp6xny4v8PDoIGjh",
+    "name": "Commune with Nature",
+    "level": 5,
+    "school": "div",
+    "source": "",
+    "concentration": false,
+    "ritual": true,
+    "properties": [
+      "vocal",
+      "somatic",
+      "ritual"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "4dSvfvTy2ZIJ3K4k",
+    "name": "Comprehend Languages",
+    "level": 1,
+    "school": "div",
+    "source": "",
+    "concentration": false,
+    "ritual": true,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "ritual"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "Cast",
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "P6f1PPKPd9BCb742",
+    "name": "Compulsion",
+    "level": 4,
+    "school": "enc",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "RpKjTlYASrfqUPVA",
+    "name": "Cone of Cold",
+    "level": 5,
+    "school": "evo",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "9hQXdMSmerkTsHDe",
+    "name": "Confusion",
+    "level": 4,
+    "school": "enc",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      },
+      {
+        "id": "dnd5eactivity300",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "1Drt0SHxbEAHxprN",
+    "name": "Conjure Animals",
+    "level": 3,
+    "school": "con",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "",
+        "type": "summon",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "XT7nzJmVGgv73uaf",
+    "name": "Conjure Celestial",
+    "level": 7,
+    "school": "con",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "",
+        "type": "summon",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "1LkZvINag7KqBmDR",
+    "name": "Conjure Elemental",
+    "level": 5,
+    "school": "con",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "",
+        "type": "summon",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "yN3XZZujhR4aVvPa",
+    "name": "Conjure Fey",
+    "level": 6,
+    "school": "con",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "",
+        "type": "summon",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "KgEw3sDr39C6g8nY",
+    "name": "Conjure Minor Elementals",
+    "level": 4,
+    "school": "con",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "",
+        "type": "summon",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "dEfSELiY1eO3cpX9",
+    "name": "Conjure Woodland Beings",
+    "level": 4,
+    "school": "con",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "",
+        "type": "summon",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "dSTu1MaPhBqPITwM",
+    "name": "Contact Other Plane",
+    "level": 5,
+    "school": "div",
+    "source": "",
+    "concentration": false,
+    "ritual": true,
+    "properties": [
+      "vocal",
+      "ritual"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "CjIq8Ed7bu3vVwT1",
+    "name": "Contagion",
+    "level": 5,
+    "school": "nec",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "attack",
+        "activation": "action"
+      },
+      {
+        "id": "dnd5eactivity100",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "4smlOvpF5AQHcyg1",
+    "name": "Contingency",
+    "level": 6,
+    "school": "evo",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "MK6gpQMeDFo0cP9f",
+    "name": "Continual Flame",
+    "level": 2,
+    "school": "evo",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "7fFHlBk3UNX8gPKL",
+    "name": "Control Water",
+    "level": 4,
+    "school": "trs",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "ZPd73HtKF3At11jh",
+    "name": "Control Weather",
+    "level": 8,
+    "school": "trs",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "Ek45cBpVXvJdv1Qy",
+    "name": "Counterspell",
+    "level": 3,
+    "school": "abj",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "somatic"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "BV0mpbHh29IbbIj5",
+    "name": "Create Food and Water",
+    "level": 3,
+    "school": "con",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "a3XtAO5n2GrqiAh5",
+    "name": "Create or Destroy Water",
+    "level": 1,
+    "school": "trs",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "YLVe1YsiyNBUxjXx",
+        "name": "Create Water",
+        "type": "utility",
+        "activation": "action"
+      },
+      {
+        "id": "irIydyXyiUPVWhfg",
+        "name": "Destroy Water",
+        "type": "utility",
+        "activation": "action"
+      },
+      {
+        "id": "HOXAFi1SQnPzdJ6E",
+        "name": "Destroy Fog",
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "E4NXux0RHvME1XgP",
+    "name": "Create Undead",
+    "level": 6,
+    "school": "nec",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "summon",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "lnaGnxMzpYnbw1uU",
+    "name": "Creation",
+    "level": 5,
+    "school": "ill",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "uUWb1wZgtMou0TVP",
+    "name": "Cure Wounds",
+    "level": 1,
+    "school": "evo",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "Cast",
+        "type": "heal",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "CAxSzHWizrafT033",
+    "name": "Dancing Lights",
+    "level": 0,
+    "school": "evo",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "Conjure Lights",
+        "type": "summon",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "S7VbUetIfVT7B6Eq",
+    "name": "Darkness",
+    "level": 2,
+    "school": "evo",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "material",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "hJ6ZiA3fpoY8v9cp",
+    "name": "Darkvision",
+    "level": 2,
+    "school": "trs",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "BP3GCwa66IAw1yTG",
+    "name": "Daylight",
+    "level": 3,
+    "school": "evo",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "VtCXMdyM6mAdIJZb",
+    "name": "Death Ward",
+    "level": 4,
+    "school": "abj",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "AoTTjapz1FsGOIZz",
+    "name": "Delayed Blast Fireball",
+    "level": 7,
+    "school": "evo",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      },
+      {
+        "id": "dnd5eactivity200",
+        "name": null,
+        "type": "damage",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "xNM9CzQQr2CieM4B",
+    "name": "Demiplane",
+    "level": 8,
+    "school": "con",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "somatic"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "Mzh95utKDPIrjiH8",
+    "name": "Detect Evil and Good",
+    "level": 1,
+    "school": "div",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "Cast",
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "ghXTfe7sgCbgf1Q8",
+    "name": "Detect Magic",
+    "level": 1,
+    "school": "div",
+    "source": "",
+    "concentration": true,
+    "ritual": true,
+    "properties": [
+      "vocal",
+      "somatic",
+      "concentration",
+      "ritual"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "Cast",
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "2skfDtglk1mGrb3l",
+    "name": "Detect Poison and Disease",
+    "level": 1,
+    "school": "div",
+    "source": "",
+    "concentration": true,
+    "ritual": true,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "concentration",
+      "ritual"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "Cast",
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "ppWAAEul0QHtm4er",
+    "name": "Detect Thoughts",
+    "level": 2,
+    "school": "div",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "A4RsPuSvB9wFtz1j",
+    "name": "Dimension Door",
+    "level": 4,
+    "school": "con",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "damage",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "A3q2gTNqG6fvNGrv",
+    "name": "Disguise Self",
+    "level": 1,
+    "school": "ill",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "Cast",
+        "type": "utility",
+        "activation": "action"
+      },
+      {
+        "id": "rCQqPBOppeksLx7t",
+        "name": "Change Appearance",
+        "type": "transform",
+        "activation": ""
+      },
+      {
+        "id": "Hoxd25EbU2m3KI6U",
+        "name": "Investigate Disguise Check",
+        "type": "check",
+        "activation": ""
+      }
+    ]
+  },
+  {
+    "id": "HBHbOGKNVVprSlwn",
+    "name": "Disintegrate",
+    "level": 6,
+    "school": "trs",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "TkJ8Wtg1L7TZtspm",
+    "name": "Dispel Evil and Good",
+    "level": 5,
+    "school": "abj",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "attack",
+        "activation": "action"
+      },
+      {
+        "id": "dnd5eactivity100",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "15Fa6q1nH27XfbR8",
+    "name": "Dispel Magic",
+    "level": 3,
+    "school": "abj",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "XqzXSKNR75ZdYTA9",
+    "name": "Divination",
+    "level": 4,
+    "school": "div",
+    "source": "",
+    "concentration": false,
+    "ritual": true,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "ritual"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "8MICCMeOXT3aJUy9",
+    "name": "Divine Favor",
+    "level": 1,
+    "school": "evo",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "6haTLhSgUrZEZzir",
+        "name": "Cast",
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "T1vpZLam7LezjToj",
+    "name": "Divine Word",
+    "level": 7,
+    "school": "evo",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "LrPvWHBPmiMQQsKB",
+    "name": "Dominate Beast",
+    "level": 4,
+    "school": "enc",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "eEpy1ONlXumKS1mp",
+    "name": "Dominate Monster",
+    "level": 8,
+    "school": "enc",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "91Sw6vOIaO7U8DvM",
+    "name": "Dominate Person",
+    "level": 5,
+    "school": "enc",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "kSPRpeIx3w3nihrF",
+    "name": "Dream",
+    "level": 5,
+    "school": "ill",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "SbSvZKkJASyk8jKo",
+    "name": "Druidcraft",
+    "level": 0,
+    "school": "trs",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "Cast",
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "x5JNBSyIBBZsjcGT",
+    "name": "Earthquake",
+    "level": 8,
+    "school": "evo",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "Z9p1vezIn95jw1Yw",
+    "name": "Eldritch Blast",
+    "level": 0,
+    "school": "evo",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "Cast",
+        "type": "attack",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "9eOZDBImVKxbeOyZ",
+    "name": "Enhance Ability",
+    "level": 2,
+    "school": "trs",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "heal",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "WahI41a3goVUg0x1",
+    "name": "Enlarge/Reduce",
+    "level": 2,
+    "school": "trs",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "gMrWeG8fMDPRFiVe",
+    "name": "Entangle",
+    "level": 1,
+    "school": "con",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "Cast",
+        "type": "save",
+        "activation": "action"
+      },
+      {
+        "id": "rh7ciGbrgpnnZ3B2",
+        "name": "Escape Plants Check",
+        "type": "check",
+        "activation": ""
+      }
+    ]
+  },
+  {
+    "id": "30ZgXtijJVCxQk5N",
+    "name": "Enthrall",
+    "level": 2,
+    "school": "enc",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "PQuEgKyCdovOvhqN",
+    "name": "Etherealness",
+    "level": 7,
+    "school": "trs",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "zPGohqJRir6MyQ3U",
+    "name": "Expeditious Retreat",
+    "level": 1,
+    "school": "trs",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "Cast",
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "ZRqu3Xh9FmlBCZGy",
+    "name": "Eyebite",
+    "level": 6,
+    "school": "nec",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "7Fw7Bf1k3xxDVr5L",
+    "name": "Fabricate",
+    "level": 4,
+    "school": "trs",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "nqBDWkVOfcGZt4YU",
+    "name": "Faerie Fire",
+    "level": 1,
+    "school": "evo",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "Cast",
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "SAj03P2WBDiWu7zu",
+    "name": "Faithful Hound",
+    "level": 4,
+    "school": "con",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "attack",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "7e3QXF10hLNDEdr6",
+    "name": "False Life",
+    "level": 1,
+    "school": "nec",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "Cast",
+        "type": "heal",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "XXUDGFELgoskdOD0",
+    "name": "Fear",
+    "level": 3,
+    "school": "ill",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "pub0OWVEB71XQx1n",
+    "name": "Feather Fall",
+    "level": 1,
+    "school": "trs",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "Cast",
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "hYCrN82dMJFuJODB",
+    "name": "Feeblemind",
+    "level": 8,
+    "school": "enc",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "JGT5bNqu9REL7Fuz",
+    "name": "Find Familiar",
+    "level": 1,
+    "school": "con",
+    "source": "",
+    "concentration": false,
+    "ritual": true,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "ritual"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "",
+        "type": "summon",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "5eh2HFbS13078Y3H",
+    "name": "Find Steed",
+    "level": 2,
+    "school": "con",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "mgc"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "",
+        "type": "summon",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "cYI4RNNjI5GAmLhy",
+    "name": "Find the Path",
+    "level": 6,
+    "school": "div",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "KrM3oHVv13RAALrS",
+    "name": "Find Traps",
+    "level": 2,
+    "school": "div",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "HPvZm8YJO91k6Qdg",
+    "name": "Finger of Death",
+    "level": 7,
+    "school": "nec",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "EOmsUcFQJTfG2oio",
+    "name": "Fire Bolt",
+    "level": 0,
+    "school": "evo",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "Cast",
+        "type": "attack",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "avD5XUtkBPQQR97c",
+    "name": "Fire Shield",
+    "level": 4,
+    "school": "evo",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "damage",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "J3uILDYS7MiOfmTJ",
+    "name": "Fire Storm",
+    "level": 7,
+    "school": "evo",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "ztgcdrWPshKRpFd0",
+    "name": "Fireball",
+    "level": 3,
+    "school": "evo",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "Advtckpz1B733bu9",
+    "name": "Flame Blade",
+    "level": 2,
+    "school": "evo",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "attack",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "5e1xTohkzqFqbYH4",
+    "name": "Flame Strike",
+    "level": 5,
+    "school": "evo",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "FjYE214HTERCRZNm",
+    "name": "Flaming Sphere",
+    "level": 2,
+    "school": "con",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "kozNy29b0X6exFhY",
+    "name": "Flesh to Stone",
+    "level": 6,
+    "school": "trs",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "bnjXlk13ZRJuf5d0",
+    "name": "Floating Disk",
+    "level": 1,
+    "school": "con",
+    "source": "",
+    "concentration": false,
+    "ritual": true,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "ritual"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "Cast",
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "yfbK8gZqESlaoY5t",
+    "name": "Fly",
+    "level": 3,
+    "school": "trs",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "IBJmWjzbQGu7M4UX",
+    "name": "Fog Cloud",
+    "level": 1,
+    "school": "con",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "64D1gNZ4hx7SWG2x",
+    "name": "Forbiddance",
+    "level": 6,
+    "school": "abj",
+    "source": "",
+    "concentration": false,
+    "ritual": true,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "ritual"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "Y7uWUO4yqUN0JKl0",
+    "name": "Forcecage",
+    "level": 7,
+    "school": "evo",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "6HEEhLdJz32TL4Js",
+    "name": "Foresight",
+    "level": 9,
+    "school": "div",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "da0a1t2FqaTjRZGT",
+    "name": "Freedom of Movement",
+    "level": 4,
+    "school": "abj",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "MImfWCzEPRMYD3Xp",
+    "name": "Freezing Sphere",
+    "level": 6,
+    "school": "evo",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "2IWiZAJtOGDoKjiz",
+    "name": "Gaseous Form",
+    "level": 3,
+    "school": "trs",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "XbwGq5kDJNvAxNXV",
+    "name": "Gate",
+    "level": 9,
+    "school": "con",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "JQyigMNPiDnGI18b",
+    "name": "Geas",
+    "level": 5,
+    "school": "enc",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "n4JDcFKe5ikzYmAc",
+    "name": "Gentle Repose",
+    "level": 2,
+    "school": "nec",
+    "source": "",
+    "concentration": false,
+    "ritual": true,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "ritual"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "czXrVRx6XYRWsHAi",
+    "name": "Giant Insect",
+    "level": 4,
+    "school": "trs",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "",
+        "type": "summon",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "1RzxKZzkQOoioxPj",
+    "name": "Glibness",
+    "level": 8,
+    "school": "trs",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "WmQpxfjZwF3MGUby",
+    "name": "Globe of Invulnerability",
+    "level": 6,
+    "school": "abj",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "pB7XVYwdGNcUG935",
+    "name": "Glyph of Warding",
+    "level": 3,
+    "school": "abj",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "Qf6CAZkc7ms4ZY3e",
+    "name": "Goodberry",
+    "level": 1,
+    "school": "trs",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "Cast",
+        "type": "heal",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "etgcR9wqmrhyZ0tx",
+    "name": "Grease",
+    "level": 1,
+    "school": "con",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "Cast",
+        "type": "save",
+        "activation": "action"
+      },
+      {
+        "id": "OiCc4lVFXS0vkFhf",
+        "name": "Enter / End Turn in Grease Save",
+        "type": "save",
+        "activation": "special"
+      }
+    ]
+  },
+  {
+    "id": "tEpDmYZNGc9f5OhJ",
+    "name": "Greater Invisibility",
+    "level": 4,
+    "school": "ill",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "WzvJ7G3cqvIubsLk",
+    "name": "Greater Restoration",
+    "level": 5,
+    "school": "abj",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "TgHsuhNasPbhu8MO",
+    "name": "Guardian of Faith",
+    "level": 4,
+    "school": "con",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "yw0tYQkOMCgKZ8Ur",
+    "name": "Guards and Wards",
+    "level": 6,
+    "school": "abj",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "P7mF2MxSuVJwHRRY",
+    "name": "Guidance",
+    "level": 0,
+    "school": "div",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "Cast",
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "7buEm5KhI5lP8m1z",
+    "name": "Guiding Bolt",
+    "level": 1,
+    "school": "evo",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "Cast",
+        "type": "attack",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "FSMy6VAjDnXY9vWz",
+    "name": "Gust of Wind",
+    "level": 2,
+    "school": "evo",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "SLxA9QhrggTz0taU",
+    "name": "Hallow",
+    "level": 5,
+    "school": "evo",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      },
+      {
+        "id": "dnd5eactivity100",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "sTIkQK7KuQNOyY0C",
+    "name": "Hallucinatory Terrain",
+    "level": 4,
+    "school": "ill",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "tMH6Ivn4GmE1naMj",
+    "name": "Harm",
+    "level": 6,
+    "school": "nec",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "Szvk5FEVQW3uhJi5",
+    "name": "Haste",
+    "level": 3,
+    "school": "trs",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "qcYitWoSMTnKkzM1",
+    "name": "Heal",
+    "level": 6,
+    "school": "evo",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "heal",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "o8Dh7fblk1d16tnO",
+    "name": "Healing Word",
+    "level": 1,
+    "school": "evo",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "Cast",
+        "type": "heal",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "2yHXEcrRbadZDr5M",
+    "name": "Heat Metal",
+    "level": 2,
+    "school": "trs",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "22dPoeXfaaAv4K3h",
+    "name": "Hellish Rebuke",
+    "level": 1,
+    "school": "evo",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "Cast",
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "mgFqi0ev8f7Ut19y",
+    "name": "Heroes' Feast",
+    "level": 6,
+    "school": "con",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "ge3Saet9zPTDyaoL",
+    "name": "Heroism",
+    "level": 1,
+    "school": "enc",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "Grant Temporary Hit Points",
+        "type": "heal",
+        "activation": "special"
+      },
+      {
+        "id": "s8S50epEPffDG1NB",
+        "name": "Cast",
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "BQk5Row4NymMnUQl",
+    "name": "Hideous Laughter",
+    "level": 1,
+    "school": "enc",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "Cast",
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "l9Ju5KE7bbn3WpTm",
+    "name": "Hold Monster",
+    "level": 5,
+    "school": "enc",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "3Lo9boi7P2ro6QV4",
+    "name": "Hold Person",
+    "level": 2,
+    "school": "enc",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "j8S49Rea8b1640Zi",
+    "name": "Holy Aura",
+    "level": 8,
+    "school": "abj",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      },
+      {
+        "id": "dnd5eactivity100",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "0xmXiPiuYws1OGcX",
+    "name": "Hunter's Mark",
+    "level": 1,
+    "school": "div",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "Bonus Mark Damage",
+        "type": "damage",
+        "activation": "special"
+      },
+      {
+        "id": "B3ZCe8XzV7wJ2YiL",
+        "name": "Cast",
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "6g3WLOZ2u0EbaLAd",
+    "name": "Hypnotic Pattern",
+    "level": 3,
+    "school": "ill",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "somatic",
+      "material",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "WN2LWEljYU6QqnRH",
+    "name": "Ice Storm",
+    "level": 4,
+    "school": "evo",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "3OZnNhunvRtPOQmH",
+    "name": "Identify",
+    "level": 1,
+    "school": "div",
+    "source": "",
+    "concentration": false,
+    "ritual": true,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "ritual"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "Cast",
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "82jM6qD9axLJsTrH",
+    "name": "Illusory Script",
+    "level": 1,
+    "school": "ill",
+    "source": "",
+    "concentration": false,
+    "ritual": true,
+    "properties": [
+      "somatic",
+      "material",
+      "ritual"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "Cast",
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "ZVnL9L8v1KC9TBF4",
+    "name": "Imprisonment",
+    "level": 9,
+    "school": "abj",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "pV04y1iXoWiom6bp",
+    "name": "Incendiary Cloud",
+    "level": 8,
+    "school": "con",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "ksaaTxIbKx2sJfia",
+    "name": "Inflict Wounds",
+    "level": 1,
+    "school": "nec",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "Cast",
+        "type": "attack",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "OVikYmSdHliAG2YD",
+    "name": "Insect Plague",
+    "level": 5,
+    "school": "con",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "SgrEKiC6dAtvy6Pz",
+    "name": "Instant Summons",
+    "level": 6,
+    "school": "con",
+    "source": "",
+    "concentration": false,
+    "ritual": true,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "ritual"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "1N8dDMMgZ1h1YJ3B",
+    "name": "Invisibility",
+    "level": 2,
+    "school": "ill",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "TfRzwEgBHHkCc6Ql",
+    "name": "Irresistible Dance",
+    "level": 6,
+    "school": "enc",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "ZrTc23tToJ0JpH2h",
+    "name": "Jump",
+    "level": 1,
+    "school": "trs",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "Cast",
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "1nhIxh0DsJsntCfj",
+    "name": "Knock",
+    "level": 2,
+    "school": "trs",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "W4Qx5z0id6da0vqg",
+    "name": "Legend Lore",
+    "level": 5,
+    "school": "div",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "F0GsG0SJzsIOacwV",
+    "name": "Lesser Restoration",
+    "level": 2,
+    "school": "abj",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "MRxldJd6C4bsBo3O",
+    "name": "Levitate",
+    "level": 2,
+    "school": "trs",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "Bnn9Nzajixvow9xi",
+    "name": "Light",
+    "level": 0,
+    "school": "evo",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "A0r24ncbAuYRHrRX",
+        "name": "Avoid Light Save",
+        "type": "save",
+        "activation": "special"
+      },
+      {
+        "id": "x3oDVP0hPkb9fAa1",
+        "name": "Cast",
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "IyikgTEOTv701jgQ",
+    "name": "Lightning Bolt",
+    "level": 3,
+    "school": "evo",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "Iv2qqSAT7OkXKPFx",
+    "name": "Locate Animals or Plants",
+    "level": 2,
+    "school": "div",
+    "source": "",
+    "concentration": false,
+    "ritual": true,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "ritual"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "gXtzz9t1DTzJeLr4",
+    "name": "Locate Creature",
+    "level": 4,
+    "school": "div",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "SleYkHovQ8NagmeV",
+    "name": "Locate Object",
+    "level": 2,
+    "school": "div",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "B0pnIcc52O6G8hi8",
+    "name": "Longstrider",
+    "level": 1,
+    "school": "trs",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "Cast",
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "CKZTpZlxj7hjjo2H",
+    "name": "Mage Armor",
+    "level": 1,
+    "school": "abj",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "Cast",
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "Utk1OQRwYkMkFRD3",
+    "name": "Mage Hand",
+    "level": 0,
+    "school": "con",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "Conjure Mage Hand",
+        "type": "summon",
+        "activation": "action"
+      },
+      {
+        "id": "EDuPcfsfb5cGEpiI",
+        "name": "Control Mage Hand",
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "y8A4HfTwd93ypdEz",
+    "name": "Magic Circle",
+    "level": 3,
+    "school": "abj",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "ej6wyY4G1gOcb1U6",
+    "name": "Magic Jar",
+    "level": 6,
+    "school": "nec",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      },
+      {
+        "id": "dnd5eactivity100",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "41JIhpDyM9Anm7cs",
+    "name": "Magic Missile",
+    "level": 1,
+    "school": "evo",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic"
+    ],
+    "activities": [
+      {
+        "id": "rttaq2XQZpjYRPc8",
+        "name": "Cast",
+        "type": "damage",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "7v06rdmUakoTk1LQ",
+    "name": "Magic Mouth",
+    "level": 2,
+    "school": "ill",
+    "source": "",
+    "concentration": false,
+    "ritual": true,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "ritual"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "Sgjrf8qqv97CCWM4",
+    "name": "Magic Weapon",
+    "level": 2,
+    "school": "trs",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "enchant",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "pn4SnsFDvYDiE6rC",
+    "name": "Magnificent Mansion",
+    "level": 7,
+    "school": "con",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "nslx2nT3p4lNkmdp",
+    "name": "Major Image",
+    "level": 3,
+    "school": "ill",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "Pyzmm8R7rVsNAPsd",
+    "name": "Mass Cure Wounds",
+    "level": 5,
+    "school": "evo",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "heal",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "Y6oItIuhOJZ0i0FC",
+    "name": "Mass Heal",
+    "level": 9,
+    "school": "evo",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "heal",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "34ddoYIrnOZ2GFYi",
+    "name": "Mass Healing Word",
+    "level": 3,
+    "school": "evo",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "heal",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "5OGFdJw35QXp6mh6",
+    "name": "Mass Suggestion",
+    "level": 6,
+    "school": "enc",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "clwv2PWOcT822hlr",
+    "name": "Maze",
+    "level": 8,
+    "school": "con",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "64uo4fHriHLjRUrX",
+    "name": "Meld into Stone",
+    "level": 3,
+    "school": "trs",
+    "source": "",
+    "concentration": false,
+    "ritual": true,
+    "properties": [
+      "vocal",
+      "somatic",
+      "ritual"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "damage",
+        "activation": "action"
+      },
+      {
+        "id": "dnd5eactivity200",
+        "name": null,
+        "type": "damage",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "kjmjY0zlE6IEiQVL",
+    "name": "Mending",
+    "level": 0,
+    "school": "trs",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "Cast",
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "icZokbgV1jIMpNCv",
+    "name": "Message",
+    "level": 0,
+    "school": "trs",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "Cast",
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "mF52ldF79Cr7wfQo",
+    "name": "Meteor Swarm",
+    "level": 9,
+    "school": "evo",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "bllEWfm9xfEKynhv",
+    "name": "Mind Blank",
+    "level": 8,
+    "school": "abj",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "oIzA2MEHwxhtQneU",
+    "name": "Minor Illusion",
+    "level": 0,
+    "school": "ill",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "Cast",
+        "type": "utility",
+        "activation": "action"
+      },
+      {
+        "id": "LUDe0w9NK48MKaiG",
+        "name": "Investigate Illusion Check",
+        "type": "check",
+        "activation": ""
+      }
+    ]
+  },
+  {
+    "id": "f38w5rd9SgdmWc6F",
+    "name": "Mirage Arcane",
+    "level": 7,
+    "school": "ill",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "X4c8xCkmF8U9HUMz",
+    "name": "Mirror Image",
+    "level": 2,
+    "school": "ill",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "MBMaQLwoy05qzMJ3",
+    "name": "Mislead",
+    "level": 5,
+    "school": "ill",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "somatic",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "wqfAVANuQonNBgnL",
+    "name": "Misty Step",
+    "level": 2,
+    "school": "con",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "r3243JU4AyQJyfX4",
+    "name": "Modify Memory",
+    "level": 5,
+    "school": "enc",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "bV3yun6MIuFj71Er",
+    "name": "Moonbeam",
+    "level": 2,
+    "school": "evo",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "yI0XWIgI0IGGsR3R",
+    "name": "Move Earth",
+    "level": 6,
+    "school": "trs",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "aU62xVUBYkAQWIHv",
+    "name": "Nondetection",
+    "level": 3,
+    "school": "abj",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "pRMvmknwLf2tdMTj",
+    "name": "Pass without Trace",
+    "level": 2,
+    "school": "abj",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "d9MwcXi7Il3HROXd",
+    "name": "Passwall",
+    "level": 5,
+    "school": "trs",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "BYNvBJzHcF5VJhXw",
+    "name": "Phantasmal Killer",
+    "level": 4,
+    "school": "ill",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "wpx42mtoZ5BmXRs1",
+    "name": "Phantom Steed",
+    "level": 3,
+    "school": "ill",
+    "source": "",
+    "concentration": false,
+    "ritual": true,
+    "properties": [
+      "vocal",
+      "somatic",
+      "ritual"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "fkREcytuZ8sngWtC",
+    "name": "Planar Ally",
+    "level": 6,
+    "school": "con",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "42O2aNBW7vK90gTL",
+    "name": "Planar Binding",
+    "level": 5,
+    "school": "abj",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "J6Jpw5XzB5aTeqnz",
+    "name": "Plane Shift",
+    "level": 7,
+    "school": "con",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "attack",
+        "activation": "action"
+      },
+      {
+        "id": "dnd5eactivity100",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "YWtwzp6ZnQJMEmVW",
+    "name": "Plant Growth",
+    "level": 3,
+    "school": "trs",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "g2u9PYfqWQAyg9OI",
+    "name": "Poison Spray",
+    "level": 0,
+    "school": "con",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "Cast",
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "04nMsTWkIFvkbXlY",
+    "name": "Polymorph",
+    "level": 4,
+    "school": "trs",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "dmvaMLFWFtv0qx0S",
+    "name": "Power Word Kill",
+    "level": 9,
+    "school": "enc",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "35j2QIMmIk6aEdxj",
+    "name": "Power Word Stun",
+    "level": 8,
+    "school": "enc",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "MOEmz9N0j0QPkKEE",
+    "name": "Prayer of Healing",
+    "level": 2,
+    "school": "evo",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "heal",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "udsLtG0BugXHR2JQ",
+    "name": "Prestidigitation",
+    "level": 0,
+    "school": "trs",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "Cast",
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "eGMhwmuleAM46C6L",
+    "name": "Prismatic Spray",
+    "level": 7,
+    "school": "evo",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "jmfu8zj4zjjzUbeh",
+    "name": "Prismatic Wall",
+    "level": 9,
+    "school": "abj",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "NJgxf7pmSsBArIG7",
+    "name": "Private Sanctum",
+    "level": 4,
+    "school": "abj",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "eCPQuQkIabFKTl9u",
+    "name": "Produce Flame",
+    "level": 0,
+    "school": "con",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "Cast",
+        "type": "attack",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "bA2sk9eMKBeY7EPD",
+    "name": "Programmed Illusion",
+    "level": 6,
+    "school": "ill",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "ePhRKHXRE7l1sEoQ",
+    "name": "Project Image",
+    "level": 7,
+    "school": "ill",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "j8NtLXOOJ3GAKF8I",
+    "name": "Protection from Energy",
+    "level": 3,
+    "school": "abj",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "xmDBqZhRVrtLP8h2",
+    "name": "Protection from Evil and Good",
+    "level": 1,
+    "school": "abj",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "Cast",
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "MAxM77CDUu8dgIRQ",
+    "name": "Protection from Poison",
+    "level": 2,
+    "school": "abj",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "Kn7K5PtYUJAKZTTp",
+    "name": "Purify Food and Drink",
+    "level": 1,
+    "school": "trs",
+    "source": "",
+    "concentration": false,
+    "ritual": true,
+    "properties": [
+      "vocal",
+      "somatic",
+      "ritual"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "Cast",
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "AGFMPAmuzwWO6Dfz",
+    "name": "Raise Dead",
+    "level": 5,
+    "school": "nec",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "heal",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "ODhLKBxLnvvLOnw1",
+    "name": "Ray of Enfeeblement",
+    "level": 2,
+    "school": "nec",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "attack",
+        "activation": "action"
+      },
+      {
+        "id": "dnd5eactivity100",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "ctW81uiX56xZR2c5",
+    "name": "Ray of Frost",
+    "level": 0,
+    "school": "evo",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "Cast",
+        "type": "attack",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "9kGrFXnLiRg3Xnbo",
+    "name": "Regenerate",
+    "level": 7,
+    "school": "trs",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "heal",
+        "activation": "action"
+      },
+      {
+        "id": "dnd5eactivity200",
+        "name": null,
+        "type": "damage",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "zMEo5DKK8uxsuWnq",
+    "name": "Reincarnate",
+    "level": 5,
+    "school": "trs",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "XZhdgVK3cLoxNCQl",
+    "name": "Remove Curse",
+    "level": 3,
+    "school": "abj",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "1ADstb0Xec6HHRcU",
+    "name": "Resilient Sphere",
+    "level": 4,
+    "school": "evo",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "dl8YwvMboBqX2OC4",
+    "name": "Resistance",
+    "level": 0,
+    "school": "abj",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "Cast",
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "jhhT9PsHy5A7EojO",
+    "name": "Resurrection",
+    "level": 7,
+    "school": "nec",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "ERCv7yuRkQ0YjGx6",
+    "name": "Reverse Gravity",
+    "level": 7,
+    "school": "trs",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "LmRHHMtplpxr9fX6",
+    "name": "Revivify",
+    "level": 3,
+    "school": "nec",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "heal",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "ap4dmtshjEbwU3Ts",
+    "name": "Rope Trick",
+    "level": 2,
+    "school": "trs",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "n9pJzTDsAwQxJVRl",
+    "name": "Sacred Flame",
+    "level": 0,
+    "school": "evo",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "Cast",
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "gvdA9nPuWLck4tBl",
+    "name": "Sanctuary",
+    "level": 1,
+    "school": "abj",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "Ward Save",
+        "type": "save",
+        "activation": "special"
+      },
+      {
+        "id": "zkVd0Ys2ky4ygeSY",
+        "name": "Cast",
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "7u2obDvuvtZBkTfq",
+    "name": "Scorching Ray",
+    "level": 2,
+    "school": "evo",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "attack",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "fVbCxFRaORalHB20",
+    "name": "Scrying",
+    "level": 5,
+    "school": "div",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "8sgwRh8NUNkn9Vi0",
+    "name": "Secret Chest",
+    "level": 4,
+    "school": "con",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "DQzlB5Y3k791W5bH",
+    "name": "See Invisibility",
+    "level": 2,
+    "school": "div",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "mbFw57uyfLkyiw5k",
+    "name": "Seeming",
+    "level": 5,
+    "school": "ill",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "GtGjNjPBgUHxGYAD",
+    "name": "Sending",
+    "level": 3,
+    "school": "evo",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "wvLbtemkH8gyBpdc",
+    "name": "Sequester",
+    "level": 7,
+    "school": "trs",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "N2UEFq8X5LRsLcOZ",
+    "name": "Shapechange",
+    "level": 9,
+    "school": "trs",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "wJKpSvSTbSkTjqyb",
+    "name": "Shatter",
+    "level": 2,
+    "school": "evo",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "z1mx84ONwkXKUZd7",
+    "name": "Shield",
+    "level": 1,
+    "school": "abj",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "Cast",
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "jZ6JNykRtdQ90MOo",
+    "name": "Shield of Faith",
+    "level": 1,
+    "school": "abj",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "Cast",
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "VzgFzcmocr1X1cp4",
+    "name": "Shillelagh",
+    "level": 0,
+    "school": "trs",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "Imbue Weapon",
+        "type": "enchant",
+        "activation": "action"
+      },
+      {
+        "id": "ONVab5lmTqJwwMBC",
+        "name": "Spellcasting Attack",
+        "type": "attack",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "XvbiNhNqXXIFisIy",
+    "name": "Shocking Grasp",
+    "level": 0,
+    "school": "evo",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "Cast",
+        "type": "attack",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "5VhqFROQYjr1P9lp",
+    "name": "Silence",
+    "level": 2,
+    "school": "ill",
+    "source": "",
+    "concentration": true,
+    "ritual": true,
+    "properties": [
+      "vocal",
+      "somatic",
+      "ritual",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "BrBZdCCrJRIVg7YX",
+    "name": "Silent Image",
+    "level": 1,
+    "school": "ill",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "Cast",
+        "type": "utility",
+        "activation": "action"
+      },
+      {
+        "id": "Pc1AwWaBJEJi253E",
+        "name": "Investigate Illusion Check",
+        "type": "check",
+        "activation": ""
+      }
+    ]
+  },
+  {
+    "id": "jccbeBIfLrqEZnDP",
+    "name": "Simulacrum",
+    "level": 7,
+    "school": "ill",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "KhwiSi9fwVfUPtku",
+    "name": "Sleep",
+    "level": 1,
+    "school": "enc",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "R4kjwJNQwDLhvlPw",
+        "name": "Cast",
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "dhqBY4TvVjxVmOZd",
+    "name": "Sleet Storm",
+    "level": 3,
+    "school": "con",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "yqUDoxk4x0NWG5Bz",
+    "name": "Slow",
+    "level": 3,
+    "school": "trs",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      },
+      {
+        "id": "dnd5eactivity300",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "8zT7njvqbpXs4Cel",
+    "name": "Spare the Dying",
+    "level": 0,
+    "school": "nec",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "Cast",
+        "type": "heal",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "aL1F8fvYLtNzUbKu",
+    "name": "Speak with Animals",
+    "level": 1,
+    "school": "div",
+    "source": "",
+    "concentration": false,
+    "ritual": true,
+    "properties": [
+      "vocal",
+      "somatic",
+      "ritual"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "Cast",
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "I2LUSF5ogc7Bj62e",
+    "name": "Speak with Dead",
+    "level": 3,
+    "school": "nec",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "2VXGS206tuChoeXy",
+    "name": "Speak with Plants",
+    "level": 3,
+    "school": "trs",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "KJRVzeMQXPj8Gtyx",
+    "name": "Spider Climb",
+    "level": 2,
+    "school": "trs",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "9gYGkrL6qFTsE6fw",
+    "name": "Spike Growth",
+    "level": 2,
+    "school": "trs",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "damage",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "uCud2s4TjMfjiXUb",
+    "name": "Spirit Guardians",
+    "level": 3,
+    "school": "con",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "JbxsYXxSOTZbf9I0",
+    "name": "Spiritual Weapon",
+    "level": 2,
+    "school": "evo",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "attack",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "TwlD4PLcltv7Xh7j",
+    "name": "Stinking Cloud",
+    "level": 3,
+    "school": "con",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "QvGcdRUSNRKEQJlK",
+    "name": "Stone Shape",
+    "level": 4,
+    "school": "trs",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "ReMbjfeOKoSj3O79",
+    "name": "Stoneskin",
+    "level": 4,
+    "school": "abj",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "7KjExw0kmuqERa7C",
+    "name": "Storm of Vengeance",
+    "level": 9,
+    "school": "con",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      },
+      {
+        "id": "dnd5eactivity300",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "zMAWdyc8UVb37BK4",
+    "name": "Suggestion",
+    "level": 2,
+    "school": "enc",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "material",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "2RC0EyvBLPH88PZF",
+    "name": "Sunbeam",
+    "level": 6,
+    "school": "evo",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "hzK7FQya0BDjSmLE",
+    "name": "Sunburst",
+    "level": 8,
+    "school": "evo",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "B2kbmgbA2WQR00kx",
+    "name": "Symbol",
+    "level": 7,
+    "school": "abj",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "HQfd7jJyULIoGxrZ",
+    "name": "Telekinesis",
+    "level": 5,
+    "school": "trs",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "uAwtVZkiSTyP6ORB",
+    "name": "Telepathic Bond",
+    "level": 5,
+    "school": "div",
+    "source": "",
+    "concentration": false,
+    "ritual": true,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "ritual"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "L4J89JXqbKs6puEV",
+    "name": "Teleport",
+    "level": 7,
+    "school": "con",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "8aWtP5hcrmcEesBW",
+    "name": "Teleportation Circle",
+    "level": 5,
+    "school": "con",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "MUO1uYN7JR1hm4dR",
+    "name": "Thaumaturgy",
+    "level": 0,
+    "school": "trs",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "Cast",
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "WTbOQBsarsL1LuXJ",
+    "name": "Thunderwave",
+    "level": 1,
+    "school": "evo",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "Cast",
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "JYuRBwxpoFhXduvD",
+    "name": "Time Stop",
+    "level": 9,
+    "school": "trs",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "NXWWWgHtWb7Nv21F",
+    "name": "Tiny Hut",
+    "level": 3,
+    "school": "evo",
+    "source": "",
+    "concentration": false,
+    "ritual": true,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "ritual"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "gopnZvS0c2jD5FP8",
+    "name": "Tongues",
+    "level": 3,
+    "school": "div",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "s7nXgot5gGZVcMrv",
+    "name": "Transport via Plants",
+    "level": 6,
+    "school": "con",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "DUBgwHPakcLDkB6W",
+    "name": "Tree Stride",
+    "level": 5,
+    "school": "con",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "QbQZKoXOgHWN06aa",
+    "name": "True Polymorph",
+    "level": 9,
+    "school": "trs",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "qLeEXZDbW5y4bmLY",
+    "name": "True Resurrection",
+    "level": 9,
+    "school": "nec",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "XzkJpE6XpZfKjODD",
+    "name": "True Seeing",
+    "level": 6,
+    "school": "div",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "mGGlcLdggHwcL7MG",
+    "name": "True Strike",
+    "level": 0,
+    "school": "div",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "somatic",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "Cast",
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "ccduLIvutyNqvkgv",
+    "name": "Unseen Servant",
+    "level": 1,
+    "school": "con",
+    "source": "",
+    "concentration": false,
+    "ritual": true,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "ritual"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "Summon Servant",
+        "type": "summon",
+        "activation": "action"
+      },
+      {
+        "id": "SlwRW3UBZCWl4WB4",
+        "name": "Command Servant",
+        "type": "utility",
+        "activation": "bonus"
+      }
+    ]
+  },
+  {
+    "id": "UfHQhA54M4323gVO",
+    "name": "Vampiric Touch",
+    "level": 3,
+    "school": "nec",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "attack",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "cdrYKaFi98YWaBMw",
+    "name": "Vicious Mockery",
+    "level": 0,
+    "school": "enc",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "Cast",
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "X3DrXgxjwI2dvkD6",
+    "name": "Wall of Fire",
+    "level": 4,
+    "school": "evo",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "o9ZCvuD2B1OTcubb",
+    "name": "Wall of Force",
+    "level": 5,
+    "school": "evo",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "fzZnVKLmBMo2f5up",
+    "name": "Wall of Ice",
+    "level": 6,
+    "school": "evo",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      },
+      {
+        "id": "dnd5eactivity200",
+        "name": null,
+        "type": "damage",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "NmoRmM1mhuM3pqnY",
+    "name": "Wall of Stone",
+    "level": 5,
+    "school": "evo",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "AQsBc94ES7W7s7iG",
+    "name": "Wall of Thorns",
+    "level": 6,
+    "school": "con",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "JVhKeanAXZH62DrF",
+    "name": "Warding Bond",
+    "level": 2,
+    "school": "abj",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "13uVuBQP6VaiSPvC",
+    "name": "Water Breathing",
+    "level": 3,
+    "school": "trs",
+    "source": "",
+    "concentration": false,
+    "ritual": true,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "ritual"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "YBda6nLKjxdT1LbS",
+    "name": "Water Walk",
+    "level": 3,
+    "school": "trs",
+    "source": "",
+    "concentration": false,
+    "ritual": true,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "ritual"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "UJJu9c2UvCzVljiP",
+    "name": "Web",
+    "level": 2,
+    "school": "con",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      },
+      {
+        "id": "dnd5eactivity300",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "Wl2vtJ4hCt2tpWfR",
+    "name": "Weird",
+    "level": 9,
+    "school": "ill",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "8PJAsHmbu6UgDHC0",
+    "name": "Wind Walk",
+    "level": 6,
+    "school": "trs",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "ew6GA8dJy2spQmFW",
+    "name": "Wind Wall",
+    "level": 3,
+    "school": "evo",
+    "source": "",
+    "concentration": true,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic",
+      "material",
+      "concentration"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "3okM6Gn63zzEULkz",
+    "name": "Wish",
+    "level": 9,
+    "school": "con",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "damage",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "76C0FdcxlU8F9Rl2",
+    "name": "Word of Recall",
+    "level": 6,
+    "school": "con",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ]
+  },
+  {
+    "id": "CylBa7jR8DSbo8Z3",
+    "name": "Zone of Truth",
+    "level": 2,
+    "school": "enc",
+    "source": "",
+    "concentration": false,
+    "ritual": false,
+    "properties": [
+      "vocal",
+      "somatic"
+    ],
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ]
+  }
+]

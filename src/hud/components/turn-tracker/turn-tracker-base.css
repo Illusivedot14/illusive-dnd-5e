@@ -1,0 +1,360 @@
+﻿#illusive-dnd-turn-tracker {
+  --illusive-dnd-turn-control-gap: 16px;
+  /* Inner horizontal pad on the scroll track (glow room for the anchored active card). */
+  --illusive-dnd-turn-track-pad: 20px;
+  position: fixed;
+  top: 48px;
+  left: 50%;
+  width: max-content;
+  max-width: none;
+  transform: translateX(-50%) scale(var(--illusive-dnd-turn-scale, var(--illusive-dnd-global-scale, 1)));
+  transform-origin: top center;
+  z-index: 1000;
+  pointer-events: none;
+  overflow: visible;
+}
+
+#illusive-dnd-turn-tracker.illusive-dnd-hidden {
+  display: none;
+}
+
+#illusive-dnd-turn-tracker .illusive-dnd-turn-dock {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-end;
+  /* Menu spacing is set per-side (see controls-left/right) to equalize the
+   * VISIBLE card→menu gap: the anchored active card sits inside the track's
+   * left pad, so the right menu adds that same pad to match. */
+  gap: 0;
+  width: max-content;
+  pointer-events: none;
+}
+
+#illusive-dnd-turn-tracker .illusive-dnd-turn-carousel {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+  /* Only interactive children (cards, minimize, slider) opt back in. */
+  pointer-events: none;
+  /* Keep visible: clipping this box chops active card tops. */
+  overflow: visible;
+}
+
+/* In-flow beside the carousel. */
+#illusive-dnd-turn-tracker .illusive-dnd-turn-controls {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  flex: 0 0 auto;
+  pointer-events: auto;
+  /* Lift above minimize / scroll slider (same offsets as the old absolute bottom). */
+  margin-bottom: calc(22px + 24px);
+}
+
+/*
+ * Equal VISIBLE gap on both sides:
+ *   left  = control-gap + track-pad (active card is inset by the track's left pad)
+ *   right = (control-gap + track-pad)  (right card clips flush at the viewport edge)
+ * The right menu adds track-pad to compensate for the left-only visible pad.
+ */
+#illusive-dnd-turn-tracker .illusive-dnd-turn-controls-left {
+  margin-right: var(--illusive-dnd-turn-control-gap);
+}
+
+#illusive-dnd-turn-tracker .illusive-dnd-turn-controls-right {
+  margin-left: calc(var(--illusive-dnd-turn-control-gap) + var(--illusive-dnd-turn-track-pad));
+}
+
+#illusive-dnd-turn-tracker.illusive-dnd-turn-scrollable .illusive-dnd-turn-controls {
+  margin-bottom: calc(22px + 44px);
+}
+
+#illusive-dnd-turn-tracker .illusive-dnd-turn-controls[hidden] {
+  display: none !important;
+}
+
+#illusive-dnd-turn-tracker .illusive-dnd-turn-btn {
+  width: 28px;
+  height: 28px;
+  min-width: 28px;
+  min-height: 28px;
+  max-width: 28px;
+  max-height: 28px;
+  padding: 0;
+  margin: 0;
+  flex: 0 0 28px;
+  box-sizing: border-box;
+  border: 1px solid #9a7840;
+  border-radius: 50%;
+  background: linear-gradient(180deg, rgba(18, 12, 30, 0.96) 0%, rgba(10, 7, 18, 0.98) 100%);
+  color: #f0ddb0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  line-height: 1;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.55);
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  appearance: none;
+}
+
+/* Side GM strips: denser so the stack matches portrait height. */
+#illusive-dnd-turn-tracker .illusive-dnd-turn-controls .illusive-dnd-turn-btn {
+  width: 20px;
+  height: 20px;
+  min-width: 20px;
+  min-height: 20px;
+  max-width: 20px;
+  max-height: 20px;
+  flex: 0 0 20px;
+  font-size: 9px;
+}
+
+#illusive-dnd-turn-tracker .illusive-dnd-turn-controls .illusive-dnd-turn-btn i {
+  font-size: 9px;
+}
+
+#illusive-dnd-turn-tracker .illusive-dnd-turn-btn i {
+  font-size: 11px;
+  line-height: 1;
+  pointer-events: none;
+}
+
+#illusive-dnd-turn-tracker .illusive-dnd-turn-btn:hover {
+  border-color: #e8e0d0;
+  color: #ffffff;
+  background: rgba(88, 62, 128, 0.45);
+}
+
+#illusive-dnd-turn-tracker .illusive-dnd-turn-btn[hidden] {
+  display: none !important;
+}
+
+#illusive-dnd-turn-tracker .illusive-dnd-turn-minimize {
+  align-self: center;
+  width: auto;
+  min-width: 42px;
+  max-width: none;
+  height: 18px;
+  min-height: 18px;
+  max-height: 18px;
+  padding: 0 12px;
+  flex: 0 0 auto;
+  border-radius: 999px;
+  pointer-events: auto;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.55);
+}
+
+#illusive-dnd-turn-tracker .illusive-dnd-turn-minimize i {
+  font-size: 10px;
+}
+
+#illusive-dnd-turn-tracker .illusive-dnd-turn-motion {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+  width: 100%;
+}
+
+#illusive-dnd-turn-tracker.illusive-dnd-turn-rail-motion {
+  overflow: visible;
+}
+
+#illusive-dnd-turn-tracker.illusive-dnd-turn-reveal-in .illusive-dnd-turn-dock,
+#illusive-dnd-turn-tracker.illusive-dnd-turn-reveal-prep .illusive-dnd-turn-dock {
+  will-change: transform, opacity;
+}
+
+#illusive-dnd-turn-tracker.illusive-dnd-turn-reveal-in .illusive-dnd-turn-dock {
+  transition:
+    transform 320ms cubic-bezier(0.22, 0.61, 0.36, 1),
+    opacity 280ms ease-out;
+}
+
+#illusive-dnd-turn-tracker.illusive-dnd-turn-rail-motion-out .illusive-dnd-turn-motion {
+  transition:
+    margin-top 320ms cubic-bezier(0.55, 0.06, 0.68, 0.19),
+    transform 320ms cubic-bezier(0.55, 0.06, 0.68, 0.19);
+  will-change: margin-top, transform;
+}
+
+#illusive-dnd-turn-tracker.illusive-dnd-turn-rail-motion-in .illusive-dnd-turn-motion {
+  transition:
+    margin-top 280ms cubic-bezier(0.22, 0.61, 0.36, 1),
+    transform 280ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  will-change: margin-top, transform;
+}
+
+#illusive-dnd-turn-tracker.illusive-dnd-turn-rail-motion-out .illusive-dnd-turn-controls,
+#illusive-dnd-turn-tracker.illusive-dnd-turn-rail-motion-in .illusive-dnd-turn-controls {
+  transition:
+    opacity 220ms ease,
+    transform 320ms cubic-bezier(0.55, 0.06, 0.68, 0.19);
+  will-change: opacity, transform;
+}
+
+#illusive-dnd-turn-tracker.illusive-dnd-turn-rail-motion-out .illusive-dnd-turn-controls {
+  opacity: 0;
+  transform: translateY(-12px);
+  pointer-events: none;
+}
+
+#illusive-dnd-turn-tracker.illusive-dnd-turn-minimized .illusive-dnd-turn-motion {
+  height: 0 !important;
+  max-height: 0 !important;
+  min-height: 0 !important;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  pointer-events: none !important;
+  visibility: hidden;
+}
+
+#illusive-dnd-turn-tracker.illusive-dnd-turn-minimized .illusive-dnd-turn-motion *,
+#illusive-dnd-turn-tracker.illusive-dnd-turn-minimized .illusive-dnd-turn-controls,
+#illusive-dnd-turn-tracker.illusive-dnd-turn-minimized .illusive-dnd-turn-controls * {
+  pointer-events: none !important;
+}
+
+#illusive-dnd-turn-tracker.illusive-dnd-turn-minimized .illusive-dnd-turn-controls {
+  display: none !important;
+}
+
+#illusive-dnd-turn-tracker.illusive-dnd-turn-minimized .illusive-dnd-turn-carousel {
+  gap: 0;
+}
+
+#illusive-dnd-turn-tracker.illusive-dnd-turn-minimized .illusive-dnd-turn-dock {
+  min-width: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #illusive-dnd-turn-tracker.illusive-dnd-turn-rail-motion-out .illusive-dnd-turn-motion,
+  #illusive-dnd-turn-tracker.illusive-dnd-turn-rail-motion-in .illusive-dnd-turn-motion,
+  #illusive-dnd-turn-tracker.illusive-dnd-turn-rail-motion-out .illusive-dnd-turn-controls,
+  #illusive-dnd-turn-tracker.illusive-dnd-turn-rail-motion-in .illusive-dnd-turn-controls,
+  #illusive-dnd-turn-tracker.illusive-dnd-turn-reveal-in .illusive-dnd-turn-dock {
+    transition: none;
+  }
+}
+
+#illusive-dnd-turn-tracker-track {
+  flex: 0 1 auto;
+  min-width: 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: flex-start;
+  gap: 8px;
+  /*
+   * Vertical pad = active scale/glow room. Horizontal pad = glow room for the
+   * anchored (front/left) active card so its edge/glow is never clipped. The
+   * right menu compensates for this pad (see controls-right) so the visible
+   * gaps stay equal. No negative horizontal margin (that pulls under the menus).
+   * pointer-events:none on the track so the pad does not steal canvas clicks;
+   * cards / slider opt back in.
+   */
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: auto;
+  scrollbar-width: none;
+  padding: 32px var(--illusive-dnd-turn-track-pad);
+  margin: -32px 0;
+  scroll-padding-inline: var(--illusive-dnd-turn-track-pad);
+  pointer-events: none;
+}
+
+#illusive-dnd-turn-tracker-track::-webkit-scrollbar {
+  display: none;
+}
+
+#illusive-dnd-turn-tracker .illusive-dnd-turn-scroll-slider {
+  width: 100%;
+  height: 14px;
+  margin: 0 4px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  pointer-events: auto;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+#illusive-dnd-turn-tracker .illusive-dnd-turn-scroll-slider[hidden] {
+  display: none !important;
+}
+
+#illusive-dnd-turn-tracker .illusive-dnd-turn-scroll-slider::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(8, 6, 14, 0.85);
+  border: 1px solid rgba(184, 154, 92, 0.4);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.45) inset;
+}
+
+#illusive-dnd-turn-tracker .illusive-dnd-turn-scroll-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 12px;
+  height: 12px;
+  margin-top: -5px;
+  border-radius: 50%;
+  border: 1px solid #9a7840;
+  background: linear-gradient(180deg, #f0ddb0 0%, #c9a962 100%);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.55);
+}
+
+#illusive-dnd-turn-tracker .illusive-dnd-turn-scroll-slider::-moz-range-track {
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(8, 6, 14, 0.85);
+  border: 1px solid rgba(184, 154, 92, 0.4);
+}
+
+#illusive-dnd-turn-tracker .illusive-dnd-turn-scroll-slider::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1px solid #9a7840;
+  background: linear-gradient(180deg, #f0ddb0 0%, #c9a962 100%);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.55);
+}
+
+#illusive-dnd-turn-tracker .illusive-dnd-turn-scroll-slider:hover::-webkit-slider-thumb,
+#illusive-dnd-turn-tracker .illusive-dnd-turn-scroll-slider:hover::-moz-range-thumb {
+  border-color: #e8e0d0;
+  filter: brightness(1.08);
+}
+
+@keyframes illusive-dnd-turn-slide-fwd {
+  from { transform: translateX(var(--illusive-dnd-turn-slide-dist, 42px)); }
+  to { transform: translateX(0); }
+}
+
+@keyframes illusive-dnd-turn-slide-back {
+  from { transform: translateX(calc(-1 * var(--illusive-dnd-turn-slide-dist, 42px))); }
+  to { transform: translateX(0); }
+}
+
+#illusive-dnd-turn-tracker-track.illusive-dnd-turn-sliding-fwd {
+  animation: illusive-dnd-turn-slide-fwd var(--illusive-dnd-turn-slide-dur, 300ms) cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+#illusive-dnd-turn-tracker-track.illusive-dnd-turn-sliding-back {
+  animation: illusive-dnd-turn-slide-back var(--illusive-dnd-turn-slide-dur, 300ms) cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #illusive-dnd-turn-tracker-track.illusive-dnd-turn-sliding-fwd,
+  #illusive-dnd-turn-tracker-track.illusive-dnd-turn-sliding-back {
+    animation: none;
+  }
+}

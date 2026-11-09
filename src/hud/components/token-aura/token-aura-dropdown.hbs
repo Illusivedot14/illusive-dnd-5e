@@ -1,0 +1,75 @@
+<div class="illusive-dnd-util-dropdown illusive-dnd-util-dropdown-aura" role="menu" aria-label="{{title}}">
+  <div class="illusive-dnd-util-dropdown-heading">{{title}}</div>
+  <div class="illusive-dnd-aura-slots">
+    {{#each slots}}
+    <button
+      type="button"
+      class="illusive-dnd-aura-slot{{#if isActive}} is-active{{/if}}"
+      data-aura-slot="{{index}}"
+      style="--illusive-dnd-aura-swatch: {{color}}"
+    >
+      <span class="illusive-dnd-aura-slot-swatch" aria-hidden="true"></span>
+      <span class="illusive-dnd-aura-slot-label">{{label}}</span>
+    </button>
+    {{/each}}
+    {{#if canAdd}}
+    <button type="button" class="illusive-dnd-aura-slot illusive-dnd-aura-slot-add" data-aura-add="true">
+      <span class="illusive-dnd-aura-slot-label">{{addLabel}}</span>
+    </button>
+    {{/if}}
+  </div>
+  <div class="illusive-dnd-aura-feet-row">
+    <button
+      type="button"
+      class="illusive-dnd-util-tile illusive-dnd-aura-off{{#if offActive}} is-active{{/if}}"
+      data-aura-feet="0"
+    >
+      <span class="illusive-dnd-util-tile-name">{{offLabel}}</span>
+    </button>
+    <label class="illusive-dnd-aura-feet-field">
+      <input
+        type="number"
+        inputmode="numeric"
+        min="0"
+        max="{{maxFeet}}"
+        step="1"
+        value="{{feetValue}}"
+        data-aura-feet-input
+        aria-label="{{title}}"
+      >
+      <span>{{feetUnit}}</span>
+    </label>
+  </div>
+  <div class="illusive-dnd-util-tile-grid">
+  {{#each feet}}
+    <button
+      type="button"
+      class="illusive-dnd-util-tile{{#if isActive}} is-active{{/if}}"
+      data-aura-feet="{{feet}}"
+      role="menuitem"
+    >
+      <span class="illusive-dnd-util-tile-name">{{label}}</span>
+    </button>
+  {{/each}}
+  </div>
+  <div class="illusive-dnd-util-dropdown-heading">{{colorTitle}}</div>
+  <div class="illusive-dnd-aura-swatches">
+  {{#each colors}}
+    <button
+      type="button"
+      class="illusive-dnd-aura-swatch{{#if isActive}} is-active{{/if}}"
+      data-aura-color="{{color}}"
+      style="--illusive-dnd-aura-swatch: {{color}}"
+      aria-label="{{color}}"
+    ></button>
+  {{/each}}
+    <label class="illusive-dnd-aura-color-pick{{#if customColor}} is-active{{/if}}" title="{{pickColorLabel}}">
+      <input
+        type="color"
+        value="{{colorValue}}"
+        data-aura-color-input
+        aria-label="{{pickColorLabel}}"
+      >
+    </label>
+  </div>
+</div>

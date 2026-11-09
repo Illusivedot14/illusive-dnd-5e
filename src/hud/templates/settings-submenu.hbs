@@ -1,0 +1,45 @@
+<form class="illusive-dnd-subsettings-form">
+  {{#each fields}}
+  <div class="form-group">
+    <label>{{name}}</label>
+    <div class="form-fields">
+      {{#if isBoolean}}
+      <input type="checkbox" name="{{key}}" {{checked value}}>
+      {{else if isNumber}}
+      <input type="range" name="{{key}}" min="{{range.min}}" max="{{range.max}}" step="{{range.step}}" value="{{value}}">
+      <span class="range-value">{{value}}</span>
+      {{else if isUserList}}
+      <div class="illusive-dnd-user-list">
+        {{#if users.length}}
+        {{#each users}}
+        <label class="checkbox">
+          <input type="checkbox" name="{{../key}}.{{id}}" {{checked selected}}>
+          <span>{{name}}</span>
+        </label>
+        {{/each}}
+        {{else}}
+        <p class="hint">{{empty}}</p>
+        {{/if}}
+      </div>
+      {{else if isSelect}}
+      <select name="{{key}}">
+        {{selectOptions choices selected=value localize=false}}
+      </select>
+      {{else if isColor}}
+      <input type="color" name="{{key}}" value="{{value}}">
+      {{else if isFile}}
+      <input type="text" name="{{key}}" value="{{value}}" placeholder="path/to/file.ext">
+      <button type="button" class="file-picker" data-action="file-picker" data-type="{{filePickerType}}" data-target="{{key}}" title="Browse Files">
+        <i class="fas fa-file-import fa-fw"></i>
+      </button>
+      {{else if isString}}
+      <input type="text" name="{{key}}" value="{{value}}">
+      {{/if}}
+    </div>
+    {{#if hint}}<p class="hint">{{hint}}</p>{{/if}}
+  </div>
+  {{/each}}
+  <footer class="form-footer">
+    <button type="submit"><i class="fas fa-save"></i> {{saveLabel}}</button>
+  </footer>
+</form>

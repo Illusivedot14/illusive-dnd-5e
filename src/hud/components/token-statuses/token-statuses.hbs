@@ -1,0 +1,35 @@
+{{#if statuses.length}}
+<div class="illusive-dnd-status-list">
+  {{#each statuses}}
+  <div
+    class="illusive-dnd-status-icon illusive-dnd-status-{{disposition}}{{#if isConcentration}} is-concentration{{/if}}{{#if expiringSoon}} is-expiring{{/if}}"
+    data-uuid="{{uuid}}"
+    data-status-id="{{statusId}}"
+    tabindex="0"
+    role="button"
+    aria-label="{{name}}{{#if durationLabel}} — {{durationLabel}}{{/if}}"
+  >
+    <img class="illusive-dnd-status-img" src="{{img}}" alt="" width="56" height="56" loading="lazy">
+    {{#if showTimedBadge}}
+    <span class="illusive-dnd-status-rounds">{{timedBadge}}</span>
+    {{/if}}
+    {{#if expiringSoon}}
+    <span class="illusive-dnd-status-expiring-mark" aria-hidden="true">!</span>
+    {{/if}}
+    <div class="illusive-dnd-status-tooltip" role="tooltip">
+      <div class="illusive-dnd-status-tooltip-name">{{name}}</div>
+      {{#if durationLabel}}
+      <div class="illusive-dnd-status-tooltip-duration">{{durationLabel}}</div>
+      {{/if}}
+      {{#if hasDescription}}
+      <div class="illusive-dnd-status-tooltip-body">
+        {{#each descriptionLines}}
+        <div class="illusive-dnd-status-tooltip-line">{{this}}</div>
+        {{/each}}
+      </div>
+      {{/if}}
+    </div>
+  </div>
+  {{/each}}
+</div>
+{{/if}}

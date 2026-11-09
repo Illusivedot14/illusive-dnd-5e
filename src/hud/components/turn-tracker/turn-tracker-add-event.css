@@ -1,0 +1,22 @@
+﻿.illusive-dnd-add-event-form .illusive-dnd-recent-events {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.illusive-dnd-add-event-form .illusive-dnd-recent-event {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 1px solid #7a7a7a;
+  border-radius: 4px;
+  background-color: #1a1a1a;
+  background-size: cover;
+  background-position: center;
+  cursor: pointer;
+}
+
+.illusive-dnd-add-event-form .illusive-dnd-recent-event:hover {
+  border-color: #ffffff;
+}

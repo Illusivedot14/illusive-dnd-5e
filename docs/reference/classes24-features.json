@@ -1,0 +1,3741 @@
+[
+  {
+    "id": "phbpdnAbjureFoes",
+    "name": "Abjure Foes",
+    "featureType": "class",
+    "subtype": "channelDivinity",
+    "identifier": "abjure-foes",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "coLSoQzZ6lGbXtIw",
+        "name": "",
+        "type": "save",
+        "activation": "action"
+      }
+    ],
+    "descriptionChars": 649
+  },
+  {
+    "id": "phbmnkAcrobaticM",
+    "name": "Acrobatic Movement",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "acrobatic-movement",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 174
+  },
+  {
+    "id": "phbftrActionSurg",
+    "name": "Action Surge",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "action-surge",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "jtpVG47zPBUI0CZ5",
+        "name": null,
+        "type": "utility",
+        "activation": "special"
+      }
+    ],
+    "descriptionChars": 394
+  },
+  {
+    "id": "phbftrAdditional",
+    "name": "Additional Fighting Style",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "additional-fighting-style",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 151
+  },
+  {
+    "id": "phbinvAgonizingB",
+    "name": "Agonizing Blast",
+    "featureType": "class",
+    "subtype": "eldritchInvocation",
+    "identifier": "agonizing-blast",
+    "requirements": "Warlock Cantrip That Deals Damage",
+    "activities": [],
+    "descriptionChars": 450
+  },
+  {
+    "id": "phbscrArcaneApot",
+    "name": "Arcane Apotheosis",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "arcane-apotheosis",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 244
+  },
+  {
+    "id": "phbwzdArcaneReco",
+    "name": "Arcane Recovery",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "arcane-recovery",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "eSo3M84A3t6rwozM",
+        "name": "Recover",
+        "type": "utility",
+        "activation": "shortRest"
+      }
+    ],
+    "descriptionChars": 756
+  },
+  {
+    "id": "phbdrdArchdruid0",
+    "name": "Archdruid",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "archdruid",
+    "requirements": "Druid",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "Nature Magician",
+        "type": "utility",
+        "activation": ""
+      },
+      {
+        "id": "xqLZdQ13RBZkeACB",
+        "name": "Recharge on Initiative",
+        "type": "utility",
+        "activation": ""
+      }
+    ],
+    "descriptionChars": 993
+  },
+  {
+    "id": "phbinvArmorofSha",
+    "name": "Armor of Shadows",
+    "featureType": "class",
+    "subtype": "eldritchInvocation",
+    "identifier": "armor-of-shadows",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "XKx7cpBQ8AvRs6Kl",
+        "name": "Mage Armor",
+        "type": "utility",
+        "activation": "action"
+      }
+    ],
+    "descriptionChars": 277
+  },
+  {
+    "id": "phbinvAscendantS",
+    "name": "Ascendant Step",
+    "featureType": "class",
+    "subtype": "eldritchInvocation",
+    "identifier": "ascendant-step",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "9TIykaE656Kb0blI",
+        "name": "",
+        "type": "utility",
+        "activation": "action"
+      }
+    ],
+    "descriptionChars": 151
+  },
+  {
+    "id": "phbpdnAuraExpans",
+    "name": "Aura Expansion",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "aura-expansion",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 124
+  },
+  {
+    "id": "phbpdnCourageAur",
+    "name": "Aura of Courage",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "aura-of-courage",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "1z8NAZt2O22XPbGw",
+        "name": "Aura of Courage",
+        "type": "utility",
+        "activation": ""
+      }
+    ],
+    "descriptionChars": 362
+  },
+  {
+    "id": "phbpdnDevotionAu",
+    "name": "Aura of Devotion",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "aura-of-devotion",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 313
+  },
+  {
+    "id": "phbpdnProtection",
+    "name": "Aura of Protection",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "aura-of-protection",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "nwLsJcC3bXA6i7QZ",
+        "name": "Aura of Protection",
+        "type": "utility",
+        "activation": ""
+      }
+    ],
+    "descriptionChars": 744
+  },
+  {
+    "id": "phbbrdBardicInsp",
+    "name": "Bardic Inspiration",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "bardic-inspiration",
+    "requirements": "Bard",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "Inspire",
+        "type": "utility",
+        "activation": "bonus"
+      }
+    ],
+    "descriptionChars": 1402
+  },
+  {
+    "id": "phbdrdBeastSpell",
+    "name": "Beast Spells",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "beast-spells",
+    "requirements": "Druid",
+    "activities": [],
+    "descriptionChars": 172
+  },
+  {
+    "id": "phbclcBlessedHea",
+    "name": "Blessed Healer",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "blessed-healer",
+    "requirements": "Life Domain",
+    "activities": [
+      {
+        "id": "65RBpJDqkywCR90I",
+        "name": "",
+        "type": "heal",
+        "activation": ""
+      }
+    ],
+    "descriptionChars": 385
+  },
+  {
+    "id": "phbclcBlessedStr",
+    "name": "Blessed Strikes",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "blessed-strikes",
+    "requirements": "Cleric",
+    "activities": [],
+    "descriptionChars": 569
+  },
+  {
+    "id": "phbDivineStrike0",
+    "name": "Blessed Strikes: Divine Strike",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "blessed-strikes-divine-strike",
+    "requirements": "Cleric",
+    "activities": [
+      {
+        "id": "uYVz8MBW0EZ2X0zD",
+        "name": "Necrotic Divine Strike",
+        "type": "damage",
+        "activation": ""
+      },
+      {
+        "id": "MbCGfaQAeW2rzNWb",
+        "name": "Radiant Divine Strike",
+        "type": "damage",
+        "activation": ""
+      }
+    ],
+    "descriptionChars": 332
+  },
+  {
+    "id": "phbClcPotentSpel",
+    "name": "Blessed Strikes: Potent Spellcasting",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "blessed-strikes-potent-spellcasting",
+    "requirements": "Cleric",
+    "activities": [
+      {
+        "id": "2ADklkzUUW3aAeOt",
+        "name": "",
+        "type": "damage",
+        "activation": ""
+      }
+    ],
+    "descriptionChars": 516
+  },
+  {
+    "id": "phbfstBlessedWar",
+    "name": "Blessed Warrior",
+    "featureType": "class",
+    "subtype": "fightingStyle",
+    "identifier": "blessed-warrior",
+    "requirements": "Paladin",
+    "activities": [],
+    "descriptionChars": 514
+  },
+  {
+    "id": "phbmnkBodyAndMin",
+    "name": "Body and Mind",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "body-and-mind",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 121
+  },
+  {
+    "id": "phbbrdBonusProfi",
+    "name": "Bonus Proficiencies",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "bonus-proficiencies",
+    "requirements": "College of Lore",
+    "activities": [],
+    "descriptionChars": 54
+  },
+  {
+    "id": "phbbrbBrutalStri",
+    "name": "Brutal Strike",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "brutal-strike",
+    "requirements": "Barbarian",
+    "activities": [
+      {
+        "id": "nN5gsB6AcSQ4uQPN",
+        "name": "Brutal Strike",
+        "type": "damage",
+        "activation": "special"
+      }
+    ],
+    "descriptionChars": 993
+  },
+  {
+    "id": "phbmmoCarefulSpe",
+    "name": "Careful Spell",
+    "featureType": "class",
+    "subtype": "metamagic",
+    "identifier": "careful-spell",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "jD3THRjOL2ILRYuM",
+        "name": "Careful Spell",
+        "type": "utility",
+        "activation": ""
+      }
+    ],
+    "descriptionChars": 509
+  },
+  {
+    "id": "phbclcChannelDiv",
+    "name": "Channel Divinity",
+    "featureType": "class",
+    "subtype": "channelDivinity",
+    "identifier": "channel-divinity-cleric",
+    "requirements": "Cleric",
+    "activities": [
+      {
+        "id": "UdbUwbvrWwgDuNy9",
+        "name": "Divine Spark: Heal",
+        "type": "heal",
+        "activation": "action"
+      },
+      {
+        "id": "OY9UrTXvlRL0JUoI",
+        "name": "Divine Spark: Save",
+        "type": "save",
+        "activation": "action"
+      },
+      {
+        "id": "aOptL5pMaj3WtR8S",
+        "name": "Turn Undead",
+        "type": "save",
+        "activation": "action"
+      }
+    ],
+    "descriptionChars": 2196
+  },
+  {
+    "id": "phbpdnChannelDiv",
+    "name": "Channel Divinity",
+    "featureType": "class",
+    "subtype": "channelDivinity",
+    "identifier": "channel-divinity-paladin",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "kjHydAAcspH9wVPI",
+        "name": "Divine Sense",
+        "type": "utility",
+        "activation": "bonus"
+      }
+    ],
+    "descriptionChars": 1449
+  },
+  {
+    "id": "phbdrdLandSpells",
+    "name": "Circle of the Land Spells",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "circle-of-the-land-spells",
+    "requirements": "Circle of Land",
+    "activities": [],
+    "descriptionChars": 2079
+  },
+  {
+    "id": "phbwlkContactPat",
+    "name": "Contact Patron",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "contact-patron",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 562
+  },
+  {
+    "id": "phbbrdCountercha",
+    "name": "Countercharm",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "countercharm",
+    "requirements": "Bard",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "",
+        "type": "utility",
+        "activation": "reaction"
+      }
+    ],
+    "descriptionChars": 302
+  },
+  {
+    "id": "phbrgeCunningAct",
+    "name": "Cunning Action",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "cunning-action",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "NtS3iThuWWwm8O62",
+        "name": "Dash",
+        "type": "utility",
+        "activation": "bonus"
+      },
+      {
+        "id": "AeCciDTvw3kS583a",
+        "name": "Disengage",
+        "type": "utility",
+        "activation": "bonus"
+      },
+      {
+        "id": "NiI5qEhg9TepZxMh",
+        "name": "Hide",
+        "type": "utility",
+        "activation": "bonus"
+      }
+    ],
+    "descriptionChars": 215
+  },
+  {
+    "id": "phbrgeCunningStr",
+    "name": "Cunning Strike",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "cunning-strike",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "n64fvJMT9fPUy7DH",
+        "name": "Poison",
+        "type": "save",
+        "activation": ""
+      },
+      {
+        "id": "dWcCw1vTWRMx4YzD",
+        "name": "Trip",
+        "type": "save",
+        "activation": ""
+      },
+      {
+        "id": "jR7KqMuPOZYUCDyO",
+        "name": "Cunning Sneak Attack",
+        "type": "damage",
+        "activation": ""
+      },
+      {
+        "id": "m2bRZ1YeD3yf9nV7",
+        "name": "Withdraw",
+        "type": "utility",
+        "activation": ""
+      }
+    ],
+    "descriptionChars": 1701
+  },
+  {
+    "id": "phbbrdCuttingWor",
+    "name": "Cutting Words",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "cutting-words",
+    "requirements": "College of Lore",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "Cut with Words",
+        "type": "utility",
+        "activation": "reaction"
+      }
+    ],
+    "descriptionChars": 481
+  },
+  {
+    "id": "phbbrbDangerSens",
+    "name": "Danger Sense",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "danger-sense",
+    "requirements": "Barbarian",
+    "activities": [],
+    "descriptionChars": 398
+  },
+  {
+    "id": "phbwlkDarkOnesBl",
+    "name": "Dark One's Blessing",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "dark-ones-blessing",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "p3YSnjGDlLIbiLpC",
+        "name": "",
+        "type": "heal",
+        "activation": ""
+      }
+    ],
+    "descriptionChars": 262
+  },
+  {
+    "id": "phbwlkDarkOnesOw",
+    "name": "Dark One's Own Luck",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "dark-ones-own-luck",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "4A1lkH3i3azHU1YQ",
+        "name": "Luck",
+        "type": "utility",
+        "activation": ""
+      }
+    ],
+    "descriptionChars": 444
+  },
+  {
+    "id": "phbrgrDefensiveT",
+    "name": "Defensive Tactics",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "defensive-tactics",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "ioagLQG0o1axCBtr",
+        "name": "Multiattack Defense",
+        "type": "utility",
+        "activation": ""
+      }
+    ],
+    "descriptionChars": 566
+  },
+  {
+    "id": "phbmnkDeflectAtt",
+    "name": "Deflect Attacks",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "deflect-attacks",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "rQwRKkuZ7WhnB7v7",
+        "name": "Reduce",
+        "type": "heal",
+        "activation": "reaction"
+      },
+      {
+        "id": "dJv36KHyIVsbD00p",
+        "name": "Redirect",
+        "type": "save",
+        "activation": ""
+      }
+    ],
+    "descriptionChars": 1094
+  },
+  {
+    "id": "phbmnkDeflectEne",
+    "name": "Deflect Energy",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "deflect-energy",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "F7NbTRmkUTDDZxj7",
+        "name": "Reduce",
+        "type": "heal",
+        "activation": "reaction"
+      },
+      {
+        "id": "AnEiO80Ga3etD595",
+        "name": "Redirect",
+        "type": "save",
+        "activation": ""
+      }
+    ],
+    "descriptionChars": 462
+  },
+  {
+    "id": "phbrgrDeftExplor",
+    "name": "Deft Explorer",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "deft-explorer",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 356
+  },
+  {
+    "id": "phbinvDevilsSigh",
+    "name": "Devil's Sight",
+    "featureType": "class",
+    "subtype": "eldritchInvocation",
+    "identifier": "devils-sight",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 223
+  },
+  {
+    "id": "phbrgeDeviousStr",
+    "name": "Devious Strikes",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "devious-strikes",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "4TnBjQTJzt9UjUos",
+        "name": "Daze",
+        "type": "save",
+        "activation": ""
+      },
+      {
+        "id": "3eq7lcmpkJJBU2KO",
+        "name": "Knock Out",
+        "type": "save",
+        "activation": ""
+      },
+      {
+        "id": "ki4lIPVGNA0HjEzH",
+        "name": "Obscure",
+        "type": "save",
+        "activation": ""
+      }
+    ],
+    "descriptionChars": 1351
+  },
+  {
+    "id": "phbinvDevouringB",
+    "name": "Devouring Blade",
+    "featureType": "class",
+    "subtype": "eldritchInvocation",
+    "identifier": "devouring-blade",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 210
+  },
+  {
+    "id": "phbclcDiscipleOf",
+    "name": "Disciple of Life",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "disciple-of-life",
+    "requirements": "Life Domain",
+    "activities": [
+      {
+        "id": "Dm91WPfNiRty1bXv",
+        "name": "",
+        "type": "heal",
+        "activation": ""
+      }
+    ],
+    "descriptionChars": 357
+  },
+  {
+    "id": "phbmnkDiscipline",
+    "name": "Disciplined Survivor",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "disciplined-survivor",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "P38SXEOizo5QaG8h",
+        "name": "Consume Focus Point",
+        "type": "utility",
+        "activation": ""
+      }
+    ],
+    "descriptionChars": 354
+  },
+  {
+    "id": "phbmmoDistantSpe",
+    "name": "Distant Spell",
+    "featureType": "class",
+    "subtype": "metamagic",
+    "identifier": "distant-spell",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "WMoNZCe0IyHlRLM4",
+        "name": "Distant Spell",
+        "type": "utility",
+        "activation": ""
+      }
+    ],
+    "descriptionChars": 255
+  },
+  {
+    "id": "phbclcDivineInte",
+    "name": "Divine Intervention",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "divine-intervention",
+    "requirements": "Cleric",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "",
+        "type": "utility",
+        "activation": "action"
+      }
+    ],
+    "descriptionChars": 576
+  },
+  {
+    "id": "phbclcDivineOrde",
+    "name": "Divine Order",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "divine-order",
+    "requirements": "Cleric",
+    "activities": [],
+    "descriptionChars": 606
+  },
+  {
+    "id": "phbDivineOrderPr",
+    "name": "Divine Order: Protector",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "divine-order-protector",
+    "requirements": "Cleric",
+    "activities": [],
+    "descriptionChars": 253
+  },
+  {
+    "id": "phbDivineOrderTh",
+    "name": "Divine Order: Thaumaturge",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "divine-order-thaumaturge",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 612
+  },
+  {
+    "id": "phbscrDraconicRe",
+    "name": "Draconic Resilience",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "draconic-resilience",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 527
+  },
+  {
+    "id": "phbscrDraconicSp",
+    "name": "Draconic Spells",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "draconic-spells",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 905
+  },
+  {
+    "id": "phbscrDragonComp",
+    "name": "Dragon Companion",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "dragon-companion",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "8HTVZ32kirDLNqOu",
+        "name": "Expend Use",
+        "type": "utility",
+        "activation": ""
+      }
+    ],
+    "descriptionChars": 576
+  },
+  {
+    "id": "phbscrDragonWing",
+    "name": "Dragon Wings",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "dragon-wings",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "W3TaYUpTcgqAtLD7",
+        "name": "Dragon Wings",
+        "type": "utility",
+        "activation": "bonus"
+      },
+      {
+        "id": "j52NY9ULfqEFdnDm",
+        "name": "Restore Use",
+        "type": "utility",
+        "activation": ""
+      }
+    ],
+    "descriptionChars": 571
+  },
+  {
+    "id": "phbdrdDruidic000",
+    "name": "Druidic",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "druidic",
+    "requirements": "Druid",
+    "activities": [],
+    "descriptionChars": 566
+  },
+  {
+    "id": "phbfstDruidicWar",
+    "name": "Druidic Warrior",
+    "featureType": "class",
+    "subtype": "fightingStyle",
+    "identifier": "druidic-warrior",
+    "requirements": "Ranger",
+    "activities": [],
+    "descriptionChars": 499
+  },
+  {
+    "id": "phbwlkEldritchIn",
+    "name": "Eldritch Invocations",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "eldritch-invocations",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 1406
+  },
+  {
+    "id": "phbwlkEldritchMa",
+    "name": "Eldritch Master",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "eldritch-master",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "ySE8596WjBPyBt2W",
+        "name": "Eldritch Master",
+        "type": "utility",
+        "activation": ""
+      }
+    ],
+    "descriptionChars": 235
+  },
+  {
+    "id": "phbinvEldritchMi",
+    "name": "Eldritch Mind",
+    "featureType": "class",
+    "subtype": "eldritchInvocation",
+    "identifier": "eldritch-mind",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 89
+  },
+  {
+    "id": "phbinvEldritchSm",
+    "name": "Eldritch Smite",
+    "featureType": "class",
+    "subtype": "eldritchInvocation",
+    "identifier": "eldritch-smite",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "CXJlzDUkMYU9w9i9",
+        "name": "Smite",
+        "type": "damage",
+        "activation": ""
+      }
+    ],
+    "descriptionChars": 521
+  },
+  {
+    "id": "phbinvEldritchSp",
+    "name": "Eldritch Spear",
+    "featureType": "class",
+    "subtype": "eldritchInvocation",
+    "identifier": "eldritch-spear",
+    "requirements": "Warlock Cantrip That Deals Damage",
+    "activities": [
+      {
+        "id": "8MSXmrGSgc6xHotB",
+        "name": "Increase Range",
+        "type": "enchant",
+        "activation": ""
+      }
+    ],
+    "descriptionChars": 553
+  },
+  {
+    "id": "phbscrElementalA",
+    "name": "Elemental Affinity",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "elemental-affinity",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "RDl054AHObOn4Lf9",
+        "name": "Acid",
+        "type": "damage",
+        "activation": ""
+      },
+      {
+        "id": "8c416jhRGbwBaFtn",
+        "name": "Cold",
+        "type": "damage",
+        "activation": ""
+      },
+      {
+        "id": "QtWZ4Z7tGn9FhBMI",
+        "name": "Fire",
+        "type": "damage",
+        "activation": ""
+      },
+      {
+        "id": "HIZjwCtrr9r9EDet",
+        "name": "Lightning",
+        "type": "damage",
+        "activation": ""
+      },
+      {
+        "id": "SV6ewryKJ1bBxeyD",
+        "name": "Poison",
+        "type": "damage",
+        "activation": ""
+      }
+    ],
+    "descriptionChars": 640
+  },
+  {
+    "id": "phbdrdElementalF",
+    "name": "Elemental Fury",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "elemental-fury",
+    "requirements": "Druid",
+    "activities": [],
+    "descriptionChars": 618
+  },
+  {
+    "id": "phbFuryPotentSpe",
+    "name": "Elemental Fury: Potent Spellcasting",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "elemental-fury-potent-spellcasting",
+    "requirements": "Druid",
+    "activities": [],
+    "descriptionChars": 211
+  },
+  {
+    "id": "phbFuryPrimalStr",
+    "name": "Elemental Fury: Primal Strike",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "elemental-fury-primal-strike",
+    "requirements": "Druid",
+    "activities": [
+      {
+        "id": "lHdiTksQmeJBFrf7",
+        "name": "Primal Strike",
+        "type": "damage",
+        "activation": ""
+      }
+    ],
+    "descriptionChars": 642
+  },
+  {
+    "id": "phbrgeElusive000",
+    "name": "Elusive",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "elusive",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 163
+  },
+  {
+    "id": "phbwzdEmpoweredE",
+    "name": "Empowered Evocation",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "empowered-evocation",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "24lZHflqzcwoBev5",
+        "name": "",
+        "type": "damage",
+        "activation": ""
+      }
+    ],
+    "descriptionChars": 332
+  },
+  {
+    "id": "phbmmoEmpoweredS",
+    "name": "Empowered Spell",
+    "featureType": "class",
+    "subtype": "metamagic",
+    "identifier": "empowered-spell",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "NkEwJOEFigqsdbZy",
+        "name": "Empowered Spell",
+        "type": "utility",
+        "activation": ""
+      }
+    ],
+    "descriptionChars": 359
+  },
+  {
+    "id": "phbmnkEmpoweredS",
+    "name": "Empowered Strikes",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "empowered-strikes",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "fBW26ceybofkx8Ua",
+        "name": "Empowered Strike",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "descriptionChars": 425
+  },
+  {
+    "id": "phbbrbEpicBoon00",
+    "name": "Epic Boon",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "epic-boon",
+    "requirements": "Barbarian",
+    "activities": [],
+    "descriptionChars": 279
+  },
+  {
+    "id": "phbbrdEpicBoon00",
+    "name": "Epic Boon",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "epic-boon",
+    "requirements": "Bard",
+    "activities": [],
+    "descriptionChars": 216
+  },
+  {
+    "id": "phbclcEpicBoon00",
+    "name": "Epic Boon",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "epic-boon",
+    "requirements": "Cleric",
+    "activities": [],
+    "descriptionChars": 263
+  },
+  {
+    "id": "phbdrdEpicBoon00",
+    "name": "Epic Boon",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "epic-boon",
+    "requirements": "Druid",
+    "activities": [],
+    "descriptionChars": 277
+  },
+  {
+    "id": "phbftrEpicBoon00",
+    "name": "Epic Boon",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "epic-boon",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 273
+  },
+  {
+    "id": "phbmnkEpicBoon00",
+    "name": "Epic Boon",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "epic-boon",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 416
+  },
+  {
+    "id": "phbpdnEpicBoon00",
+    "name": "Epic Boon",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "epic-boon",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 332
+  },
+  {
+    "id": "phbrgeEpicBoon00",
+    "name": "Epic Boon",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "epic-boon",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 339
+  },
+  {
+    "id": "phbrgrEpicBoon00",
+    "name": "Epic Boon",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "epic-boon",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 341
+  },
+  {
+    "id": "phbscrEpicBoon00",
+    "name": "Epic Boon",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "epic-boon",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 341
+  },
+  {
+    "id": "phbwlkEpicBoon00",
+    "name": "Epic Boon",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "epic-boon",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 327
+  },
+  {
+    "id": "phbwzdEpicBoon00",
+    "name": "Epic Boon",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "epic-boon",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 335
+  },
+  {
+    "id": "phbmnkEvasion000",
+    "name": "Evasion",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "evasion",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 281
+  },
+  {
+    "id": "phbrgeEvasion000",
+    "name": "Evasion",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "evasion",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 507
+  },
+  {
+    "id": "phbwzdEvocationS",
+    "name": "Evocation Savant",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "evocation-savant",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 530
+  },
+  {
+    "id": "phbbrdExpertise0",
+    "name": "Expertise",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "expertise",
+    "requirements": "Bard",
+    "activities": [],
+    "descriptionChars": 252
+  },
+  {
+    "id": "phbrgeExpertise0",
+    "name": "Expertise",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "expertise",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 314
+  },
+  {
+    "id": "phbrgrExpertise0",
+    "name": "Expertise",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "expertise",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 178
+  },
+  {
+    "id": "phbmmoExtendedSp",
+    "name": "Extended Spell",
+    "featureType": "class",
+    "subtype": "metamagic",
+    "identifier": "extended-spell",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "WGQHGHweOlSpZDHp",
+        "name": "Extended Spell",
+        "type": "utility",
+        "activation": ""
+      }
+    ],
+    "descriptionChars": 298
+  },
+  {
+    "id": "phbbrbExtraAttac",
+    "name": "Extra Attack",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "extra-attack",
+    "requirements": "Barbarian",
+    "activities": [],
+    "descriptionChars": 86
+  },
+  {
+    "id": "phbftrExtraAttac",
+    "name": "Extra Attack",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "extra-attack",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 86
+  },
+  {
+    "id": "phbmnkExtraAttac",
+    "name": "Extra Attack",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "extra-attack",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 86
+  },
+  {
+    "id": "phbpdnExtraAttac",
+    "name": "Extra Attack",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "extra-attack",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 86
+  },
+  {
+    "id": "phbrgrExtraAttac",
+    "name": "Extra Attack",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "extra-attack",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 86
+  },
+  {
+    "id": "phbpdnFaithfulSt",
+    "name": "Faithful Steed",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "faithful-steed",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 421
+  },
+  {
+    "id": "phbrgeFastHands0",
+    "name": "Fast Hands",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "fast-hands",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "G2QVu7o56FSQvuhy",
+        "name": "Sleight of Hand",
+        "type": "check",
+        "activation": "bonus"
+      },
+      {
+        "id": "g6OUYMMm32iPjgCB",
+        "name": "Thieves' Tools",
+        "type": "check",
+        "activation": "bonus"
+      },
+      {
+        "id": "5pHgM0ZQStN6rIGE",
+        "name": "Use an Object",
+        "type": "utility",
+        "activation": "bonus"
+      }
+    ],
+    "descriptionChars": 451
+  },
+  {
+    "id": "phbbrbFastMoveme",
+    "name": "Fast Movement",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "fast-movement",
+    "requirements": "Barbarian",
+    "activities": [],
+    "descriptionChars": 245
+  },
+  {
+    "id": "phbrgrFavoredEne",
+    "name": "Favored Enemy",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "favored-enemy",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "18OW4UKZ5cSPPLhC",
+        "name": "",
+        "type": "cast",
+        "activation": "bonus"
+      }
+    ],
+    "descriptionChars": 415
+  },
+  {
+    "id": "phbbrbFeralInsti",
+    "name": "Feral Instinct",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "feral-instinct",
+    "requirements": "Barbarian",
+    "activities": [],
+    "descriptionChars": 72
+  },
+  {
+    "id": "phbrgrFeralSense",
+    "name": "Feral Senses",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "feral-senses",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 209
+  },
+  {
+    "id": "phbwlkFiendSpell",
+    "name": "Fiend Spells",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "fiend-spells",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 983
+  },
+  {
+    "id": "phbwlkFiendishRe",
+    "name": "Fiendish Resilience",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "fiendish-resilience",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 360
+  },
+  {
+    "id": "phbinvFiendishVi",
+    "name": "Fiendish Vigor",
+    "featureType": "class",
+    "subtype": "eldritchInvocation",
+    "identifier": "fiendish-vigor",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "fORgQlbeidLbJ4lv",
+        "name": "False Life",
+        "type": "heal",
+        "activation": "action"
+      }
+    ],
+    "descriptionChars": 377
+  },
+  {
+    "id": "phbftrFightingSt",
+    "name": "Fighting Style",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "fighting-style",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 367
+  },
+  {
+    "id": "phbpdnFightingSt",
+    "name": "Fighting Style",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "fighting-style",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 288
+  },
+  {
+    "id": "phbrgrFightingSt",
+    "name": "Fighting Style",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "fighting-style",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 288
+  },
+  {
+    "id": "phbmnkFleetStep0",
+    "name": "Fleet Step",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "fleet-step",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 128
+  },
+  {
+    "id": "phbrgrFoeSlayer0",
+    "name": "Foe Slayer",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "foe-slayer",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "GG4mc3Bw4ArJEUJY",
+        "name": "Improved Hunter's Mark Damage",
+        "type": "damage",
+        "activation": ""
+      }
+    ],
+    "descriptionChars": 203
+  },
+  {
+    "id": "phbbrdFontOfInsp",
+    "name": "Font of Inspiration",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "font-of-inspiration",
+    "requirements": "Bard",
+    "activities": [
+      {
+        "id": "MTIru0Pv58RveWan",
+        "name": "Recharge with Spell Slot",
+        "type": "utility",
+        "activation": ""
+      }
+    ],
+    "descriptionChars": 441
+  },
+  {
+    "id": "phbscrFontOfMagi",
+    "name": "Font of Magic",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "font-of-magic",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "rYDgagyWjp6f3jtO",
+        "name": "Regain Spell Slot",
+        "type": "utility",
+        "activation": "bonus"
+      },
+      {
+        "id": "qAphJay1yKd7VWxH",
+        "name": "Regain Sorcery Points",
+        "type": "utility",
+        "activation": ""
+      }
+    ],
+    "descriptionChars": 1407
+  },
+  {
+    "id": "phbbrbFrenzy0000",
+    "name": "Frenzy",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "frenzy",
+    "requirements": "Path of the Berserker",
+    "activities": [
+      {
+        "id": "myPBq8xozti108Mc",
+        "name": "",
+        "type": "damage",
+        "activation": ""
+      }
+    ],
+    "descriptionChars": 537
+  },
+  {
+    "id": "phbinvGazeofTwoM",
+    "name": "Gaze of Two Minds",
+    "featureType": "class",
+    "subtype": "eldritchInvocation",
+    "identifier": "gaze-of-two-minds",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "TqjZeWzJpT25ZX8s",
+        "name": "Gaze of Two Minds",
+        "type": "utility",
+        "activation": "bonus"
+      }
+    ],
+    "descriptionChars": 658
+  },
+  {
+    "id": "phbinvGiftoftheD",
+    "name": "Gift of the Depths",
+    "featureType": "class",
+    "subtype": "eldritchInvocation",
+    "identifier": "gift-of-the-depths",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "cfps5v1q7nFqc2EO",
+        "name": "Gift Water Breathing",
+        "type": "utility",
+        "activation": "action"
+      }
+    ],
+    "descriptionChars": 444
+  },
+  {
+    "id": "phbinvGiftoftheP",
+    "name": "Gift of the Protectors",
+    "featureType": "class",
+    "subtype": "eldritchInvocation",
+    "identifier": "gift-of-the-protectors",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "HAifNbM6tCWfgkgk",
+        "name": "Protect",
+        "type": "utility",
+        "activation": ""
+      },
+      {
+        "id": "OpTVpSocFQtVBROc",
+        "name": "Write Name",
+        "type": "utility",
+        "activation": "action"
+      },
+      {
+        "id": "cRjGFIPOcDcUcsjl",
+        "name": "Erase Name",
+        "type": "utility",
+        "activation": "action"
+      }
+    ],
+    "descriptionChars": 1017
+  },
+  {
+    "id": "phbclcGreaterDiv",
+    "name": "Greater Divine Intervention",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "greater-divine-intervention",
+    "requirements": "Cleric",
+    "activities": [
+      {
+        "id": "QF0ngRPf1dAyycw1",
+        "name": "",
+        "type": "utility",
+        "activation": "action"
+      }
+    ],
+    "descriptionChars": 455
+  },
+  {
+    "id": "phbmnkHeightened",
+    "name": "Heightened Focus",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "heightened-focus",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "XLma1NEOJNEBD6mH",
+        "name": "Flurry of Blows",
+        "type": "utility",
+        "activation": ""
+      },
+      {
+        "id": "x5fBC7ybAnr79AxK",
+        "name": "Patient Defense",
+        "type": "heal",
+        "activation": ""
+      }
+    ],
+    "descriptionChars": 829
+  },
+  {
+    "id": "phbmmoHeightened",
+    "name": "Heightened Spell",
+    "featureType": "class",
+    "subtype": "metamagic",
+    "identifier": "heightened-spell",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "uHwIuPfMDD9sxVa9",
+        "name": "Heightened Spell",
+        "type": "utility",
+        "activation": ""
+      }
+    ],
+    "descriptionChars": 194
+  },
+  {
+    "id": "phbftrHeroicWarr",
+    "name": "Heroic Warrior",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "heroic-warrior",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 144
+  },
+  {
+    "id": "phbpdnHolyNimbus",
+    "name": "Holy Nimbus",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "holy-nimbus",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "k6gGbWQBoLTgqbSG",
+        "name": "Holy Nimbus",
+        "type": "damage",
+        "activation": "bonus"
+      },
+      {
+        "id": "V0uofujMuoG0bIfp",
+        "name": "Regain Use",
+        "type": "utility",
+        "activation": ""
+      }
+    ],
+    "descriptionChars": 930
+  },
+  {
+    "id": "phbrgrHuntersLor",
+    "name": "Hunter's Lore",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "hunters-lore",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 280
+  },
+  {
+    "id": "phbrgrHuntersPre",
+    "name": "Hunter's Prey",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "hunters-prey",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "Ek6m8ZY5Df7Mp6DO",
+        "name": "",
+        "type": "damage",
+        "activation": ""
+      }
+    ],
+    "descriptionChars": 893
+  },
+  {
+    "id": "phbwlkHurlThroug",
+    "name": "Hurl Through Hell",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "hurl-through-hell",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "vIY5Deb2vCh5POdP",
+        "name": "Hurl Through Hell",
+        "type": "save",
+        "activation": ""
+      },
+      {
+        "id": "0e3VQjiAyCisCoxN",
+        "name": "Regain Use",
+        "type": "utility",
+        "activation": ""
+      }
+    ],
+    "descriptionChars": 820
+  },
+  {
+    "id": "phbclcImprovedBl",
+    "name": "Improved Blessed Strikes",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "improved-blessed-strikes",
+    "requirements": "Cleric",
+    "activities": [
+      {
+        "id": "Uy2oHO5lqVlXgVaE",
+        "name": "Potent Spellcasting: Heal",
+        "type": "heal",
+        "activation": ""
+      }
+    ],
+    "descriptionChars": 555
+  },
+  {
+    "id": "phbbrbImpBrutalS",
+    "name": "Improved Brutal Strike",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "improved-brutal-strike",
+    "requirements": "Barbarian",
+    "activities": [
+      {
+        "id": "UmRlsf4QWW98I4FS",
+        "name": "Sundering Blow",
+        "type": "utility",
+        "activation": ""
+      },
+      {
+        "id": "I30qGlPDcyKwz65H",
+        "name": "Staggering Blow",
+        "type": "utility",
+        "activation": ""
+      }
+    ],
+    "descriptionChars": 639
+  },
+  {
+    "id": "phbbrbImp2Brutal",
+    "name": "Improved Brutal Strike (2)",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "improved-brutal-strike-2",
+    "requirements": "Barbarian",
+    "activities": [],
+    "descriptionChars": 255
+  },
+  {
+    "id": "phbftrImprovedCr",
+    "name": "Improved Critical",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "improved-critical",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 191
+  },
+  {
+    "id": "phbrgeImprovedCu",
+    "name": "Improved Cunning Strike",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "improved-cunning-strike",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 445
+  },
+  {
+    "id": "phbdrdImprovedEl",
+    "name": "Improved Elemental Fury",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "improved-elemental-fury",
+    "requirements": "Druid",
+    "activities": [],
+    "descriptionChars": 409
+  },
+  {
+    "id": "phbftrIndomitabl",
+    "name": "Indomitable",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "indomitable",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "84EBzlT1nDmNqhqM",
+        "name": "",
+        "type": "utility",
+        "activation": "action"
+      }
+    ],
+    "descriptionChars": 434
+  },
+  {
+    "id": "phbbrbIndomitabl",
+    "name": "Indomitable Might",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "indomitable-might",
+    "requirements": "Barbarian",
+    "activities": [],
+    "descriptionChars": 139
+  },
+  {
+    "id": "phbscrInnateSorc",
+    "name": "Innate Sorcery",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "innate-sorcery",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "mh49lCJGuCDeiyB8",
+        "name": "Innate Sorcery",
+        "type": "utility",
+        "activation": "bonus"
+      }
+    ],
+    "descriptionChars": 554
+  },
+  {
+    "id": "phbbrbInstinctiv",
+    "name": "Instinctive Pounce",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "instinctive-pounce",
+    "requirements": "Barbarian",
+    "activities": [],
+    "descriptionChars": 92
+  },
+  {
+    "id": "phbbrbIntimidati",
+    "name": "Intimidating Presence",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "intimidating-presence",
+    "requirements": "Path of the Berserker",
+    "activities": [
+      {
+        "id": "ZRHT8mOlea6T8XpP",
+        "name": "",
+        "type": "save",
+        "activation": "bonus"
+      },
+      {
+        "id": "Qr0vi4CEDfbdMNMa",
+        "name": "Recharge with Rage",
+        "type": "utility",
+        "activation": ""
+      }
+    ],
+    "descriptionChars": 841
+  },
+  {
+    "id": "phbinvInvestment",
+    "name": "Investment of the Chain Master",
+    "featureType": "class",
+    "subtype": "eldritchInvocation",
+    "identifier": "investment-of-the-chain-master",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "wk5D1U5DnMRJ40KK",
+        "name": "Find Familiar with Flight",
+        "type": "summon",
+        "activation": "hour"
+      },
+      {
+        "id": "uehA2kfgOCKRIqAs",
+        "name": "Find Familiar with Swimming",
+        "type": "summon",
+        "activation": "hour"
+      },
+      {
+        "id": "fHEY2QcPTBaT4lBF",
+        "name": "Invest with Resistance",
+        "type": "utility",
+        "activation": "reaction"
+      }
+    ],
+    "descriptionChars": 1370
+  },
+  {
+    "id": "phbbrdJackOfAllT",
+    "name": "Jack of All Trades",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "jack-of-all-trades",
+    "requirements": "Bard",
+    "activities": [],
+    "descriptionChars": 474
+  },
+  {
+    "id": "phbdrdLandsAid00",
+    "name": "Land's Aid",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "lands-aid",
+    "requirements": "Circle of Land",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "",
+        "type": "save",
+        "activation": "action"
+      },
+      {
+        "id": "LI4RB1gsoHK0bS5n",
+        "name": "",
+        "type": "heal",
+        "activation": ""
+      }
+    ],
+    "descriptionChars": 786
+  },
+  {
+    "id": "phbpdnLayOnHands",
+    "name": "Lay on Hands",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "lay-on-hands",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "gXZh9aGHcywV9huC",
+        "name": "",
+        "type": "heal",
+        "activation": "bonus"
+      },
+      {
+        "id": "K6UeXQwTyDHWvis8",
+        "name": "Remove Poison",
+        "type": "utility",
+        "activation": "bonus"
+      }
+    ],
+    "descriptionChars": 858
+  },
+  {
+    "id": "phbinvLessonsoft",
+    "name": "Lessons of the First Ones",
+    "featureType": "class",
+    "subtype": "eldritchInvocation",
+    "identifier": "lessons-of-the-first-ones",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 358
+  },
+  {
+    "id": "phbclcLifeSpells",
+    "name": "Life Domain Spells",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "life-domain-spells",
+    "requirements": "Life Domain",
+    "activities": [],
+    "descriptionChars": 1016
+  },
+  {
+    "id": "phbinvLifedrinke",
+    "name": "Lifedrinker",
+    "featureType": "class",
+    "subtype": "eldritchInvocation",
+    "identifier": "lifedrinker",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "LDIKT3JVs25qBVuL",
+        "name": "",
+        "type": "damage",
+        "activation": ""
+      },
+      {
+        "id": "emx17h6kO4xmSqC6",
+        "name": "Heal (Largest Hit Die)",
+        "type": "heal",
+        "activation": ""
+      },
+      {
+        "id": "oMHxbcnQh38wZEKU",
+        "name": "Heal (Smallest Hit Die)",
+        "type": "heal",
+        "activation": ""
+      }
+    ],
+    "descriptionChars": 816
+  },
+  {
+    "id": "phbwlkMagicalCun",
+    "name": "Magical Cunning",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "magical-cunning",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "EK3yOTVml5LbmpmQ",
+        "name": "Regain Pact Spell Slots",
+        "type": "utility",
+        "activation": "minute"
+      }
+    ],
+    "descriptionChars": 360
+  },
+  {
+    "id": "phbbrdMagicalDis",
+    "name": "Magical Discoveries",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "magical-discoveries",
+    "requirements": "College of Lore",
+    "activities": [],
+    "descriptionChars": 817
+  },
+  {
+    "id": "phbbrdMagicalSec",
+    "name": "Magical Secrets",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "magical-secrets",
+    "requirements": "Bard",
+    "activities": [],
+    "descriptionChars": 845
+  },
+  {
+    "id": "phbmnkMartialArt",
+    "name": "Martial Arts",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "martial-arts",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "x7fKZy0kgRTMACTa",
+        "name": "Master Simple Weapon",
+        "type": "enchant",
+        "activation": ""
+      },
+      {
+        "id": "uCIVkZurvxHYJ0h0",
+        "name": "Master Light Martial Weapon",
+        "type": "enchant",
+        "activation": ""
+      }
+    ],
+    "descriptionChars": 1161
+  },
+  {
+    "id": "phbinvMaskofMany",
+    "name": "Mask of Many Faces",
+    "featureType": "class",
+    "subtype": "eldritchInvocation",
+    "identifier": "mask-of-many-faces",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "RgprqPZmHBQwULjl",
+        "name": "",
+        "type": "utility",
+        "activation": "action"
+      }
+    ],
+    "descriptionChars": 278
+  },
+  {
+    "id": "phbinvMasterofMy",
+    "name": "Master of Myriad Forms",
+    "featureType": "class",
+    "subtype": "eldritchInvocation",
+    "identifier": "master-of-myriad-forms",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "Aquatic Adaptation",
+        "type": "utility",
+        "activation": "action"
+      },
+      {
+        "id": "wQGpfux8qzcvwsDo",
+        "name": "Change Appearance",
+        "type": "utility",
+        "activation": "action"
+      },
+      {
+        "id": "dQnMvyjoGqhgl9wP",
+        "name": "Natural Weapons",
+        "type": "utility",
+        "activation": "action"
+      },
+      {
+        "id": "SEwXqOHdPCyejSYR",
+        "name": "Attack: Claws",
+        "type": "attack",
+        "activation": "action"
+      },
+      {
+        "id": "osceJQzUOQPJ9CLn",
+        "name": "Attack: Fangs/Horns",
+        "type": "attack",
+        "activation": "action"
+      },
+      {
+        "id": "eHtpASAnamFUc69H",
+        "name": "Attack: Hooves",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "descriptionChars": 453
+  },
+  {
+    "id": "phbwzdMemorizeSp",
+    "name": "Memorize Spell",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "memorize-spell",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 199
+  },
+  {
+    "id": "phbscrMetamagic0",
+    "name": "Metamagic",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "metamagic",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 676
+  },
+  {
+    "id": "phbbrbMindlessRa",
+    "name": "Mindless Rage",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "mindless-rage",
+    "requirements": "Path of the Berserker",
+    "activities": [],
+    "descriptionChars": 377
+  },
+  {
+    "id": "phbinvMistyVisio",
+    "name": "Misty Visions",
+    "featureType": "class",
+    "subtype": "eldritchInvocation",
+    "identifier": "misty-visions",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "",
+        "type": "summon",
+        "activation": "action"
+      }
+    ],
+    "descriptionChars": 232
+  },
+  {
+    "id": "phbmnkMonksFocus",
+    "name": "Monk's Focus",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "monks-focus",
+    "requirements": "Monk",
+    "activities": [
+      {
+        "id": "2ghJTBhilLrFn9xT",
+        "name": "Flurry of Blows",
+        "type": "utility",
+        "activation": "bonus"
+      },
+      {
+        "id": "7xj7b6e8tDznDSrE",
+        "name": "Patient Defense (Focus Point)",
+        "type": "utility",
+        "activation": "bonus"
+      },
+      {
+        "id": "EFzidO6yAapw8d60",
+        "name": "Patient Defense",
+        "type": "utility",
+        "activation": "bonus"
+      },
+      {
+        "id": "0MuRZ0Ur95xQTKFq",
+        "name": "Step of the Wind",
+        "type": "utility",
+        "activation": "bonus"
+      }
+    ],
+    "descriptionChars": 1831
+  },
+  {
+    "id": "phbwlkMysticArca",
+    "name": "Mystic Arcanum",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "mystic-arcanum",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 613
+  },
+  {
+    "id": "phbdrdNaturalRec",
+    "name": "Natural Recovery",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "natural-recovery",
+    "requirements": "Circle of Land",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "Cast Spell",
+        "type": "utility",
+        "activation": ""
+      },
+      {
+        "id": "u0UF6WePUutyp6e6",
+        "name": "Recover Spell Slots",
+        "type": "utility",
+        "activation": ""
+      }
+    ],
+    "descriptionChars": 964
+  },
+  {
+    "id": "phbdrdNaturesSan",
+    "name": "Nature's Sanctuary",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "natures-sanctuary",
+    "requirements": "Circle of Land",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "Spectral Trees and Vines",
+        "type": "utility",
+        "activation": "action"
+      },
+      {
+        "id": "oV51RLBkYFH4MPrS",
+        "name": "Move",
+        "type": "utility",
+        "activation": "bonus"
+      }
+    ],
+    "descriptionChars": 914
+  },
+  {
+    "id": "phbrgrNaturesVei",
+    "name": "Nature's Veil",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "natures-veil",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "E54BKGckr7WLLLqf",
+        "name": "Veil",
+        "type": "utility",
+        "activation": "bonus"
+      }
+    ],
+    "descriptionChars": 396
+  },
+  {
+    "id": "phbdrdNaturesWar",
+    "name": "Nature's Ward",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "natures-ward",
+    "requirements": "Circle of Land",
+    "activities": [],
+    "descriptionChars": 458
+  },
+  {
+    "id": "phbpdnDevotionSp",
+    "name": "Oath of Devotion Spells",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "oath-of-devotion-spells",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 1031
+  },
+  {
+    "id": "phbinvOnewithSha",
+    "name": "One with Shadows",
+    "featureType": "class",
+    "subtype": "eldritchInvocation",
+    "identifier": "one-with-shadows",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "",
+        "type": "utility",
+        "activation": "action"
+      }
+    ],
+    "descriptionChars": 382
+  },
+  {
+    "id": "phbmnkOpenHandTe",
+    "name": "Open Hand Technique",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "open-hand-technique",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "1jdSaWanuRrdkVs3",
+        "name": "Addle",
+        "type": "utility",
+        "activation": ""
+      },
+      {
+        "id": "XoaS0RtDCGAqrQsf",
+        "name": "Push",
+        "type": "save",
+        "activation": ""
+      },
+      {
+        "id": "5Qgc0K3TfuonkPIG",
+        "name": "Topple",
+        "type": "save",
+        "activation": ""
+      }
+    ],
+    "descriptionChars": 567
+  },
+  {
+    "id": "phbinvOtherworld",
+    "name": "Otherworldly Leap",
+    "featureType": "class",
+    "subtype": "eldritchInvocation",
+    "identifier": "otherworldly-leap",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "",
+        "type": "utility",
+        "activation": "bonus"
+      }
+    ],
+    "descriptionChars": 254
+  },
+  {
+    "id": "phbwzdOverchanne",
+    "name": "Overchannel",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "overchannel",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "yPyi96Y94w5DannJ",
+        "name": "Second+ Use",
+        "type": "damage",
+        "activation": ""
+      },
+      {
+        "id": "w09009Qtx2IuGeS9",
+        "name": "First Use",
+        "type": "damage",
+        "activation": ""
+      }
+    ],
+    "descriptionChars": 915
+  },
+  {
+    "id": "phbwlkPactMagic0",
+    "name": "Pact Magic",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "pact-magic",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 3145
+  },
+  {
+    "id": "phbinvPactBlade0",
+    "name": "Pact of the Blade",
+    "featureType": "class",
+    "subtype": "eldritchInvocation",
+    "identifier": "pact-of-the-blade",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "8MSXmrGSgc6xHotB",
+        "name": "Forge Pact Weapon",
+        "type": "enchant",
+        "activation": "bonus"
+      },
+      {
+        "id": "UTEfakL3rBtTIu1K",
+        "name": "Spellcasting Attack",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "descriptionChars": 847
+  },
+  {
+    "id": "phbinvPactChain0",
+    "name": "Pact of the Chain",
+    "featureType": "class",
+    "subtype": "eldritchInvocation",
+    "identifier": "pact-of-the-chain",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "uehA2kfgOCKRIqAs",
+        "name": "Find Familiar",
+        "type": "summon",
+        "activation": "action"
+      },
+      {
+        "id": "5W78W2Opzhax0Jcf",
+        "name": "Find Familiar (Expanded Options)",
+        "type": "summon",
+        "activation": "action"
+      }
+    ],
+    "descriptionChars": 1086
+  },
+  {
+    "id": "phbinvPactTome00",
+    "name": "Pact of the Tome",
+    "featureType": "class",
+    "subtype": "eldritchInvocation",
+    "identifier": "pact-of-the-tome",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 792
+  },
+  {
+    "id": "phbpdnPaladinsSm",
+    "name": "Paladin's Smite",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "paladins-smite",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 363
+  },
+  {
+    "id": "phbbrdPeerlessSk",
+    "name": "Peerless Skill",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "peerless-skill",
+    "requirements": "College of Lore",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "",
+        "type": "utility",
+        "activation": ""
+      }
+    ],
+    "descriptionChars": 271
+  },
+  {
+    "id": "phbmnkPerfectFoc",
+    "name": "Perfect Focus",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "perfect-focus",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 213
+  },
+  {
+    "id": "phbbrbPersistent",
+    "name": "Persistent Rage",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "persistent-rage",
+    "requirements": "Barbarian",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "Recharge Rage on Initiative",
+        "type": "utility",
+        "activation": ""
+      }
+    ],
+    "descriptionChars": 580
+  },
+  {
+    "id": "phbwzdPotentCant",
+    "name": "Potent Cantrip",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "potent-cantrip",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 496
+  },
+  {
+    "id": "phbrgrPreciseHun",
+    "name": "Precise Hunter",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "precise-hunter",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 95
+  },
+  {
+    "id": "phbclcPreserveLi",
+    "name": "Preserve Life",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "preserve-life",
+    "requirements": "Life Domain",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "",
+        "type": "heal",
+        "activation": "action"
+      }
+    ],
+    "descriptionChars": 509
+  },
+  {
+    "id": "phbbrbPrimalCham",
+    "name": "Primal Champion",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "primal-champion",
+    "requirements": "Barbarian",
+    "activities": [],
+    "descriptionChars": 97
+  },
+  {
+    "id": "phbbrbPrimalKnow",
+    "name": "Primal Knowledge",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "primal-knowledge",
+    "requirements": "Barbarian",
+    "activities": [],
+    "descriptionChars": 746
+  },
+  {
+    "id": "phbdrdPrimalOrde",
+    "name": "Primal Order",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "primal-order",
+    "requirements": "Druid",
+    "activities": [],
+    "descriptionChars": 481
+  },
+  {
+    "id": "phbPrimalOrderMa",
+    "name": "Primal Order: Magician",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "primal-order-magician",
+    "requirements": "Druid",
+    "activities": [],
+    "descriptionChars": 526
+  },
+  {
+    "id": "phbPrimalOrderWa",
+    "name": "Primal Order: Warden",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "primal-order-warden",
+    "requirements": "Druid",
+    "activities": [],
+    "descriptionChars": 235
+  },
+  {
+    "id": "phbmmoQuickenedS",
+    "name": "Quickened Spell",
+    "featureType": "class",
+    "subtype": "metamagic",
+    "identifier": "quickened-spell",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "leFbHb9SZwDix2TU",
+        "name": "Quickened Spell",
+        "type": "utility",
+        "activation": ""
+      }
+    ],
+    "descriptionChars": 357
+  },
+  {
+    "id": "phbmnkQuiveringP",
+    "name": "Quivering Palm",
+    "featureType": "class",
+    "subtype": "ki",
+    "identifier": "quivering-palm",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "lBn87Q4yyJXWzLqg",
+        "name": "End Vibrations",
+        "type": "save",
+        "activation": "action"
+      },
+      {
+        "id": "O1mQr2rPpzRpB3yJ",
+        "name": "Instill Vibrations",
+        "type": "utility",
+        "activation": ""
+      }
+    ],
+    "descriptionChars": 1033
+  },
+  {
+    "id": "phbpdnRadiantStr",
+    "name": "Radiant Strikes",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "radiant-strikes",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 344
+  },
+  {
+    "id": "phbbrbRage000000",
+    "name": "Rage",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "rage",
+    "requirements": "Barbarian",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "Expend Rage",
+        "type": "utility",
+        "activation": "bonus"
+      }
+    ],
+    "descriptionChars": 1738
+  },
+  {
+    "id": "phbbrbRecklessAt",
+    "name": "Reckless Attack",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "reckless-attack",
+    "requirements": "Barbarian",
+    "activities": [],
+    "descriptionChars": 493
+  },
+  {
+    "id": "phbrgrRelentless",
+    "name": "Relentless Hunter",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "relentless-hunter",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 62
+  },
+  {
+    "id": "phbbrbRelentless",
+    "name": "Relentless Rage",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "relentless-rage",
+    "requirements": "Barbarian",
+    "activities": [
+      {
+        "id": "dnd5eactivity100",
+        "name": "",
+        "type": "save",
+        "activation": ""
+      },
+      {
+        "id": "Y2xWUsWmpklWLtVT",
+        "name": "",
+        "type": "heal",
+        "activation": ""
+      }
+    ],
+    "descriptionChars": 586
+  },
+  {
+    "id": "phbrgeReliableTa",
+    "name": "Reliable Talent",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "reliable-talent",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 260
+  },
+  {
+    "id": "phbftrRemarkable",
+    "name": "Remarkable Athlete",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "remarkable-athlete",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 305
+  },
+  {
+    "id": "phbinvRepellingB",
+    "name": "Repelling Blast",
+    "featureType": "class",
+    "subtype": "eldritchInvocation",
+    "identifier": "repelling-blast",
+    "requirements": "Warlock Cantrip That Deals Damage via an Attack",
+    "activities": [
+      {
+        "id": "OXhI1TDQxORrGAgc",
+        "name": "Make Repelling",
+        "type": "enchant",
+        "activation": ""
+      }
+    ],
+    "descriptionChars": 507
+  },
+  {
+    "id": "phbpdnRestoringT",
+    "name": "Restoring Touch",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "restoring-touch",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "PgTPWedvQHDlQ7LQ",
+        "name": "",
+        "type": "utility",
+        "activation": "bonus"
+      }
+    ],
+    "descriptionChars": 537
+  },
+  {
+    "id": "phbbrbRetaliatio",
+    "name": "Retaliation",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "retaliation",
+    "requirements": "Path of the Berserker",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "Retaliate",
+        "type": "utility",
+        "activation": "reaction"
+      }
+    ],
+    "descriptionChars": 175
+  },
+  {
+    "id": "phbwzdRitualAdep",
+    "name": "Ritual Adept",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "ritual-adept",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 322
+  },
+  {
+    "id": "phbrgrRoving0000",
+    "name": "Roving",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "roving",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 135
+  },
+  {
+    "id": "phbpdnSacredWeap",
+    "name": "Sacred Weapon",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "sacred-weapon",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "Ew70lNTD8dR3vREt",
+        "name": "",
+        "type": "enchant",
+        "activation": "special"
+      }
+    ],
+    "descriptionChars": 588
+  },
+  {
+    "id": "phbwzdScholar000",
+    "name": "Scholar",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "scholar",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 238
+  },
+  {
+    "id": "phbwzdSculptSpel",
+    "name": "Sculpt Spells",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "sculpt-spells",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 398
+  },
+  {
+    "id": "phbclcSearUndead",
+    "name": "Sear Undead",
+    "featureType": "class",
+    "subtype": "channelDivinity",
+    "identifier": "sear-undead",
+    "requirements": "Cleric",
+    "activities": [
+      {
+        "id": "fW3U8L8Ca9a6O9Wx",
+        "name": "Channel Divinity: Turn Undead",
+        "type": "save",
+        "activation": "action"
+      }
+    ],
+    "descriptionChars": 521
+  },
+  {
+    "id": "phbftrSecondWind",
+    "name": "Second Wind",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "second-wind",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "zumaUC11cpntqme1",
+        "name": "",
+        "type": "heal",
+        "activation": "bonus"
+      }
+    ],
+    "descriptionChars": 695
+  },
+  {
+    "id": "phbrgeSecondstor",
+    "name": "Second-Story Work",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "second-story-work",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 360
+  },
+  {
+    "id": "phbmmoSeekingSpe",
+    "name": "Seeking Spell",
+    "featureType": "class",
+    "subtype": "metamagic",
+    "identifier": "seeking-spell",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "vudKvHh2PbAiDXSE",
+        "name": "Seeking Spell",
+        "type": "utility",
+        "activation": ""
+      }
+    ],
+    "descriptionChars": 264
+  },
+  {
+    "id": "phbwzdSignatureS",
+    "name": "Signature Spells",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "signature-spells",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "XFWgZtgTNIvimlWz",
+        "name": "Make Signature",
+        "type": "enchant",
+        "activation": ""
+      },
+      {
+        "id": "wdegZibcbQM4SzRI",
+        "name": "Expend First Spell",
+        "type": "utility",
+        "activation": ""
+      },
+      {
+        "id": "LKpjpqgxudgXOIIZ",
+        "name": "Expend Second Spell",
+        "type": "utility",
+        "activation": ""
+      }
+    ],
+    "descriptionChars": 671
+  },
+  {
+    "id": "phbrgeSlipperyMi",
+    "name": "Slippery Mind",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "slippery-mind",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 189
+  },
+  {
+    "id": "phbmnkSlowFall00",
+    "name": "Slow Fall",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "slow-fall",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "cWpSb7kUmzdpFoc4",
+        "name": "Reduce",
+        "type": "heal",
+        "activation": "reaction"
+      }
+    ],
+    "descriptionChars": 264
+  },
+  {
+    "id": "phbpdnSmiteOfPro",
+    "name": "Smite of Protection",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "smite-of-protection",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 427
+  },
+  {
+    "id": "phbrgeSneakAttac",
+    "name": "Sneak Attack",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "sneak-attack",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "a1T6nHaqmvbLpyJr",
+        "name": "",
+        "type": "damage",
+        "activation": ""
+      }
+    ],
+    "descriptionChars": 829
+  },
+  {
+    "id": "phbscrSorcerousR",
+    "name": "Sorcerous Restoration",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "sorcerous-restoration",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "H8hZYUmd4BHU3mek",
+        "name": "Restore Sorcery Points",
+        "type": "utility",
+        "activation": ""
+      }
+    ],
+    "descriptionChars": 351
+  },
+  {
+    "id": "phbscrSorceryInc",
+    "name": "Sorcery Incarnate",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "sorcery-incarnate",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "qSLk2DaH21SNZxve",
+        "name": "Restore Innate Sorcery",
+        "type": "utility",
+        "activation": ""
+      }
+    ],
+    "descriptionChars": 357
+  },
+  {
+    "id": "phbwzdSpellMaste",
+    "name": "Spell Mastery",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "spell-mastery",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "bT2LjQRvFei2uzIl",
+        "name": "Master Spell",
+        "type": "enchant",
+        "activation": ""
+      }
+    ],
+    "descriptionChars": 784
+  },
+  {
+    "id": "phbbrdSpellcasti",
+    "name": "Spellcasting",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "spellcasting",
+    "requirements": "Bard",
+    "activities": [],
+    "descriptionChars": 2744
+  },
+  {
+    "id": "phbclcSpellcasti",
+    "name": "Spellcasting",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "spellcasting",
+    "requirements": "Cleric",
+    "activities": [],
+    "descriptionChars": 2871
+  },
+  {
+    "id": "phbdrdSpellcasti",
+    "name": "Spellcasting",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "spellcasting",
+    "requirements": "Druid",
+    "activities": [],
+    "descriptionChars": 2803
+  },
+  {
+    "id": "phbpdnSpellcasti",
+    "name": "Spellcasting",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "spellcasting",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 1959
+  },
+  {
+    "id": "phbrgrSpellcasti",
+    "name": "Spellcasting",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "spellcasting",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 2074
+  },
+  {
+    "id": "phbscrSpellcasti",
+    "name": "Spellcasting",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "spellcasting",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 2658
+  },
+  {
+    "id": "phbwzdSpellcasti",
+    "name": "Spellcasting",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "spellcasting",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 3786
+  },
+  {
+    "id": "phbrgeSteadyAim0",
+    "name": "Steady Aim",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "steady-aim",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "VGVYnecMRcu0f5Sq",
+        "name": "Steady Aim",
+        "type": "utility",
+        "activation": "bonus"
+      }
+    ],
+    "descriptionChars": 234
+  },
+  {
+    "id": "phbrgeStrokeOfLu",
+    "name": "Stroke of Luck",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "stroke-of-luck",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "y4PG8Ow1eNEle580",
+        "name": "Stroke of Luck",
+        "type": "utility",
+        "activation": ""
+      }
+    ],
+    "descriptionChars": 204
+  },
+  {
+    "id": "phbftrStudiedAtt",
+    "name": "Studied Attacks",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "studied-attacks",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 299
+  },
+  {
+    "id": "phbmnkStunningSt",
+    "name": "Stunning Strike",
+    "featureType": "class",
+    "subtype": "ki",
+    "identifier": "stunning-strike",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "Xto99a8Zt46VLwaR",
+        "name": "",
+        "type": "save",
+        "activation": ""
+      }
+    ],
+    "descriptionChars": 709
+  },
+  {
+    "id": "phbmmoSubtleSpel",
+    "name": "Subtle Spell",
+    "featureType": "class",
+    "subtype": "metamagic",
+    "identifier": "subtle-spell",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "9jWUnfRzs0TqKWC2",
+        "name": "Subtle Spell",
+        "type": "utility",
+        "activation": ""
+      }
+    ],
+    "descriptionChars": 239
+  },
+  {
+    "id": "phbftrSuperiorCr",
+    "name": "Superior Critical",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "superior-critical",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 192
+  },
+  {
+    "id": "phbmnkSuperiorDe",
+    "name": "Superior Defense",
+    "featureType": "class",
+    "subtype": "ki",
+    "identifier": "superior-defense",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "tED3Z5V5ZlCkyzWU",
+        "name": "",
+        "type": "utility",
+        "activation": ""
+      }
+    ],
+    "descriptionChars": 346
+  },
+  {
+    "id": "phbrgrSuperiorDe",
+    "name": "Superior Hunter's Defense",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "superior-hunters-defense",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "KAgnJeRtqjDeYJ2S",
+        "name": "Resistances",
+        "type": "utility",
+        "activation": "reaction"
+      }
+    ],
+    "descriptionChars": 416
+  },
+  {
+    "id": "phbrgrSuperiorHu",
+    "name": "Superior Hunter's Prey",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "superior-hunters-prey",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "yqOAxbsX16RkOx06",
+        "name": "",
+        "type": "damage",
+        "activation": ""
+      }
+    ],
+    "descriptionChars": 300
+  },
+  {
+    "id": "phbbrdSuperiorIn",
+    "name": "Superior Inspiration",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "superior-inspiration",
+    "requirements": "Bard",
+    "activities": [],
+    "descriptionChars": 120
+  },
+  {
+    "id": "phbclcSupremeHea",
+    "name": "Supreme Healing",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "supreme-healing",
+    "requirements": "Life Domain",
+    "activities": [],
+    "descriptionChars": 380
+  },
+  {
+    "id": "phbrgeSupremeSne",
+    "name": "Supreme Sneak",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "supreme-sneak",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 281
+  },
+  {
+    "id": "phbftrSurvivor00",
+    "name": "Survivor",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "survivor",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "5Fo0QwzexIPyLP3W",
+        "name": "",
+        "type": "heal",
+        "activation": ""
+      }
+    ],
+    "descriptionChars": 560
+  },
+  {
+    "id": "phbftrTacticalMa",
+    "name": "Tactical Master",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "tactical-master",
+    "requirements": "Fighter",
+    "activities": [],
+    "descriptionChars": 149
+  },
+  {
+    "id": "phbftrTacticalMi",
+    "name": "Tactical Mind",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "tactical-mind",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "VVEGPoQePVprCF9A",
+        "name": "Expend Second Wind",
+        "type": "utility",
+        "activation": ""
+      }
+    ],
+    "descriptionChars": 362
+  },
+  {
+    "id": "phbftrTacticalSh",
+    "name": "Tactical Shift",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "tactical-shift",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 133
+  },
+  {
+    "id": "phbrgeThiefsRefl",
+    "name": "Thief's Reflexes",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "thiefs-reflexes",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 223
+  },
+  {
+    "id": "phbrgeThievesCan",
+    "name": "Thieves' Cant",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "thieves-cant",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 458
+  },
+  {
+    "id": "phbinvThirstingB",
+    "name": "Thirsting Blade",
+    "featureType": "class",
+    "subtype": "eldritchInvocation",
+    "identifier": "thirsting-blade",
+    "requirements": "Pact of the Blade Invocation",
+    "activities": [],
+    "descriptionChars": 296
+  },
+  {
+    "id": "phbftrThreeExtra",
+    "name": "Three Extra Attacks",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "three-extra-attacks",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 91
+  },
+  {
+    "id": "phbrgrTireless00",
+    "name": "Tireless",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "tireless",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "T17ZXCxvxeDwPoz5",
+        "name": "Temporary Hit Points",
+        "type": "heal",
+        "activation": "action"
+      },
+      {
+        "id": "y2cSZJxteG7Yew0u",
+        "name": "Decrease Exhaustion",
+        "type": "utility",
+        "activation": ""
+      }
+    ],
+    "descriptionChars": 641
+  },
+  {
+    "id": "phbmmoTransmuted",
+    "name": "Transmuted Spell",
+    "featureType": "class",
+    "subtype": "metamagic",
+    "identifier": "transmuted-spell",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "FT1V43gRA47fCA51",
+        "name": "Transmuted Spell",
+        "type": "utility",
+        "activation": ""
+      }
+    ],
+    "descriptionChars": 232
+  },
+  {
+    "id": "phbmmoTwinnedSpe",
+    "name": "Twinned Spell",
+    "featureType": "class",
+    "subtype": "metamagic",
+    "identifier": "twinned-spell",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "WsG9JmGU7gRGiTRq",
+        "name": "Twinned Spell",
+        "type": "utility",
+        "activation": ""
+      }
+    ],
+    "descriptionChars": 223
+  },
+  {
+    "id": "phbftrTwoExtraAt",
+    "name": "Two Extra Attacks",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "two-extra-attacks",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 92
+  },
+  {
+    "id": "phbbrbUnarmoredD",
+    "name": "Unarmored Defense",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "unarmored-defense",
+    "requirements": "Barbarian",
+    "activities": [],
+    "descriptionChars": 165
+  },
+  {
+    "id": "phbmnkUnarmoredD",
+    "name": "Unarmored Defense",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "unarmored-defense",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 208
+  },
+  {
+    "id": "phbmnkUnarmoredM",
+    "name": "Unarmored Movement",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "unarmored-movement",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 237
+  },
+  {
+    "id": "phbrgeUncannyDod",
+    "name": "Uncanny Dodge",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "uncanny-dodge",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "7krJIcGhZl9RqzYl",
+        "name": "Uncanny Dodge",
+        "type": "utility",
+        "activation": "reaction"
+      }
+    ],
+    "descriptionChars": 320
+  },
+  {
+    "id": "phbmnkUncannyMet",
+    "name": "Uncanny Metabolism",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "uncanny-metabolism",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "RfyAj9VDmzAJkTL3",
+        "name": "Uncanny Metabolism",
+        "type": "heal",
+        "activation": ""
+      }
+    ],
+    "descriptionChars": 444
+  },
+  {
+    "id": "phbrgeUseMagicDe",
+    "name": "Use Magic Device",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "use-magic-device",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 922
+  },
+  {
+    "id": "phbinvVisionsOfD",
+    "name": "Visions of Distant Realms",
+    "featureType": "class",
+    "subtype": "eldritchInvocation",
+    "identifier": "visions-of-distant-realms",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "",
+        "type": "summon",
+        "activation": "action"
+      }
+    ],
+    "descriptionChars": 232
+  },
+  {
+    "id": "phbbrbWeaponMast",
+    "name": "Weapon Mastery",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "weapon-mastery",
+    "requirements": "Barbarian",
+    "activities": [],
+    "descriptionChars": 455
+  },
+  {
+    "id": "phbftrWeaponMast",
+    "name": "Weapon Mastery",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "weapon-mastery",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 756
+  },
+  {
+    "id": "phbpdnWeaponMast",
+    "name": "Weapon Mastery",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "weapon-mastery",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 337
+  },
+  {
+    "id": "phbrgeWeaponMast",
+    "name": "Weapon Mastery",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "weapon-mastery",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 341
+  },
+  {
+    "id": "phbrgrWeaponMast",
+    "name": "Weapon Mastery",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "weapon-mastery",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 343
+  },
+  {
+    "id": "phbinvWhispersOf",
+    "name": "Whispers of the Grave",
+    "featureType": "class",
+    "subtype": "eldritchInvocation",
+    "identifier": "whispers-of-the-grave",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "Whisper",
+        "type": "utility",
+        "activation": "action"
+      }
+    ],
+    "descriptionChars": 146
+  },
+  {
+    "id": "phbmnkWholenessO",
+    "name": "Wholeness of Body",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "wholeness-of-body",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "CoatPmjognJHbfZ6",
+        "name": "",
+        "type": "heal",
+        "activation": "bonus"
+      }
+    ],
+    "descriptionChars": 368
+  },
+  {
+    "id": "phbdrdWildCompan",
+    "name": "Wild Companion",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "wild-companion",
+    "requirements": "Druid",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "Summon with Spell Slot",
+        "type": "summon",
+        "activation": "action"
+      },
+      {
+        "id": "jKEcwnfOpZdxX2JV",
+        "name": "Summon with Wild Shape",
+        "type": "summon",
+        "activation": "action"
+      }
+    ],
+    "descriptionChars": 618
+  },
+  {
+    "id": "phbdrdWildResurg",
+    "name": "Wild Resurgence",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "wild-resurgence",
+    "requirements": "Druid",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "Regain Spell Slot",
+        "type": "utility",
+        "activation": ""
+      },
+      {
+        "id": "7nAgPNN2dth7SR0D",
+        "name": "Regain Wild Shape",
+        "type": "utility",
+        "activation": ""
+      }
+    ],
+    "descriptionChars": 515
+  },
+  {
+    "id": "phbdrdWildShape0",
+    "name": "Wild Shape",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "wild-shape",
+    "requirements": "Druid",
+    "activities": [
+      {
+        "id": "FsDnynyqno8XNHgf",
+        "name": "",
+        "type": "transform",
+        "activation": "bonus"
+      }
+    ],
+    "descriptionChars": 3999
+  },
+  {
+    "id": "phbinvWitchSight",
+    "name": "Witch Sight",
+    "featureType": "class",
+    "subtype": "eldritchInvocation",
+    "identifier": "witch-sight",
+    "requirements": null,
+    "activities": [],
+    "descriptionChars": 166
+  },
+  {
+    "id": "phbbrdWordsOfCre",
+    "name": "Words of Creation",
+    "featureType": "class",
+    "subtype": "",
+    "identifier": "words-of-creation",
+    "requirements": "Bard",
+    "activities": [],
+    "descriptionChars": 467
+  }
+]

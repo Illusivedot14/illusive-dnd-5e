@@ -1,0 +1,2403 @@
+/* --- Mock action bar layout --- */
+
+#illusive-dnd-action-bar-dock.illusive-dnd-action-bar-full-layout #illusive-dnd-action-bar {
+  width: 1120px;
+  max-width: 1120px;
+  padding: 6px 10px;
+  background: rgba(18, 12, 10, 0.92);
+  border-color: rgba(120, 72, 40, 0.55);
+  overflow: visible;
+}
+
+#illusive-dnd-action-bar-dock .illusive-dnd-action-bar-motion {
+  overflow: visible;
+}
+
+.illusive-dnd-mock-bar {
+  --illusive-dnd-hud-top: 28px;
+  --illusive-dnd-hud-ring: 171px;
+  --illusive-dnd-hud-icon: 36px;
+  --illusive-dnd-hud-side: 42px;
+  --illusive-dnd-hud-glyph: 18px;
+  --illusive-dnd-hud-name-gap: 16px;
+  --illusive-dnd-hud-name: 20px;
+  --illusive-dnd-hud-row: calc(var(--illusive-dnd-hud-top) + var(--illusive-dnd-hud-ring) + var(--illusive-dnd-hud-name-gap) + var(--illusive-dnd-hud-name));
+  --illusive-dnd-hud-readout-side: 22px;
+  --illusive-dnd-hud-readout-gap: 6px;
+  --illusive-dnd-hud-readout-width: 124px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+  position: relative;
+}
+
+.illusive-dnd-mock-bar.illusive-dnd-mock-defeated {
+  filter: grayscale(0.35);
+  opacity: 0.92;
+}
+
+.illusive-dnd-mock-bar.illusive-dnd-mock-defeated .illusive-dnd-mock-center {
+  filter: grayscale(1);
+  opacity: 0.42;
+  pointer-events: none;
+  user-select: none;
+}
+
+.illusive-dnd-mock-economy {
+  display: flex;
+  gap: 3px;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: nowrap;
+  width: max-content;
+  max-width: none;
+  height: var(--illusive-dnd-hud-top);
+  min-height: var(--illusive-dnd-hud-top);
+  position: relative;
+  z-index: 2;
+}
+
+.illusive-dnd-mock-side-left {
+  display: grid;
+  grid-template-rows: var(--illusive-dnd-hud-top) minmax(0, 1fr);
+  grid-template-columns: var(--illusive-dnd-hud-side);
+  justify-items: center;
+  align-items: center;
+  width: var(--illusive-dnd-hud-side);
+  min-width: var(--illusive-dnd-hud-side);
+  height: calc(var(--illusive-dnd-hud-top) + var(--illusive-dnd-hud-ring));
+  padding: 0;
+  position: relative;
+}
+
+.illusive-dnd-mock-side-left .illusive-dnd-mock-config-btn {
+  position: static;
+  transform: none;
+  width: var(--illusive-dnd-hud-icon);
+  max-width: var(--illusive-dnd-hud-icon);
+  height: var(--illusive-dnd-hud-icon);
+  min-width: var(--illusive-dnd-hud-icon);
+  min-height: var(--illusive-dnd-hud-icon);
+  font-size: var(--illusive-dnd-hud-glyph);
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  color: #b4bbc6;
+  box-shadow: none;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.85));
+  line-height: 1;
+  z-index: 2;
+}
+
+.illusive-dnd-mock-side-left .illusive-dnd-mock-config-btn:hover {
+  background: transparent;
+  color: #dce1e8;
+}
+
+.illusive-dnd-mock-side-left .illusive-dnd-mock-config-btn.is-spacer {
+  display: block;
+  visibility: hidden;
+  pointer-events: none;
+  cursor: default;
+}
+
+.illusive-dnd-mock-gem {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 27px;
+  height: 27px;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  flex-shrink: 0;
+  line-height: 0;
+  color: inherit;
+  position: relative;
+}
+
+.illusive-dnd-mock-gem.is-placeholder {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.illusive-dnd-mock-gem-svg {
+  display: block;
+  width: 24px;
+  height: 24px;
+  pointer-events: none;
+}
+
+.illusive-dnd-mock-gem-face {
+  paint-order: stroke fill;
+}
+
+.illusive-dnd-mock-gem-action .illusive-dnd-mock-gem-face {
+  fill: #d9534f !important;
+  stroke: #f4a8a6 !important;
+}
+
+.illusive-dnd-mock-gem-bonus .illusive-dnd-mock-gem-face {
+  fill: #5b8fd9 !important;
+  stroke: #9ec5f0 !important;
+}
+
+.illusive-dnd-mock-gem-reaction .illusive-dnd-mock-gem-face {
+  fill: #e0b040 !important;
+  stroke: #f0d878 !important;
+}
+
+.illusive-dnd-mock-gem-legendary .illusive-dnd-mock-gem-face {
+  fill: #c8a030 !important;
+  stroke: #f0ddb0 !important;
+}
+
+.illusive-dnd-mock-gem-resistance .illusive-dnd-mock-gem-face {
+  fill: #e8c878 !important;
+  stroke: #fff3c8 !important;
+}
+
+.illusive-dnd-mock-gem-items {
+  width: 27px;
+  height: 27px;
+  border-radius: 0;
+  border: none;
+  background: transparent;
+  color: #c9a962;
+  font-size: 16px;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.85));
+}
+
+.illusive-dnd-mock-gem-items i {
+  pointer-events: none;
+  line-height: 1;
+}
+
+.illusive-dnd-mock-gem-items.is-selected {
+  color: #f0ddb0;
+  filter: drop-shadow(0 0 5px rgba(240, 221, 176, 0.55));
+}
+
+.illusive-dnd-mock-gem-items.is-spent {
+  background: transparent;
+  border: none;
+  color: rgba(184, 154, 92, 0.55);
+  opacity: 0.7;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.85)) grayscale(0.35);
+}
+
+.illusive-dnd-mock-gem-count {
+  position: absolute;
+  right: -7px;
+  bottom: -7px;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 3px;
+  border-radius: 4px;
+  border: 1px solid rgba(240, 221, 176, 0.95);
+  background: rgba(10, 7, 18, 0.96);
+  color: #f0ddb0;
+  font-family: "Signika", sans-serif;
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 18px;
+  text-align: center;
+  pointer-events: none;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.65);
+  z-index: 2;
+}
+
+.illusive-dnd-mock-gem.is-selected {
+  filter:
+    drop-shadow(0 0 4px rgba(240, 221, 176, 1))
+    drop-shadow(0 0 8px rgba(255, 230, 160, 0.85));
+}
+
+.illusive-dnd-mock-gem.is-spent .illusive-dnd-mock-gem-face {
+  fill: #6a6a72 !important;
+  stroke: #8a8a92 !important;
+  stroke-width: 1.5;
+  opacity: 0.55;
+}
+
+.illusive-dnd-mock-gem-action.is-spent .illusive-dnd-mock-gem-face,
+.illusive-dnd-mock-gem-bonus.is-spent .illusive-dnd-mock-gem-face,
+.illusive-dnd-mock-gem-reaction.is-spent .illusive-dnd-mock-gem-face,
+.illusive-dnd-mock-gem-legendary.is-spent .illusive-dnd-mock-gem-face,
+.illusive-dnd-mock-gem-resistance.is-spent .illusive-dnd-mock-gem-face {
+  fill: #6a6a72 !important;
+  stroke: #8a8a92 !important;
+}
+
+.illusive-dnd-mock-gem.is-spent {
+  filter: grayscale(1);
+  opacity: 0.55;
+  cursor: default;
+}
+
+.illusive-dnd-mock-gem.is-spent.is-selected {
+  filter: grayscale(0.85);
+  opacity: 0.7;
+}
+
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-gem {
+  min-width: 27px;
+  min-height: 27px;
+  font-size: 0;
+}
+
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-gem-items {
+  font-size: 16px;
+}
+
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-gem:focus {
+  outline: none;
+}
+
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-gem:focus-visible .illusive-dnd-mock-gem-svg,
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-gem-items:focus-visible {
+  filter: drop-shadow(0 0 2px rgba(240, 221, 176, 0.9));
+}
+
+#illusive-dnd-action-bar-dock.illusive-dnd-action-bar-full-layout #illusive-dnd-action-bar:has(.illusive-dnd-mock-your-turn) {
+  border-color: rgba(255, 236, 170, 1);
+  box-shadow:
+    0 0 0 1px rgba(255, 240, 190, 0.95),
+    0 0 28px rgba(255, 220, 120, 0.8),
+    0 0 56px rgba(240, 200, 90, 0.5),
+    inset 0 0 36px rgba(255, 220, 120, 0.2);
+  animation: illusive-dnd-your-turn-glow 1.8s ease-in-out infinite;
+}
+
+@keyframes illusive-dnd-your-turn-glow {
+  0%, 100% {
+    box-shadow:
+      0 0 0 1px rgba(255, 232, 160, 0.85),
+      0 0 22px rgba(255, 220, 120, 0.65),
+      0 0 44px rgba(240, 200, 90, 0.38),
+      inset 0 0 30px rgba(255, 220, 120, 0.14);
+  }
+  50% {
+    box-shadow:
+      0 0 0 2px rgba(255, 245, 200, 1),
+      0 0 34px rgba(255, 230, 140, 0.9),
+      0 0 68px rgba(255, 210, 100, 0.55),
+      inset 0 0 42px rgba(255, 230, 140, 0.24);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #illusive-dnd-action-bar-dock.illusive-dnd-action-bar-full-layout #illusive-dnd-action-bar:has(.illusive-dnd-mock-your-turn) {
+    animation: none;
+  }
+}
+
+.illusive-dnd-mock-row {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: stretch;
+  column-gap: 6px;
+  width: 100%;
+  height: var(--illusive-dnd-hud-row);
+  min-height: var(--illusive-dnd-hud-row);
+  max-height: var(--illusive-dnd-hud-row);
+  overflow: visible;
+}
+
+.illusive-dnd-mock-left,
+.illusive-dnd-mock-center,
+.illusive-dnd-mock-right {
+  height: 100%;
+  min-height: 0;
+  overflow: visible;
+}
+
+/* Left: [icons] [portrait] [icons] — same 3-column grid as the combat cluster. */
+.illusive-dnd-mock-left {
+  display: grid;
+  width: fit-content;
+  max-width: 100%;
+}
+
+.illusive-dnd-mock-vitals {
+  display: grid;
+  grid-template-columns: var(--illusive-dnd-hud-side) var(--illusive-dnd-hud-ring) var(--illusive-dnd-hud-side);
+  align-items: start;
+  overflow: visible;
+  width: fit-content;
+}
+
+.illusive-dnd-mock-passives {
+  display: grid;
+  grid-template-rows: repeat(4, minmax(0, 1fr));
+  justify-items: center;
+  align-items: center;
+  width: var(--illusive-dnd-hud-side);
+  min-width: var(--illusive-dnd-hud-side);
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.illusive-dnd-mock-config-btn {
+  display: grid;
+  place-items: center;
+  width: var(--illusive-dnd-hud-icon);
+  height: var(--illusive-dnd-hud-icon);
+  padding: 0;
+  margin: 0;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  color: #b4bbc6;
+  cursor: pointer;
+  font-size: var(--illusive-dnd-hud-glyph);
+  flex-shrink: 0;
+  line-height: 1;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.85));
+}
+
+.illusive-dnd-mock-config-btn:hover {
+  background: transparent;
+  color: #dce1e8;
+}
+
+.illusive-dnd-mock-passive {
+  display: grid;
+  place-items: center;
+  width: var(--illusive-dnd-hud-icon);
+  height: var(--illusive-dnd-hud-icon);
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  color: #d8d0c4;
+  cursor: help;
+  line-height: 1;
+  overflow: visible;
+  position: relative;
+  z-index: 1;
+}
+
+.illusive-dnd-mock-passive-glyph {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--illusive-dnd-hud-icon);
+  height: var(--illusive-dnd-hud-icon);
+  border-radius: 0;
+  border: none;
+  background: transparent;
+  color: inherit;
+  font-size: var(--illusive-dnd-hud-glyph);
+  pointer-events: none;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.85));
+}
+
+.illusive-dnd-mock-passive-prc {
+  color: #8fd4a8;
+}
+
+.illusive-dnd-mock-passive-ins {
+  color: #c4a8f0;
+}
+
+.illusive-dnd-mock-passive-inv {
+  color: #e0c070;
+}
+
+.illusive-dnd-mock-passive-lang {
+  color: #8ec8e8;
+}
+
+.illusive-dnd-mock-passive-value {
+  position: absolute;
+  left: 50%;
+  right: auto;
+  bottom: -2px;
+  transform: translateX(-50%);
+  min-width: 16px;
+  height: 15px;
+  padding: 0 3px;
+  border-radius: 4px;
+  border: 1px solid rgba(20, 14, 28, 0.85);
+  background: rgba(10, 7, 18, 0.94);
+  color: #f0e8d8;
+  font-family: "Signika", sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 15px;
+  text-align: center;
+  pointer-events: none;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.55);
+}
+
+.illusive-dnd-mock-portrait-column {
+  display: grid;
+  grid-template-rows: var(--illusive-dnd-hud-top) var(--illusive-dnd-hud-ring) auto;
+  grid-template-columns: var(--illusive-dnd-hud-ring);
+  justify-items: center;
+  align-items: start;
+  width: var(--illusive-dnd-hud-ring);
+  min-width: var(--illusive-dnd-hud-ring);
+  overflow: visible;
+}
+
+.illusive-dnd-mock-portrait-block {
+  position: relative;
+  width: var(--illusive-dnd-hud-ring);
+  height: var(--illusive-dnd-hud-ring);
+  overflow: visible;
+  margin-bottom: 0;
+}
+
+.illusive-dnd-mock-char-name {
+  width: calc(var(--illusive-dnd-hud-ring) + var(--illusive-dnd-hud-side) * 2);
+  max-width: calc(var(--illusive-dnd-hud-ring) + var(--illusive-dnd-hud-side) * 2);
+  height: var(--illusive-dnd-hud-name);
+  margin: var(--illusive-dnd-hud-name-gap) 0 0;
+  padding: 0 6px;
+  box-sizing: border-box;
+  color: #f0e8d8;
+  font-family: "Signika", sans-serif;
+  font-size: 17px;
+  font-weight: 800;
+  line-height: 1.15;
+  text-align: center;
+  letter-spacing: 0.01em;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.95), 0 0 6px rgba(0, 0, 0, 0.75);
+  white-space: normal;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  position: relative;
+  z-index: 4;
+}
+
+.illusive-dnd-mock-bar.illusive-dnd-mock-down .illusive-dnd-mock-portrait {
+  filter: grayscale(1) brightness(0.72);
+  opacity: 0.7;
+  border-color: rgba(150, 150, 160, 0.45);
+  box-shadow: none;
+  transition: filter 0.35s ease, opacity 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+}
+
+.illusive-dnd-mock-bar.illusive-dnd-mock-stabilized .illusive-dnd-mock-portrait {
+  filter: grayscale(0.25) brightness(0.7) sepia(0.15) hue-rotate(180deg);
+  opacity: 0.75;
+  transition: filter 0.35s ease, opacity 0.35s ease;
+}
+
+.illusive-dnd-mock-bar.illusive-dnd-mock-defeated .illusive-dnd-mock-portrait {
+  filter: grayscale(1) brightness(0.42);
+  opacity: 0.4;
+  transition: filter 0.35s ease, opacity 0.35s ease;
+}
+
+.illusive-dnd-mock-death-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: transparent;
+  color: rgba(220, 220, 225, 0.88);
+  font-size: 28px;
+  pointer-events: none;
+  z-index: 2;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.75);
+  transition: color 0.35s ease, background-color 0.35s ease, opacity 0.35s ease, font-size 0.35s ease;
+}
+
+.illusive-dnd-mock-death-overlay.is-dead {
+  background: rgba(0, 0, 0, 0.45);
+  color: rgba(145, 145, 150, 0.95);
+  font-size: 30px;
+}
+
+.illusive-dnd-mock-death-overlay.is-stabilized {
+  background: rgba(40, 60, 120, 0.28);
+  color: rgba(190, 210, 255, 0.9);
+}
+
+.illusive-dnd-mock-death-save-btn {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  width: 141px;
+  height: 141px;
+  border-radius: 50%;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  cursor: pointer;
+  z-index: 4;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.illusive-dnd-mock-death-save-btn:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.illusive-dnd-mock-death-save-btn:focus-visible {
+  outline: 2px solid rgba(240, 221, 176, 0.85);
+  outline-offset: 2px;
+}
+
+.illusive-dnd-mock-ds-ring {
+  position: absolute;
+  inset: 0;
+  width: 171px;
+  height: 171px;
+  pointer-events: none;
+  z-index: 5;
+  overflow: visible;
+}
+
+.illusive-dnd-mock-ds-pip {
+  fill: rgba(0, 0, 0, 0.001);
+  stroke-width: 2;
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.illusive-dnd-mock-ds-pip.is-success {
+  stroke: rgba(120, 190, 130, 0.85);
+}
+
+.illusive-dnd-mock-ds-pip.is-success.is-filled {
+  fill: rgba(90, 180, 110, 0.95);
+  stroke: rgba(180, 240, 190, 0.95);
+  filter: drop-shadow(0 0 3px rgba(90, 180, 110, 0.75));
+}
+
+.illusive-dnd-mock-ds-pip.is-failure {
+  stroke: rgba(200, 90, 90, 0.85);
+}
+
+.illusive-dnd-mock-ds-pip.is-failure.is-filled {
+  fill: rgba(190, 70, 70, 0.95);
+  stroke: rgba(255, 160, 160, 0.95);
+  filter: drop-shadow(0 0 3px rgba(190, 70, 70, 0.75));
+}
+
+.illusive-dnd-mock-ds-pip:hover {
+  stroke-width: 2.5;
+  filter: brightness(1.15);
+}
+
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-hp-label,
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-full-hp-label.illusive-dnd-mock-hp-label {
+  position: absolute;
+  left: 50%;
+  bottom: -10px;
+  transform: translateX(-50%);
+  padding: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  font-size: 17px;
+  font-weight: 800;
+  color: #f0e8d8;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.95), 0 0 6px rgba(0, 0, 0, 0.75);
+  white-space: nowrap;
+  letter-spacing: 0.01em;
+  line-height: 1.15;
+  z-index: 3;
+  text-align: center;
+}
+
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-hp-label .illusive-dnd-mock-hp-current,
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-hp-label .illusive-dnd-mock-hp-temp,
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-hp-label .illusive-dnd-mock-hp-max {
+  font-size: 17px;
+  font-weight: 800;
+  line-height: inherit;
+  vertical-align: baseline;
+}
+
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-hp-temp {
+  color: #7ec8ff;
+  margin-left: 1px;
+}
+
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-hp-max {
+  opacity: 0.92;
+}
+
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-portrait-block .illusive-dnd-mock-ac {
+  position: absolute;
+  right: -2px;
+  bottom: 4px;
+  z-index: 6;
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  font-size: 14px;
+  font-weight: 800;
+  color: #eef1f4;
+  border: 1px solid rgba(190, 196, 205, 0.7);
+  background: linear-gradient(180deg, #9aa1ab 0%, #6a717c 42%, #454b55 100%);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.28);
+  /* Point-down shield (flipped from the old point-up shape). */
+  clip-path: polygon(18% 0%, 82% 0%, 100% 58%, 50% 100%, 0% 58%);
+  border-radius: 0;
+  padding-top: 2px;
+}
+
+.illusive-dnd-mock-movement {
+  display: flex;
+  align-items: center;
+  width: auto;
+  align-self: stretch;
+  margin: 0;
+  padding: 5px 8px;
+  border: 1px solid rgba(184, 154, 92, 0.35);
+  border-radius: 6px;
+  background: rgba(10, 7, 18, 0.55);
+  color: inherit;
+  cursor: pointer;
+  text-align: left;
+  appearance: none;
+  -webkit-appearance: none;
+  box-sizing: border-box;
+  flex: 0 0 auto;
+  min-width: 168px;
+}
+
+.illusive-dnd-mock-movement:hover {
+  border-color: rgba(224, 192, 96, 0.65);
+  background: rgba(18, 12, 24, 0.72);
+}
+
+.illusive-dnd-mock-movement.is-muted {
+  opacity: 0.45;
+}
+
+.illusive-dnd-mock-movement-mode {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  color: #f0ddb0;
+  font-size: 14px;
+  line-height: 1;
+}
+
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-movement .illusive-dnd-movement-chip {
+  margin-bottom: 0;
+}
+
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-movement-row {
+  gap: 6px;
+  width: 100%;
+}
+
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-movement-bar {
+  flex: 1;
+  height: 10px;
+  min-width: 0;
+  border-radius: 4px;
+  border: none;
+  background: rgba(0, 0, 0, 0.45);
+}
+
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-movement-bar .illusive-dnd-movement-fill {
+  border-radius: 4px;
+  background: linear-gradient(90deg, #2f5f8a 0%, #4a8ec4 100%);
+}
+
+.illusive-dnd-mock-speed-tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 34px;
+  height: 22px;
+  padding: 0 5px;
+  border-radius: 3px;
+  background: rgba(224, 176, 64, 0.2);
+  border: 1px solid rgba(224, 176, 64, 0.55);
+  color: #f0ddb0;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.illusive-dnd-mock-util {
+  display: grid;
+  justify-items: center;
+  align-items: center;
+}
+
+.illusive-dnd-mock-vitals > .illusive-dnd-mock-util {
+  display: grid;
+  grid-template-rows: var(--illusive-dnd-hud-top) repeat(4, minmax(0, 1fr));
+  grid-template-columns: var(--illusive-dnd-hud-side);
+  justify-items: center;
+  align-items: center;
+  width: var(--illusive-dnd-hud-side);
+  height: calc(var(--illusive-dnd-hud-top) + var(--illusive-dnd-hud-ring));
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.illusive-dnd-mock-vitals > .illusive-dnd-mock-util::before {
+  content: "";
+  width: var(--illusive-dnd-hud-icon);
+  height: var(--illusive-dnd-hud-top);
+}
+
+.illusive-dnd-mock-vitals > .illusive-dnd-mock-util .illusive-dnd-mock-util-btn {
+  width: var(--illusive-dnd-hud-icon);
+  max-width: var(--illusive-dnd-hud-icon);
+  height: var(--illusive-dnd-hud-icon);
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  font-size: var(--illusive-dnd-hud-glyph);
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.85));
+  justify-self: center;
+}
+
+.illusive-dnd-mock-vitals > .illusive-dnd-mock-util .illusive-dnd-mock-util-btn i {
+  font-size: var(--illusive-dnd-hud-glyph);
+}
+
+.illusive-dnd-mock-vitals > .illusive-dnd-mock-util .illusive-dnd-mock-util-btn:hover {
+  background: transparent;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.85)) brightness(1.15);
+}
+
+.illusive-dnd-mock-vitals > .illusive-dnd-mock-util .illusive-dnd-mock-config-btn {
+  color: #b4bbc6;
+}
+
+.illusive-dnd-mock-vitals > .illusive-dnd-mock-util .illusive-dnd-mock-util-btn[data-util="sheet"] {
+  color: #e8dcc4;
+}
+
+.illusive-dnd-mock-vitals > .illusive-dnd-mock-util .illusive-dnd-mock-util-btn[data-util="light"] {
+  color: #f0d060;
+}
+
+.illusive-dnd-mock-vitals > .illusive-dnd-mock-util .illusive-dnd-mock-util-btn[data-util="rolls"] {
+  color: #e8dcc4;
+}
+
+.illusive-dnd-mock-vitals > .illusive-dnd-mock-util .illusive-dnd-mock-util-btn[data-util="light"].is-active {
+  color: #ffe28a;
+  filter: drop-shadow(0 0 6px rgba(255, 210, 90, 0.85));
+}
+
+.illusive-dnd-mock-vitals > .illusive-dnd-mock-util .illusive-dnd-mock-util-btn[data-util="visibility"] {
+  color: #8fd4a8;
+}
+
+.illusive-dnd-mock-vitals > .illusive-dnd-mock-util .illusive-dnd-mock-util-btn.is-spacer {
+  display: block;
+  visibility: hidden;
+  pointer-events: none;
+  cursor: default;
+  width: var(--illusive-dnd-hud-icon);
+  height: var(--illusive-dnd-hud-icon);
+}
+
+.illusive-dnd-mock-util-btn {
+  width: var(--illusive-dnd-hud-icon);
+  height: var(--illusive-dnd-hud-icon);
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(184, 154, 92, 0.45);
+  background: rgba(240, 232, 216, 0.92);
+  color: #2a2038;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  font-size: var(--illusive-dnd-hud-glyph);
+  flex-shrink: 0;
+}
+
+.illusive-dnd-mock-util-stat {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  font-size: 14px;
+  font-weight: 800;
+  color: #f0e8d8;
+  border: 1px solid rgba(184, 154, 92, 0.45);
+  background: rgba(10, 7, 18, 0.85);
+  flex-shrink: 0;
+}
+
+.illusive-dnd-mock-ac {
+  clip-path: polygon(18% 0%, 82% 0%, 100% 58%, 50% 100%, 0% 58%);
+  border-radius: 0;
+  width: 38px;
+  height: 38px;
+  min-width: 38px;
+  padding-top: 2px;
+  align-self: center;
+  color: #eef1f4;
+  border-color: rgba(190, 196, 205, 0.7);
+  background: linear-gradient(180deg, #9aa1ab 0%, #6a717c 42%, #454b55 100%);
+}
+
+.illusive-dnd-mock-temp {
+  color: #8fd4ff;
+  border-color: rgba(80, 170, 220, 0.55);
+  min-width: 32px;
+  height: 32px;
+  font-size: 14px;
+}
+
+.illusive-dnd-mock-util-btn:hover {
+  background: #fff8ea;
+}
+
+.illusive-dnd-mock-util-btn.is-dropdown-open {
+  background: #fff8ea;
+  box-shadow: 0 0 0 2px rgba(224, 176, 64, 0.65);
+}
+
+.illusive-dnd-util-dropdown {
+  position: fixed;
+  z-index: 10000;
+  pointer-events: auto;
+  border-radius: 8px;
+  border: 1px solid rgba(184, 154, 92, 0.45);
+  background: rgba(18, 12, 10, 0.96);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+  padding: 6px 8px;
+}
+
+.illusive-dnd-util-dropdown-economy {
+  min-width: 148px;
+  padding: 4px;
+}
+
+.illusive-dnd-util-dropdown-economy .illusive-dnd-util-dropdown-item {
+  width: 100%;
+}
+
+.illusive-dnd-util-dropdown-heading {
+  margin: 0 0 4px;
+  padding: 0 2px;
+  color: #c8b898;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.illusive-dnd-util-dropdown-movement,
+.illusive-dnd-util-dropdown-light {
+  min-width: 168px;
+  max-width: 280px;
+}
+
+.illusive-dnd-util-tile-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(72px, 1fr));
+  gap: 6px;
+  width: 100%;
+}
+
+.illusive-dnd-util-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  min-height: 64px;
+  padding: 8px 6px;
+  border: 1px solid rgba(210, 176, 104, 0.45);
+  border-radius: 8px;
+  background: linear-gradient(180deg, rgba(48, 34, 24, 0.98) 0%, rgba(18, 12, 16, 0.98) 100%);
+  box-shadow: inset 0 1px 0 rgba(240, 221, 176, 0.12), 0 2px 6px rgba(0, 0, 0, 0.35);
+  color: #f0e8d8;
+  cursor: pointer;
+}
+
+.illusive-dnd-util-tile:hover {
+  border-color: #f0ddb0;
+  background: linear-gradient(180deg, rgba(68, 48, 28, 0.98) 0%, rgba(26, 16, 18, 0.98) 100%);
+}
+
+.illusive-dnd-util-tile.is-active {
+  border-color: #9ec5f0;
+  box-shadow: inset 0 2px 0 #5b8fd9, 0 2px 6px rgba(0, 0, 0, 0.35);
+}
+
+.illusive-dnd-util-tile.is-disabled {
+  opacity: 0.4;
+  cursor: default;
+  pointer-events: none;
+}
+
+.illusive-dnd-util-tile-icon {
+  font-size: 16px;
+  color: #f0ddb0;
+}
+
+.illusive-dnd-util-tile-name {
+  width: 100%;
+  color: #f5efe2;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.15;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+.illusive-dnd-util-tile-meta {
+  color: #f0ddb0;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.illusive-dnd-util-dropdown-rolls .illusive-dnd-util-tile-grid {
+  grid-template-columns: repeat(auto-fill, minmax(84px, 1fr));
+}
+
+.illusive-dnd-util-dropdown-rolls {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: min(260px, calc(100vw - 24px));
+  max-height: min(420px, calc(100vh - 24px));
+  overflow: hidden;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.illusive-dnd-rolls-search {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  border: 1px solid rgba(184, 154, 92, 0.4);
+  background: rgba(8, 6, 14, 0.92);
+  color: #c9a962;
+}
+
+.illusive-dnd-rolls-search > .fa-magnifying-glass {
+  flex: 0 0 auto;
+  font-size: 12px;
+  opacity: 0.85;
+}
+
+.illusive-dnd-rolls-search-input {
+  flex: 1 1 auto;
+  min-width: 0;
+  margin: 0;
+  padding: 2px 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #f0e6d2;
+  font-size: 13px;
+  line-height: 1.3;
+}
+
+.illusive-dnd-rolls-search-input::placeholder {
+  color: rgba(220, 210, 190, 0.45);
+}
+
+.illusive-dnd-rolls-tabs {
+  flex: 0 0 auto;
+  display: flex;
+  gap: 4px;
+}
+
+.illusive-dnd-rolls-tab {
+  flex: 1 1 0;
+  min-width: 0;
+  padding: 5px 6px;
+  border: 1px solid rgba(184, 154, 92, 0.35);
+  border-radius: 6px;
+  background: rgba(8, 6, 14, 0.55);
+  color: rgba(240, 230, 210, 0.72);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.illusive-dnd-rolls-tab:hover {
+  color: #f0e6d2;
+  border-color: rgba(201, 169, 98, 0.55);
+}
+
+.illusive-dnd-rolls-tab.is-active {
+  color: #1a1208;
+  background: linear-gradient(180deg, #e6c878 0%, #c9a962 100%);
+  border-color: #c9a962;
+}
+
+.illusive-dnd-rolls-panels {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  scrollbar-width: thin;
+  scrollbar-color: #c9a962 rgba(8, 6, 14, 0.95);
+}
+
+.illusive-dnd-rolls-panel {
+  display: none;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.illusive-dnd-rolls-panel.is-active {
+  display: flex;
+}
+
+.illusive-dnd-rolls-panel.is-active.is-empty {
+  display: none;
+}
+
+.illusive-dnd-util-dropdown-rolls .illusive-dnd-rolls-item.is-filtered-out {
+  display: none;
+}
+
+.illusive-dnd-util-dropdown-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  padding: 6px 8px;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: #f0e8d8;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+}
+
+.illusive-dnd-util-dropdown-item-label {
+  flex: 1 1 auto;
+}
+
+.illusive-dnd-util-dropdown-item-meta {
+  flex: 0 0 auto;
+  color: #d4c4a0;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.illusive-dnd-util-dropdown-item:hover {
+  background: rgba(184, 154, 92, 0.2);
+}
+
+.illusive-dnd-util-dropdown-item.is-active {
+  background: rgba(80, 140, 200, 0.28);
+  color: #d8ecff;
+}
+
+.illusive-dnd-util-dropdown-item.is-active .illusive-dnd-util-dropdown-item-meta {
+  color: #b8daf0;
+}
+
+.illusive-dnd-util-dropdown-item.is-disabled {
+  opacity: 0.45;
+  cursor: default;
+  pointer-events: none;
+}
+
+.illusive-dnd-util-dropdown-item.is-disabled:hover {
+  background: transparent;
+}
+
+.illusive-dnd-util-dropdown-status {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: min(240px, calc(100vw - 24px));
+  max-height: min(420px, calc(100vh - 24px));
+  overflow: hidden;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.illusive-dnd-token-status-search {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  border: 1px solid rgba(184, 154, 92, 0.4);
+  background: rgba(8, 6, 14, 0.92);
+  color: #c9a962;
+}
+
+.illusive-dnd-token-status-search > .fa-magnifying-glass {
+  flex: 0 0 auto;
+  font-size: 12px;
+  opacity: 0.85;
+}
+
+.illusive-dnd-token-status-search-input {
+  flex: 1 1 auto;
+  min-width: 0;
+  margin: 0;
+  padding: 2px 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #f0e6d2;
+  font-size: 13px;
+  line-height: 1.3;
+}
+
+.illusive-dnd-token-status-search-input::placeholder {
+  color: rgba(220, 210, 190, 0.45);
+}
+
+.illusive-dnd-token-status-search-input::-webkit-search-cancel-button {
+  cursor: pointer;
+  filter: brightness(1.4);
+}
+
+.illusive-dnd-util-dropdown-status .illusive-dnd-token-status-picker {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 0;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overflow-anchor: none;
+  scrollbar-width: thin;
+  scrollbar-color: #c9a962 rgba(8, 6, 14, 0.95);
+}
+
+.illusive-dnd-util-dropdown-status .illusive-dnd-token-status-picker-btn {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  width: 100%;
+  height: auto;
+  min-height: 32px;
+  aspect-ratio: auto;
+  padding: 4px 6px;
+  box-sizing: border-box;
+}
+
+.illusive-dnd-util-dropdown-status .illusive-dnd-token-status-picker-btn img {
+  width: 24px;
+  height: 24px;
+  flex: 0 0 24px;
+}
+
+.illusive-dnd-util-dropdown-status .illusive-dnd-token-status-picker-name {
+  flex: 1 1 auto;
+  min-width: 0;
+  color: #f0e6d2;
+  font-size: 13px;
+  font-weight: 650;
+  line-height: 1.2;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.illusive-dnd-util-dropdown-status .illusive-dnd-token-status-picker-btn.is-filtered-out {
+  display: none;
+}
+
+/* Ability well */
+.illusive-dnd-mock-center {
+  min-width: 0;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr);
+  align-items: stretch;
+}
+
+.illusive-dnd-mock-center-body {
+  position: relative;
+  min-height: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  overflow: hidden;
+}
+
+.illusive-dnd-mock-section-title {
+  flex: 0 0 auto;
+  padding: 0 2px;
+  color: #f0ddb0;
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+}
+
+.illusive-dnd-mock-ability-well {
+  flex: 1 1 auto;
+  min-height: 0;
+  border-radius: 8px;
+  background: rgba(8, 6, 12, 0.88);
+  border: 1px solid rgba(60, 50, 45, 0.65);
+  padding: 8px;
+  overflow: hidden;
+}
+
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-ability-well .illusive-dnd-ability-groups {
+  margin: 0;
+  max-height: none;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding-right: 4px;
+  scrollbar-width: auto;
+  scrollbar-color: #c9a962 rgba(8, 6, 14, 0.95);
+}
+
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-ability-well .illusive-dnd-ability-groups::-webkit-scrollbar {
+  width: 10px;
+}
+
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-ability-well .illusive-dnd-ability-groups::-webkit-scrollbar-track {
+  background: rgba(8, 6, 14, 0.95);
+  border-radius: 6px;
+  border: 1px solid rgba(184, 154, 92, 0.35);
+}
+
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-ability-well .illusive-dnd-ability-groups::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #f0ddb0 0%, #c9a962 55%, #8a6a30 100%);
+  border-radius: 6px;
+  border: 1px solid rgba(80, 55, 20, 0.65);
+  min-height: 28px;
+}
+
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-ability-well .illusive-dnd-ability-groups::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #fff0c8 0%, #e0c070 55%, #a07a38 100%);
+}
+
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-ability-well .illusive-dnd-group-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  justify-content: start;
+  align-content: start;
+  gap: 8px;
+  width: 100%;
+  margin: 0;
+  padding: 2px 0 4px;
+}
+
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-ability-well .illusive-dnd-ability-btn {
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  max-width: none;
+  height: auto;
+  min-height: 88px;
+  margin: 0;
+  flex: 0 0 auto;
+}
+
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-ability-well .illusive-dnd-ability-group {
+  margin-bottom: 6px;
+}
+
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-ability-well .illusive-dnd-ability-group-flat {
+  margin-bottom: 0;
+}
+
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-ability-well .illusive-dnd-ability-group-header {
+  padding: 4px 2px 6px;
+  font-size: 16px;
+}
+
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-ability-well .illusive-dnd-action-empty,
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-ability-well .illusive-dnd-mock-ability-empty {
+  margin: 0;
+  padding: 10px 4px;
+  color: #b8a898;
+  font-size: 16px;
+  text-align: center;
+}
+
+/* Right: same 3-column grid as the portrait cluster. */
+.illusive-dnd-mock-right {
+  position: relative;
+  display: grid;
+  min-width: 0;
+  width: fit-content;
+  padding-right: 0;
+  box-sizing: border-box;
+}
+
+.illusive-dnd-mock-right-cluster {
+  display: grid;
+  grid-template-columns: var(--illusive-dnd-hud-side) var(--illusive-dnd-hud-ring) var(--illusive-dnd-hud-side);
+  align-items: start;
+  justify-items: center;
+  overflow: visible;
+  width: fit-content;
+}
+
+.illusive-dnd-mock-combat-column {
+  display: grid;
+  grid-template-rows: var(--illusive-dnd-hud-top) var(--illusive-dnd-hud-ring);
+  grid-template-columns: var(--illusive-dnd-hud-ring);
+  justify-items: center;
+  min-width: var(--illusive-dnd-hud-ring);
+  overflow: visible;
+}
+
+.illusive-dnd-mock-combat-column .illusive-dnd-mock-elevation {
+  justify-self: center;
+  align-self: center;
+}
+
+.illusive-dnd-mock-combat-block {
+  position: relative;
+  width: var(--illusive-dnd-hud-ring);
+  height: var(--illusive-dnd-hud-ring);
+  display: grid;
+  place-items: center;
+  overflow: visible;
+}
+
+.illusive-dnd-mock-speed-ring {
+  position: absolute;
+  inset: 0;
+  width: 171px;
+  height: 171px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.illusive-dnd-mock-speed-ring-bg {
+  stroke: rgba(255, 255, 255, 0.08);
+  stroke-width: 5;
+}
+
+.illusive-dnd-mock-speed-ring-fill {
+  stroke: #5aa4d4;
+  stroke-width: 5;
+  stroke-linecap: butt;
+  transition: stroke-dasharray 0.45s ease;
+}
+
+.illusive-dnd-mock-speed-ring-fill.is-dashing {
+  stroke: #e0b040;
+}
+
+.illusive-dnd-mock-speed-hit {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  box-shadow: none;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+}
+
+.illusive-dnd-mock-speed-hit:focus,
+.illusive-dnd-mock-speed-hit:focus-visible {
+  outline: none;
+  box-shadow: none;
+}
+
+.illusive-dnd-mock-speed-hit.is-muted {
+  opacity: 0.45;
+}
+
+.illusive-dnd-mock-speed-readout {
+  position: absolute;
+  left: 50%;
+  bottom: -34px;
+  transform: translateX(-50%);
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--illusive-dnd-hud-readout-width);
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: #f0e8d8;
+  font-family: "Signika", sans-serif;
+  font-size: 21px;
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.95), 0 0 6px rgba(0, 0, 0, 0.75);
+  cursor: default;
+  pointer-events: none;
+}
+
+.illusive-dnd-mock-speed-readout.is-static {
+  cursor: default;
+  pointer-events: none;
+}
+
+.illusive-dnd-mock-speed-readout.is-muted {
+  opacity: 0.45;
+}
+
+.illusive-dnd-mock-speed-readout:hover {
+  color: #f0e8d8;
+}
+
+.illusive-dnd-mock-speed-readout .illusive-dnd-mock-undo-slot {
+  width: var(--illusive-dnd-hud-readout-side);
+  height: var(--illusive-dnd-hud-readout-side);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.illusive-dnd-mock-speed-readout .illusive-dnd-mock-speed-feet {
+  font-size: 21px;
+  font-weight: 800;
+  line-height: inherit;
+}
+
+.illusive-dnd-mock-speed-readout .illusive-dnd-mock-speed-unit {
+  font-size: 13px;
+  font-weight: 700;
+  color: #c9a962;
+  letter-spacing: 0.04em;
+}
+
+.illusive-dnd-mock-speed-readout .illusive-dnd-mock-undo-move {
+  position: static;
+  margin: 0;
+  padding: 0;
+  width: 22px;
+  height: 22px;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  color: #e8dcc4;
+  font-size: 16px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  pointer-events: auto;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.85));
+}
+
+.illusive-dnd-mock-speed-readout .illusive-dnd-mock-undo-move:hover {
+  color: #f0e8d8;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.85)) brightness(1.15);
+}
+
+.illusive-dnd-mock-speed-readout .illusive-dnd-mock-undo-move i {
+  pointer-events: none;
+  font-size: 16px;
+  color: inherit;
+}
+
+.illusive-dnd-mock-speed-modes {
+  position: absolute;
+  left: 50%;
+  bottom: -34px;
+  transform: translateX(-50%);
+  z-index: 4;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: stretch;
+  gap: 14px;
+  width: max-content;
+  max-width: 300px;
+  margin: 0;
+  padding: 0;
+}
+
+.illusive-dnd-mock-speed-modes.is-muted {
+  opacity: 0.45;
+}
+
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-speed-mode {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  gap: 3px;
+  margin: 0;
+  min-width: 45px;
+  min-height: 0;
+  padding: 1px 2px 2px;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  color: #b8c4d0;
+  font-family: "Signika", sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 1;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.95), 0 0 6px rgba(0, 0, 0, 0.75);
+  opacity: 0.75;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  box-sizing: border-box;
+}
+
+.illusive-dnd-mock-speed-mode-top {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  white-space: nowrap;
+  line-height: 1;
+  min-height: 18px;
+}
+
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-speed-mode i {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 13px;
+  width: 13px;
+  height: 13px;
+  font-size: 12px;
+  line-height: 1;
+  text-align: center;
+  color: #9ec5f0;
+  position: relative;
+  top: 0;
+  overflow: visible;
+}
+
+.illusive-dnd-mock-speed-mode-value {
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  line-height: 1;
+}
+
+.illusive-dnd-mock-speed-mode-bar {
+  display: block;
+  width: 100%;
+  height: 4px;
+  border-radius: 1px;
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+
+.illusive-dnd-mock-speed-mode-fill {
+  display: block;
+  height: 100%;
+  width: 100%;
+  transform-origin: left center;
+  transform: scaleX(1);
+  border-radius: 1px;
+  background: #5aa4d4;
+  transition: transform 0.45s ease;
+  will-change: transform;
+}
+
+.illusive-dnd-mock-speed-mode:hover {
+  color: #fff;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  opacity: 1;
+}
+
+.illusive-dnd-mock-speed-mode.is-active {
+  color: #f0e8d8;
+  opacity: 1;
+  box-shadow: none;
+  border: none;
+  background: transparent;
+}
+
+.illusive-dnd-mock-speed-mode.is-active i {
+  color: #c8e0f8;
+}
+
+.illusive-dnd-mock-speed-mode.is-active .illusive-dnd-mock-speed-mode-fill {
+  background: #7ec0f0;
+}
+
+.illusive-dnd-mock-speed-mode.is-empty {
+  opacity: 0.38;
+  text-decoration: none;
+}
+
+.illusive-dnd-mock-speed-mode.is-empty .illusive-dnd-mock-speed-mode-value {
+  text-decoration: line-through;
+}
+
+.illusive-dnd-mock-speed-mode.is-empty .illusive-dnd-mock-speed-mode-fill {
+  background: rgba(90, 164, 212, 0.35);
+}
+
+.illusive-dnd-mock-combat-rail {
+  display: grid;
+  grid-template-rows: var(--illusive-dnd-hud-top) repeat(3, minmax(0, 1fr));
+  grid-template-columns: var(--illusive-dnd-hud-side);
+  justify-items: center;
+  align-items: center;
+  width: var(--illusive-dnd-hud-side);
+  min-width: var(--illusive-dnd-hud-side);
+  height: calc(var(--illusive-dnd-hud-top) + var(--illusive-dnd-hud-ring));
+  box-sizing: border-box;
+  overflow: visible;
+}
+
+.illusive-dnd-mock-combat-rail::before {
+  content: "";
+  width: var(--illusive-dnd-hud-icon);
+  height: var(--illusive-dnd-hud-top);
+}
+
+.illusive-dnd-mock-combat-rail-right .illusive-dnd-mock-rest-btn {
+  grid-row: 4;
+}
+
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-combat-rail .illusive-dnd-mock-flip-btn,
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-combat-rail .illusive-dnd-mock-aura-btn,
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-combat-rail .illusive-dnd-mock-move-btn,
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-combat-rail .illusive-dnd-mock-undo-move,
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-combat-rail .illusive-dnd-mock-status-btn,
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-combat-rail .illusive-dnd-mock-game-log-btn,
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-combat-rail .illusive-dnd-mock-rest-btn {
+  position: static;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  width: var(--illusive-dnd-hud-icon);
+  max-width: var(--illusive-dnd-hud-icon);
+  height: var(--illusive-dnd-hud-icon);
+  min-width: var(--illusive-dnd-hud-icon);
+  min-height: var(--illusive-dnd-hud-icon);
+  justify-self: center;
+  align-self: center;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  font-size: var(--illusive-dnd-hud-glyph);
+  line-height: 1;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.85));
+}
+
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-combat-rail button i,
+.illusive-dnd-mock-side-left i,
+.illusive-dnd-mock-passives i,
+.illusive-dnd-mock-vitals > .illusive-dnd-mock-util .illusive-dnd-mock-util-btn i {
+  display: block;
+  width: 1em;
+  height: 1em;
+  font-size: var(--illusive-dnd-hud-glyph);
+  line-height: 1;
+  text-align: center;
+  pointer-events: none;
+}
+
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-combat-rail .illusive-dnd-mock-move-btn {
+  color: #9ec5f0;
+}
+
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-combat-rail .illusive-dnd-mock-move-btn:hover {
+  color: #c8e0f8;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.85)) brightness(1.15);
+}
+
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-combat-rail .illusive-dnd-mock-flip-btn {
+  color: #d4c4f0;
+}
+
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-combat-rail .illusive-dnd-mock-flip-btn:hover,
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-combat-rail .illusive-dnd-mock-flip-btn.is-active {
+  color: #f0ddb0;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.85)) brightness(1.15);
+}
+
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-combat-rail .illusive-dnd-mock-aura-btn {
+  color: #70c8e8;
+}
+
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-combat-rail .illusive-dnd-mock-aura-btn:hover,
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-combat-rail .illusive-dnd-mock-aura-btn.is-active,
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-combat-rail .illusive-dnd-mock-aura-btn.is-dropdown-open {
+  color: #9ee0f8;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.85)) brightness(1.15);
+}
+
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-combat-rail .illusive-dnd-mock-undo-move {
+  color: #e8dcc4;
+}
+
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-combat-rail .illusive-dnd-mock-undo-move:hover {
+  color: #f0e8d8;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.85)) brightness(1.15);
+}
+
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-combat-rail .illusive-dnd-mock-status-btn {
+  color: #e8dcc4;
+}
+
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-combat-rail .illusive-dnd-mock-status-btn:hover,
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-combat-rail .illusive-dnd-mock-status-btn.is-dropdown-open {
+  color: #f0e8d8;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.85)) brightness(1.15);
+}
+
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-combat-rail .illusive-dnd-mock-game-log-btn {
+  color: #a8b8c8;
+}
+
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-combat-rail .illusive-dnd-mock-game-log-btn:hover,
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-combat-rail .illusive-dnd-mock-game-log-btn.is-dropdown-open,
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-combat-rail .illusive-dnd-mock-game-log-btn.has-entries {
+  color: #d0e0f0;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.85)) brightness(1.15);
+}
+
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-combat-rail .illusive-dnd-mock-game-log-btn.is-disabled,
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-combat-rail .illusive-dnd-mock-game-log-btn:disabled {
+  color: #6a6a6a;
+  opacity: 0.55;
+  cursor: not-allowed;
+  filter: grayscale(0.85);
+}
+
+.illusive-dnd-util-dropdown-game-log {
+  min-width: 220px;
+  max-width: 300px;
+  max-height: 280px;
+  overflow: auto;
+}
+
+.illusive-dnd-game-log-empty {
+  margin: 6px 10px 10px;
+  font-size: 12px;
+  color: #a09888;
+}
+
+.illusive-dnd-game-log-list {
+  list-style: none;
+  margin: 0;
+  padding: 0 4px 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.illusive-dnd-game-log-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 6px;
+  border-radius: 6px;
+}
+
+.illusive-dnd-game-log-item:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.illusive-dnd-game-log-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.illusive-dnd-game-log-kind {
+  flex: 0 0 auto;
+  width: 1.1em;
+  color: #b0a890;
+  text-align: center;
+  line-height: 1.3;
+}
+
+.illusive-dnd-game-log-reaction .illusive-dnd-game-log-kind {
+  color: #e0b040;
+}
+
+.illusive-dnd-game-log-movement .illusive-dnd-game-log-kind {
+  color: #6a9fd4;
+}
+
+.illusive-dnd-game-log-free .illusive-dnd-game-log-kind {
+  color: #9a9a9a;
+}
+
+.illusive-dnd-game-log-standard .illusive-dnd-game-log-kind,
+.illusive-dnd-game-log-bonus .illusive-dnd-game-log-kind {
+  color: #8bc48a;
+}
+
+.illusive-dnd-game-log-legendary .illusive-dnd-game-log-kind,
+.illusive-dnd-game-log-lair .illusive-dnd-game-log-kind {
+  color: #d4a84b;
+}
+
+.illusive-dnd-game-log-popup-hint {
+  margin: 0 0 8px;
+  font-size: 12px;
+  color: #a09888;
+}
+
+.illusive-dnd-game-log-popup-list {
+  max-height: min(60vh, 420px);
+  overflow: auto;
+}
+
+.illusive-dnd-game-log-popup .illusive-dnd-game-log-item {
+  gap: 8px;
+}
+
+.illusive-dnd-game-log-skip .illusive-dnd-game-log-kind {
+  color: #9aa0a6;
+}
+
+.illusive-dnd-game-log-text {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.illusive-dnd-game-log-label {
+  font-size: 12px;
+  color: #e8e0d4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.illusive-dnd-game-log-detail {
+  font-size: 10px;
+  color: #9a9080;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.illusive-dnd-game-log-undo {
+  flex: 0 0 auto;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border: 1px solid rgba(180, 160, 120, 0.35);
+  border-radius: 5px;
+  background: rgba(0, 0, 0, 0.25);
+  color: #d8d0c4;
+  cursor: pointer;
+}
+
+.illusive-dnd-game-log-undo:hover {
+  color: #fff;
+  border-color: rgba(220, 200, 150, 0.55);
+}
+
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-combat-rail .illusive-dnd-mock-rest-btn {
+  color: #9ec5f0;
+}
+
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-combat-rail .illusive-dnd-mock-rest-btn:hover:not(:disabled):not(.is-disabled) {
+  color: #c8e0f8;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.85)) brightness(1.15);
+}
+
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-combat-rail .illusive-dnd-mock-rest-btn.is-leave {
+  color: #e8c080;
+}
+
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-combat-rail .illusive-dnd-mock-rest-btn.is-leave:hover:not(:disabled):not(.is-disabled) {
+  color: #f0d8a8;
+}
+
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-combat-rail .illusive-dnd-mock-rest-btn.is-disabled,
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-combat-rail .illusive-dnd-mock-rest-btn:disabled {
+  color: #6a6a6a;
+  opacity: 0.55;
+  cursor: not-allowed;
+  filter: grayscale(0.85);
+}
+
+.illusive-dnd-mock-bar.illusive-dnd-mock-ooc .illusive-dnd-mock-combat-rail .illusive-dnd-mock-rest-btn:not(:disabled):not(.is-disabled) {
+  color: #e8d0a0;
+}
+
+.illusive-dnd-mock-bar.illusive-dnd-mock-ooc .illusive-dnd-mock-combat-rail .illusive-dnd-mock-rest-btn:hover:not(:disabled):not(.is-disabled) {
+  color: #f0ddb0;
+}
+
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-elevation {
+  position: static;
+  display: grid;
+  grid-template-columns: var(--illusive-dnd-hud-readout-side) minmax(0, 1fr) var(--illusive-dnd-hud-readout-side);
+  column-gap: var(--illusive-dnd-hud-readout-gap);
+  align-items: center;
+  justify-items: center;
+  width: var(--illusive-dnd-hud-readout-width);
+  min-width: var(--illusive-dnd-hud-readout-width);
+  max-width: var(--illusive-dnd-hud-readout-width);
+  height: 26px;
+  padding: 0 2px;
+  box-sizing: border-box;
+  border-radius: 999px;
+  border: 1px solid rgba(201, 169, 98, 0.32);
+  background: linear-gradient(180deg, rgba(28, 20, 16, 0.92) 0%, rgba(10, 7, 14, 0.94) 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(240, 221, 176, 0.1),
+    0 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-elevation-btn {
+  width: var(--illusive-dnd-hud-readout-side);
+  min-width: var(--illusive-dnd-hud-readout-side);
+  max-width: var(--illusive-dnd-hud-readout-side);
+  height: var(--illusive-dnd-hud-readout-side);
+  padding: 0;
+  margin: 0;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: #d8c8a0;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  font-size: 11px;
+  line-height: 1;
+  filter: none;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-elevation-btn i {
+  font-size: 11px;
+  width: 1em;
+  height: 1em;
+}
+
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-elevation-btn:hover {
+  color: #f0ddb0;
+  background: rgba(240, 221, 176, 0.1);
+}
+
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-elevation-value {
+  min-width: 0;
+  color: #f0ddb0;
+  font-family: "Signika", sans-serif;
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1;
+  text-align: center;
+  letter-spacing: 0.02em;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.95);
+}
+
+/* Same face size/rim as avatar portrait */
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-combat-btn {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  z-index: 3;
+  width: 141px;
+  height: 141px;
+  border-radius: 50%;
+  border: 1px solid rgba(184, 154, 92, 0.28);
+  background: #08060f;
+  color: #f0e8d8;
+  padding: 0;
+  cursor: pointer;
+  box-shadow: none;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: filter 0.15s ease, border-color 0.15s ease, color 0.15s ease, background-color 0.15s ease;
+}
+
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-combat-btn > i {
+  font-size: 42px;
+  line-height: 1;
+  color: inherit;
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.85));
+}
+
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-combat-btn.is-enter {
+  border-color: rgba(200, 72, 72, 0.4);
+  background: radial-gradient(circle at 50% 42%, #2a1014 0%, #08060f 72%);
+  color: #f07070;
+}
+
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-combat-btn.is-enter:not(:disabled):hover {
+  border-color: rgba(240, 120, 120, 0.55);
+  color: #ff9a9a;
+  filter: brightness(1.08);
+}
+
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-combat-btn.is-end {
+  border-color: rgba(72, 140, 200, 0.35);
+  background: radial-gradient(circle at 50% 42%, #10202e 0%, #08060f 72%);
+  color: #7ec0f0;
+}
+
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-combat-btn.is-end:not(:disabled):hover {
+  border-color: rgba(140, 200, 240, 0.5);
+  color: #b8defe;
+  filter: brightness(1.08);
+}
+
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-combat-btn.is-waiting {
+  border-color: rgba(184, 154, 92, 0.32);
+  background: radial-gradient(circle at 50% 42%, #2a2214 0%, #08060f 72%);
+  color: #d4b878;
+  box-shadow: none;
+}
+
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-combat-btn.is-waiting:not(:disabled):hover {
+  border-color: rgba(224, 192, 120, 0.5);
+  color: #f0ddb0;
+}
+
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-combat-btn.is-disabled,
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-combat-btn:disabled {
+  border-color: rgba(120, 120, 128, 0.35);
+  background: radial-gradient(circle at 50% 42%, #1a1a1e 0%, #0a0a0c 72%);
+  color: #6e6e76;
+  filter: grayscale(1);
+  opacity: 0.55;
+  cursor: not-allowed;
+  /* Keep hover so the permission / waiting tooltip still shows. */
+  pointer-events: auto;
+}
+
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-combat-btn.is-disabled:hover,
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-combat-btn:disabled:hover {
+  border-color: rgba(120, 120, 128, 0.35);
+  color: #6e6e76;
+  background: radial-gradient(circle at 50% 42%, #1a1a1e 0%, #0a0a0c 72%);
+}
+
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-combat-btn.is-waiting.is-disabled,
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-combat-btn.is-waiting:disabled {
+  border-color: rgba(140, 130, 100, 0.3);
+  background: radial-gradient(circle at 50% 42%, #1c1a14 0%, #0a0a0c 72%);
+  color: #8a8070;
+  filter: grayscale(0.6);
+  opacity: 0.65;
+}
+
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-confirm-btn {
+  border-color: rgba(80, 160, 110, 0.85);
+  background: radial-gradient(circle at 50% 42%, #102818 0%, #08060f 72%);
+  color: #7ed49a;
+  z-index: 8;
+}
+
+/* Target pick: hide rim chips so nothing sits above the confirm check. */
+.illusive-dnd-mock-bar:has(.illusive-dnd-mock-center.is-target-pick) .illusive-dnd-mock-status-btn,
+.illusive-dnd-mock-bar:has(.illusive-dnd-mock-center.is-target-pick) .illusive-dnd-mock-rest-btn,
+.illusive-dnd-mock-bar:has(.illusive-dnd-mock-center.is-target-pick) .illusive-dnd-mock-undo-move,
+.illusive-dnd-mock-bar:has(.illusive-dnd-mock-center.is-target-pick) .illusive-dnd-mock-flip-btn,
+.illusive-dnd-mock-bar:has(.illusive-dnd-mock-center.is-target-pick) .illusive-dnd-mock-aura-btn,
+.illusive-dnd-mock-bar:has(.illusive-dnd-mock-center.is-target-pick) .illusive-dnd-mock-move-btn,
+.illusive-dnd-mock-bar:has(.illusive-dnd-mock-center.is-target-pick) .illusive-dnd-mock-elevation {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-confirm-btn:not(:disabled):hover {
+  border-color: rgba(130, 210, 150, 0.95);
+  color: #b0f0c0;
+  filter: brightness(1.08);
+}
+
+#illusive-dnd-action-bar-dock #illusive-dnd-action-bar .illusive-dnd-mock-confirm-btn {
+  border-color: rgba(100, 170, 120, 0.7);
+  background: #08060f;
+  color: #7ed89a;
+  box-shadow: none;
+}
+
+.illusive-dnd-mock-center.is-target-pick,
+.illusive-dnd-mock-center.is-target-pick * {
+  pointer-events: auto;
+}
+
+.illusive-dnd-mock-bar.illusive-dnd-mock-defeated .illusive-dnd-mock-center.is-target-pick,
+.illusive-dnd-mock-bar.illusive-dnd-mock-defeated .illusive-dnd-mock-center.is-target-pick * {
+  pointer-events: auto;
+  filter: none;
+  opacity: 1;
+}
+
+body.illusive-dnd-target-picking #illusive-dnd-hud-overlay #illusive-dnd-action-bar-dock {
+  z-index: 1100;
+  pointer-events: auto;
+}
+
+body.illusive-dnd-target-picking #illusive-dnd-hud-overlay #illusive-dnd-action-bar-dock .illusive-dnd-action-bar-motion,
+body.illusive-dnd-target-picking #illusive-dnd-hud-overlay #illusive-dnd-action-bar-dock #illusive-dnd-action-bar {
+  pointer-events: auto;
+}
+
+.illusive-dnd-mock-center.is-target-pick .illusive-dnd-mock-center-body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100%;
+  overflow: visible;
+}
+
+.illusive-dnd-mock-target-pick {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-align: center;
+  padding: 12px 16px;
+  width: 100%;
+}
+
+.illusive-dnd-mock-target-pick-title {
+  color: #f0e8d8;
+  font-size: 16px;
+  font-weight: 700;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
+}
+
+.illusive-dnd-mock-target-pick-count {
+  color: #9ec5f0;
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.95);
+}
+
+.illusive-dnd-mock-target-pick-hint {
+  margin: 0;
+  max-width: 32ch;
+  color: #b8c4d0;
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+.illusive-dnd-mock-target-cancel {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-width: 148px;
+  min-height: 44px;
+  margin: 4px 0 0;
+  padding: 10px 18px;
+  border: 1px solid rgba(220, 120, 100, 0.55);
+  border-radius: 8px;
+  background: rgba(90, 28, 28, 0.72);
+  color: #f5e6d8;
+  cursor: pointer;
+  font-family: "Signika", sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+}
+
+.illusive-dnd-mock-target-cancel i {
+  font-size: 18px;
+  line-height: 1;
+}
+
+.illusive-dnd-mock-target-cancel-key {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.2em;
+  padding: 3px 6px;
+  border: 1px solid rgba(240, 220, 190, 0.35);
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.35);
+  color: #d8c8b0;
+  font-family: "Signika", sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.illusive-dnd-mock-target-cancel:hover {
+  color: #fff;
+  border-color: rgba(240, 150, 130, 0.8);
+  background: rgba(120, 36, 36, 0.9);
+}
+
+body.illusive-dnd-target-picking #board {
+  cursor: crosshair;
+}
+
+.illusive-dnd-mock-reaction-banner {
+  margin: 0 0 2px;
+}
+
+.illusive-dnd-resolution-strip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 4px;
+  padding: 2px 6px;
+  font-size: 12px;
+  color: #d8d0c4;
+}
+
+.illusive-dnd-resolution-strip-text {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.illusive-dnd-resolution-undo-btn {
+  flex: 0 0 auto;
+  padding: 2px 8px;
+  font-size: 11px;
+}
+
+.illusive-dnd-picker-prompt {
+  margin: 0 0 8px;
+  color: #d8d0c4;
+  font-size: 15px;
+}
+
+.illusive-dnd-token-status-picker-btn {
+  padding: 2px;
+  border-radius: 6px;
+  border: 2px solid rgba(120, 110, 100, 0.45);
+  background: rgba(20, 16, 24, 0.85);
+  cursor: pointer;
+}
+
+.illusive-dnd-token-status-picker-btn img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 4px;
+  pointer-events: none;
+}
+
+.illusive-dnd-token-status-picker-btn.is-active {
+  border-color: #f0ddb0;
+  background: rgba(201, 169, 98, 0.42);
+  box-shadow:
+    0 0 0 1px rgba(240, 221, 176, 0.7),
+    0 0 10px rgba(201, 169, 98, 0.55);
+  filter: brightness(1.12);
+}
+
+.illusive-dnd-token-status-picker-btn.is-overlay.is-active {
+  border-color: #e8b060;
+  background: rgba(220, 140, 50, 0.4);
+  box-shadow:
+    0 0 0 1px rgba(232, 176, 96, 0.75),
+    0 0 10px rgba(220, 140, 50, 0.5);
+}
+
+.illusive-dnd-token-status-picker-btn:hover:not(.is-filtered-out) {
+  filter: brightness(1.1);
+}
+
+#illusive-dnd-action-bar-ui-tooltip {
+  position: fixed;
+  z-index: 10000;
+  pointer-events: none;
+  max-width: 280px;
+}
+
+#illusive-dnd-action-bar-ui-tooltip .illusive-dnd-ui-tip-card {
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(184, 154, 92, 0.55);
+  background: rgba(12, 8, 16, 0.96);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.45);
+  color: #f0e8d8;
+}
+
+#illusive-dnd-action-bar-ui-tooltip .illusive-dnd-ui-tip-title {
+  margin: 0 0 4px;
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1.25;
+  color: #f0ddb0;
+}
+
+#illusive-dnd-action-bar-ui-tooltip .illusive-dnd-ui-tip-detail {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 15px;
+  line-height: 1.35;
+  color: #d8d0c4;
+}
+
+#illusive-dnd-action-bar-ui-tooltip .illusive-dnd-ui-tip-detail-line {
+  display: block;
+}
+
+#illusive-dnd-action-bar-ui-tooltip .illusive-dnd-ui-tip-detail-heading {
+  margin-top: 6px;
+  font-weight: 800;
+  color: #f0ddb0;
+}
+
+#illusive-dnd-action-bar-ui-tooltip .illusive-dnd-ui-tip-detail-heading:first-child {
+  margin-top: 0;
+}

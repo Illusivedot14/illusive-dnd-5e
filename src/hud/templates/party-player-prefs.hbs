@@ -1,0 +1,46 @@
+<form class="illusive-dnd-party-player-prefs-form">
+  <fieldset class="illusive-dnd-prefs-section">
+    <legend>{{railSectionLabel}}</legend>
+    <p class="notes">{{railSectionHint}}</p>
+
+    <div class="form-group">
+      <label>{{offsetXLabel}}</label>
+      <div class="form-fields">
+        <input type="range" name="railOffsetX" min="-300" max="300" step="1" value="{{rail.offsetX}}">
+        <span class="range-value">{{rail.offsetX}}</span>
+      </div>
+      <p class="hint">{{offsetXHint}}</p>
+    </div>
+
+    <div class="form-group">
+      <label>{{offsetYLabel}}</label>
+      <div class="form-fields">
+        <input type="range" name="railOffsetY" min="-300" max="300" step="1" value="{{rail.offsetY}}">
+        <span class="range-value">{{rail.offsetY}}</span>
+      </div>
+      <p class="hint">{{offsetYHint}}</p>
+    </div>
+
+    <div class="form-group">
+      <label>{{scaleLabel}}</label>
+      <div class="form-fields">
+        <input type="range" name="railScale" min="75" max="125" step="1" value="{{rail.scale}}">
+        <span class="range-value">{{rail.scale}}</span>
+      </div>
+      <p class="hint">{{scaleHint}}</p>
+    </div>
+
+    <div class="form-group">
+      <label>{{minimizedLabel}}</label>
+      <div class="form-fields">
+        <input type="checkbox" name="railMinimized" {{checked rail.minimized}}>
+      </div>
+      <p class="hint">{{minimizedHint}}</p>
+    </div>
+  </fieldset>
+
+  <footer class="form-footer">
+    <button type="button" data-action="reset"><i class="fas fa-undo"></i> {{resetLabel}}</button>
+    <button type="submit"><i class="fas fa-save"></i> {{saveLabel}}</button>
+  </footer>
+</form>

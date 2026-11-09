@@ -1,0 +1,62 @@
+/* Blood-red damage wash — rises from the bottom of the portrait as HP drops. */
+#illusive-dnd-party-status .illusive-dnd-party-damage-wash {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+  background:
+    linear-gradient(
+      to bottom,
+      transparent 0%,
+      transparent max(0%, calc(var(--illusive-dnd-hp-pct, 100%) - 24%)),
+      rgba(0, 0, 0, 0.05) max(0%, calc(var(--illusive-dnd-hp-pct, 100%) - 18%)),
+      rgba(0, 0, 0, 0.12) max(0%, calc(var(--illusive-dnd-hp-pct, 100%) - 12%)),
+      rgba(0, 0, 0, 0.22) max(0%, calc(var(--illusive-dnd-hp-pct, 100%) - 6%)),
+      rgba(0, 0, 0, 0.34) var(--illusive-dnd-hp-pct, 100%),
+      rgba(0, 0, 0, 0.5) 100%
+    ),
+    linear-gradient(
+      to bottom,
+      transparent 0%,
+      transparent max(0%, calc(var(--illusive-dnd-hp-pct, 100%) - 24%)),
+      var(--illusive-dnd-hp-damage-faint, rgba(196, 61, 79, 0.05)) max(0%, calc(var(--illusive-dnd-hp-pct, 100%) - 18%)),
+      var(--illusive-dnd-hp-damage-soft, rgba(196, 61, 79, 0.15)) max(0%, calc(var(--illusive-dnd-hp-pct, 100%) - 10%)),
+      var(--illusive-dnd-hp-damage, rgba(196, 61, 79, 0.42)) var(--illusive-dnd-hp-pct, 100%),
+      var(--illusive-dnd-hp-damage-strong, rgba(143, 36, 51, 0.65)) 100%
+    );
+}
+
+#illusive-dnd-party-status .illusive-dnd-portrait-card[data-hp-tier="healthy"] .illusive-dnd-party-damage-wash {
+  --illusive-dnd-hp-damage-faint: rgba(170, 52, 62, 0.04);
+  --illusive-dnd-hp-damage-soft: rgba(170, 52, 62, 0.14);
+  --illusive-dnd-hp-damage: rgba(170, 52, 62, 0.4);
+  --illusive-dnd-hp-damage-strong: rgba(130, 32, 44, 0.6);
+}
+
+#illusive-dnd-party-status .illusive-dnd-portrait-card[data-hp-tier="warn"] .illusive-dnd-party-damage-wash {
+  --illusive-dnd-hp-damage-faint: rgba(196, 72, 48, 0.05);
+  --illusive-dnd-hp-damage-soft: rgba(196, 72, 48, 0.17);
+  --illusive-dnd-hp-damage: rgba(196, 72, 48, 0.46);
+  --illusive-dnd-hp-damage-strong: rgba(168, 52, 32, 0.66);
+}
+
+#illusive-dnd-party-status .illusive-dnd-portrait-card[data-hp-tier="critical"] .illusive-dnd-party-damage-wash {
+  --illusive-dnd-hp-damage-faint: rgba(210, 48, 62, 0.06);
+  --illusive-dnd-hp-damage-soft: rgba(210, 48, 62, 0.2);
+  --illusive-dnd-hp-damage: rgba(210, 48, 62, 0.52);
+  --illusive-dnd-hp-damage-strong: rgba(168, 24, 40, 0.72);
+}
+
+#illusive-dnd-party-status .illusive-dnd-party-footer {
+  z-index: 6;
+  bottom: 0;
+  justify-content: center;
+  padding: 8px 4px 7px;
+  background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.5) 35%, rgba(0, 0, 0, 0.88) 100%);
+}
+
+#illusive-dnd-party-status .illusive-dnd-party-name {
+  text-align: center;
+  flex: none;
+  width: 100%;
+}

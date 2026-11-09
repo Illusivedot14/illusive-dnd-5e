@@ -1,0 +1,134 @@
+#boss-bar-configuration img {
+  max-width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border: none;
+  border-radius: 3px;
+}
+#boss-bar-configuration ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#boss-bar {
+  border-radius: 0;
+  --bar-container-outer-width: 0px;
+}
+#boss-bar .window-resize-handle {
+  z-index: 1000;
+}
+#boss-bar .window-header {
+  position: absolute;
+  width: 100%;
+  min-height: 100%;
+  opacity: 0;
+}
+#boss-bar .window-header h1 {
+  display: none;
+}
+#boss-bar .window-header button {
+  display: none;
+}
+#boss-bar:not(:hover) {
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+}
+#boss-bar:not(:hover) .window-content {
+  backdrop-filter: none;
+}
+#boss-bar:not(:hover) .window-header {
+  opacity: 0;
+}
+#boss-bar:not(:hover) .window-resize-handle {
+  opacity: 0;
+}
+#boss-bar .window-content,
+#boss-bar ul {
+  padding: 0;
+  margin: 0;
+}
+#boss-bar .bar-list-item {
+  --bar-font-size: 20px;
+  --bar-percent: 0%;
+  --bar-font-family: "Times New Roman";
+  padding: 0 8px;
+}
+#boss-bar .bar-list-item .bar-name {
+  font-size: var(--bar-font-size);
+  text-align: left;
+  color: white;
+  filter: drop-shadow(0 0 0.2rem black);
+  font-family: var(--bar-font-family, "Times New Roman"), Times, serif;
+  padding: 3px;
+}
+#boss-bar .bar-list-item .boss-bar-container.classic {
+  --bar-height: 20px;
+  --bar-temp-color: #7e7e7e;
+  --bar-temp-alpha: 0.5;
+  height: var(--bar-height);
+  max-height: var(--bar-height);
+  min-height: var(--bar-height);
+  width: 100%;
+  position: relative;
+  border: 1px solid black;
+}
+#boss-bar .bar-list-item .boss-bar-container.classic .inner {
+  position: absolute;
+  width: var(--bar-container-outer-width);
+  min-width: var(--bar-container-outer-width);
+  max-width: var(--bar-container-outer-width);
+  height: 100%;
+}
+#boss-bar .bar-list-item .boss-bar-container.classic .bar-component {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-repeat: repeat;
+  background-position: center;
+  overflow: hidden;
+}
+#boss-bar .bar-list-item .boss-bar-container.classic .bar-component.bar-bar {
+  transition: width 4s;
+  width: var(--bar-percent);
+  border-right: 1px solid black;
+}
+#boss-bar .bar-list-item .boss-bar-container.classic .bar-component.bar-temp {
+  transition: width 1s;
+  transition-delay: 3s;
+  width: var(--bar-percent);
+}
+#boss-bar .bar-list-item .boss-bar-container.classic .bar-component.bar-temp .inner {
+  background-color: var(--bar-temp-color);
+  opacity: var(--bar-temp-alpha);
+}
+#boss-bar .bar-list-item .boss-bar-container.matching-images {
+  width: 100%;
+  position: relative;
+}
+#boss-bar .bar-list-item .boss-bar-container.matching-images img {
+  border: none;
+  width: var(--bar-container-outer-width);
+  min-width: var(--bar-container-outer-width);
+  max-width: var(--bar-container-outer-width);
+}
+#boss-bar .bar-list-item .boss-bar-container.matching-images .bar-component {
+  position: absolute;
+  width: 100%;
+  height: auto;
+  top: 0;
+  left: 0;
+}
+#boss-bar .bar-list-item .boss-bar-container.matching-images .bar-component.bar-background {
+  position: relative;
+}
+#boss-bar .bar-list-item .boss-bar-container.matching-images .bar-component.bar-foreground {
+  filter: drop-shadow(0px 0px 5px black);
+}
+#boss-bar .bar-list-item .boss-bar-container.matching-images .bar-component.bar-bar {
+  transition: width 4s;
+  width: var(--bar-percent);
+  height: 100%;
+  overflow: hidden;
+}/*# sourceMappingURL=module.css.map */

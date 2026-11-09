@@ -1,0 +1,36 @@
+<div class="illusive-dnd-util-dropdown illusive-dnd-util-dropdown-game-log" role="menu" aria-label="{{title}}">
+  <div class="illusive-dnd-util-dropdown-heading">{{title}}</div>
+  {{#if empty}}
+  <p class="illusive-dnd-game-log-empty">{{emptyLabel}}</p>
+  {{else}}
+  <ul class="illusive-dnd-game-log-list">
+    {{#each entries}}
+    <li class="illusive-dnd-game-log-item illusive-dnd-game-log-{{kind}}">
+      <div class="illusive-dnd-game-log-body">
+        <span class="illusive-dnd-game-log-kind" aria-hidden="true">
+          <i class="fas {{icon}}"></i>
+        </span>
+        <div class="illusive-dnd-game-log-text">
+          <span class="illusive-dnd-game-log-label">{{label}}</span>
+          {{#if detail}}
+          <span class="illusive-dnd-game-log-detail">{{detail}}</span>
+          {{/if}}
+        </div>
+      </div>
+      {{#if canUndo}}
+      <button
+        type="button"
+        class="illusive-dnd-game-log-undo"
+        data-game-log-undo="{{id}}"
+        role="menuitem"
+        title="{{../undoLabel}}"
+        aria-label="{{../undoLabel}}: {{label}}"
+      >
+        <i class="fas fa-undo" aria-hidden="true"></i>
+      </button>
+      {{/if}}
+    </li>
+    {{/each}}
+  </ul>
+  {{/if}}
+</div>

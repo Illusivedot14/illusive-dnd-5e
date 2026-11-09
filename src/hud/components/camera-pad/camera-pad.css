@@ -1,0 +1,98 @@
+#illusive-dnd-camera-pad {
+  position: fixed !important;
+  inset: auto !important;
+  z-index: 2147483646 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center;
+  gap: 4px;
+  width: 152px !important;
+  height: 204px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none;
+  pointer-events: auto !important;
+  touch-action: none;
+  opacity: 1;
+  transition: opacity 400ms ease;
+}
+
+#illusive-dnd-camera-pad.illusive-dnd-camera-pad--idle {
+  opacity: 0.38;
+}
+
+#illusive-dnd-camera-pad .illusive-dnd-camera-pad-arrows {
+  display: grid !important;
+  grid-template-columns: 48px 48px 48px !important;
+  grid-template-rows: 48px 48px 48px !important;
+  gap: 4px;
+  width: 152px !important;
+  height: 152px !important;
+}
+
+#illusive-dnd-camera-pad .illusive-dnd-camera-pad-empty,
+#illusive-dnd-camera-pad .illusive-dnd-camera-pad-hub {
+  width: 48px !important;
+  height: 48px !important;
+  border: none !important;
+  background: transparent !important;
+}
+
+#illusive-dnd-camera-pad [data-camera] {
+  width: 48px !important;
+  height: 48px !important;
+  min-width: 48px !important;
+  max-width: 48px !important;
+  min-height: 48px !important;
+  max-height: 48px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #9a7840 !important;
+  border-radius: 999px !important;
+  background: rgba(18, 12, 30, 0.88) !important;
+  color: #f0ddb0 !important;
+  font-size: 18px !important;
+  line-height: 1;
+  cursor: pointer;
+  user-select: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
+}
+
+#illusive-dnd-camera-pad [data-camera] i {
+  pointer-events: none;
+}
+
+#illusive-dnd-camera-pad .illusive-dnd-camera-pad-tools {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  width: 152px;
+  height: 48px;
+}
+
+#illusive-dnd-camera-pad [data-camera].is-held,
+#illusive-dnd-camera-pad [data-camera]:active {
+  background: #c8a030 !important;
+  color: #1a1208 !important;
+}
+
+.illusive-dnd-subsettings-form .illusive-dnd-user-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  width: 100%;
+}
+
+.illusive-dnd-subsettings-form .illusive-dnd-user-list label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}

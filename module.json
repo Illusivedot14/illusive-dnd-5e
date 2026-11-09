@@ -1,0 +1,73 @@
+{
+  "id": "illusive-dnd-5e",
+  "title": "Illusive D&D 5e",
+  "description": "Standalone D&D 5e combat automation and Illusive D&D HUD. Owns activity resolution, hit checks, damage apply, action economy, opportunity attacks, cover, movement, vision, lighting, and loot. Requires only the official dnd5e system.",
+  "version": "0.2.0",
+  "socket": true,
+  "authors": [
+    {
+      "name": "Illusive"
+    }
+  ],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    }
+  ],
+  "compatibility": {
+    "minimum": "14",
+    "verified": "14.370"
+  },
+  "relationships": {
+    "requires": [],
+    "systems": [
+      {
+        "id": "dnd5e",
+        "type": "system",
+        "compatibility": {
+          "minimum": "6.0.0",
+          "verified": "6.0.6"
+        }
+      }
+    ]
+  },
+  "flags": {
+    "illusive-dnd-5e": {
+      "roundTotal": {
+        "type": "Number",
+        "default": null
+      },
+      "startRound": {
+        "type": "Number",
+        "default": null
+      },
+      "combatId": {
+        "type": "String",
+        "default": null
+      },
+      "bossBarActors": {
+        "type": "Array",
+        "default": []
+      }
+    }
+  },
+  "esmodules": [
+    "src/main.mjs"
+  ],
+  "styles": [
+    "src/hud/components/mobile-sheet/mobile-sheet.css",
+    "src/hud/components/mobile-sheet/mobile-move.css",
+    "src/hud/styles/hud-overlay.css",
+    "src/hud/styles/ornate-frames.css",
+    "src/hud/components/party-status/party-status.css",
+    "src/hud/components/token-statuses/token-statuses.css",
+    "src/hud/components/action-bar/action-bar.css",
+    "src/hud/components/turn-tracker/turn-tracker.css",
+    "src/hud/components/camera-pad/camera-pad.css",
+    "src/hud/components/token-aura/token-aura.css",
+    "src/hud/components/boss-bar/boss-bar.css",
+    "src/hud/styles/panel-polish.css"
+  ]
+}

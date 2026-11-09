@@ -1,0 +1,302 @@
+{{!-- Illusive mobile sheet drawer. --}}
+<div class="illusive-dnd-illusive-mobile-sheet mobile-sheet-drawer open" data-actor-id="{{actorId}}" data-tab="{{tab}}">
+  <div class="drawer-backdrop" data-action="close"></div>
+  <div class="drawer-content">
+    <header class="drawer-header">
+      <div class="header-top">
+        <button type="button" class="avatar-container{{#if inspiration}} has-inspiration{{/if}}" title="{{name}}">
+          <img class="header-avatar" src="{{img}}" alt="" />
+          <i class="fa-solid fa-star inspiration-indicator"></i>
+        </button>
+
+        <div class="header-info">
+          <h2 class="char-name">{{name}}</h2>
+          {{#if subtitle}}<div class="char-details">{{subtitle}}</div>{{/if}}
+          <button type="button" class="hp-display" data-action="open-hp" title="Adjust HP">
+            <span class="hp-group">
+              <span class="hp-current">{{hp.value}}</span>
+              <span class="hp-separator">/</span>
+              <span class="hp-max">{{hp.effectiveMax}}</span>
+            </span>
+            {{#if hp.temp}}<span class="hp-temp">+{{hp.temp}}</span>{{/if}}
+          </button>
+        </div>
+      </div>
+
+      {{#if showDeathSaves}}
+      <div class="death-save-overlay illusive-dnd-ms-death{{#if death.stabilized}} is-stable{{/if}}{{#if death.dead}} is-dead{{/if}}" role="group" aria-label="Death saving throws">
+        <div class="death-saves-group success illusive-dnd-ms-death-group">
+          {{#each death.successPips}}
+          <button type="button" class="death-pip illusive-dnd-ms-pip{{#if filled}} filled is-filled is-success{{/if}}" data-action="set-death-pip" data-type="success" data-index="{{index}}" aria-label="Death success {{index}}"></button>
+          {{/each}}
+        </div>
+        <button type="button" class="death-skull illusive-dnd-ms-death-roll" data-action="roll-death-save" title="Roll death save">
+          <i class="fa-solid {{#if death.dead}}fa-skull-crossbones{{else}}fa-skull{{/if}}"></i>
+        </button>
+        <div class="death-saves-group failure illusive-dnd-ms-death-group">
+          {{#each death.failurePips}}
+          <button type="button" class="death-pip illusive-dnd-ms-pip{{#if filled}} filled is-filled is-failure{{/if}}" data-action="set-death-pip" data-type="failure" data-index="{{index}}" aria-label="Death failure {{index}}"></button>
+          {{/each}}
+        </div>
+      </div>
+      {{/if}}
+
+      <div class="hp-bar-thin" aria-hidden="true">
+        <div class="hp-bar-fill" style="flex-basis: {{hp.percent}}%"></div>
+        {{#if hp.temp}}<div class="hp-bar-temp" style="flex-basis: {{hp.tempPercent}}%"></div>{{/if}}
+      </div>
+
+      <div class="stats-row">
+        <div class="stat-box ac-box">
+          <span class="stat-value">{{ac}}</span>
+          <label>AC</label>
+        </div>
+        <div class="stat-box speed-box">
+          <span class="stat-value">{{speed}}</span>
+          <label>Speed</label>
+        </div>
+        <button type="button" class="stat-box init-box" data-action="roll-initiative" title="Roll initiative">
+          <span class="stat-value">{{initiative}}</span>
+          <label>Init</label>
+        </button>
+        <div class="stat-box prof-box">
+          <span class="stat-value">{{proficiency}}</span>
+          <label>Prof</label>
+        </div>
+        <button type="button"
+          class="stat-box insp-box{{#if inspiration}} is-on{{/if}}"
+          data-action="toggle-inspiration"
+          aria-pressed="{{#if inspiration}}true{{else}}false{{/if}}"
+          title="Toggle inspiration">
+          <span class="stat-value"><i class="fa-solid fa-star" aria-hidden="true"></i></span>
+          <label>Insp</label>
+        </button>
+      </div>
+    </header>
+
+    <nav class="section-nav">
+      <div class="section-nav-track">
+        <button type="button" class="section-tab{{#if tabs.abilities}} active{{/if}}" data-action="tab" data-tab="abilities">Abilities</button>
+        <button type="button" class="section-tab{{#if tabs.combat}} active{{/if}}" data-action="tab" data-tab="combat">Combat</button>
+        <button type="button" class="section-tab{{#if tabs.inventory}} active{{/if}}" data-action="tab" data-tab="inventory">Inventory</button>
+        <button type="button" class="section-tab{{#if tabs.features}} active{{/if}}" data-action="tab" data-tab="features">Features</button>
+        <button type="button" class="section-tab{{#if tabs.spells}} active{{/if}}" data-action="tab" data-tab="spells">Spells</button>
+        <button type="button" class="section-tab{{#if tabs.effects}} active{{/if}}" data-action="tab" data-tab="effects">Effects</button>
+        <button type="button" class="section-tab{{#if tabs.other}} active{{/if}}" data-action="tab" data-tab="other">Other</button>
+      </div>
+    </nav>
+
+    <div class="sections-viewport">
+      <div class="sections-container">
+        <section class="sheet-section">
+          <div class="section-content">
+
+            {{#if tabs.abilities}}
+            <div class="abilities-container">
+              <div class="abilities-grid">
+                {{#each abilities}}
+                <div class="ability-card" data-ability="{{id}}">
+                  <button type="button" class="ability-check-area" data-action="roll-check" data-ability="{{id}}" title="Ability Check">
+                    <div class="ability-label">{{abbr}}</div>
+                    <div class="ability-mod">{{checkMod}}</div>
+                    <div class="ability-score">{{value}}</div>
+                  </button>
+                  <div class="ability-actions">
+                    <button type="button" class="ability-btn save-btn{{#if proficientSave}} proficient{{/if}}" data-action="roll-save" data-ability="{{id}}" title="Saving Throw">
+                      <span class="save-label">SAVE</span>
+                      <span class="save-mod">{{saveMod}}</span>
+                    </button>
+                  </div>
+                </div>
+                {{/each}}
+              </div>
+            </div>
+
+            {{#if resources.length}}
+            <div class="illusive-dnd-ms-chip-row">
+              {{#each resources}}
+              <span class="illusive-dnd-ms-chip"><strong>{{label}}</strong> {{value}}/{{max}}</span>
+              {{/each}}
+            </div>
+            {{/if}}
+
+            {{#if hitDice}}
+            <div class="illusive-dnd-ms-chip-row">
+              <span class="illusive-dnd-ms-chip">{{hitDice.label}}</span>
+              {{#if passive}}<span class="illusive-dnd-ms-chip">Passive Perception {{passive}}</span>{{/if}}
+            </div>
+            {{/if}}
+
+            <div class="skills-list">
+              {{#each skills}}
+              <div class="skill-item{{#if expertise}} expertise{{else}}{{#if proficient}} proficient{{/if}}{{/if}}">
+                <button type="button" class="skill-roll-btn" data-action="roll-skill" data-skill="{{id}}">
+                  <i class="prof-icon fa-solid {{#if expertise}}fa-circle-check{{else}}{{#if proficient}}fa-circle{{else}}fa-circle-dot{{/if}}{{/if}}"></i>
+                  <span class="skill-name">{{label}}</span>
+                  <span class="skill-ability">{{ability}}</span>
+                  <span class="skill-mod">{{mod}}</span>
+                </button>
+              </div>
+              {{/each}}
+            </div>
+
+            <div class="illusive-dnd-ms-rests">
+              <button type="button" class="illusive-dnd-ms-btn" data-action="short-rest">Short Rest</button>
+              <button type="button" class="illusive-dnd-ms-btn" data-action="long-rest">Long Rest</button>
+            </div>
+            {{/if}}
+
+            {{#if tabs.combat}}
+            <div class="item-list">
+              {{#each combat}}
+              <div class="item-row{{#if canUse}} is-usable{{/if}}">
+                <img class="item-img" src="{{img}}" alt="" data-action="inspect-item" data-item-id="{{id}}" />
+                <button type="button" class="item-info illusive-dnd-ms-item-hit" data-action="inspect-item" data-item-id="{{id}}">
+                  <span class="item-name">{{itemName}}</span>
+                  <span class="item-quantity">{{typeLabel}}{{#if uses}} · {{uses}}{{/if}}{{#if equipped}} · Equipped{{/if}}</span>
+                </button>
+                {{#if canEquip}}
+                <div class="item-actions">
+                  <button type="button" class="item-btn equip-btn{{#if equipped}} equipped{{/if}}" data-action="toggle-equipped" data-item-id="{{id}}" title="{{#if equipped}}Unequip{{else}}Equip{{/if}}">
+                    <i class="fa-solid fa-shield-halved"></i>
+                  </button>
+                </div>
+                {{/if}}
+              </div>
+              {{else}}
+              <p class="empty-message">No combat actions.</p>
+              {{/each}}
+            </div>
+            {{/if}}
+
+            {{#if tabs.inventory}}
+            {{#if currency.length}}
+            <div class="illusive-dnd-ms-chip-row">
+              {{#each currency}}<span class="illusive-dnd-ms-chip">{{amount}} {{label}}</span>{{/each}}
+            </div>
+            {{/if}}
+            <div class="item-list">
+              {{#each inventory}}
+              <div class="item-row{{#if canUse}} is-usable{{/if}}">
+                <img class="item-img" src="{{img}}" alt="" data-action="inspect-item" data-item-id="{{id}}" />
+                <button type="button" class="item-info illusive-dnd-ms-item-hit" data-action="inspect-item" data-item-id="{{id}}">
+                  <span class="item-name">{{itemName}}</span>
+                  <span class="item-quantity">{{typeLabel}}{{#if quantity}} · ×{{quantity}}{{/if}}{{#if uses}} · {{uses}}{{/if}}{{#if equipped}} · Equipped{{/if}}</span>
+                </button>
+                {{#if canEquip}}
+                <div class="item-actions">
+                  <button type="button" class="item-btn equip-btn{{#if equipped}} equipped{{/if}}" data-action="toggle-equipped" data-item-id="{{id}}" title="{{#if equipped}}Unequip{{else}}Equip{{/if}}">
+                    <i class="fa-solid fa-shield-halved"></i>
+                  </button>
+                </div>
+                {{/if}}
+              </div>
+              {{else}}
+              <p class="empty-message">No inventory items.</p>
+              {{/each}}
+            </div>
+            {{/if}}
+
+            {{#if tabs.features}}
+            <div class="item-list">
+              {{#each features}}
+              <div class="item-row{{#if canUse}} is-usable{{/if}}">
+                <img class="item-img" src="{{img}}" alt="" data-action="inspect-item" data-item-id="{{id}}" />
+                <button type="button" class="item-info illusive-dnd-ms-item-hit" data-action="inspect-item" data-item-id="{{id}}">
+                  <span class="item-name">{{itemName}}</span>
+                  <span class="item-quantity">{{subtitle}}{{#if uses}} · {{uses}}{{/if}}</span>
+                </button>
+              </div>
+              {{else}}
+              <p class="empty-message">No features.</p>
+              {{/each}}
+            </div>
+            {{/if}}
+
+            {{#if tabs.spells}}
+            {{#if spellSlots.length}}
+            <div class="illusive-dnd-ms-chip-row">
+              {{#each spellSlots}}
+              <span class="illusive-dnd-ms-chip"><strong>{{label}}</strong> {{value}}/{{max}}</span>
+              {{/each}}
+              {{#if pact}}
+              <span class="illusive-dnd-ms-chip"><strong>Pact{{#if pact.level}} {{pact.level}}{{/if}}</strong> {{pact.value}}/{{pact.max}}</span>
+              {{/if}}
+            </div>
+            {{/if}}
+
+            {{#each spellLevels}}
+            <h3 class="illusive-dnd-ms-section-title">{{label}}</h3>
+            <div class="item-list">
+              {{#each spells}}
+              <div class="item-row{{#unless prepared}} is-dim{{/unless}}{{#if canUse}} is-usable{{/if}}">
+                <img class="item-img" src="{{img}}" alt="" data-action="inspect-item" data-item-id="{{id}}" />
+                <button type="button" class="item-info illusive-dnd-ms-item-hit" data-action="inspect-item" data-item-id="{{id}}">
+                  <span class="item-name">{{itemName}}</span>
+                  {{#if uses}}<span class="item-quantity">{{uses}}</span>{{/if}}
+                </button>
+                <div class="item-actions">
+                  {{#if canPrepare}}
+                  <button type="button" class="item-btn{{#if prepared}} equipped{{/if}}" data-action="toggle-prepared" data-item-id="{{id}}" title="{{#if prepared}}Unprepare{{else}}Prepare{{/if}}">
+                    <i class="fa-solid fa-book{{#if prepared}}-open{{/if}}"></i>
+                  </button>
+                  {{/if}}
+                </div>
+              </div>
+              {{/each}}
+            </div>
+            {{else}}
+            <p class="empty-message">No spells.</p>
+            {{/each}}
+            {{/if}}
+
+            {{#if tabs.effects}}
+            <div class="item-list">
+              {{#each effects}}
+              <div class="item-row{{#if disabled}} is-dim{{/if}}">
+                <img class="item-img" src="{{img}}" alt="" />
+                <div class="item-info">
+                  <span class="item-name">{{itemName}}</span>
+                  {{#if duration}}<span class="item-quantity">{{duration}}</span>{{/if}}
+                </div>
+                <div class="item-actions">
+                  <button type="button" class="item-btn" data-action="toggle-effect" data-effect-id="{{id}}" title="{{#if disabled}}Enable{{else}}Disable{{/if}}">
+                    <i class="fa-solid {{#if disabled}}fa-toggle-off{{else}}fa-toggle-on{{/if}}"></i>
+                  </button>
+                  <button type="button" class="item-btn" data-action="delete-effect" data-effect-id="{{id}}" title="Delete">
+                    <i class="fa-solid fa-trash"></i>
+                  </button>
+                </div>
+              </div>
+              {{else}}
+              <p class="empty-message">No active effects.</p>
+              {{/each}}
+            </div>
+            {{/if}}
+
+            {{#if tabs.other}}
+            <div class="illusive-dnd-ms-rests" style="margin-top:0">
+              {{#if canPullDdb}}
+              <button type="button" class="illusive-dnd-ms-btn" data-action="pull-dndbeyond">{{labels.pullDdb}}</button>
+              {{/if}}
+              {{#if ddbUrl}}
+              <button type="button" class="illusive-dnd-ms-btn" data-action="open-dndbeyond">{{labels.openDdb}}</button>
+              {{/if}}
+            </div>
+            {{#if appearance}}<h3 class="illusive-dnd-ms-section-title">Appearance</h3><div class="bio-text">{{appearance}}</div>{{/if}}
+            {{#if trait}}<h3 class="illusive-dnd-ms-section-title">Traits</h3><div class="bio-text">{{trait}}</div>{{/if}}
+            {{#if ideal}}<h3 class="illusive-dnd-ms-section-title">Ideals</h3><div class="bio-text">{{ideal}}</div>{{/if}}
+            {{#if bond}}<h3 class="illusive-dnd-ms-section-title">Bonds</h3><div class="bio-text">{{bond}}</div>{{/if}}
+            {{#if flaw}}<h3 class="illusive-dnd-ms-section-title">Flaws</h3><div class="bio-text">{{flaw}}</div>{{/if}}
+            {{#if biography}}<h3 class="illusive-dnd-ms-section-title">Biography</h3><div class="bio-text">{{{biography}}}</div>{{/if}}
+            {{#unless biography}}{{#unless appearance}}{{#unless trait}}
+            <p class="empty-message">No biography details.</p>
+            {{/unless}}{{/unless}}{{/unless}}
+            {{/if}}
+
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>

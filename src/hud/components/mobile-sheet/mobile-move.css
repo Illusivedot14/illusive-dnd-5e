@@ -1,0 +1,376 @@
+/* Phone controller — glass well + segmented bar, like a virtual gamepad / Control Center. */
+
+#illusive-dnd-mobile-move {
+  --illusive-dnd-move-glass: rgba(22, 18, 32, 0.62);
+  --illusive-dnd-move-glass-border: rgba(255, 255, 255, 0.1);
+  --illusive-dnd-move-key: 56px;
+  --illusive-dnd-move-gap: 6px;
+  --illusive-dnd-move-fab: 52px;
+  position: fixed !important;
+  inset: 0 0 var(--illusive-dnd-carousel-dock, 96px) 0 !important;
+  z-index: 100002 !important;
+  display: flex !important;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 12px;
+  pointer-events: none;
+  background: transparent !important;
+}
+
+#illusive-dnd-mobile-move.is-hidden .illusive-dnd-move-panel,
+#illusive-dnd-mobile-move.is-hidden .illusive-dnd-move-utils,
+#illusive-dnd-mobile-move.no-token .illusive-dnd-move-panel,
+#illusive-dnd-mobile-move.no-token .illusive-dnd-move-utils {
+  display: none !important;
+}
+
+#illusive-dnd-mobile-move .illusive-dnd-move-panel {
+  pointer-events: auto;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  gap: 10px;
+}
+
+#illusive-dnd-mobile-move .illusive-dnd-move-pad [data-move="mode"] {
+  flex-direction: column;
+  gap: 1px;
+}
+
+/* Virtual-stick well (Genshin / Diablo Immortal / Steam Link) */
+#illusive-dnd-mobile-move .illusive-dnd-move-well {
+  width: calc(var(--illusive-dnd-move-key) * 3 + var(--illusive-dnd-move-gap) * 2 + 28px);
+  height: calc(var(--illusive-dnd-move-key) * 3 + var(--illusive-dnd-move-gap) * 2 + 28px);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at 50% 42%, rgba(255, 255, 255, 0.08), rgba(12, 8, 20, 0.55) 72%);
+  border: 1px solid var(--illusive-dnd-move-glass-border);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 16px 40px rgba(0, 0, 0, 0.38);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+#illusive-dnd-mobile-move .illusive-dnd-move-pad {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: block !important;
+  --illusive-dnd-move-radius: 76px;
+}
+
+#illusive-dnd-mobile-move .illusive-dnd-move-pad [data-move] {
+  box-sizing: border-box;
+  position: absolute;
+  left: calc(50% + var(--dx, 0) * var(--illusive-dnd-move-radius));
+  top: calc(50% + var(--dy, 0) * var(--illusive-dnd-move-radius));
+  width: var(--illusive-dnd-move-key) !important;
+  height: var(--illusive-dnd-move-key) !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.92);
+  box-shadow: none;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  user-select: none;
+  touch-action: none;
+  transform: translate(-50%, -50%);
+}
+
+/* Eight directions, one radius, 45 degrees apart. */
+#illusive-dnd-mobile-move .illusive-dnd-move-pad [data-move="up"] { --dx: 0; --dy: -1; }
+#illusive-dnd-mobile-move .illusive-dnd-move-pad [data-move="upRight"] { --dx: 0.7071; --dy: -0.7071; }
+#illusive-dnd-mobile-move .illusive-dnd-move-pad [data-move="right"] { --dx: 1; --dy: 0; }
+#illusive-dnd-mobile-move .illusive-dnd-move-pad [data-move="downRight"] { --dx: 0.7071; --dy: 0.7071; }
+#illusive-dnd-mobile-move .illusive-dnd-move-pad [data-move="down"] { --dx: 0; --dy: 1; }
+#illusive-dnd-mobile-move .illusive-dnd-move-pad [data-move="downLeft"] { --dx: -0.7071; --dy: 0.7071; }
+#illusive-dnd-mobile-move .illusive-dnd-move-pad [data-move="left"] { --dx: -1; --dy: 0; }
+#illusive-dnd-mobile-move .illusive-dnd-move-pad [data-move="upLeft"] { --dx: -0.7071; --dy: -0.7071; }
+
+#illusive-dnd-mobile-move .illusive-dnd-move-pad [data-move] i {
+  pointer-events: none;
+}
+
+/* After the 20px arrow rule so Walk/Swim/Burrow/"Teleport (Blink)" fit. */
+#illusive-dnd-mobile-move .illusive-dnd-move-pad [data-move="mode"] {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1.05;
+  padding: 0;
+  background: transparent;
+}
+
+#illusive-dnd-mobile-move .illusive-dnd-move-pad [data-move="mode"] i {
+  font-size: 16px;
+  opacity: 0.92;
+}
+
+#illusive-dnd-mobile-move .illusive-dnd-move-pad [data-move="mode"] span {
+  max-width: 100%;
+  overflow: hidden;
+  white-space: normal;
+  text-align: center;
+  word-break: break-word;
+}
+
+#illusive-dnd-mobile-move .illusive-dnd-move-pad [data-move].is-held,
+#illusive-dnd-mobile-move .illusive-dnd-move-pad [data-move]:active {
+  background: transparent;
+  color: var(--mobile-accent, #b794f6);
+  transform: translate(-50%, -50%) scale(0.9);
+}
+
+#illusive-dnd-mobile-move .illusive-dnd-move-meta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 0;
+}
+
+#illusive-dnd-mobile-move .illusive-dnd-move-feet,
+#illusive-dnd-mobile-move .illusive-dnd-move-undo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 36px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--illusive-dnd-move-glass-border);
+  background: var(--illusive-dnd-move-glass);
+  color: #f4eefe;
+  box-shadow: none;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+#illusive-dnd-mobile-move .illusive-dnd-move-feet {
+  pointer-events: none;
+  border: none;
+  background: transparent;
+}
+
+#illusive-dnd-mobile-move .illusive-dnd-move-feet[hidden],
+#illusive-dnd-mobile-move .illusive-dnd-move-undo[hidden],
+#illusive-dnd-mobile-move .illusive-dnd-move-meta:not(:has(:not([hidden]))) {
+  display: none !important;
+}
+
+#illusive-dnd-mobile-move .illusive-dnd-move-undo i {
+  pointer-events: none;
+}
+
+/* Left rail: grouped Control Center toggles */
+#illusive-dnd-mobile-move .illusive-dnd-move-utils {
+  position: fixed;
+  left: 12px;
+  bottom: calc(var(--illusive-dnd-carousel-dock, 96px) + 12px);
+  z-index: 100003;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  border-radius: 36px;
+  background: var(--illusive-dnd-move-glass);
+  border: 1px solid var(--illusive-dnd-move-glass-border);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  pointer-events: auto;
+}
+
+#illusive-dnd-mobile-move .illusive-dnd-move-flip,
+#illusive-dnd-mobile-move .illusive-dnd-move-util {
+  width: var(--illusive-dnd-move-fab);
+  height: var(--illusive-dnd-move-fab);
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.07);
+  color: #f4eefe;
+  box-shadow: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  cursor: pointer;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+#illusive-dnd-mobile-move .illusive-dnd-move-flip i,
+#illusive-dnd-mobile-move .illusive-dnd-move-util i {
+  pointer-events: none;
+}
+
+#illusive-dnd-mobile-move .illusive-dnd-move-flip.is-held,
+#illusive-dnd-mobile-move .illusive-dnd-move-util.is-held,
+#illusive-dnd-mobile-move .illusive-dnd-move-flip:active,
+#illusive-dnd-mobile-move .illusive-dnd-move-util:active,
+#illusive-dnd-mobile-move [data-move].is-on {
+  background: rgba(183, 148, 246, 0.38);
+  border-color: rgba(183, 148, 246, 0.65);
+  color: #fff;
+}
+
+#illusive-dnd-mobile-move [data-move].is-disabled {
+  opacity: 0.32;
+  pointer-events: none;
+}
+
+/* Foundry's right-sidebar tabs — top-right, slides down from the chevron */
+#illusive-dnd-mobile-move .illusive-dnd-move-sidebar {
+  position: fixed;
+  top: calc(10px + env(safe-area-inset-top, 0px));
+  right: calc(10px + env(safe-area-inset-right, 0px));
+  bottom: auto;
+  max-height: calc(100% - var(--illusive-dnd-carousel-dock, 96px) - 80px);
+  z-index: 100003;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 4px;
+  padding: 8px 6px;
+  overflow: hidden;
+  border-radius: 28px;
+  background: var(--illusive-dnd-move-glass);
+  border: 1px solid var(--illusive-dnd-move-glass-border);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  pointer-events: auto;
+  transition: padding 0.28s ease;
+}
+
+#illusive-dnd-mobile-move.sidebar-collapsed .illusive-dnd-move-sidebar {
+  padding: 6px;
+}
+
+#illusive-dnd-mobile-move .illusive-dnd-move-sidebar-tabs-clip {
+  display: grid;
+  grid-template-rows: 1fr;
+  min-height: 0;
+  width: 100%;
+  transition: grid-template-rows 0.32s ease;
+}
+
+#illusive-dnd-mobile-move.sidebar-collapsed .illusive-dnd-move-sidebar-tabs-clip {
+  grid-template-rows: 0fr;
+}
+
+#illusive-dnd-mobile-move .illusive-dnd-move-sidebar-tabs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+#illusive-dnd-mobile-move .illusive-dnd-move-sidebar-tabs::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+#illusive-dnd-mobile-move.sidebar-collapsed .illusive-dnd-move-sidebar-tabs {
+  overflow: hidden;
+  pointer-events: none;
+}
+
+#illusive-dnd-mobile-move .illusive-dnd-move-sidebar-toggle {
+  width: 40px;
+  height: 40px;
+  flex: 0 0 40px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  color: #f4eefe;
+  box-shadow: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+  cursor: pointer;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+#illusive-dnd-mobile-move .illusive-dnd-move-sidebar-toggle i {
+  pointer-events: none;
+  transition: transform 0.28s ease;
+}
+
+#illusive-dnd-mobile-move:not(.sidebar-collapsed) .illusive-dnd-move-sidebar-toggle i {
+  transform: rotate(180deg);
+}
+
+#illusive-dnd-mobile-move .illusive-dnd-move-sidebar-toggle.is-held,
+#illusive-dnd-mobile-move .illusive-dnd-move-sidebar-toggle:active {
+  background: rgba(183, 148, 246, 0.38);
+  color: #fff;
+}
+
+#illusive-dnd-mobile-move .illusive-dnd-move-sidebar-tab {
+  width: 40px;
+  height: 40px;
+  flex: 0 0 40px;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: #f4eefe;
+  box-shadow: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+  cursor: pointer;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+#illusive-dnd-mobile-move .illusive-dnd-move-sidebar-tab i {
+  pointer-events: none;
+}
+
+#illusive-dnd-mobile-move .illusive-dnd-move-sidebar-tab.is-held,
+#illusive-dnd-mobile-move .illusive-dnd-move-sidebar-tab:active {
+  background: rgba(183, 148, 246, 0.38);
+  color: #fff;
+}
+
+body.illusive-dnd-mobile-sheet-open #illusive-dnd-mobile-move .illusive-dnd-move-panel,
+body.illusive-dnd-mobile-sheet-open #illusive-dnd-mobile-move .illusive-dnd-move-utils,
+body.illusive-dnd-mobile-target-picking #illusive-dnd-mobile-move .illusive-dnd-move-panel,
+body.illusive-dnd-mobile-target-picking #illusive-dnd-mobile-move .illusive-dnd-move-utils,
+body.illusive-dnd-mobile-target-picking #illusive-dnd-mobile-move .illusive-dnd-move-sidebar,
+body.illusive-dnd-mobile-sidebar-open #illusive-dnd-mobile-move .illusive-dnd-move-panel,
+body.illusive-dnd-mobile-sidebar-open #illusive-dnd-mobile-move .illusive-dnd-move-utils,
+body.illusive-dnd-mobile-sidebar-open #illusive-dnd-mobile-move .illusive-dnd-move-sidebar {
+  display: none !important;
+}
+
+body.illusive-dnd-foundry-dialog-open #illusive-dnd-mobile-move,
+body.illusive-dnd-mobile-sidebar-open #illusive-dnd-mobile-move,
+body.illusive-dnd-dsn-showing #illusive-dnd-mobile-move,
+body.illusive-dnd-mobile-client.illusive-dnd-dsn-config-open #illusive-dnd-mobile-move {
+  pointer-events: none;
+  opacity: 0.2;
+}

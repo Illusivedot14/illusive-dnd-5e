@@ -1,0 +1,56 @@
+{{#each combatants}}
+{{#unless hidden}}
+<div
+  class="illusive-dnd-turn-card{{#if isEvent}} illusive-dnd-turn-card-event{{/if}}{{#if isGroup}} illusive-dnd-turn-card-group{{/if}}{{#if isActive}} is-active{{/if}}{{#if markedDefeated}} is-defeated{{/if}}{{#if isDeathSaving}} is-death-saving{{/if}}{{#if isDead}} is-dead{{/if}}{{#if isStabilized}} is-stabilized{{/if}}{{#if secret}} is-secret{{/if}}"
+  data-combatant-id="{{id}}"
+  {{#if isGroup}}data-group-id="{{groupId}}"{{/if}}
+  data-token-id="{{tokenId}}"
+  {{#if showHp}}data-hp-tier="{{hp.tier}}"{{/if}}
+  style="order: {{order}};{{#if showDamageWash}} --illusive-dnd-hp-pct: {{washPctCss}};{{/if}}"
+  title="{{name}}"
+>
+  <div class="illusive-dnd-turn-portrait illusive-dnd-ornate-frame">
+    <img class="illusive-dnd-turn-portrait-img" src="{{img}}" alt="" aria-hidden="true">
+    <span class="illusive-dnd-frame-corner illusive-dnd-frame-corner-tl" aria-hidden="true"></span>
+    <span class="illusive-dnd-frame-corner illusive-dnd-frame-corner-tr" aria-hidden="true"></span>
+    <span class="illusive-dnd-frame-corner illusive-dnd-frame-corner-bl" aria-hidden="true"></span>
+    <span class="illusive-dnd-frame-corner illusive-dnd-frame-corner-br" aria-hidden="true"></span>
+
+    {{#if showDamageWash}}
+    <span class="illusive-dnd-turn-damage-wash" aria-hidden="true"></span>
+    {{/if}}
+
+    {{#if vitalityIcon}}
+    <span class="illusive-dnd-turn-vitality-icon" title="{{vitalityIcon.label}}" aria-label="{{vitalityIcon.label}}">
+      <i class="fas {{vitalityIcon.icon}}" aria-hidden="true"></i>
+    </span>
+    {{/if}}
+
+    <span class="illusive-dnd-turn-init{{#if canRollInitiative}} illusive-dnd-turn-init-roll{{/if}}"{{#if canRollInitiative}} data-action="roll-initiative" data-tooltip="COMBAT.InitiativeRoll"{{/if}}>{{#if canRollInitiative}}<i class="fas fa-dice-d20"></i>{{else}}{{#if hasRolled}}{{initiative}}{{else}}—{{/if}}{{/if}}</span>
+    {{#if isGroup}}
+    <span class="illusive-dnd-turn-group-count"><i class="fas fa-users"></i>{{count}}</span>
+    {{else}}
+    {{#unless isEvent}}
+    {{#if showHp}}
+    {{#if ../showHpNumbers}}
+    <span class="illusive-dnd-turn-hp">{{hp.value}}/{{hp.max}}</span>
+    {{/if}}
+    {{/if}}
+    {{/unless}}
+    {{/if}}
+  </div>
+  {{#if isEvent}}
+  <div class="illusive-dnd-turn-name illusive-dnd-turn-event-label">{{name}}{{#if roundsLeft}} |{{roundsLeft}}{{/if}}</div>
+  {{else}}
+  <div class="illusive-dnd-turn-name">{{name}}</div>
+  {{/if}}
+</div>
+{{/unless}}
+{{/each}}
+<div class="illusive-dnd-turn-separator" style="order: {{separatorOrder}}">
+  <div class="illusive-dnd-turn-separator-line"></div>
+  <div class="illusive-dnd-turn-separator-round">
+    <i class="fas fa-chevron-right"></i>
+    <span>{{round}}</span>
+  </div>
+</div>

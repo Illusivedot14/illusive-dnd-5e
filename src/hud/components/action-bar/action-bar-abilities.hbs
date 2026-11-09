@@ -1,0 +1,51 @@
+{{#if abilityGroups.length}}
+<div class="illusive-dnd-ability-groups" data-section="{{selectedSection}}">
+  {{#each abilityGroups}}
+  <section class="illusive-dnd-ability-group{{#unless showHeader}} illusive-dnd-ability-group-flat{{/unless}}" data-group-id="{{id}}">
+    {{#if showHeader}}
+    <div class="illusive-dnd-ability-group-header">
+      <span>{{label}}</span>
+      {{#if spellSlots}}
+      <span class="illusive-dnd-spell-slot-diamonds" aria-hidden="true">
+        {{#each spellSlots}}
+        <span class="illusive-dnd-spell-slot-gem{{#unless filled}} is-spent{{/unless}}">
+          <svg class="illusive-dnd-spell-slot-gem-svg" viewBox="0 0 20 20" aria-hidden="true"><polygon class="illusive-dnd-spell-slot-gem-outer" points="10,1 19,10 10,19 1,10"/><polygon class="illusive-dnd-spell-slot-gem-inner" points="10,6 14,10 10,14 6,10"/></svg>
+        </span>
+        {{/each}}
+      </span>
+      {{/if}}
+    </div>
+    {{/if}}
+    <div class="illusive-dnd-ability-grid illusive-dnd-group-grid">
+      {{#each abilities}}
+      <div
+        class="illusive-dnd-ability-btn{{#if disabled}} is-disabled{{/if}}{{#if needsTarget}} needs-target{{/if}}{{#if hasTargets}} has-target{{/if}}{{#if outOfRange}} out-of-range{{/if}}{{#if isFavorite}} is-favorite{{/if}}"
+        role="button"
+        tabindex="{{#if disabled}}-1{{else}}0{{/if}}"
+        data-section="{{section}}"
+        data-item-id="{{itemId}}"
+        data-activity-id="{{activityId}}"
+        data-activation-type="{{activationType}}"
+        data-standard="{{isStandard}}"
+        data-disabled="{{disabled}}"
+        data-ability-key="{{abilityKey}}"
+        data-ability-name="{{name}}"
+        data-disabled-reason="{{disabledReason}}"
+        aria-label="{{title}}"
+      >
+        <span class="illusive-dnd-ability-icon">
+          <img class="illusive-dnd-ability-img" src="{{img}}" data-fallback="icons/svg/combat.svg" alt="" width="48" height="48" loading="lazy">
+          {{#if needsTarget}}
+          <span class="illusive-dnd-target-badge" aria-hidden="true"><i class="fas fa-crosshairs"></i></span>
+          {{/if}}
+        </span>
+        <span class="illusive-dnd-ability-name">{{name}}</span>
+      </div>
+      {{/each}}
+    </div>
+  </section>
+  {{/each}}
+</div>
+{{else}}
+<p class="illusive-dnd-action-empty">{{emptyLabel}}</p>
+{{/if}}

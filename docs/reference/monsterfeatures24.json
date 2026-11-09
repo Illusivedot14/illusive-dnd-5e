@@ -1,0 +1,8539 @@
+[
+  {
+    "id": "Xy0tzgObrMRF2lHm",
+    "name": "+2 AC",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "cIB1rKGRZwYjMwJn",
+    "name": "+3 AC",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "q6bYdkYCIAqlHO3d",
+    "name": "0 ft. Speed",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "n3I76HfSH6eKLALf",
+    "name": "1/2 Speed",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "ztGUDHGfoUxlUY53",
+    "name": "1/2 Speed | Action Restrictions",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "mmAbduct00000000",
+    "name": "Abduct",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": "abduct"
+  },
+  {
+    "id": "mmAberrantGround",
+    "name": "Aberrant Ground",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "zVznqPXgYjETqpQz",
+        "name": "Place Emanation",
+        "type": "utility",
+        "activation": "special"
+      }
+    ],
+    "identifier": "aberrant-ground"
+  },
+  {
+    "id": "mmAbyssalGlaive0",
+    "name": "Abyssal Glaive",
+    "type": "weapon",
+    "featureType": "martialM",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "ziiI23TY2nwDnRZb",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "abyssal-glaive"
+  },
+  {
+    "id": "mmAcidAbsorption",
+    "name": "Acid Absorption",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": "Subjected to Acid damage",
+    "activities": [],
+    "identifier": "acid-absorption"
+  },
+  {
+    "id": "2G2gdLkIBFrb71Iv",
+    "name": "Acid Absorption",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "mmAcidBreath0000",
+    "name": "Acid Breath",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "qNI6W02jCUQbPpYE",
+        "name": "",
+        "type": "save",
+        "activation": "action"
+      }
+    ],
+    "identifier": "acid-breath"
+  },
+  {
+    "id": "3r3OTgMSHx0rQ8Wf",
+    "name": "Acid Resistance",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "mmAcidSpray00000",
+    "name": "Acid Spray",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "20GU2JBM5zJfNPD1",
+        "name": "",
+        "type": "save",
+        "activation": "action"
+      }
+    ],
+    "identifier": "acid-spray"
+  },
+  {
+    "id": "mmAdhesive000000",
+    "name": "Adhesive (Object Form Only)",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": "Object Form Only",
+    "activities": [
+      {
+        "id": "FYt2snfprvi5DgcW",
+        "name": "Expend Use",
+        "type": "utility",
+        "activation": "action"
+      },
+      {
+        "id": "0zW8JOKL5c3Wqpdu",
+        "name": "Escape Check",
+        "type": "check",
+        "activation": "special"
+      }
+    ],
+    "identifier": "adhesive"
+  },
+  {
+    "id": "mmAgile000000000",
+    "name": "Agile",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": "agile"
+  },
+  {
+    "id": "mmAirForm0000000",
+    "name": "Air Form",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": "air-form"
+  },
+  {
+    "id": "mmAmorphous00000",
+    "name": "Amorphous",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": "amorphous"
+  },
+  {
+    "id": "mmAmphibious0000",
+    "name": "Amphibious",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": "amphibious"
+  },
+  {
+    "id": "mmAnimateTrees00",
+    "name": "Animate Trees",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "EceTNjzjKWdrMNAy",
+        "name": "",
+        "type": "summon",
+        "activation": "action"
+      }
+    ],
+    "identifier": "animate-trees"
+  },
+  {
+    "id": "lPONVotWP8yhuuWe",
+    "name": "Animate Trees",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "mmAntennae000000",
+    "name": "Antennae",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "dcSC7EuknnM0uoqY",
+        "name": "",
+        "type": "save",
+        "activation": "action"
+      }
+    ],
+    "identifier": "antennae"
+  },
+  {
+    "id": "7U7Pe61lsMZgN7qh",
+    "name": "Apply Hide Action to Target",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "mmAquaticCharge0",
+    "name": "Aquatic Charge",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "49dUyEtcp5cbGYHO",
+        "name": "Expend Use",
+        "type": "utility",
+        "activation": "bonus"
+      }
+    ],
+    "identifier": "aquatic-charge"
+  },
+  {
+    "id": "mmArcaneBurst000",
+    "name": "Arcane Burst",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "YeB7cBHXeaBqxxK2",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "arcane-burst"
+  },
+  {
+    "id": "mmArcaneProwl000",
+    "name": "Arcane Prowl",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "a3RqyzU0UqzLJif0",
+        "name": "Expend Use",
+        "type": "utility",
+        "activation": "legendary"
+      }
+    ],
+    "identifier": "arcane-prowl"
+  },
+  {
+    "id": "mmAttach00000000",
+    "name": "Attach",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "il0R60nmuwzk4EEU",
+        "name": null,
+        "type": "attack",
+        "activation": "action"
+      },
+      {
+        "id": "6iLqAufAeEqDOlGs",
+        "name": "Detach Attempt",
+        "type": "check",
+        "activation": "special"
+      }
+    ],
+    "identifier": "attach"
+  },
+  {
+    "id": "m1rBdxxAM8FGk5gI",
+    "name": "Attached: Blinded",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "qNmREVJzIbrjEJyb",
+    "name": "Attack: Advantage",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "mmAuraOfAuthorit",
+    "name": "Aura of Authority",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": "Not Incapacitated",
+    "activities": [
+      {
+        "id": "dE4lg9tZyXtoCb5x",
+        "name": "Expend Use",
+        "type": "utility",
+        "activation": "special"
+      }
+    ],
+    "identifier": "aura-of-authority"
+  },
+  {
+    "id": "kJYNjmfI0RpvF7CQ",
+    "name": "Averse",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "mmAversionToFire",
+    "name": "Aversion to Fire",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": "Takes Fire damage",
+    "activities": [],
+    "identifier": "aversion-to-fire"
+  },
+  {
+    "id": "mmBalefulCommand",
+    "name": "Baleful Command",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "SzU2lwdbqgoFMuBM",
+        "name": "",
+        "type": "save",
+        "activation": "action"
+      }
+    ],
+    "identifier": "baleful-command"
+  },
+  {
+    "id": "mmBanish00000000",
+    "name": "Banish",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "kWKwiAYgyeKBLMNJ",
+        "name": "",
+        "type": "save",
+        "activation": "legendary"
+      }
+    ],
+    "identifier": "banish"
+  },
+  {
+    "id": "u5H85me3idut0t3u",
+    "name": "Banished: Incapacitated",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "mmBarbedHide0000",
+    "name": "Barbed Hide",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "1O5eyc72vPW0UxYZ",
+        "name": "",
+        "type": "damage",
+        "activation": "special"
+      }
+    ],
+    "identifier": "barbed-hide"
+  },
+  {
+    "id": "mmBeak0000000000",
+    "name": "Beak",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "Z4M0zMA6a5PidURr",
+        "name": null,
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "beak"
+  },
+  {
+    "id": "mmBeaks000000000",
+    "name": "Beaks",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "6RlCHga28e5lNSV4",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      },
+      {
+        "id": "3m1SLqBeMGQF3UaQ",
+        "name": "Bloodied Attack",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "beaks"
+  },
+  {
+    "id": "mmBeard000000000",
+    "name": "Beard",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "m3VvZz74hV95zwaB",
+        "name": null,
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "beard"
+  },
+  {
+    "id": "mmBeastOfBurden0",
+    "name": "Beast of Burden",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": "beast-of-burden"
+  },
+  {
+    "id": "VW9jjwa34EHjrXBB",
+    "name": "Beast of Burden",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "mmBeguile0000000",
+    "name": "Beguile",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "M0FuOWsRw7TefgiH",
+        "name": "",
+        "type": "cast",
+        "activation": "legendary"
+      }
+    ],
+    "identifier": "beguile"
+  },
+  {
+    "id": "mmBerserk0000000",
+    "name": "Berserk",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "CZdkvcsydgA2zwwF",
+        "name": "Berserk Check",
+        "type": "utility",
+        "activation": "special"
+      },
+      {
+        "id": "tnkOsrSwEElO2kZM",
+        "name": "Calm Check",
+        "type": "check",
+        "activation": "special"
+      }
+    ],
+    "identifier": "berserk"
+  },
+  {
+    "id": "8SBNBxgUqwEyYJcK",
+    "name": "Berserk",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "mmBite0000000000",
+    "name": "Bite",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "xWlMeXFjELfSUWX9",
+        "name": null,
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "bite"
+  },
+  {
+    "id": "mmBites000000000",
+    "name": "Bites",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "nrOPHKjj59hG1On3",
+        "name": null,
+        "type": "attack",
+        "activation": "action"
+      },
+      {
+        "id": "3Yo83eZUNwX51AcE",
+        "name": "Bloodied Attack",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "bites"
+  },
+  {
+    "id": "mmBladedArm00000",
+    "name": "Bladed Arm",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "HhaIrcdH5A1WO9PG",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "bladed-arm"
+  },
+  {
+    "id": "mmBlazingLight00",
+    "name": "Blazing Light",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "2AFrdtUxjSnJPHVX",
+        "name": "",
+        "type": "cast",
+        "activation": "legendary"
+      }
+    ],
+    "identifier": "blazing-light"
+  },
+  {
+    "id": "uNffaKFUEBaATXHm",
+    "name": "Blinded",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "F9aWhTVh3huuys3p",
+    "name": "Blinded",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "ZsONDi9D0HnUuZKa",
+    "name": "Blinded",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "q1VTMWxbLg5ZnQ9W",
+    "name": "Blinded",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "MMp7IK5bYYPYtSdL",
+    "name": "Blinded",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "R2yhnEJ7lKT4VSvK",
+    "name": "Blinded & Deafened",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "6eeusiffMtDU3C3c",
+    "name": "Blinded & Poisoned",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "xoOyjbkZSz44HMbD",
+    "name": "Blinded & Suffocating",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "VOHv1LyO3hHolZXo",
+    "name": "Blinded, Restrained, and Total Cover",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "JttKvsdAlGpcrFx0",
+    "name": "Blinded: Heavily Obscured",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "mmBlindingBreath",
+    "name": "Blinding Breath",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "soAO2jRWos8FsxeU",
+        "name": "",
+        "type": "save",
+        "activation": "action"
+      }
+    ],
+    "identifier": "blinding-breath"
+  },
+  {
+    "id": "mmBlindingGaze00",
+    "name": "Blinding Gaze",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "B6xM8C2pABIb5o7y",
+        "name": "",
+        "type": "save",
+        "activation": "legendary"
+      }
+    ],
+    "identifier": "blinding-gaze"
+  },
+  {
+    "id": "mmBlindingSpittl",
+    "name": "Blinding Spittle",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "JfU8KFZkAJxWtrhk",
+        "name": "",
+        "type": "save",
+        "activation": "action"
+      }
+    ],
+    "identifier": "blinding-spittle"
+  },
+  {
+    "id": "mmBloodFrenzy000",
+    "name": "Blood Frenzy",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": "blood-frenzy"
+  },
+  {
+    "id": "mmBloodiedFrenzy",
+    "name": "Bloodied Frenzy",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": "While Bloodied",
+    "activities": [],
+    "identifier": "bloodied-frenzy"
+  },
+  {
+    "id": "mmBloodiedFury00",
+    "name": "Bloodied Fury",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": "While Bloodied",
+    "activities": [],
+    "identifier": "bloodied-fury"
+  },
+  {
+    "id": "mmBlurredForm000",
+    "name": "Blurred Form",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": "Not Incapacitated",
+    "activities": [],
+    "identifier": "blurred-form"
+  },
+  {
+    "id": "mmBoneBow0000000",
+    "name": "Bone Bow",
+    "type": "weapon",
+    "featureType": "martialR",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "dNpSG72dgLo9KbJf",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "bone-bow"
+  },
+  {
+    "id": "mmBoneCudgel0000",
+    "name": "Bone Cudgel",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "kDqcbKhiX1cYiF6X",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "bone-cudgel"
+  },
+  {
+    "id": "mmBoulder0000000",
+    "name": "Boulder",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "7ut7fKOPklypkFWa",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "boulder"
+  },
+  {
+    "id": "mmBoulderToss000",
+    "name": "Boulder Toss",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "jpC3fk7LJlhH4CDr",
+        "name": "",
+        "type": "save",
+        "activation": "action"
+      }
+    ],
+    "identifier": "boulder-toss"
+  },
+  {
+    "id": "mmBound000000000",
+    "name": "Bound",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": "bound"
+  },
+  {
+    "id": "mmBubbleDash0000",
+    "name": "Bubble Dash",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": "While underwater",
+    "activities": [
+      {
+        "id": "ftrbPqT29lnHwzHG",
+        "name": "",
+        "type": "utility",
+        "activation": "bonus"
+      }
+    ],
+    "identifier": "bubble-dash"
+  },
+  {
+    "id": "mmBurn0000000000",
+    "name": "Burn",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "vhh6yvfoNiLDRNW8",
+        "name": null,
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "burn"
+  },
+  {
+    "id": "ePppPvhLU1DnHySS",
+    "name": "Burning",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "mmBurningHammer0",
+    "name": "Burning Hammer",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "D6YUMMYgyoPf1jjI",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "burning-hammer"
+  },
+  {
+    "id": "mmBurstofIngenui",
+    "name": "Burst of Ingenuity",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "AyYipNx3cFaXA0LU",
+        "name": "",
+        "type": "utility",
+        "activation": "reaction"
+      }
+    ],
+    "identifier": "burst-of-ingenuity"
+  },
+  {
+    "id": "mmCacophony00000",
+    "name": "Cacophony",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "pyvvXqoxJsjkkP38",
+        "name": "",
+        "type": "save",
+        "activation": "action"
+      }
+    ],
+    "identifier": "cacophony"
+  },
+  {
+    "id": "mmCaptainsCharm0",
+    "name": "Captain's Charm",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "3o27u4Ww7SmCgc8k",
+        "name": "",
+        "type": "save",
+        "activation": "bonus"
+      }
+    ],
+    "identifier": "captains-charm"
+  },
+  {
+    "id": "mmCelestialResto",
+    "name": "Celestial Restoration",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": "celestial-restoration"
+  },
+  {
+    "id": "mmChain000000000",
+    "name": "Chain",
+    "type": "weapon",
+    "featureType": "simpleM",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "xxaJRogpJ10CtbNx",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "chain"
+  },
+  {
+    "id": "mmChannelNegativ",
+    "name": "Channel Negative Energy",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "eURk5CrGOxmhQFbC",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "channel-negative-energy"
+  },
+  {
+    "id": "mmCharge00000000",
+    "name": "Charge",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "Y2IncZu5BjB42z7l",
+        "name": "Expend Use",
+        "type": "utility",
+        "activation": "bonus"
+      }
+    ],
+    "identifier": "charge"
+  },
+  {
+    "id": "mmChargedTendril",
+    "name": "Charged Tendril",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "l6jh00E0M7go9od0",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "charged-tendril"
+  },
+  {
+    "id": "mmChargingHorn00",
+    "name": "Charging Horn",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "7p8mgAgWVbmb8gpV",
+        "name": "Expend Use",
+        "type": "utility",
+        "activation": "legendary"
+      }
+    ],
+    "identifier": "charging-horn"
+  },
+  {
+    "id": "mmCharm000000000",
+    "name": "Charm",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "fcRXSTOlFJShCl52",
+        "name": "",
+        "type": "cast",
+        "activation": "bonus"
+      }
+    ],
+    "identifier": "charm"
+  },
+  {
+    "id": "mEbtIO1mUEkMNvja",
+    "name": "Charmed",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "Z32WWCg4waNTB1wp",
+    "name": "Charmed",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "sxNoZcfI2KVb3zHr",
+    "name": "Charmed",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "gJscxYD5nf7GlEo8",
+    "name": "Charmed & Incapacitated",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "mmChill000000000",
+    "name": "Chill",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "0YsNhrx8wAzt66Ro",
+        "name": "",
+        "type": "cast",
+        "activation": "legendary"
+      }
+    ],
+    "identifier": "chill"
+  },
+  {
+    "id": "mmClaw0000000000",
+    "name": "Claw",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "W1T7dZnG8GMMwyEP",
+        "name": null,
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "claw"
+  },
+  {
+    "id": "mmClaws000000000",
+    "name": "Claws",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "sd9m31XuipJgWhlM",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      },
+      {
+        "id": "5UtgpODC3lrTQd5t",
+        "name": "Escape Check",
+        "type": "check",
+        "activation": "special"
+      }
+    ],
+    "identifier": "claws"
+  },
+  {
+    "id": "mmCloakedFlight0",
+    "name": "Cloaked Flight",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "oUuMoEOsosDRcuNZ",
+        "name": "",
+        "type": "cast",
+        "activation": "legendary"
+      }
+    ],
+    "identifier": "cloaked-flight"
+  },
+  {
+    "id": "mmCloudOfInsects",
+    "name": "Cloud of Insects",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "0OkFhjOM80ipoNKy",
+        "name": "",
+        "type": "save",
+        "activation": "legendary"
+      }
+    ],
+    "identifier": "cloud-of-insects"
+  },
+  {
+    "id": "owuEyJBslYKvxqeX",
+    "name": "Clouded",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "mmColdBreath0000",
+    "name": "Cold Breath",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "8P7hmd3Nron4RAIv",
+        "name": "",
+        "type": "save",
+        "activation": "action"
+      }
+    ],
+    "identifier": "cold-breath"
+  },
+  {
+    "id": "mmColdGale000000",
+    "name": "Cold Gale",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "pVs8BTVDNh54CZ0a",
+        "name": "",
+        "type": "save",
+        "activation": "legendary"
+      }
+    ],
+    "identifier": "cold-gale"
+  },
+  {
+    "id": "bhvmkZAA605sA3cw",
+    "name": "Cold Resistance",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "mmCommandingPres",
+    "name": "Commanding Presence",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "Ouie1mEfXPRou9cj",
+        "name": "",
+        "type": "cast",
+        "activation": "legendary"
+      }
+    ],
+    "identifier": "commanding-presence"
+  },
+  {
+    "id": "mmCompression000",
+    "name": "Compression",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": "compression"
+  },
+  {
+    "id": "mmConferFireResi",
+    "name": "Confer Fire Resistance",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": "confer-fire-resistance"
+  },
+  {
+    "id": "mmConjureInferna",
+    "name": "Conjure Infernal Chain",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "9vCVJrzUZL0ra4w2",
+        "name": "Save",
+        "type": "save",
+        "activation": "action"
+      }
+    ],
+    "identifier": "conjure-infernal-chain"
+  },
+  {
+    "id": "mmConstrict00000",
+    "name": "Constrict",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "IgOMjRxAt7UISkJq",
+        "name": "",
+        "type": "save",
+        "activation": "action"
+      },
+      {
+        "id": "WlPyop72n5FEVubV",
+        "name": "Escape Check",
+        "type": "check",
+        "activation": "special"
+      }
+    ],
+    "identifier": "constrict"
+  },
+  {
+    "id": "mmConsumeLife000",
+    "name": "Consume Life",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "1Hy8CdhpwQlLxDPq",
+        "name": "Save",
+        "type": "save",
+        "activation": "bonus"
+      },
+      {
+        "id": "1waYTjY3NAIGZgrI",
+        "name": "Wisp: Healing",
+        "type": "heal",
+        "activation": ""
+      }
+    ],
+    "identifier": "consume-life"
+  },
+  {
+    "id": "mmConsumeMemorie",
+    "name": "Consume Memories",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "uI3HDQ1grN123Or3",
+        "name": "Intelligence Saving Throw",
+        "type": "save",
+        "activation": "action"
+      }
+    ],
+    "identifier": "consume-memories"
+  },
+  {
+    "id": "mmCorrosiveForm0",
+    "name": "Corrosive Form",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "OzlTY1z1gup4C2Qq",
+        "name": "",
+        "type": "damage",
+        "activation": ""
+      }
+    ],
+    "identifier": "corrosive-form"
+  },
+  {
+    "id": "mmCorruptingTouc",
+    "name": "Corrupting Touch",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "RipZIpQfSI2dBv2W",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "corrupting-touch"
+  },
+  {
+    "id": "mmCovenMagic0000",
+    "name": "Coven Magic",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "8ju3sHk7cBC4KmcD",
+        "name": "",
+        "type": "cast",
+        "activation": "action"
+      },
+      {
+        "id": "tFMa0R3ASrW58hwK",
+        "name": "",
+        "type": "cast",
+        "activation": "action"
+      },
+      {
+        "id": "vT617J2KBufcrx7f",
+        "name": "",
+        "type": "cast",
+        "activation": "action"
+      },
+      {
+        "id": "N6ny9K2f4ckcSvXq",
+        "name": "",
+        "type": "cast",
+        "activation": "action"
+      },
+      {
+        "id": "1LYa3YdeNryXGv4z",
+        "name": "",
+        "type": "cast",
+        "activation": "action"
+      },
+      {
+        "id": "IsLR26jWhhHrcdgh",
+        "name": "",
+        "type": "cast",
+        "activation": "action"
+      }
+    ],
+    "identifier": "coven-magic"
+  },
+  {
+    "id": "mmCreateSpecter0",
+    "name": "Create Specter",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "ypIQdXr13u7LATUP",
+        "name": "Spirit Rises",
+        "type": "summon",
+        "activation": "action"
+      }
+    ],
+    "identifier": "create-specter"
+  },
+  {
+    "id": "mmCreateWhirlwin",
+    "name": "Create Whirlwind",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "TYNKL0QDItFpbR2G",
+        "name": "Save",
+        "type": "save",
+        "activation": "action"
+      },
+      {
+        "id": "vxRsrpVaHxa02z8F",
+        "name": "Damage: Start of Turn",
+        "type": "damage",
+        "activation": "action"
+      }
+    ],
+    "identifier": "create-whirlwind"
+  },
+  {
+    "id": "mmCrush000000000",
+    "name": "Crush",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "JAaa1Dvp2A9kH7cI",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      },
+      {
+        "id": "PTD4UFW8HUU8fbd4",
+        "name": "",
+        "type": "check",
+        "activation": "action"
+      }
+    ],
+    "identifier": "crush"
+  },
+  {
+    "id": "mmCunningAction0",
+    "name": "Cunning Action",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "2El9isE16lx2LU0K",
+        "name": "Expend Use",
+        "type": "utility",
+        "activation": "bonus"
+      }
+    ],
+    "identifier": "cunning-action"
+  },
+  {
+    "id": "Bl2zQN1xGAUjeiR1",
+    "name": "Cursed",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "VesaHwtQEHKpxdAB",
+    "name": "Cursed",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "BvP51cOd6lyrhEgq",
+    "name": "Cursed",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "B1S4dZd1Lz0jokIo",
+    "name": "Cursed",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "mmCursedTouch000",
+    "name": "Cursed Touch",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "HcqBp8F64ob9OEZi",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "cursed-touch"
+  },
+  {
+    "id": "qYzNNpsYbmdB2cg6",
+    "name": "Damaged: -1 AC",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "PTSwIOo5chgO4d1p",
+    "name": "Damaged: -1 AC/Attack",
+    "type": "enchantment",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "caD7IB1k2XLnkUDS",
+    "name": "Damaged: -1 Attack",
+    "type": "enchantment",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "TSWsGeApnMgxOyIF",
+    "name": "Damaged: −2 AC",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "mmDarknessAura00",
+    "name": "Darkness Aura",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "amat5Ii4NydseA0h",
+        "name": "",
+        "type": "utility",
+        "activation": "action"
+      }
+    ],
+    "identifier": "darkness-aura"
+  },
+  {
+    "id": "mmDeadlyLeap0000",
+    "name": "Deadly Leap",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "IPCXEQoTuaAG5l52",
+        "name": "Save",
+        "type": "save",
+        "activation": "action"
+      }
+    ],
+    "identifier": "deadly-leap"
+  },
+  {
+    "id": "QyuBYDW1zznn0OS4",
+    "name": "Deafened",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "DDrzXcjt2wWiTS9J",
+    "name": "Deafened & Frightened",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "5cNk7YVIesN5RiIh",
+    "name": "Deafened and Disadvantaged",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "mmDeathBurst0000",
+    "name": "Death Burst",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": "When it dies",
+    "activities": [
+      {
+        "id": "1SfqWSp7RSyHgG4b",
+        "name": "",
+        "type": "save",
+        "activation": "special"
+      }
+    ],
+    "identifier": "death-burst"
+  },
+  {
+    "id": "mmDeathGlare0000",
+    "name": "Death Glare",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "3uA75vqvubgY300I",
+        "name": "Save",
+        "type": "save",
+        "activation": "action"
+      }
+    ],
+    "identifier": "death-glare"
+  },
+  {
+    "id": "mmDeathThroes000",
+    "name": "Death Throes",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "jTq2czA8KQITUK4c",
+        "name": "",
+        "type": "save",
+        "activation": ""
+      }
+    ],
+    "identifier": "death-throes"
+  },
+  {
+    "id": "mmDeathlessAgili",
+    "name": "Deathless Agility",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "dlHNkpwbTgwm1UwG",
+        "name": "Expend Use",
+        "type": "utility",
+        "activation": "bonus"
+      }
+    ],
+    "identifier": "deathless-agility"
+  },
+  {
+    "id": "mmDeathlessStrik",
+    "name": "Deathless Strike",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "uCN3OgNKbq0iI81F",
+        "name": "Expend Use",
+        "type": "utility",
+        "activation": "legendary"
+      }
+    ],
+    "identifier": "deathless-strike"
+  },
+  {
+    "id": "mmDeathlyTelepor",
+    "name": "Deathly Teleport",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "zvj61Na7MlcIN2xw",
+        "name": "",
+        "type": "damage",
+        "activation": "legendary"
+      }
+    ],
+    "identifier": "deathly-teleport"
+  },
+  {
+    "id": "mmDeflectMissile",
+    "name": "Deflect Missile",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "9T8cNbSBVACrrmRI",
+        "name": "Reduce Damage",
+        "type": "heal",
+        "activation": "reaction"
+      },
+      {
+        "id": "x0MjUmnv2OPAbm6y",
+        "name": "Save",
+        "type": "save",
+        "activation": ""
+      }
+    ],
+    "identifier": "deflect-missile"
+  },
+  {
+    "id": "mmDemonicRestora",
+    "name": "Demonic Restoration",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": "Dies outside the Abyss",
+    "activities": [],
+    "identifier": "demonic-restoration"
+  },
+  {
+    "id": "mmDestroyMetal00",
+    "name": "Destroy Metal",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "GDJtelEYYTgc9jwr",
+        "name": "Expend Use",
+        "type": "utility",
+        "activation": "action"
+      }
+    ],
+    "identifier": "destroy-metal"
+  },
+  {
+    "id": "mmDevilishClaw00",
+    "name": "Devilish Claw",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "kml5NewVnZDx8Jry",
+        "name": null,
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "devilish-claw"
+  },
+  {
+    "id": "mmDiabolicalRest",
+    "name": "Diabolical Restoration",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": "Dies outside the Nine Hells",
+    "activities": [],
+    "identifier": "diabolical-restoration"
+  },
+  {
+    "id": "v2EdEMrtcddO1p8U",
+    "name": "Disadv. Attacks & Checks",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "Jvy5UeJBi7Y0WmAp",
+    "name": "Disadv.: Attacks",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "mmDisruptLife000",
+    "name": "Disrupt Life",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "qSz7l1czwIc5j9gP",
+        "name": "Save",
+        "type": "save",
+        "activation": "legendary"
+      }
+    ],
+    "identifier": "disrupt-life"
+  },
+  {
+    "id": "mmDissolvingPseu",
+    "name": "Dissolving Pseudopod",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "HGEMC3ouhGsC1a1a",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "dissolving-pseudopod"
+  },
+  {
+    "id": "mmDivineAid00000",
+    "name": "Divine Aid",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "V0Qrt1uTAqiU9SCm",
+        "name": "",
+        "type": "cast",
+        "activation": "bonus"
+      },
+      {
+        "id": "R4x9qJ4BYyFenPUf",
+        "name": "",
+        "type": "cast",
+        "activation": "bonus"
+      },
+      {
+        "id": "xlmEmICWCOXh1DRs",
+        "name": "",
+        "type": "cast",
+        "activation": "bonus"
+      },
+      {
+        "id": "mV8EoRveUz19SU1p",
+        "name": "",
+        "type": "cast",
+        "activation": "bonus"
+      }
+    ],
+    "identifier": "divine-aid"
+  },
+  {
+    "id": "mmDivineAwarenes",
+    "name": "Divine Awareness",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": "divine-awareness"
+  },
+  {
+    "id": "mmDominateMind00",
+    "name": "Dominate Mind",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "zdXAMnjaOcsVmLZP",
+        "name": "",
+        "type": "save",
+        "activation": "action"
+      }
+    ],
+    "identifier": "dominate-mind"
+  },
+  {
+    "id": "85n0EJTGfngNSLLl",
+    "name": "Dominated",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "mmDraconicOrigin",
+    "name": "Draconic Origin",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": "draconic-origin"
+  },
+  {
+    "id": "mmDragonsBreath0",
+    "name": "Dragon's Breath",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "YfxQb5tcONgLb2nD",
+        "name": "Save",
+        "type": "save",
+        "activation": "action"
+      }
+    ],
+    "identifier": "dragons-breath"
+  },
+  {
+    "id": "mmDrainingKiss00",
+    "name": "Draining Kiss",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "kFyuof0SS3nohP0f",
+        "name": "Save",
+        "type": "save",
+        "activation": "action"
+      }
+    ],
+    "identifier": "draining-kiss"
+  },
+  {
+    "id": "mmDrainingSwipe0",
+    "name": "Draining Swipe",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "pZ84SpChkTN52eO6",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      },
+      {
+        "id": "uwBYwkQjnw2cneUA",
+        "name": "Shadow Rises",
+        "type": "summon",
+        "activation": "action"
+      },
+      {
+        "id": "beBWDXe2W3AZYlS3",
+        "name": "STR Score -1d4",
+        "type": "utility",
+        "activation": "action"
+      }
+    ],
+    "identifier": "draining-swipe"
+  },
+  {
+    "id": "mmDreadCommand00",
+    "name": "Dread Command",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "9RQr4xjb1zKIXBxn",
+        "name": "Command",
+        "type": "cast",
+        "activation": "legendary"
+      }
+    ],
+    "identifier": "dread-command"
+  },
+  {
+    "id": "mmDreadfulGlare0",
+    "name": "Dreadful Glare",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "8LmlZfevSQkOxGSN",
+        "name": "Save",
+        "type": "save",
+        "activation": "action"
+      }
+    ],
+    "identifier": "dreadful-glare"
+  },
+  {
+    "id": "mmEarthGlide0000",
+    "name": "Earth Glide",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": "earth-glide"
+  },
+  {
+    "id": "mmEldritchBurst0",
+    "name": "Eldritch Burst",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "7SIsHe0xi4iBECPp",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "eldritch-burst"
+  },
+  {
+    "id": "mmEldritchRestor",
+    "name": "Eldritch Restoration",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "YwxhTLYeVaKwKIRT",
+        "name": "Days: New Body",
+        "type": "utility",
+        "activation": "action"
+      }
+    ],
+    "identifier": "eldritch-restoration"
+  },
+  {
+    "id": "mmElementalResto",
+    "name": "Elemental Restoration",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": "dies outside the Elemental Plane of Earth",
+    "activities": [],
+    "identifier": "elemental-restoration"
+  },
+  {
+    "id": "mmEnchantingBow0",
+    "name": "Enchanting Bow",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "gJbEw2EBJIVRccp7",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "enchanting-bow"
+  },
+  {
+    "id": "mmEngulf00000000",
+    "name": "Engulf",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "5o0Bh8PQaojx5XMx",
+        "name": "Save",
+        "type": "save",
+        "activation": "action"
+      },
+      {
+        "id": "Exfa4q7O4SvXjGt7",
+        "name": "Engulfed: Damage",
+        "type": "damage",
+        "activation": "action"
+      }
+    ],
+    "identifier": "engulf"
+  },
+  {
+    "id": "mmEntanglingRope",
+    "name": "Entangling Rope",
+    "type": "feat",
+    "featureType": "",
+    "subtype": "",
+    "source": null,
+    "requirements": "Requires Magic Rope",
+    "activities": [
+      {
+        "id": "n8nEah4vbrEPphNF",
+        "name": "",
+        "type": "save",
+        "activation": "action"
+      }
+    ],
+    "identifier": "entangling-rope"
+  },
+  {
+    "id": "mmEnthrallingPan",
+    "name": "Enthralling Panache",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "66IPjaLIJqqwvmrL",
+        "name": "Save",
+        "type": "save",
+        "activation": "action"
+      }
+    ],
+    "identifier": "enthralling-panache"
+  },
+  {
+    "id": "mmEphemeral00000",
+    "name": "Ephemeral",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": "ephemeral"
+  },
+  {
+    "id": "mmEtherealJaunt0",
+    "name": "Ethereal Jaunt",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "zROMvitcKuGnOuAs",
+        "name": "Expend Use",
+        "type": "utility",
+        "activation": "bonus"
+      }
+    ],
+    "identifier": "ethereal-jaunt"
+  },
+  {
+    "id": "mmEtherealSight0",
+    "name": "Ethereal Sight",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": "ethereal-sight"
+  },
+  {
+    "id": "mmEtherealStride",
+    "name": "Ethereal Stride",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "0EfvhIXAIPlYUiNE",
+        "name": "Expend Use",
+        "type": "utility",
+        "activation": "action"
+      }
+    ],
+    "identifier": "ethereal-stride"
+  },
+  {
+    "id": "mmEtherealness00",
+    "name": "Etherealness",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "N5QCNM4uIBjpu6sD",
+        "name": "Etherealness",
+        "type": "cast",
+        "activation": "action"
+      }
+    ],
+    "identifier": "etherealness"
+  },
+  {
+    "id": "mmEvasion0000000",
+    "name": "Evasion",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": "evasion"
+  },
+  {
+    "id": "mmExaltedRestora",
+    "name": "Exalted Restoration",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": "exalted-restoration"
+  },
+  {
+    "id": "Bf6DExMyhKyPPV4x",
+    "name": "Exhaustion",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "PFledLQkQ75osOlZ",
+    "name": "Exhaustion 1",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "AVZPkC07GONXpRMe",
+    "name": "Exhaustion 2",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "l1PiPpfAiF9TWs88",
+    "name": "Exhaustion 3",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "DCB7xWKhKSEmZHNn",
+    "name": "Exhaustion 4",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "9Tc60NhDJH43WdEU",
+    "name": "Exhaustion 5",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "drQriWAwmwosemzp",
+    "name": "Exhaustion Dead",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "gCuUMpz0XzscFB4K",
+    "name": "Failure: Dead",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "mmFearAura000000",
+    "name": "Fear Aura",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "oT8238p9jXwVy76c",
+        "name": "",
+        "type": "save",
+        "activation": ""
+      }
+    ],
+    "identifier": "fear-aura"
+  },
+  {
+    "id": "mmFetidCloud0000",
+    "name": "Fetid Cloud",
+    "type": "feat",
+    "featureType": "",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "vRnhmBCQqIwIlfS4",
+        "name": "",
+        "type": "save",
+        "activation": "action"
+      }
+    ],
+    "identifier": "fetid-cloud"
+  },
+  {
+    "id": "mmFiendishRestor",
+    "name": "Fiendish Restoration",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": "Dies outside of Gehanna",
+    "activities": [],
+    "identifier": "fiendish-restoration"
+  },
+  {
+    "id": "mmFiendishTouch0",
+    "name": "Fiendish Touch",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "x3tWUbetPLpqYAen",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "fiendish-touch"
+  },
+  {
+    "id": "mmFieryBolt00000",
+    "name": "Fiery Bolt",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "cTIUSr5mWEJl1bhK",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "fiery-bolt"
+  },
+  {
+    "id": "mmFieryMace00000",
+    "name": "Fiery Mace",
+    "type": "weapon",
+    "featureType": "simpleM",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "rHFw1T1I4Usm7cdj",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "fiery-mace"
+  },
+  {
+    "id": "mmFieryRays00000",
+    "name": "Fiery Rays",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "EA1U9O6Z71z2lUZV",
+        "name": "",
+        "type": "cast",
+        "activation": "legendary"
+      }
+    ],
+    "identifier": "fiery-rays"
+  },
+  {
+    "id": "mmFireAbsorption",
+    "name": "Fire Absorption",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": "fire-absorption"
+  },
+  {
+    "id": "mmFireAura000000",
+    "name": "Fire Aura",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "15VgJKVXwYBOFSqJ",
+        "name": "",
+        "type": "damage",
+        "activation": "turnEnd"
+      }
+    ],
+    "identifier": "fire-aura"
+  },
+  {
+    "id": "mmFireBreath0000",
+    "name": "Fire Breath",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "bDqgmtLG3zcVuqdi",
+        "name": "",
+        "type": "save",
+        "activation": "action"
+      }
+    ],
+    "identifier": "fire-breath"
+  },
+  {
+    "id": "mmFireForm000000",
+    "name": "Fire Form",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "R2KucOla8mP9vso3",
+        "name": "",
+        "type": "damage",
+        "activation": ""
+      }
+    ],
+    "identifier": "fire-form"
+  },
+  {
+    "id": "pz5r0ksOuMpJTH7q",
+    "name": "Fire Resistance",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "mmFist0000000000",
+    "name": "Fist",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "PklEq9HUdtd7Vghz",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "fist"
+  },
+  {
+    "id": "mmFlameSpear0000",
+    "name": "Flame Spear",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "s066Mk4LF1hYNdhB",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "flame-spear"
+  },
+  {
+    "id": "mmFlameSword0000",
+    "name": "Flame Sword",
+    "type": "weapon",
+    "featureType": "martialM",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "TvkvoA1rnU7aUMQw",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "flame-sword"
+  },
+  {
+    "id": "mmFlameWhip00000",
+    "name": "Flame Whip",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "sPRQe6Llftsg9xiX",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "flame-whip"
+  },
+  {
+    "id": "mmFling000000000",
+    "name": "Fling",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "E7YKnUIWsavrnNzK",
+        "name": "Save",
+        "type": "save",
+        "activation": "action"
+      }
+    ],
+    "identifier": "fling"
+  },
+  {
+    "id": "mmFlyby000000000",
+    "name": "Flyby",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": "Flies out of an enemy's reach",
+    "activities": [],
+    "identifier": "flyby"
+  },
+  {
+    "id": "mmFlyingSword000",
+    "name": "Flying Sword",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "ZfY0kFhF2VC1rGy4",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "flying-sword"
+  },
+  {
+    "id": "mmFogCloud000000",
+    "name": "Fog Cloud",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "sKdIh2G1RS2oqp8t",
+        "name": "",
+        "type": "cast",
+        "activation": "action"
+      }
+    ],
+    "identifier": "fog-cloud"
+  },
+  {
+    "id": "mmForceBolt00000",
+    "name": "Force Bolt",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "S5O0aUU1pU4syS7J",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "force-bolt"
+  },
+  {
+    "id": "mmForeleg0000000",
+    "name": "Foreleg",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "5FBLocCqNmbD0Ntf",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "foreleg"
+  },
+  {
+    "id": "mmFreeze00000000",
+    "name": "Freeze",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "30vxFL9kAuoSbCk8",
+        "name": "Use",
+        "type": "utility",
+        "activation": "special"
+      }
+    ],
+    "identifier": "freeze"
+  },
+  {
+    "id": "mmFreezingBurst0",
+    "name": "Freezing Burst",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "U2i9u4ELjeLQfePP",
+        "name": "Save",
+        "type": "save",
+        "activation": "legendary"
+      }
+    ],
+    "identifier": "freezing-burst"
+  },
+  {
+    "id": "hRSvOovTSlu4Dw8c",
+    "name": "Frightened",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "Sb7G5OyhGbjLUoWo",
+    "name": "Frightened",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "lx2ebHyyyaaWf8s1",
+    "name": "Frightened",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "ahNNQZ2FHPsRpYbH",
+    "name": "Frightened",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "ozk8flGDR2kAITEI",
+    "name": "Frightened",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "1W7nCxww2CjUF5Bh",
+    "name": "Frightened",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "jcp949sl7JYRdhdB",
+    "name": "Frightened",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "u8Gu5Oo3a48vKYla",
+    "name": "Frightened",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "BheOE4RU2wcG94yl",
+    "name": "Frightened",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "t3d77s2YYM0OgsvZ",
+    "name": "Frightened",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "CiH2KTuvmdGmuz20",
+    "name": "Frightened",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "4GgIe9QPQ5oYRsHN",
+    "name": "Frightened & Incapacitated",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "mmFrighteningGaz",
+    "name": "Frightening Gaze",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "7RiCnWnmXG61xpkE",
+        "name": "",
+        "type": "cast",
+        "activation": "legendary"
+      }
+    ],
+    "identifier": "frightening-gaze"
+  },
+  {
+    "id": "mmFrightfulPrese",
+    "name": "Frightful Presence",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "lbzj4R6LBDa4r4Hk",
+        "name": "",
+        "type": "cast",
+        "activation": "legendary"
+      }
+    ],
+    "identifier": "frightful-presence"
+  },
+  {
+    "id": "mmFrostAxe000000",
+    "name": "Frost Axe",
+    "type": "weapon",
+    "featureType": "martialM",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "iFTGcmvp6oEsMCDL",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "frost-axe"
+  },
+  {
+    "id": "mmFrostBreath000",
+    "name": "Frost Breath",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "ChLJgxjftTSMSRHe",
+        "name": "Save",
+        "type": "save",
+        "activation": "action"
+      }
+    ],
+    "identifier": "frost-breath"
+  },
+  {
+    "id": "mmGibbering00000",
+    "name": "Gibbering",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "PyGOI84k0PPYrru8",
+        "name": "",
+        "type": "save",
+        "activation": ""
+      },
+      {
+        "id": "Lglj71bNvgqazuFB",
+        "name": "Roll d8",
+        "type": "utility",
+        "activation": ""
+      }
+    ],
+    "identifier": "gibbering"
+  },
+  {
+    "id": "3W5EIHf9CRJQ3NyK",
+    "name": "Giggling",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "mmGigglingMagic0",
+    "name": "Giggling Magic",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "Ttrajc4RC5Ut7pkj",
+        "name": "Save",
+        "type": "save",
+        "activation": "legendary"
+      }
+    ],
+    "identifier": "giggling-magic"
+  },
+  {
+    "id": "mmGlare000000000",
+    "name": "Glare",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "sKVNu6ILpA3FSFFE",
+        "name": "Expend Use",
+        "type": "utility",
+        "activation": "legendary"
+      }
+    ],
+    "identifier": "glare"
+  },
+  {
+    "id": "mmGore0000000000",
+    "name": "Gore",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "OeVR19Hp2kvxSNZv",
+        "name": "Attack",
+        "type": "attack",
+        "activation": "action"
+      },
+      {
+        "id": "iBenqFiBu40bUxkH",
+        "name": "Moving Attack",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "gore"
+  },
+  {
+    "id": "mmGouge000000000",
+    "name": "Gouge",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "MewgpDaGS8BsGDsD",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "gouge"
+  },
+  {
+    "id": "mmGrab0000000000",
+    "name": "Grab",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "GVUHigbRWoWysg40",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      },
+      {
+        "id": "KAoKjQKNTmMtuJG3",
+        "name": "Escape Check",
+        "type": "check",
+        "activation": "special"
+      }
+    ],
+    "identifier": "grab"
+  },
+  {
+    "id": "PTmNYKeeD3d7EbJn",
+    "name": "Grappled",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "2N5R5UunQHBncwF3",
+    "name": "Grappled",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "GCED8YlF6qXTgEkd",
+    "name": "Grappled",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "5yLzwp2Gu803QgI9",
+    "name": "Grappled",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "KxcWsIHohpNmagLJ",
+    "name": "Grappled",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "GyZrmzBP0NB8oRZI",
+    "name": "Grappled",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "fWPQye4Mr7VNbX9J",
+    "name": "Grappled",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "07IW8bZzgQ4Jk3sW",
+    "name": "Grappled & Restrained",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "rN76liiHkUoMRMJN",
+    "name": "Grappled & Restrained",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "wfTA3WUcjBVzGa2H",
+    "name": "Grappled + Other Conditions",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "MpjWPflcv7Jqd7Tu",
+    "name": "Grappled and Restrained",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "Hd0Gy3wJtPfObERq",
+    "name": "Grappled and Restrained",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "mmGreatBow000000",
+    "name": "Great Bow",
+    "type": "weapon",
+    "featureType": "martialR",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "7KL1ez7ganbU0Axi",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "great-bow"
+  },
+  {
+    "id": "mmGreaterMagicRe",
+    "name": "Greater Magic Resistance",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": "greater-magic-resistance"
+  },
+  {
+    "id": "mmGuidingLight00",
+    "name": "Guiding Light",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "zm9pGaRN3rgfVgGl",
+        "name": "",
+        "type": "cast",
+        "activation": "legendary"
+      }
+    ],
+    "identifier": "guiding-light"
+  },
+  {
+    "id": "mmHailOfBark0000",
+    "name": "Hail of Bark",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "uo9QRLBklb5jb01g",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "hail-of-bark"
+  },
+  {
+    "id": "mmHammerThrow000",
+    "name": "Hammer Throw",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "eXyEiQcMktlGdyt8",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "hammer-throw"
+  },
+  {
+    "id": "mmHarpoon0000000",
+    "name": "Harpoon",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "hyK7Ua3oC3S3KqGu",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "harpoon"
+  },
+  {
+    "id": "mmHasten00000000",
+    "name": "Hasten",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "1xqzKzUEPSEDWHta",
+        "name": "Expend Use",
+        "type": "utility",
+        "activation": "bonus"
+      }
+    ],
+    "identifier": "hasten"
+  },
+  {
+    "id": "mmHeartSight0000",
+    "name": "Heart Sight",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "NqVrZShDV1L3zBA3",
+        "name": "Save",
+        "type": "save",
+        "activation": "action"
+      }
+    ],
+    "identifier": "heart-sight"
+  },
+  {
+    "id": "mmHeatAura000000",
+    "name": "Heat Aura",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "LDcQJj3oXyPCuCaT",
+        "name": "",
+        "type": "damage",
+        "activation": "action"
+      }
+    ],
+    "identifier": "heat-aura"
+  },
+  {
+    "id": "mmHeatedBlade000",
+    "name": "Heated Blade",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "cM2KxAt6vAkdHLNC",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "heated-blade"
+  },
+  {
+    "id": "mmHellfireSpellc",
+    "name": "Hellfire Spellcasting",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "fN8SjzxRhERq8DlF",
+        "name": "",
+        "type": "cast",
+        "activation": "action"
+      },
+      {
+        "id": "UYyJcxVTi3IXTydV",
+        "name": "",
+        "type": "cast",
+        "activation": "action"
+      },
+      {
+        "id": "d7nppEGoUKLye9JS",
+        "name": "",
+        "type": "cast",
+        "activation": "action"
+      }
+    ],
+    "identifier": "hellfire-spellcasting"
+  },
+  {
+    "id": "mmHellishRestora",
+    "name": "Hellish Restoration",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "aIkY2fb7N8SFgV2z",
+        "name": "Revive: Days",
+        "type": "utility",
+        "activation": ""
+      }
+    ],
+    "identifier": "hellish-restoration"
+  },
+  {
+    "id": "siHMgi75fxHCESex",
+    "name": "Hide",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "6AjyMN83LppkkgC3",
+    "name": "Hit: STR Score -1d4",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "mmHoldBreath0000",
+    "name": "Hold Breath",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": "hold-breath"
+  },
+  {
+    "id": "mmHolyBurst00000",
+    "name": "Holy Burst",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "HrgMO1rsQla47fff",
+        "name": "Save",
+        "type": "save",
+        "activation": "action"
+      }
+    ],
+    "identifier": "holy-burst"
+  },
+  {
+    "id": "mmHolyMace000000",
+    "name": "Holy Mace",
+    "type": "weapon",
+    "featureType": "simpleM",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "75czZx6Tn56yWc59",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "holy-mace"
+  },
+  {
+    "id": "mmHooves00000000",
+    "name": "Hooves",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "6U2Wc2qWocyuASbe",
+        "name": null,
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "hooves"
+  },
+  {
+    "id": "mmHorrificVisage",
+    "name": "Horrific Visage",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "v8KiqUloIE5eocSu",
+        "name": "Save",
+        "type": "save",
+        "activation": "action"
+      }
+    ],
+    "identifier": "horrific-visage"
+  },
+  {
+    "id": "mmHorrorNimbus00",
+    "name": "Horror Nimbus",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "GP5MnIyXCVZ4ZMTQ",
+        "name": "Save",
+        "type": "save",
+        "activation": "bonus"
+      }
+    ],
+    "identifier": "horror-nimbus"
+  },
+  {
+    "id": "mmHurlFlame00000",
+    "name": "Hurl Flame",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "8smms17uUvt02XEm",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "hurl-flame"
+  },
+  {
+    "id": "mmIceSpear000000",
+    "name": "Ice Spear",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "Iwlro2vXHOQQgIWg",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "ice-spear"
+  },
+  {
+    "id": "mmIceWalk0000000",
+    "name": "Ice Walk",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": "ice-walk"
+  },
+  {
+    "id": "mmIceWall0000000",
+    "name": "Ice Wall",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "EAYOqr0SbvmvajZ4",
+        "name": "",
+        "type": "cast",
+        "activation": "action"
+      }
+    ],
+    "identifier": "ice-wall"
+  },
+  {
+    "id": "mmIgnitedIllumin",
+    "name": "Ignited Illumination",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "2gKgNtMg8wBhUP0a",
+        "name": "Expend Use",
+        "type": "utility",
+        "activation": "bonus"
+      }
+    ],
+    "identifier": "ignited-illumination"
+  },
+  {
+    "id": "mmIllumination00",
+    "name": "Illumination",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": "illumination"
+  },
+  {
+    "id": "mmIllusoryAppear",
+    "name": "Illusory Appearance",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "qY8e7Xm7QYQDXqsd",
+        "name": "",
+        "type": "cast",
+        "activation": "action"
+      }
+    ],
+    "identifier": "illusory-appearance"
+  },
+  {
+    "id": "mmImmutableForm0",
+    "name": "Immutable Form",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": "immutable-form"
+  },
+  {
+    "id": "hHsI0Xo1J4XM4z5K",
+    "name": "Incapacitated",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "MML0hjuixzKZ61FT",
+    "name": "Incapacitated",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "EeZIaR3X4cI5glMX",
+    "name": "Incapacitated",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "9t5G87DeDyAF22dr",
+    "name": "Incapacitated",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "zntfQrOQz4iBlh22",
+    "name": "Incapacitated",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "mmIncorporealMov",
+    "name": "Incorporeal Movement",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": "incorporeal-movement"
+  },
+  {
+    "id": "mmIncubusForm000",
+    "name": "Incubus Form",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "Owl7RGIwLt3N0Vaj",
+        "name": "Incubus",
+        "type": "summon",
+        "activation": "action"
+      }
+    ],
+    "identifier": "incubus-form"
+  },
+  {
+    "id": "mmInfernalGlaive",
+    "name": "Infernal Glaive",
+    "type": "weapon",
+    "featureType": "martialM",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "QV1oMxksn8BT14zw",
+        "name": null,
+        "type": "attack",
+        "activation": "action"
+      },
+      {
+        "id": "4qy3fKL086OAE1xR",
+        "name": "",
+        "type": "save",
+        "activation": ""
+      },
+      {
+        "id": "IS4utGV80LpDrjvt",
+        "name": "Damage: Infernal Wound",
+        "type": "damage",
+        "activation": ""
+      },
+      {
+        "id": "KNWa0TFhANjmQCds",
+        "name": "Check: Stanch Wound",
+        "type": "check",
+        "activation": "action"
+      }
+    ],
+    "identifier": "infernal-glaive"
+  },
+  {
+    "id": "mmInfernalSting0",
+    "name": "Infernal Sting",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "nc4l1efsfjkTcPyT",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "infernal-sting"
+  },
+  {
+    "id": "mmInfernalTail00",
+    "name": "Infernal Tail",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "tJYeyUk3iPYJq9xM",
+        "name": "Save",
+        "type": "save",
+        "activation": "action"
+      },
+      {
+        "id": "zZfCQ0IeJZCjPLzE",
+        "name": "Target: HP Loss",
+        "type": "damage",
+        "activation": ""
+      },
+      {
+        "id": "Y1gjsHGtpvAX7J6J",
+        "name": "Stanch Wound Check",
+        "type": "check",
+        "activation": ""
+      }
+    ],
+    "identifier": "infernal-tail"
+  },
+  {
+    "id": "mmInkCloud000000",
+    "name": "Ink Cloud",
+    "type": "feat",
+    "featureType": "",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "1MiIPcVuCpfgBIkS",
+        "name": "Expend Use",
+        "type": "utility",
+        "activation": "reaction"
+      }
+    ],
+    "identifier": "ink-cloud"
+  },
+  {
+    "id": "mmInscrutable000",
+    "name": "Inscrutable",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": "inscrutable"
+  },
+  {
+    "id": "mmInvisibility00",
+    "name": "Invisibility",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "6BqYzqlxZTtqyPmH",
+        "name": "",
+        "type": "cast",
+        "activation": "action"
+      }
+    ],
+    "identifier": "invisibility"
+  },
+  {
+    "id": "oY6W5ijpozecYGkq",
+    "name": "Invisible",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "mmIronScent00000",
+    "name": "Iron Scent",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "I1ppxiVO5CS6tKj0",
+        "name": "Expend Use",
+        "type": "utility",
+        "activation": ""
+      }
+    ],
+    "identifier": "iron-scent"
+  },
+  {
+    "id": "mmJumper00000000",
+    "name": "Jumper",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": "jumper"
+  },
+  {
+    "id": "mmLash0000000000",
+    "name": "Lash",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "phsl4hTpFmdBa56h",
+        "name": "Expend Use",
+        "type": "utility",
+        "activation": "legendary"
+      }
+    ],
+    "identifier": "lash"
+  },
+  {
+    "id": "mmLeap0000000000",
+    "name": "Leap",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "C28C43DeD8iFtZMe",
+        "name": "Expend Use",
+        "type": "utility",
+        "activation": "bonus"
+      }
+    ],
+    "identifier": "leap"
+  },
+  {
+    "id": "mmLegendaryResis",
+    "name": "Legendary Resistance",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "nLPRJi7ipeAet7ir",
+        "name": "Expend Use",
+        "type": "utility",
+        "activation": "special"
+      }
+    ],
+    "identifier": "legendary-resistance"
+  },
+  {
+    "id": "mmLifeDrain00000",
+    "name": "Life Drain",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "ZCPz7voSLon5Bg5E",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "life-drain"
+  },
+  {
+    "id": "mmLightSensitivi",
+    "name": "Light Sensitivity",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": "light-sensitivity"
+  },
+  {
+    "id": "mmLightningAbsor",
+    "name": "Lightning Absorption",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": "Subjected to Lightning damage",
+    "activities": [],
+    "identifier": "lightning-absorption"
+  },
+  {
+    "id": "mmLightningBlade",
+    "name": "Lightning Blade",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "Pd0OXDusQbSepRl7",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "lightning-blade"
+  },
+  {
+    "id": "mmLightningBreat",
+    "name": "Lightning Breath",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "LpjgVwftzGNMgTUJ",
+        "name": "",
+        "type": "save",
+        "activation": "action"
+      }
+    ],
+    "identifier": "lightning-breath"
+  },
+  {
+    "id": "XfAztVHPpKrgYrnD",
+    "name": "Lightning Resistance",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "mmLightningStorm",
+    "name": "Lightning Storm",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "YVri6iuieFUUiO1d",
+        "name": "Save",
+        "type": "save",
+        "activation": "action"
+      }
+    ],
+    "identifier": "lightning-storm"
+  },
+  {
+    "id": "mmLightningStrik",
+    "name": "Lightning Strike",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "v39JwGqgfaKiA4vc",
+        "name": "Save",
+        "type": "save",
+        "activation": "action"
+      }
+    ],
+    "identifier": "lightning-strike"
+  },
+  {
+    "id": "mmLimitedAmphibi",
+    "name": "Limited Amphibiousness",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": "limited-amphibiousness"
+  },
+  {
+    "id": "mmLoathsomeLimbs",
+    "name": "Loathsome Limbs",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "1RdczIOwv3VBCELH",
+        "name": "Troll Limb",
+        "type": "summon",
+        "activation": "action"
+      }
+    ],
+    "identifier": "loathsome-limbs"
+  },
+  {
+    "id": "mmLuringSong0000",
+    "name": "Luring Song",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "dxxqZP7Vo01te3QB",
+        "name": "Save",
+        "type": "save",
+        "activation": "action"
+      }
+    ],
+    "identifier": "luring-song"
+  },
+  {
+    "id": "mmMagicOfTheSpid",
+    "name": "Magic of the Spider Queen",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "ErB1BoIjo8Wj9KXS",
+        "name": "",
+        "type": "cast",
+        "activation": "bonus"
+      },
+      {
+        "id": "8Zw5hRXyd8axv5Zs",
+        "name": "",
+        "type": "cast",
+        "activation": "bonus"
+      },
+      {
+        "id": "B8OHv2CaawtJoMu7",
+        "name": "",
+        "type": "cast",
+        "activation": "bonus"
+      }
+    ],
+    "identifier": "magic-of-the-spider-queen"
+  },
+  {
+    "id": "mmMagicResistanc",
+    "name": "Magic Resistance",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": "magic-resistance"
+  },
+  {
+    "id": "mmMagicRope00000",
+    "name": "Magic Rope",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": "magic-rope"
+  },
+  {
+    "id": "mmMimicry0000000",
+    "name": "Mimicry",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "QY46N3x1OIBN2Bu1",
+        "name": "",
+        "type": "check",
+        "activation": "action"
+      }
+    ],
+    "identifier": "mimicry"
+  },
+  {
+    "id": "mmMindInvasion00",
+    "name": "Mind Invasion",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "SxaXUPLBRHtYL9As",
+        "name": "",
+        "type": "cast",
+        "activation": "legendary"
+      }
+    ],
+    "identifier": "mind-invasion"
+  },
+  {
+    "id": "mmMindJolt000000",
+    "name": "Mind Jolt",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "f3Q5Cky4bKFVdOT2",
+        "name": "",
+        "type": "cast",
+        "activation": "legendary"
+      }
+    ],
+    "identifier": "mind-jolt"
+  },
+  {
+    "id": "mmMindrendingRoa",
+    "name": "Mind-Rending Roar",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "zPMfwwIoTFzIrN5H",
+        "name": "Save",
+        "type": "save",
+        "activation": "action"
+      }
+    ],
+    "identifier": "mind-rending-roar"
+  },
+  {
+    "id": "mmMistyEscape000",
+    "name": "Misty Escape",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "OJoFvF9VhZ0OuwfH",
+        "name": "Paralyzed",
+        "type": "utility",
+        "activation": ""
+      }
+    ],
+    "identifier": "misty-escape"
+  },
+  {
+    "id": "mmMistyStep00000",
+    "name": "Misty Step",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "sstmyMnemXbXqI5Y",
+        "name": "",
+        "type": "cast",
+        "activation": "bonus"
+      }
+    ],
+    "identifier": "misty-step"
+  },
+  {
+    "id": "mmMoan0000000000",
+    "name": "Moan",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "Mng39fcFDc4I1AzY",
+        "name": "Save",
+        "type": "save",
+        "activation": "bonus"
+      }
+    ],
+    "identifier": "moan"
+  },
+  {
+    "id": "mmMockery0000000",
+    "name": "Mockery",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "s5CMus4LOXBkt1Wn",
+        "name": "Save",
+        "type": "save",
+        "activation": "action"
+      }
+    ],
+    "identifier": "mockery"
+  },
+  {
+    "id": "mmMucusCloud0000",
+    "name": "Mucus Cloud",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "clFFG8uDBSFzxIo8",
+        "name": "",
+        "type": "save",
+        "activation": ""
+      },
+      {
+        "id": "JrxCVyCOsBAMVZS7",
+        "name": "Damage: Outside Water",
+        "type": "damage",
+        "activation": ""
+      }
+    ],
+    "identifier": "mucus-cloud"
+  },
+  {
+    "id": "mmMultiattack000",
+    "name": "Multiattack",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "Ms63W7e3Mv2Margn",
+        "name": "Use",
+        "type": "utility",
+        "activation": "action"
+      }
+    ],
+    "identifier": "multiattack"
+  },
+  {
+    "id": "mmMultipleHeads0",
+    "name": "Multiple Heads",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": "multiple-heads"
+  },
+  {
+    "id": "mmNecroticBow000",
+    "name": "Necrotic Bow",
+    "type": "weapon",
+    "featureType": "martialR",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "BlfhtejqUaKF5pUy",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "necrotic-bow"
+  },
+  {
+    "id": "mmNecroticRay000",
+    "name": "Necrotic Ray",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "3Nx1sgEZtJ1OZjvT",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "necrotic-ray"
+  },
+  {
+    "id": "mmNecroticStrike",
+    "name": "Necrotic Strike",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "XjVWtnpvFEbr67UU",
+        "name": "Expend Use",
+        "type": "utility",
+        "activation": "legendary"
+      }
+    ],
+    "identifier": "necrotic-strike"
+  },
+  {
+    "id": "mmNecroticSword0",
+    "name": "Necrotic Sword",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "FVbf8oZYqxmgsPgK",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "necrotic-sword"
+  },
+  {
+    "id": "mmNeedleSword000",
+    "name": "Needle Sword",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "mHXIRLpFqR3cdhgW",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "needle-sword"
+  },
+  {
+    "id": "mmNightmare00000",
+    "name": "Nightmare",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "Y9H9ImnMcffBZlH3",
+        "name": "Save",
+        "type": "save",
+        "activation": "bonus"
+      }
+    ],
+    "identifier": "nightmare"
+  },
+  {
+    "id": "mmNightmareHaunt",
+    "name": "Nightmare Haunting",
+    "type": "feat",
+    "featureType": "",
+    "subtype": "",
+    "source": null,
+    "requirements": "Requires Soul Bag",
+    "activities": [
+      {
+        "id": "4GGGVhvLSrHgHdb9",
+        "name": "",
+        "type": "cast",
+        "activation": "action"
+      }
+    ],
+    "identifier": "nightmare-haunting"
+  },
+  {
+    "id": "mmNightmareRay00",
+    "name": "Nightmare Ray",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "d2L9fUjAz35UAQ6q",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "nightmare-ray"
+  },
+  {
+    "id": "mmNimbleEscape00",
+    "name": "Nimble Escape",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "CcMi6Alf0pup7o81",
+        "name": "Expend Use",
+        "type": "utility",
+        "activation": "bonus"
+      }
+    ],
+    "identifier": "nimble-escape"
+  },
+  {
+    "id": "mmNoxiousMiasma0",
+    "name": "Noxious Miasma",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "Blm8nddvCOH69bL8",
+        "name": "Save",
+        "type": "save",
+        "activation": "legendary"
+      }
+    ],
+    "identifier": "noxious-miasma"
+  },
+  {
+    "id": "mmOceanSpear0000",
+    "name": "Ocean Spear",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "MAToz1axzbPRBhem",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "ocean-spear"
+  },
+  {
+    "id": "mmOnslaught00000",
+    "name": "Onslaught",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "Bl1FdkHk9inBo8lb",
+        "name": "Expend Use",
+        "type": "utility",
+        "activation": "legendary"
+      }
+    ],
+    "identifier": "onslaught"
+  },
+  {
+    "id": "mmOozeCube000000",
+    "name": "Ooze Cube",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "89uMXhpAg9x9P6dg",
+        "name": "Total Cover",
+        "type": "utility",
+        "activation": ""
+      },
+      {
+        "id": "EcTOfXWsDJRHLydy",
+        "name": "Pull Check",
+        "type": "check",
+        "activation": "action"
+      },
+      {
+        "id": "PMCvyqxfUYiPzNK8",
+        "name": "Puller Damage",
+        "type": "damage",
+        "activation": ""
+      }
+    ],
+    "identifier": "ooze-cube"
+  },
+  {
+    "id": "mmPackTactics000",
+    "name": "Pack Tactics",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": "Ally within 5 feet of attack target",
+    "activities": [],
+    "identifier": "pack-tactics"
+  },
+  {
+    "id": "mmPactBlade00000",
+    "name": "Pact Blade",
+    "type": "weapon",
+    "featureType": "martialM",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "eJZuoJjhMQzj3YKs",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "pact-blade"
+  },
+  {
+    "id": "SGrTBpl938UIe4e3",
+    "name": "Paralyzed",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "qHhQi1VSyVic0Z22",
+    "name": "Paralyzed",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "XONucKj1fLr03vaU",
+    "name": "Paralyzed",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "sbId6Nv8mOtH5EKR",
+    "name": "Paralyzed",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "mmParalyzingBrea",
+    "name": "Paralyzing Breath",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "r4MGqEq5U9aaseBh",
+        "name": "Save",
+        "type": "save",
+        "activation": "action"
+      }
+    ],
+    "identifier": "paralyzing-breath"
+  },
+  {
+    "id": "mmParalyzingTent",
+    "name": "Paralyzing Tentacles",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "p157Iqz8s0M0VilW",
+        "name": "Save",
+        "type": "save",
+        "activation": "action"
+      }
+    ],
+    "identifier": "paralyzing-tentacles"
+  },
+  {
+    "id": "mmParalyzingTouc",
+    "name": "Paralyzing Touch",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "rb8gqaec8uNffDCN",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "paralyzing-touch"
+  },
+  {
+    "id": "mmParry000000000",
+    "name": "Parry",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "aLG3BRZL7P6OEjwd",
+        "name": "Use",
+        "type": "utility",
+        "activation": "reaction"
+      }
+    ],
+    "identifier": "parry"
+  },
+  {
+    "id": "ScizgnitVoBvVzPx",
+    "name": "Petrified",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "ggyTZHJj11jkOFlX",
+    "name": "Petrified",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "YLFv2Ujss9c0vtMQ",
+    "name": "Petrified",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "mmPetrifyingBite",
+    "name": "Petrifying Bite",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "ShppIfYgKgtWRJwX",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      },
+      {
+        "id": "udF9lrpAQMvL0b9J",
+        "name": "First Save",
+        "type": "save",
+        "activation": "action"
+      },
+      {
+        "id": "iNhSZ04yZbleLcqc",
+        "name": "Second Save",
+        "type": "save",
+        "activation": "turnEnd"
+      }
+    ],
+    "identifier": "petrifying-bite"
+  },
+  {
+    "id": "mmPetrifyingBrea",
+    "name": "Petrifying Breath",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "reU3RXAk0MdPmKCl",
+        "name": "Save",
+        "type": "save",
+        "activation": "action"
+      }
+    ],
+    "identifier": "petrifying-breath"
+  },
+  {
+    "id": "mmPetrifyingGaze",
+    "name": "Petrifying Gaze",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "mN9aF1WkHQWLIN4B",
+        "name": "First Save",
+        "type": "save",
+        "activation": "bonus"
+      },
+      {
+        "id": "QR1rwV2CJ02B1Qgh",
+        "name": "Second Save",
+        "type": "save",
+        "activation": "turnEnd"
+      }
+    ],
+    "identifier": "petrifying-gaze"
+  },
+  {
+    "id": "mmPhantasms00000",
+    "name": "Phantasms",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "4GBMAwbnCOrMQ4Gf",
+        "name": "",
+        "type": "cast",
+        "activation": "bonus"
+      }
+    ],
+    "identifier": "phantasms"
+  },
+  {
+    "id": "mmPincer00000000",
+    "name": "Pincer",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "3L2u4vI16JJ6lA0p",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      },
+      {
+        "id": "uVVP0skhv3PLMfnz",
+        "name": "Escape Check",
+        "type": "check",
+        "activation": "special"
+      }
+    ],
+    "identifier": "pincer"
+  },
+  {
+    "id": "mmPoisonBreath00",
+    "name": "Poison Breath",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "lnabW9bM51HoluPp",
+        "name": "Save",
+        "type": "save",
+        "activation": "action"
+      }
+    ],
+    "identifier": "poison-breath"
+  },
+  {
+    "id": "mmPoisonBurst000",
+    "name": "Poison Burst",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "am9XxYZtSyBqs4RM",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "poison-burst"
+  },
+  {
+    "id": "mmPoisonRay00000",
+    "name": "Poison Ray",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "uv0fdmzTYDH7Uvg3",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "poison-ray"
+  },
+  {
+    "id": "BYHSCmIwcOd5tA1O",
+    "name": "Poison Resistance",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "dnpr0RaXDWfSZOYz",
+    "name": "Poisoned",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "IqfKmepxiah2U3YT",
+    "name": "Poisoned",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "Bu9GvjGYEnGjbq3U",
+    "name": "Poisoned",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "96f41YwmHtjW8P0o",
+    "name": "Poisoned",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "DeVYxc3BdGlZNeD9",
+    "name": "Poisoned",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "rHL9lpchOon81CN1",
+    "name": "Poisoned",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "BMs7Yw88gCikNkXO",
+    "name": "Poisoned",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "5ReKSrBu11ume7GP",
+    "name": "Poisoned & Paralyzed",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "dsK5sPtkUMySmyvw",
+    "name": "Poisoned & Paralyzed",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "mmPoisonousSpitt",
+    "name": "Poisonous Spittle",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "r4plP8QiJxzFZZO7",
+        "name": "Save",
+        "type": "save",
+        "activation": "action"
+      }
+    ],
+    "identifier": "poisonous-spittle"
+  },
+  {
+    "id": "mmPossession0000",
+    "name": "Possession",
+    "type": "feat",
+    "featureType": "",
+    "subtype": "",
+    "source": "MM 2024",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "7gmNBVjwuYTyANMe",
+        "name": "",
+        "type": "save",
+        "activation": "action"
+      }
+    ],
+    "identifier": "possession"
+  },
+  {
+    "id": "mmPounce00000000",
+    "name": "Pounce",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "IzdTKthBAsB8MBfB",
+        "name": "Expend Use",
+        "type": "utility",
+        "activation": "legendary"
+      }
+    ],
+    "identifier": "pounce"
+  },
+  {
+    "id": "mmProbingTelepat",
+    "name": "Probing Telepathy",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": "probing-telepathy"
+  },
+  {
+    "id": "mmProboscis00000",
+    "name": "Proboscis",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "6MZpHY61F2goMSDV",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "proboscis"
+  },
+  {
+    "id": "BCkl5LkP4M1bkVpt",
+    "name": "Prone",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "6922OmgCjpz242Ib",
+    "name": "Prone",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "ZjYcf64z7AHBBoj5",
+    "name": "Prone",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "UovyViBfR9aAlt0y",
+    "name": "Prone",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "dgfff9ONKHAUcthM",
+    "name": "Prone",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "HUmtXTzr92ZaAvf3",
+    "name": "Prone",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "HG9R2hTEqJ0G5urK",
+    "name": "Prone",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "UUPAry5ZunpEnKkn",
+    "name": "Prone",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "fdpMlJbmkKQfJlME",
+    "name": "Prone",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "tlJPRZtTipMsmBRa",
+    "name": "Prone",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "UXwZ02kqy96aH3dZ",
+    "name": "Prone",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "aS5FyMP72vn3OKf1",
+    "name": "Prone",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "WJe5ci1Tiu0hQCb8",
+    "name": "Prone",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "uAvQlHXKSwnCjRtt",
+    "name": "Prone",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "OY3B1NBPgGcFmHGi",
+    "name": "Prone",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "7GhARrr7f6zhJjqy",
+    "name": "Prone",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "qihlGD6RZ55pZY9n",
+    "name": "Prone",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "ERWPInrx4mXsqrwL",
+    "name": "Prone",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "4neflArm7JowxOTM",
+    "name": "Protected",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "mmProtection0000",
+    "name": "Protection",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "Kn1kqSgaVYydj1jF",
+        "name": "",
+        "type": "utility",
+        "activation": "reaction"
+      }
+    ],
+    "identifier": "protection"
+  },
+  {
+    "id": "mmProtectiveMagi",
+    "name": "Protective Magic",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "Jc8kZLhCdTcbaImH",
+        "name": "",
+        "type": "cast",
+        "activation": "reaction"
+      },
+      {
+        "id": "1rK9SlZ7cBWEeWnG",
+        "name": "",
+        "type": "cast",
+        "activation": "reaction"
+      }
+    ],
+    "identifier": "protective-magic"
+  },
+  {
+    "id": "mmProwl000000000",
+    "name": "Prowl (Tiger or Hybrid Form Only)",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "rJZ08yOwJQS9Ic7i",
+        "name": "Expend Use",
+        "type": "utility",
+        "activation": "bonus"
+      }
+    ],
+    "identifier": "prowl"
+  },
+  {
+    "id": "mmPseudopod00000",
+    "name": "Pseudopod",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "oPXdl3BBYsuoemkT",
+        "name": null,
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "pseudopod"
+  },
+  {
+    "id": "mmPsychicDrain00",
+    "name": "Psychic Drain",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "0updMLBaivqAWmNt",
+        "name": "",
+        "type": "heal",
+        "activation": "legendary"
+      }
+    ],
+    "identifier": "psychic-drain"
+  },
+  {
+    "id": "mmPummel00000000",
+    "name": "Pummel",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": "",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "aae828c0Hue0XOMP",
+        "name": "Save",
+        "type": "save",
+        "activation": "action"
+      }
+    ],
+    "identifier": "pummel"
+  },
+  {
+    "id": "mmPursuit0000000",
+    "name": "Pursuit",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "blUXkjLhs9kD2ofo",
+        "name": "Expend Use",
+        "type": "utility",
+        "activation": "reaction"
+      }
+    ],
+    "identifier": "pursuit"
+  },
+  {
+    "id": "mmQuickGrapple00",
+    "name": "Quick Grapple",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "aDWVHpJgsNPPNrDs",
+        "name": "Save",
+        "type": "save",
+        "activation": "bonus"
+      },
+      {
+        "id": "UHSu9DkjmhXJAoWD",
+        "name": "Escape Check",
+        "type": "check",
+        "activation": "special"
+      }
+    ],
+    "identifier": "quick-grapple"
+  },
+  {
+    "id": "mmRadiantFlame00",
+    "name": "Radiant Flame",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "DrH0dYeZLpW1dvVV",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "radiant-flame"
+  },
+  {
+    "id": "mmRadiantHorn000",
+    "name": "Radiant Horn",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "rcQA5ENnF8qFMnmi",
+        "name": null,
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "radiant-horn"
+  },
+  {
+    "id": "mmRadiantSword00",
+    "name": "Radiant Sword",
+    "type": "weapon",
+    "featureType": "martialM",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "TxUnKwrsEHV6L5Ce",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "radiant-sword"
+  },
+  {
+    "id": "mmRadiantTelepor",
+    "name": "Radiant Teleport",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "HtsFBK1PYKjvy9mn",
+        "name": "Save",
+        "type": "save",
+        "activation": "legendary"
+      }
+    ],
+    "identifier": "radiant-teleport"
+  },
+  {
+    "id": "mmRake0000000000",
+    "name": "Rake",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "rAsPsMPZCfwo2NKR",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "rake"
+  },
+  {
+    "id": "mmRam00000000000",
+    "name": "Ram",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "z58sUDUmqxECJgT3",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "ram"
+  },
+  {
+    "id": "mmRampage0000000",
+    "name": "Rampage",
+    "type": "feat",
+    "featureType": "",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "BnHr5C9OxhQv8tBC",
+        "name": "Expend Use",
+        "type": "utility",
+        "activation": "bonus"
+      }
+    ],
+    "identifier": "rampage"
+  },
+  {
+    "id": "mmReactive000000",
+    "name": "Reactive",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": "reactive"
+  },
+  {
+    "id": "mmReactiveHeads0",
+    "name": "Reactive Heads",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": "reactive-heads"
+  },
+  {
+    "id": "mmReadThoughts00",
+    "name": "Read Thoughts",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "pZvAlG6vpOmPZ3KP",
+        "name": "",
+        "type": "cast",
+        "activation": "action"
+      }
+    ],
+    "identifier": "read-thoughts"
+  },
+  {
+    "id": "mmRedirectAttack",
+    "name": "Redirect Attack",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "pIlCmuPw8YUqAISY",
+        "name": "Expend Use",
+        "type": "utility",
+        "activation": "reaction"
+      }
+    ],
+    "identifier": "redirect-attack"
+  },
+  {
+    "id": "mmReel0000000000",
+    "name": "Reel",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "jWkEQYHBd7aht1kG",
+        "name": "",
+        "type": "utility",
+        "activation": "bonus"
+      }
+    ],
+    "identifier": "reel"
+  },
+  {
+    "id": "mmReflectiveCara",
+    "name": "Reflective Carapace",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "x2XgvljysagWUIK7",
+        "name": "Roll d6",
+        "type": "utility",
+        "activation": ""
+      }
+    ],
+    "identifier": "reflective-carapace"
+  },
+  {
+    "id": "mmReflexiveAnten",
+    "name": "Reflexive Antennae",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "QiCyhPYmezbDoTHt",
+        "name": "Expend Use",
+        "type": "utility",
+        "activation": "reaction"
+      }
+    ],
+    "identifier": "reflexive-antennae"
+  },
+  {
+    "id": "mmRegeneration00",
+    "name": "Regeneration",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": "At least 1 Hit Point",
+    "activities": [
+      {
+        "id": "5cGvjZJIJVicjJ3d",
+        "name": "",
+        "type": "heal",
+        "activation": "special"
+      }
+    ],
+    "identifier": "regeneration"
+  },
+  {
+    "id": "mmRend0000000000",
+    "name": "Rend",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "VP3t6lmmuXKGCRwX",
+        "name": null,
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "rend"
+  },
+  {
+    "id": "mmRepulsionBreat",
+    "name": "Repulsion Breath",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "zuf9EEVj4nI1joaH",
+        "name": "Save",
+        "type": "save",
+        "activation": "action"
+      }
+    ],
+    "identifier": "repulsion-breath"
+  },
+  {
+    "id": "uf0s4DJcB5yQbQvN",
+    "name": "Resistance: Fire",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "mmRestlessTouch0",
+    "name": "Restless Touch",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "EbLsg8CKlFLegU6p",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "restless-touch"
+  },
+  {
+    "id": "Bt9VAqf3PkeRQt8K",
+    "name": "Restrained",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "cM3NSnDUlURCQP4q",
+    "name": "Restrained",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "bju3aUme0f8XYR3z",
+    "name": "Restrained",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "9dBgxzdq0cmzyhfR",
+    "name": "Restrained",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "SY6t8UAImw8B9PVT",
+    "name": "Restrained",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "a5kKgU7vfT0v17yF",
+    "name": "Restrained",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "fihuYABujdt7o9uo",
+    "name": "Restrained",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "P9yYPfzjy4ZGnw2W",
+    "name": "Restrained",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "mmRiposte0000000",
+    "name": "Riposte",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "lIvwWDogRgGgIm7c",
+        "name": "Expend Use",
+        "type": "utility",
+        "activation": "reaction"
+      }
+    ],
+    "identifier": "riposte"
+  },
+  {
+    "id": "mmRitualSickle00",
+    "name": "Ritual Sickle",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "fhlmKxtRzVaTeFzt",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "ritual-sickle"
+  },
+  {
+    "id": "mmRoar0000000000",
+    "name": "Roar",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "Igeu89TALGlNPXDg",
+        "name": "First Roar: Save",
+        "type": "save",
+        "activation": "action"
+      },
+      {
+        "id": "uFTndQPvULZVHT9R",
+        "name": "Second Roar: Save",
+        "type": "save",
+        "activation": "action"
+      },
+      {
+        "id": "Td8ArIMDfxWDLbE9",
+        "name": "Third Roar: Save",
+        "type": "save",
+        "activation": "action"
+      }
+    ],
+    "identifier": "roar"
+  },
+  {
+    "id": "mmRock0000000000",
+    "name": "Rock",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "fJdA4W1TrVfIa3CM",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "rock"
+  },
+  {
+    "id": "mmRockLaunch0000",
+    "name": "Rock Launch",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "z4zn1dHXUn2ergXr",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "rock-launch"
+  },
+  {
+    "id": "mmRottingFist000",
+    "name": "Rotting Fist",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "8A7HEjh4kbkf9WwX",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      },
+      {
+        "id": "hLg8cNrrgDdIsYXj",
+        "name": "HP Max Decr.",
+        "type": "utility",
+        "activation": "action"
+      }
+    ],
+    "identifier": "rotting-fist"
+  },
+  {
+    "id": "mmRottingTouch00",
+    "name": "Rotting Touch",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "bIkOhgNITiwpcoBf",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "rotting-touch"
+  },
+  {
+    "id": "mmRunningLeap000",
+    "name": "Running Leap",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": "running-leap"
+  },
+  {
+    "id": "mmScare000000000",
+    "name": "Scare",
+    "type": "feat",
+    "featureType": "",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "L6pjs2RafI3pF8b3",
+        "name": "",
+        "type": "save",
+        "activation": "action"
+      }
+    ],
+    "identifier": "scare"
+  },
+  {
+    "id": "mmScorchingSands",
+    "name": "Scorching Sands",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "g5fxAWhrpwohtETl",
+        "name": "Save",
+        "type": "save",
+        "activation": "legendary"
+      }
+    ],
+    "identifier": "scorching-sands"
+  },
+  {
+    "id": "mmScratch0000000",
+    "name": "Scratch",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "m9s3pmhoNA9tnQzX",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "scratch"
+  },
+  {
+    "id": "mmSearingFork000",
+    "name": "Searing Fork",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "LL3qb6UYJsLkc4HX",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "searing-fork"
+  },
+  {
+    "id": "ca1RtYs4i9JuL9sV",
+    "name": "Self: Attack Adv./0 Speed",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "mmSenseMagic0000",
+    "name": "Sense Magic",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": "sense-magic"
+  },
+  {
+    "id": "mmShadowStealth0",
+    "name": "Shadow Stealth",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "ydslIM9mBqNRGOnq",
+        "name": "Expend Use",
+        "type": "utility",
+        "activation": "bonus"
+      }
+    ],
+    "identifier": "shadow-stealth"
+  },
+  {
+    "id": "mmShapeshift0000",
+    "name": "Shape-Shift",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "EU2q25V5hIaM1ZlR",
+        "name": "Expend Use",
+        "type": "utility",
+        "activation": "bonus"
+      }
+    ],
+    "identifier": "shape-shift"
+  },
+  {
+    "id": "mmSharkTelepathy",
+    "name": "Shark Telepathy",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": "shark-telepathy"
+  },
+  {
+    "id": "mmShieldBash0000",
+    "name": "Shield Bash",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "eIErvLccVVCXiCSl",
+        "name": "Save",
+        "type": "save",
+        "activation": "action"
+      }
+    ],
+    "identifier": "shield-bash"
+  },
+  {
+    "id": "sGQwUaOCcVnE2PA7",
+    "name": "Shielded",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "mmShieldedMind00",
+    "name": "Shielded Mind",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": "shielded-mind"
+  },
+  {
+    "id": "mmShimmeringShie",
+    "name": "Shimmering Shield",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "sl8NoPhB0e5z6jmK",
+        "name": "Temporary Healing",
+        "type": "heal",
+        "activation": "legendary"
+      }
+    ],
+    "identifier": "shimmering-shield"
+  },
+  {
+    "id": "mmShock000000000",
+    "name": "Shock",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "7tB0zZJlNLfqtG6p",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "shock"
+  },
+  {
+    "id": "mmShred000000000",
+    "name": "Shred",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "FqjFemwAEXTADVsh",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "shred"
+  },
+  {
+    "id": "mmShriek00000000",
+    "name": "Shriek",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "Tlv3gcYk5KfdtV7c",
+        "name": "Use",
+        "type": "utility",
+        "activation": "reaction"
+      }
+    ],
+    "identifier": "shriek"
+  },
+  {
+    "id": "mmSiegeMonster00",
+    "name": "Siege Monster",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": "siege-monster"
+  },
+  {
+    "id": "mmSlam0000000000",
+    "name": "Slam",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "mEQjWdqU7zGv6Ott",
+        "name": null,
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "slam"
+  },
+  {
+    "id": "mmSlash000000000",
+    "name": "Slash",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "dkF9cUpBl8apF1Ov",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "slash"
+  },
+  {
+    "id": "mmSlayingBow0000",
+    "name": "Slaying Bow",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "C7BMf8hIfCjxRSWC",
+        "name": "Save",
+        "type": "save",
+        "activation": "action"
+      }
+    ],
+    "identifier": "slaying-bow"
+  },
+  {
+    "id": "mmSleep000000000",
+    "name": "Sleep",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "cSodzDxxCJH0nwai",
+        "name": "",
+        "type": "cast",
+        "activation": "action"
+      }
+    ],
+    "identifier": "sleep"
+  },
+  {
+    "id": "mmSleepBreath000",
+    "name": "Sleep Breath",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "6ce9oevQRWomSVSF",
+        "name": "1st Save",
+        "type": "save",
+        "activation": "action"
+      },
+      {
+        "id": "EZma0lCmQeTuVuAL",
+        "name": "2nd Save",
+        "type": "save",
+        "activation": "action"
+      }
+    ],
+    "identifier": "sleep-breath"
+  },
+  {
+    "id": "mmSlow0000000000",
+    "name": "Slow",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "NJu26YkznURRXRCV",
+        "name": "",
+        "type": "cast",
+        "activation": "bonus"
+      }
+    ],
+    "identifier": "slow"
+  },
+  {
+    "id": "mmSlowingBreath0",
+    "name": "Slowing Breath",
+    "type": "feat",
+    "featureType": "",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "teMMQNDDIE9XkPN3",
+        "name": "",
+        "type": "save",
+        "activation": "action"
+      }
+    ],
+    "identifier": "slowing-breath"
+  },
+  {
+    "id": "mmSmother0000000",
+    "name": "Smother",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "y2jCgYhVOGjS3t1G",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      },
+      {
+        "id": "Y1lxdDPzkSRnAUGz",
+        "name": "Grappled: Damage",
+        "type": "damage",
+        "activation": "action"
+      }
+    ],
+    "identifier": "smother"
+  },
+  {
+    "id": "mmSnakeHair00000",
+    "name": "Snake Hair",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "1sGLrSobbfYouESi",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "snake-hair"
+  },
+  {
+    "id": "mmSonicBoom00000",
+    "name": "Sonic Boom",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "ijIOufHOvI06vyN3",
+        "name": "",
+        "type": "cast",
+        "activation": "legendary"
+      }
+    ],
+    "identifier": "sonic-boom"
+  },
+  {
+    "id": "mmSoulBag0000000",
+    "name": "Soul Bag",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": "soul-bag"
+  },
+  {
+    "id": "mmSpeakWithBeast",
+    "name": "Speak with Beasts and Plants",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": "speak-with-beasts-and-plants"
+  },
+  {
+    "id": "273sG6C6R7qUcL2v",
+    "name": "Speed -10",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "JXXj1j2cUhRFmmaN",
+    "name": "Speed: -10 feet",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "cGogXX8DEY06laQN",
+    "name": "Speed: -10 Ft.",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "B3otZdkyUcUlgrmk",
+    "name": "Speed: -20 ft.",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "mmSpellStoring00",
+    "name": "Spell Storing",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": "spell-storing"
+  },
+  {
+    "id": "mmSpellcasting00",
+    "name": "Spellcasting",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "3MkhXZwZstyLUC3q",
+        "name": null,
+        "type": "cast",
+        "activation": "action"
+      }
+    ],
+    "identifier": "spellcasting"
+  },
+  {
+    "id": "mmSpiderClimb000",
+    "name": "Spider Climb",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": "spider-climb"
+  },
+  {
+    "id": "mmSpiritJar00000",
+    "name": "Spirit Jar",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "fnanvvNnQCIGwx34",
+        "name": "Days to Reform",
+        "type": "utility",
+        "activation": ""
+      }
+    ],
+    "identifier": "spirit-jar"
+  },
+  {
+    "id": "mmSpiritualWeapo",
+    "name": "Spiritual Weapon",
+    "type": "feat",
+    "featureType": "",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "X8EhZV0KcZv64V4J",
+        "name": "",
+        "type": "cast",
+        "activation": "bonus"
+      }
+    ],
+    "identifier": "spiritual-weapon"
+  },
+  {
+    "id": "mmSplit000000000",
+    "name": "Split",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "zoXFSgzmWq8frUjI",
+        "name": "Split",
+        "type": "summon",
+        "activation": "reaction"
+      }
+    ],
+    "identifier": "split"
+  },
+  {
+    "id": "mmSpores00000000",
+    "name": "Spores",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "voqQeTnihpy3BTFf",
+        "name": "Save",
+        "type": "save",
+        "activation": "action"
+      },
+      {
+        "id": "ukZveNVmvvtwbDj0",
+        "name": "Damage While Poisoned",
+        "type": "damage",
+        "activation": "turnStart"
+      }
+    ],
+    "identifier": "spores"
+  },
+  {
+    "id": "mmStandingLeap00",
+    "name": "Standing Leap",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": "standing-leap"
+  },
+  {
+    "id": "mmSteamBreath000",
+    "name": "Steam Breath",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "5iI1KQRWrdMGh9sy",
+        "name": "Save",
+        "type": "save",
+        "activation": "action"
+      }
+    ],
+    "identifier": "steam-breath"
+  },
+  {
+    "id": "mmStench00000000",
+    "name": "Stench",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "mJbwhj3beOIB3Jgj",
+        "name": "",
+        "type": "save",
+        "activation": ""
+      }
+    ],
+    "identifier": "stench"
+  },
+  {
+    "id": "mmSting000000000",
+    "name": "Sting",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "ExJB3aZAPF3shVJA",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "sting"
+  },
+  {
+    "id": "mmStoneClub00000",
+    "name": "Stone Club",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "kl4hjoHrHh7nArDI",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "stone-club"
+  },
+  {
+    "id": "mmStormBlade0000",
+    "name": "Storm Blade",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "52QxZ1kKyg39JYr6",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "storm-blade"
+  },
+  {
+    "id": "mmStormBolt00000",
+    "name": "Storm Bolt",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "yFK9YkQVSAkJ5yIK",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "storm-bolt"
+  },
+  {
+    "id": "mmStormSword0000",
+    "name": "Storm Sword",
+    "type": "weapon",
+    "featureType": "martialM",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "WQ4iyI5JLgewSPuk",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "storm-sword"
+  },
+  {
+    "id": "dQ635FV7U5Y5LUE7",
+    "name": "Stunned",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "CdqwzfboHBLC0vIk",
+    "name": "Stunned",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "mmStunningScreec",
+    "name": "Stunning Screech",
+    "type": "feat",
+    "featureType": "",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "eoIikvnPayaj02oN",
+        "name": "",
+        "type": "save",
+        "activation": "action"
+      }
+    ],
+    "identifier": "stunning-screech"
+  },
+  {
+    "id": "mmSuccubusForm00",
+    "name": "Succubus Form",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "t0iCIk7tfwvsOkXE",
+        "name": "Shape-Shift: Succubus",
+        "type": "summon",
+        "activation": ""
+      }
+    ],
+    "identifier": "succubus-form"
+  },
+  {
+    "id": "mmSunlightSensit",
+    "name": "Sunlight Sensitivity",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": "While in sunlight",
+    "activities": [],
+    "identifier": "sunlight-sensitivity"
+  },
+  {
+    "id": "mmSunlightWeakne",
+    "name": "Sunlight Weakness",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": "While in sunlight",
+    "activities": [],
+    "identifier": "sunlight-weakness"
+  },
+  {
+    "id": "mmSwallow0000000",
+    "name": "Swallow",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "YorssyWMumAsvzx3",
+        "name": "Save",
+        "type": "save",
+        "activation": "bonus"
+      },
+      {
+        "id": "zrWNjO9mkbN28spL",
+        "name": "Damage: Swallowed",
+        "type": "damage",
+        "activation": ""
+      },
+      {
+        "id": "rGeGukkm2t2fXsoy",
+        "name": "Regurgitate: Save",
+        "type": "save",
+        "activation": ""
+      }
+    ],
+    "identifier": "swallow"
+  },
+  {
+    "id": "mmSwarm000000000",
+    "name": "Swarm",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": "swarm"
+  },
+  {
+    "id": "mmSwarmOfGraspin",
+    "name": "Swarm of Grasping Hands",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "rO8NirkWF6w9GXTc",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      },
+      {
+        "id": "hzeHzcSKHC4AvIJQ",
+        "name": "Bloodied Attack",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "swarm-of-grasping-hands"
+  },
+  {
+    "id": "mmSwoop000000000",
+    "name": "Swoop",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "tsFMPBQGABPfCQo4",
+        "name": "Expend Use",
+        "type": "utility",
+        "activation": "bonus"
+      }
+    ],
+    "identifier": "swoop"
+  },
+  {
+    "id": "mmTail0000000000",
+    "name": "Tail",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "LLodCm31qWyIpHyK",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "tail"
+  },
+  {
+    "id": "mmTailSpike00000",
+    "name": "Tail Spike",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "Hi3L4aVfmPvLRGMv",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "tail-spike"
+  },
+  {
+    "id": "mmTailStinger000",
+    "name": "Tail Stinger",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "zYAOR7GLu8t8ypzY",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "tail-stinger"
+  },
+  {
+    "id": "mmTailSwipe00000",
+    "name": "Tail Swipe",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "9xQEOn333eimRE0f",
+        "name": "Expend Use",
+        "type": "utility",
+        "activation": "legendary"
+      }
+    ],
+    "identifier": "tail-swipe"
+  },
+  {
+    "id": "mmTalons00000000",
+    "name": "Talons",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "xdrDC5kFs6sCOFiE",
+        "name": null,
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "talons"
+  },
+  {
+    "id": "mmTelepathicBond",
+    "name": "Telepathic Bond",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": "telepathic-bond"
+  },
+  {
+    "id": "mmTeleport000000",
+    "name": "Teleport",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "dnoRMdFzhUUku26D",
+        "name": "Expend Use",
+        "type": "utility",
+        "activation": "bonus"
+      }
+    ],
+    "identifier": "teleport"
+  },
+  {
+    "id": "mmTentacle000000",
+    "name": "Tentacle",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "EeiSFNs2NulOBg6i",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      },
+      {
+        "id": "AXTWfIqBExpxSKly",
+        "name": "Escape Check",
+        "type": "check",
+        "activation": "special"
+      }
+    ],
+    "identifier": "tentacle"
+  },
+  {
+    "id": "mmTentacleSlam00",
+    "name": "Tentacle Slam",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "VC2iSwNPNaZ7M2bT",
+        "name": "Save",
+        "type": "save",
+        "activation": "action"
+      }
+    ],
+    "identifier": "tentacle-slam"
+  },
+  {
+    "id": "mmTentacles00000",
+    "name": "Tentacles",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "nWfAZlRGSlOZbasr",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      },
+      {
+        "id": "Vo2UIgas007G3QXv",
+        "name": "Escape Check",
+        "type": "check",
+        "activation": "special"
+      }
+    ],
+    "identifier": "tentacles"
+  },
+  {
+    "id": "mmThornBurst0000",
+    "name": "Thorn Burst",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "z1CblIG3JjciJtO0",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "thorn-burst"
+  },
+  {
+    "id": "mmThunderbolt000",
+    "name": "Thunderbolt",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "8jqOskiu8rme8GbX",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "thunderbolt"
+  },
+  {
+    "id": "mmThunderclap000",
+    "name": "Thunderclap",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "Lq6GexegvlEVB6Dh",
+        "name": "Save",
+        "type": "save",
+        "activation": "legendary"
+      }
+    ],
+    "identifier": "thunderclap"
+  },
+  {
+    "id": "mmThundercloud00",
+    "name": "Thundercloud",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": "thundercloud"
+  },
+  {
+    "id": "mmThunderousBell",
+    "name": "Thunderous Bellow",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "RWBqtTjGSlEgQWCl",
+        "name": "Save",
+        "type": "save",
+        "activation": "action"
+      }
+    ],
+    "identifier": "thunderous-bellow"
+  },
+  {
+    "id": "mmThunderousMace",
+    "name": "Thunderous Mace",
+    "type": "weapon",
+    "featureType": "simpleM",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "2NSwHPpxx2VDFUnb",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "thunderous-mace"
+  },
+  {
+    "id": "mmThunderousSlam",
+    "name": "Thunderous Slam",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "pVkZ2YEgR7d0AjOg",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "thunderous-slam"
+  },
+  {
+    "id": "Nqpxg74Yw9uEVMxQ",
+    "name": "Total Cover",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "vsa7d6xWOAvWdOWM",
+    "name": "Total Cover, Suffocating & Restrained",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "mmTouch000000000",
+    "name": "Touch",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "6rRVCOQJALxhOkky",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "touch"
+  },
+  {
+    "id": "mmToxicInk000000",
+    "name": "Toxic Ink",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "Kquf9zADg0jtKBqw",
+        "name": "Save",
+        "type": "save",
+        "activation": "legendary"
+      }
+    ],
+    "identifier": "toxic-ink"
+  },
+  {
+    "id": "mmTraining000000",
+    "name": "Training",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": "training"
+  },
+  {
+    "id": "mmTrample0000000",
+    "name": "Trample",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "QckCIpsC3BdEHycI",
+        "name": "Save",
+        "type": "save",
+        "activation": "bonus"
+      }
+    ],
+    "identifier": "trample"
+  },
+  {
+    "id": "mmTramplingCharg",
+    "name": "Trampling Charge",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "FG9rAj3Q8UTxbGLF",
+        "name": "Save",
+        "type": "save",
+        "activation": "bonus"
+      }
+    ],
+    "identifier": "trampling-charge"
+  },
+  {
+    "id": "mmTransparent000",
+    "name": "Transparent",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "kHhDoDvYBXixxHVS",
+        "name": "",
+        "type": "check",
+        "activation": "action"
+      }
+    ],
+    "identifier": "transparent"
+  },
+  {
+    "id": "mmTrashLob000000",
+    "name": "Trash Lob",
+    "type": "weapon",
+    "featureType": "simpleR",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "A6sqhe9XSGopzHCc",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "trash-lob"
+  },
+  {
+    "id": "mmTreasureSense0",
+    "name": "Treasure Sense",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": "treasure-sense"
+  },
+  {
+    "id": "mmTreeClub000000",
+    "name": "Tree Club",
+    "type": "weapon",
+    "featureType": "simpleM",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "uFMz2nKxqcVOJIGn",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "tree-club"
+  },
+  {
+    "id": "mmTreeStride0000",
+    "name": "Tree Stride",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "8av8Lh1jNLCrOJny",
+        "name": "Expend Use",
+        "type": "utility",
+        "activation": "bonus"
+      }
+    ],
+    "identifier": "tree-stride"
+  },
+  {
+    "id": "mmTrollSpawn0000",
+    "name": "Troll Spawn",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "6Um1z9LMOVV2qdcS",
+        "name": "Troll",
+        "type": "summon",
+        "activation": ""
+      }
+    ],
+    "identifier": "troll-spawn"
+  },
+  {
+    "id": "mmTunneler000000",
+    "name": "Tunneler",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": "tunneler"
+  },
+  {
+    "id": "mmUmbralDagger00",
+    "name": "Umbral Dagger",
+    "type": "weapon",
+    "featureType": "simpleM",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "VWOxHrZXIWO7ZZeW",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "umbral-dagger"
+  },
+  {
+    "id": "Di6rSDXgFkxAGsFE",
+    "name": "Unconscious",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "eiPsvHBjVi4pRHqJ",
+    "name": "Unconscious",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "mmUndeadFortitud",
+    "name": "Undead Fortitude",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": "undead-fortitude"
+  },
+  {
+    "id": "mmUndeadRestorat",
+    "name": "Undead Restoration",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "84V5172xWONxCI07",
+        "name": "Days: New Body",
+        "type": "utility",
+        "activation": ""
+      }
+    ],
+    "identifier": "undead-restoration"
+  },
+  {
+    "id": "mmUnicornsBlessi",
+    "name": "Unicorn's Blessing",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "OghPbiZjhgIJ5llC",
+        "name": "",
+        "type": "cast",
+        "activation": "action"
+      },
+      {
+        "id": "lruyGaBCUcPkdyAC",
+        "name": "",
+        "type": "cast",
+        "activation": "action"
+      }
+    ],
+    "identifier": "unicorns-blessing"
+  },
+  {
+    "id": "mmUnnervingGaze0",
+    "name": "Unnerving Gaze",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "btp6NZvx465nxWTF",
+        "name": "Save",
+        "type": "save",
+        "activation": "reaction"
+      }
+    ],
+    "identifier": "unnerving-gaze"
+  },
+  {
+    "id": "mmUnsettlingVisa",
+    "name": "Unsettling Visage",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "USxIbGZPLvfPnnoI",
+        "name": "Save",
+        "type": "save",
+        "activation": "action"
+      }
+    ],
+    "identifier": "unsettling-visage"
+  },
+  {
+    "id": "mmVampireWeaknes",
+    "name": "Vampire Weakness",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "Ss5LwXo6bHOciPNQ",
+        "name": "Damage: Running Water",
+        "type": "damage",
+        "activation": ""
+      },
+      {
+        "id": "Q18pvRsbOyRbHiVK",
+        "name": "Damage: Sunlight",
+        "type": "damage",
+        "activation": ""
+      },
+      {
+        "id": "HsKPQH0SsWtL4znC",
+        "name": "Staked to the Heart",
+        "type": "utility",
+        "activation": ""
+      }
+    ],
+    "identifier": "vampire-weakness"
+  },
+  {
+    "id": "mmVampiricConnec",
+    "name": "Vampiric Connection",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": "vampiric-connection"
+  },
+  {
+    "id": "mmVanish00000000",
+    "name": "Vanish",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "RYoAjqR06oGKDiVC",
+        "name": "Expend Use",
+        "type": "utility",
+        "activation": "bonus"
+      }
+    ],
+    "identifier": "vanish"
+  },
+  {
+    "id": "mmVerdantWisp000",
+    "name": "Verdant Wisp",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "B1OsrKxihj11gTHf",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "verdant-wisp"
+  },
+  {
+    "id": "mmVileAppearance",
+    "name": "Vile Appearance",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "FR0ETDHBas1Z5LfF",
+        "name": "",
+        "type": "save",
+        "activation": ""
+      }
+    ],
+    "identifier": "vile-appearance"
+  },
+  {
+    "id": "mmVileSlime00000",
+    "name": "Vile Slime",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "teO7XaDtgyQxvLZD",
+        "name": null,
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "vile-slime"
+  },
+  {
+    "id": "mmVineLash000000",
+    "name": "Vine Lash",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "ViVXiFKnkpJofRtx",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "vine-lash"
+  },
+  {
+    "id": "mmVineStaff00000",
+    "name": "Vine Staff",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "aZLlS74cFCSgUbgg",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "vine-staff"
+  },
+  {
+    "id": "mmVortex00000000",
+    "name": "Vortex",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "cZy0VYbCVY8aRB4z",
+        "name": "Save",
+        "type": "save",
+        "activation": "action"
+      },
+      {
+        "id": "kDz92inkRCjGrPiz",
+        "name": "Damage: Grappled",
+        "type": "damage",
+        "activation": ""
+      },
+      {
+        "id": "HtOlg4C8C2cikzCt",
+        "name": "Escape Check",
+        "type": "check",
+        "activation": "special"
+      }
+    ],
+    "identifier": "vortex"
+  },
+  {
+    "id": "mmWarCry00000000",
+    "name": "War Cry",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "uN0VTW2Fqig7YAs9",
+        "name": "Temp. Healing",
+        "type": "heal",
+        "activation": "bonus"
+      }
+    ],
+    "identifier": "war-cry"
+  },
+  {
+    "id": "mmWaterBreathing",
+    "name": "Water Breathing",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": "water-breathing"
+  },
+  {
+    "id": "mmWaterForm00000",
+    "name": "Water Form",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": "water-form"
+  },
+  {
+    "id": "mmWaterSusceptib",
+    "name": "Water Susceptibility",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "4i8jCmkbryu6W3SD",
+        "name": "Cold Damage",
+        "type": "damage",
+        "activation": ""
+      }
+    ],
+    "identifier": "water-susceptibility"
+  },
+  {
+    "id": "wpkp78XzdLs9q2C3",
+    "name": "Weakened",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "mmWeakeningBreat",
+    "name": "Weakening Breath",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "EGZ4bS4HpJkfNG9s",
+        "name": "Save",
+        "type": "save",
+        "activation": "action"
+      }
+    ],
+    "identifier": "weakening-breath"
+  },
+  {
+    "id": "mmWeb00000000000",
+    "name": "Web",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "6iMoUgxwYlvfKTXr",
+        "name": "Save",
+        "type": "save",
+        "activation": "action"
+      }
+    ],
+    "identifier": "web"
+  },
+  {
+    "id": "mmWebStrand00000",
+    "name": "Web Strand",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "Ln5NXBaHGKlwdoiP",
+        "name": "Save",
+        "type": "save",
+        "activation": "action"
+      }
+    ],
+    "identifier": "web-strand"
+  },
+  {
+    "id": "mmWebWalker00000",
+    "name": "Web Walker",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": "web-walker"
+  },
+  {
+    "id": "mmWeightOfYears0",
+    "name": "Weight of Years",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "xZul1ImCP658OBv3",
+        "name": "Save",
+        "type": "save",
+        "activation": "legendary"
+      },
+      {
+        "id": "j1ClhzjuKVc53Wfa",
+        "name": "Years Older",
+        "type": "utility",
+        "activation": ""
+      }
+    ],
+    "identifier": "weight-of-years"
+  },
+  {
+    "id": "mmWhelm000000000",
+    "name": "Whelm",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "TQchFj2VXXJgU7Lq",
+        "name": "Save",
+        "type": "save",
+        "activation": "action"
+      },
+      {
+        "id": "khxVwH3AB0sx1qRG",
+        "name": "Damage: Start of Turn",
+        "type": "damage",
+        "activation": ""
+      },
+      {
+        "id": "aCRTymzPRSdmfVjr",
+        "name": "Escape Check",
+        "type": "check",
+        "activation": "special"
+      }
+    ],
+    "identifier": "whelm"
+  },
+  {
+    "id": "mmWhirlwind00000",
+    "name": "Whirlwind",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "GQzr4EMMm6kkZVdC",
+        "name": "Save",
+        "type": "save",
+        "activation": "action"
+      }
+    ],
+    "identifier": "whirlwind"
+  },
+  {
+    "id": "mmWhirlwindOfSan",
+    "name": "Whirlwind of Sand",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "EsBmMUQMO4b0g6Yw",
+        "name": "Expend Use",
+        "type": "utility",
+        "activation": "reaction"
+      }
+    ],
+    "identifier": "whirlwind-of-sand"
+  },
+  {
+    "id": "mmWindSwipe00000",
+    "name": "Wind Swipe",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "I1Wr7g5gPMPEe68k",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "wind-swipe"
+  },
+  {
+    "id": "mmWishes00000000",
+    "name": "Wishes",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "A8OOJwSm8E8QPzkX",
+        "name": "Cast Wish",
+        "type": "cast",
+        "activation": "action"
+      }
+    ],
+    "identifier": "wishes"
+  },
+  {
+    "id": "mmWitheringSword",
+    "name": "Withering Sword",
+    "type": "weapon",
+    "featureType": "martialM",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "8WMmLWwn9re7DC9v",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "withering-sword"
+  },
+  {
+    "id": "mmWitheringTouch",
+    "name": "Withering Touch",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "IbPE7bNI8RotVtpv",
+        "name": "",
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "withering-touch"
+  },
+  {
+    "id": "mmWorldshakingMo",
+    "name": "World-Shaking Movement",
+    "type": "feat",
+    "featureType": "monster",
+    "subtype": "",
+    "source": null,
+    "requirements": null,
+    "activities": [
+      {
+        "id": "g4W0ovZxBeUrZKb8",
+        "name": "Expend Use",
+        "type": "utility",
+        "activation": "legendary"
+      }
+    ],
+    "identifier": "world-shaking-movement"
+  }
+]

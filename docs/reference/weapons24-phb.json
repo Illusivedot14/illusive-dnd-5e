@@ -1,0 +1,373 @@
+[
+  {
+    "id": "phbwepBattleaxe0",
+    "name": "Battleaxe",
+    "weaponType": "martialM",
+    "mastery": "topple",
+    "properties": [
+      "ver"
+    ]
+  },
+  {
+    "id": "phbwepBlowgun000",
+    "name": "Blowgun",
+    "weaponType": "martialR",
+    "mastery": "vex",
+    "properties": [
+      "amm",
+      "lod"
+    ]
+  },
+  {
+    "id": "phbwepClub000000",
+    "name": "Club",
+    "weaponType": "simpleM",
+    "mastery": "slow",
+    "properties": [
+      "lgt"
+    ]
+  },
+  {
+    "id": "phbwepDagger0000",
+    "name": "Dagger",
+    "weaponType": "simpleM",
+    "mastery": "nick",
+    "properties": [
+      "fin",
+      "lgt",
+      "thr"
+    ]
+  },
+  {
+    "id": "phbwepDart000000",
+    "name": "Dart",
+    "weaponType": "simpleR",
+    "mastery": "vex",
+    "properties": [
+      "fin",
+      "thr"
+    ]
+  },
+  {
+    "id": "phbwepFlail00000",
+    "name": "Flail",
+    "weaponType": "martialM",
+    "mastery": "sap",
+    "properties": []
+  },
+  {
+    "id": "phbwepGlaive0000",
+    "name": "Glaive",
+    "weaponType": "martialM",
+    "mastery": "graze",
+    "properties": [
+      "hvy",
+      "rch",
+      "two"
+    ]
+  },
+  {
+    "id": "phbwepGreataxe00",
+    "name": "Greataxe",
+    "weaponType": "martialM",
+    "mastery": "cleave",
+    "properties": [
+      "hvy",
+      "two"
+    ]
+  },
+  {
+    "id": "phbwepGreatclub0",
+    "name": "Greatclub",
+    "weaponType": "simpleM",
+    "mastery": "push",
+    "properties": [
+      "two"
+    ]
+  },
+  {
+    "id": "phbwepGreatsword",
+    "name": "Greatsword",
+    "weaponType": "martialM",
+    "mastery": "graze",
+    "properties": [
+      "hvy",
+      "two"
+    ]
+  },
+  {
+    "id": "phbwepHalberd000",
+    "name": "Halberd",
+    "weaponType": "martialM",
+    "mastery": "cleave",
+    "properties": [
+      "hvy",
+      "rch",
+      "two"
+    ]
+  },
+  {
+    "id": "phbwepHandCrossb",
+    "name": "Hand Crossbow",
+    "weaponType": "martialR",
+    "mastery": "vex",
+    "properties": [
+      "amm",
+      "lgt",
+      "lod"
+    ]
+  },
+  {
+    "id": "phbwepHandaxe000",
+    "name": "Handaxe",
+    "weaponType": "simpleM",
+    "mastery": "vex",
+    "properties": [
+      "lgt",
+      "thr"
+    ]
+  },
+  {
+    "id": "phbwepHeavyCross",
+    "name": "Heavy Crossbow",
+    "weaponType": "martialR",
+    "mastery": "push",
+    "properties": [
+      "amm",
+      "hvy",
+      "lod",
+      "two"
+    ]
+  },
+  {
+    "id": "phbwepJavelin000",
+    "name": "Javelin",
+    "weaponType": "simpleM",
+    "mastery": "slow",
+    "properties": [
+      "thr"
+    ]
+  },
+  {
+    "id": "phbwepLance00000",
+    "name": "Lance",
+    "weaponType": "martialM",
+    "mastery": "topple",
+    "properties": [
+      "hvy",
+      "rch",
+      "two"
+    ]
+  },
+  {
+    "id": "phbwepLightCross",
+    "name": "Light Crossbow",
+    "weaponType": "simpleR",
+    "mastery": "slow",
+    "properties": [
+      "amm",
+      "lod",
+      "two"
+    ]
+  },
+  {
+    "id": "phbwepLightHamme",
+    "name": "Light Hammer",
+    "weaponType": "simpleM",
+    "mastery": "nick",
+    "properties": [
+      "lgt",
+      "thr"
+    ]
+  },
+  {
+    "id": "phbwepLongbow000",
+    "name": "Longbow",
+    "weaponType": "martialR",
+    "mastery": "slow",
+    "properties": [
+      "amm",
+      "hvy",
+      "two"
+    ]
+  },
+  {
+    "id": "phbwepLongsword0",
+    "name": "Longsword",
+    "weaponType": "martialM",
+    "mastery": "sap",
+    "properties": [
+      "ver"
+    ]
+  },
+  {
+    "id": "phbwepMace000000",
+    "name": "Mace",
+    "weaponType": "simpleM",
+    "mastery": "sap",
+    "properties": []
+  },
+  {
+    "id": "phbwepMaul000000",
+    "name": "Maul",
+    "weaponType": "martialM",
+    "mastery": "topple",
+    "properties": [
+      "hvy",
+      "two"
+    ]
+  },
+  {
+    "id": "phbwepMorningsta",
+    "name": "Morningstar",
+    "weaponType": "martialM",
+    "mastery": "sap",
+    "properties": []
+  },
+  {
+    "id": "phbwepMusket0000",
+    "name": "Musket",
+    "weaponType": "martialR",
+    "mastery": "slow",
+    "properties": [
+      "amm",
+      "lod",
+      "two"
+    ]
+  },
+  {
+    "id": "phbwepPike000000",
+    "name": "Pike",
+    "weaponType": "martialM",
+    "mastery": "push",
+    "properties": [
+      "hvy",
+      "rch",
+      "two"
+    ]
+  },
+  {
+    "id": "phbwepPistol0000",
+    "name": "Pistol",
+    "weaponType": "martialR",
+    "mastery": "vex",
+    "properties": [
+      "amm",
+      "lod"
+    ]
+  },
+  {
+    "id": "phbwepQuartersta",
+    "name": "Quarterstaff",
+    "weaponType": "simpleM",
+    "mastery": "topple",
+    "properties": [
+      "ver"
+    ]
+  },
+  {
+    "id": "phbwepRapier0000",
+    "name": "Rapier",
+    "weaponType": "martialM",
+    "mastery": "vex",
+    "properties": [
+      "fin"
+    ]
+  },
+  {
+    "id": "phbwepScimitar00",
+    "name": "Scimitar",
+    "weaponType": "martialM",
+    "mastery": "nick",
+    "properties": [
+      "fin",
+      "lgt"
+    ]
+  },
+  {
+    "id": "phbwepShortbow00",
+    "name": "Shortbow",
+    "weaponType": "simpleR",
+    "mastery": "vex",
+    "properties": [
+      "amm",
+      "two"
+    ]
+  },
+  {
+    "id": "phbwepShortsword",
+    "name": "Shortsword",
+    "weaponType": "martialM",
+    "mastery": "vex",
+    "properties": [
+      "fin",
+      "lgt"
+    ]
+  },
+  {
+    "id": "phbwepSickle0000",
+    "name": "Sickle",
+    "weaponType": "simpleM",
+    "mastery": "nick",
+    "properties": [
+      "lgt"
+    ]
+  },
+  {
+    "id": "phbwepSling00000",
+    "name": "Sling",
+    "weaponType": "simpleR",
+    "mastery": "slow",
+    "properties": [
+      "amm"
+    ]
+  },
+  {
+    "id": "phbwepSpear00000",
+    "name": "Spear",
+    "weaponType": "simpleM",
+    "mastery": "sap",
+    "properties": [
+      "thr",
+      "ver"
+    ]
+  },
+  {
+    "id": "phbwepTrident000",
+    "name": "Trident",
+    "weaponType": "martialM",
+    "mastery": "topple",
+    "properties": [
+      "thr",
+      "ver"
+    ]
+  },
+  {
+    "id": "phbwepWarPick000",
+    "name": "War Pick",
+    "weaponType": "martialM",
+    "mastery": "sap",
+    "properties": [
+      "ver"
+    ]
+  },
+  {
+    "id": "phbwepWarhammer0",
+    "name": "Warhammer",
+    "weaponType": "martialM",
+    "mastery": "push",
+    "properties": [
+      "ver"
+    ]
+  },
+  {
+    "id": "phbwepWhip000000",
+    "name": "Whip",
+    "weaponType": "martialM",
+    "mastery": "slow",
+    "properties": [
+      "fin",
+      "rch"
+    ]
+  }
+]

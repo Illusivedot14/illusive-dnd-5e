@@ -1,0 +1,22 @@
+<div class="illusive-dnd-util-dropdown illusive-dnd-util-dropdown-movement" role="menu" aria-label="{{title}}">
+  <div class="illusive-dnd-util-dropdown-heading">{{title}}</div>
+  <div class="illusive-dnd-util-tile-grid">
+  {{#each choices}}
+  <button
+    type="button"
+    class="illusive-dnd-util-tile{{#if isActive}} is-active{{/if}}"
+    data-movement-id="{{id}}"
+    role="menuitem"
+    title="{{label}}{{#if leftover}} — {{leftover}}{{/if}}"
+  >
+    {{#if icon}}
+    <span class="illusive-dnd-util-tile-icon" aria-hidden="true"><i class="fas {{icon}}"></i></span>
+    {{/if}}
+    <span class="illusive-dnd-util-tile-name">{{label}}</span>
+    {{#if leftover}}
+    <span class="illusive-dnd-util-tile-meta">{{leftover}}</span>
+    {{/if}}
+  </button>
+  {{/each}}
+  </div>
+</div>

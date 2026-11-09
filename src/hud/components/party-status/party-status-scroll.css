@@ -1,0 +1,72 @@
+#illusive-dnd-party-status.illusive-dnd-party-scrollable .illusive-dnd-party-body {
+  flex-direction: row;
+  align-items: stretch;
+  gap: 4px;
+}
+
+#illusive-dnd-party-status.illusive-dnd-party-scrollable #illusive-dnd-party-list {
+  padding: 4px 0;
+}
+
+#illusive-dnd-party-status .illusive-dnd-party-scroll-slider {
+  width: 14px;
+  height: 83px;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  pointer-events: auto;
+  flex: 0 0 auto;
+  -webkit-appearance: none;
+  appearance: none;
+  writing-mode: vertical-lr;
+  direction: ltr;
+}
+
+#illusive-dnd-party-status .illusive-dnd-party-scroll-slider[hidden] {
+  display: none !important;
+}
+
+#illusive-dnd-party-status .illusive-dnd-party-scroll-slider::-webkit-slider-runnable-track {
+  width: 4px;
+  border-radius: 999px;
+  background: rgba(8, 6, 14, 0.85);
+  border: 1px solid rgba(184, 154, 92, 0.4);
+}
+
+#illusive-dnd-party-status .illusive-dnd-party-scroll-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 12px;
+  height: 12px;
+  margin-left: -5px;
+  border-radius: 50%;
+  border: 1px solid #9a7840;
+  background: linear-gradient(180deg, #f0ddb0 0%, #c9a962 100%);
+}
+
+#illusive-dnd-party-status .illusive-dnd-party-scroll-slider::-moz-range-track {
+  width: 4px;
+  border-radius: 999px;
+  background: rgba(8, 6, 14, 0.85);
+  border: 1px solid rgba(184, 154, 92, 0.4);
+}
+
+#illusive-dnd-party-status .illusive-dnd-party-scroll-slider::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1px solid #9a7840;
+  background: linear-gradient(180deg, #f0ddb0 0%, #c9a962 100%);
+}
+
+
+body[data-illusive-dnd-party-size="compact"] #illusive-dnd-party-status .illusive-dnd-portrait-card {
+  width: 51px;
+  height: 66px;
+}
+
+body[data-illusive-dnd-party-size="large"] #illusive-dnd-party-status .illusive-dnd-portrait-card {
+  width: 76px;
+  height: 97px;
+}

@@ -1,0 +1,179 @@
+.illusive-dnd-util-dropdown-aura {
+  box-sizing: border-box;
+  width: 252px;
+  min-width: 252px;
+  max-width: 252px;
+}
+
+.illusive-dnd-util-dropdown-aura .illusive-dnd-util-tile-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+  width: 100%;
+}
+
+.illusive-dnd-util-dropdown-aura .illusive-dnd-util-tile {
+  width: auto;
+  min-width: 0;
+  min-height: 48px;
+}
+
+.illusive-dnd-aura-slots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0 0 8px;
+}
+
+.illusive-dnd-util-dropdown-aura .illusive-dnd-aura-slot {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  width: auto;
+  min-height: 28px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(210, 176, 104, 0.45);
+  background: linear-gradient(180deg, rgba(48, 34, 24, 0.98) 0%, rgba(18, 12, 16, 0.98) 100%);
+  color: #f0e8d8;
+  cursor: pointer;
+}
+
+.illusive-dnd-aura-slot:hover {
+  border-color: #f0ddb0;
+}
+
+.illusive-dnd-aura-slot.is-active {
+  border-color: #9ee0f8;
+  box-shadow: 0 0 0 1px rgba(158, 224, 248, 0.7);
+}
+
+.illusive-dnd-aura-slot-swatch {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--illusive-dnd-aura-swatch, #e07020);
+  box-shadow: 0 0 0 1px rgba(240, 232, 216, 0.35);
+}
+
+.illusive-dnd-aura-slot-label {
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.illusive-dnd-aura-slot-add {
+  border-style: dashed;
+  color: #c8b898;
+}
+
+.illusive-dnd-aura-feet-row {
+  display: flex;
+  align-items: stretch;
+  gap: 6px;
+  margin: 0 0 8px;
+}
+
+.illusive-dnd-util-dropdown-aura .illusive-dnd-aura-off {
+  flex: 0 0 auto;
+  min-width: 52px;
+  min-height: 36px;
+  padding: 6px 8px;
+}
+
+.illusive-dnd-aura-feet-field {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+  min-width: 0;
+  padding: 0 8px;
+  border-radius: 8px;
+  border: 1px solid rgba(210, 176, 104, 0.45);
+  background: rgba(10, 7, 18, 0.85);
+  color: #f0e8d8;
+}
+
+.illusive-dnd-util-dropdown-aura .illusive-dnd-aura-feet-field input {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  padding: 6px 0;
+  border: none;
+  background: transparent;
+  color: #f0e8d8;
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1;
+  text-align: right;
+}
+
+.illusive-dnd-aura-feet-field span {
+  flex: 0 0 auto;
+  color: #c8b898;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.illusive-dnd-aura-swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 2px 2px 4px;
+}
+
+.illusive-dnd-util-dropdown-aura .illusive-dnd-aura-swatch {
+  box-sizing: border-box;
+  flex: 0 0 28px;
+  width: 28px;
+  height: 28px;
+  min-width: 28px;
+  padding: 0;
+  border-radius: 50%;
+  border: 2px solid rgba(240, 232, 216, 0.35);
+  background: var(--illusive-dnd-aura-swatch, #e07020);
+  cursor: pointer;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 1px 4px rgba(0, 0, 0, 0.4);
+}
+
+.illusive-dnd-aura-swatch:hover {
+  filter: brightness(1.12);
+}
+
+.illusive-dnd-aura-swatch.is-active {
+  border-color: #f0e8d8;
+  box-shadow:
+    0 0 0 2px rgba(240, 232, 216, 0.85),
+    0 0 8px var(--illusive-dnd-aura-swatch, #e07020);
+}
+
+.illusive-dnd-aura-color-pick {
+  box-sizing: border-box;
+  position: relative;
+  flex: 0 0 28px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px dashed rgba(240, 232, 216, 0.55);
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.illusive-dnd-aura-color-pick.is-active {
+  border-style: solid;
+  border-color: #f0e8d8;
+  box-shadow: 0 0 0 2px rgba(240, 232, 216, 0.85);
+}
+
+.illusive-dnd-util-dropdown-aura .illusive-dnd-aura-color-pick input {
+  position: absolute;
+  inset: -4px;
+  width: 36px;
+  height: 36px;
+  margin: 0;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+  background: transparent;
+}

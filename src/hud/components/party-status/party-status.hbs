@@ -1,0 +1,37 @@
+{{#each members}}
+<button
+  type="button"
+  class="illusive-dnd-portrait-card illusive-dnd-ornate-frame{{#if selected}} is-selected{{/if}}{{#if combat.isTurn}} is-turn{{/if}}{{#if isDeathSaving}} is-death-saving{{/if}}{{#if isDefeated}} is-dead{{/if}}{{#if isStabilized}} is-stabilized{{/if}}"
+  style="--illusive-dnd-hp-pct: {{hpPctCss}};"
+  data-token-id="{{id}}"
+  data-actor-id="{{actorId}}"
+  data-hp-tier="{{hp.tier}}"
+  title="{{tooltip}}"
+  aria-label="{{name}}"
+>
+  <span class="illusive-dnd-frame-corner illusive-dnd-frame-corner-tl" aria-hidden="true"></span>
+  <span class="illusive-dnd-frame-corner illusive-dnd-frame-corner-tr" aria-hidden="true"></span>
+  <span class="illusive-dnd-frame-corner illusive-dnd-frame-corner-bl" aria-hidden="true"></span>
+  <span class="illusive-dnd-frame-corner illusive-dnd-frame-corner-br" aria-hidden="true"></span>
+
+  <img class="illusive-dnd-portrait-img" src="{{img}}" alt="{{name}}">
+
+  {{#if showDamageWash}}
+  <span class="illusive-dnd-party-damage-wash" aria-hidden="true"></span>
+  {{/if}}
+
+  {{#if vitalityIcon}}
+  <span class="illusive-dnd-party-vitality-icon" title="{{vitalityIcon.label}}" aria-label="{{vitalityIcon.label}}">
+    <i class="fas {{vitalityIcon.icon}}" aria-hidden="true"></i>
+  </span>
+  {{/if}}
+
+  {{#if showName}}
+  <span class="illusive-dnd-party-footer">
+    <span class="illusive-dnd-party-name">{{displayName}}</span>
+  </span>
+  {{/if}}
+</button>
+{{else}}
+<div class="illusive-dnd-empty-text">{{emptyPartyText}}</div>
+{{/each}}

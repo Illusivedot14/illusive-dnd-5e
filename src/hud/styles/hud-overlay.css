@@ -1,0 +1,57 @@
+/* Full-viewport HUD layer.
+ * position:fixed keeps it out of Foundry's flex HUD (never pushes ui-left/right),
+ * inset:0 makes it a full-screen positioning context so children never collapse to (0,0),
+ * pointer-events:none lets clicks fall through to the canvas (children opt back in).
+ * Sit just above the canvas and under Foundry chrome (--z-index-app: 30), windows
+ * (100), and the game menu so those stay clickable on top of the HUD. */
+#illusive-dnd-hud-overlay {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: visible;
+  pointer-events: none;
+  z-index: calc(var(--z-index-app, 30) - 1);
+}
+
+/*
+ * Portrait / Vizio: do NOT force dock width to the band here.
+ * --illusive-dnd-action-bar-scale already maps the authored 1120px bar onto the band;
+ * setting both width AND scale was double-shrinking the middle ability well away.
+ */
+html[data-illusive-dnd-display-profile="vizio-portrait"] #illusive-dnd-hud-overlay #illusive-dnd-action-bar-dock,
+html.illusive-dnd-display-portrait #illusive-dnd-hud-overlay #illusive-dnd-action-bar-dock {
+  bottom: 6px;
+}
+
+/*
+ * Locked Vizio V405-G9 only: force the computed action-bar scale (includes the
+ * Vizio trim, currently 0.88). !important beats inline transform so a missed
+ * JS refresh cannot leave the wrong footprint on the TV.
+ */
+html.illusive-dnd-display-vizio #illusive-dnd-hud-overlay #illusive-dnd-action-bar-dock,
+html[data-illusive-dnd-vizio="1"] #illusive-dnd-hud-overlay #illusive-dnd-action-bar-dock {
+  transform: translateX(-50%) scale(var(--illusive-dnd-action-bar-scale, 0.88)) !important;
+  transform-origin: bottom center !important;
+}
+
+html.illusive-dnd-display-portrait .illusive-dnd-mock-center,
+html[data-illusive-dnd-display-profile="vizio-portrait"] .illusive-dnd-mock-center {
+  flex: 1 1 auto !important;
+  min-width: 280px !important;
+}
+
+html.illusive-dnd-display-portrait .illusive-dnd-mock-ability-well,
+html[data-illusive-dnd-display-profile="vizio-portrait"] .illusive-dnd-mock-ability-well {
+  min-height: 140px;
+}
+
+html.illusive-dnd-display-portrait #ui-bottom.illusive-dnd-ui-hidden,
+html[data-illusive-dnd-display-profile="vizio-portrait"] #ui-bottom.illusive-dnd-ui-hidden {
+  visibility: hidden !important;
+  pointer-events: none !important;
+  height: 0 !important;
+  overflow: hidden !important;
+}

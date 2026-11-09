@@ -1,0 +1,19 @@
+<div class="illusive-dnd-util-dropdown illusive-dnd-util-dropdown-light" role="menu" aria-label="{{title}}">
+  <div class="illusive-dnd-util-dropdown-heading">{{title}}</div>
+  <div class="illusive-dnd-util-tile-grid">
+  {{#each choices}}
+    <button
+      type="button"
+      class="illusive-dnd-util-tile{{#if isActive}} is-active{{/if}}{{#if disabled}} is-disabled{{/if}}"
+      data-light-preset="{{id}}"
+      role="menuitem"
+      {{#if disabled}}aria-disabled="true"{{/if}}
+    >
+    <span class="illusive-dnd-util-tile-name">{{label}}</span>
+    {{#if meta}}
+    <span class="illusive-dnd-util-tile-meta">{{meta}}</span>
+    {{/if}}
+  </button>
+  {{/each}}
+  </div>
+</div>

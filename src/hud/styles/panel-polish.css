@@ -1,0 +1,62 @@
+/* HP tier colors */
+.illusive-dnd-hp-tier-healthy .illusive-dnd-hp-base {
+  background: linear-gradient(90deg, #2d6a3d 0%, #4caf6a 100%);
+}
+
+.illusive-dnd-hp-tier-warn .illusive-dnd-hp-base {
+  background: linear-gradient(90deg, #8f6a1e 0%, #d4a83a 100%);
+}
+
+.illusive-dnd-hp-tier-critical .illusive-dnd-hp-base {
+  background: linear-gradient(90deg, #8f2433 0%, #c43d4f 100%);
+}
+
+.illusive-dnd-hp-tier-down .illusive-dnd-hp-base {
+  background: linear-gradient(90deg, #4a1520 0%, #6a2030 100%);
+}
+
+.illusive-dnd-hp-flat .illusive-dnd-hp-base {
+  background: linear-gradient(90deg, #8f2433 0%, #c43d4f 100%);
+}
+
+/* Party rail */
+#illusive-dnd-party-status {
+  opacity: var(--illusive-dnd-party-opacity, 1);
+}
+
+body.illusive-dnd-active-pulse-off #illusive-dnd-turn-tracker .illusive-dnd-turn-card.is-active .illusive-dnd-turn-portrait.illusive-dnd-ornate-frame::before,
+body.illusive-dnd-active-pulse-off #illusive-dnd-party-status .illusive-dnd-portrait-card.illusive-dnd-ornate-frame.is-selected::before {
+  animation: none;
+}
+
+/* Minimal theme */
+body.illusive-dnd-theme-minimal .illusive-dnd-ornate-frame::before,
+body.illusive-dnd-theme-minimal .illusive-dnd-ornate-frame::after,
+body.illusive-dnd-theme-minimal .illusive-dnd-ornate-panel::before,
+body.illusive-dnd-theme-minimal .illusive-dnd-ornate-panel::after,
+body.illusive-dnd-theme-minimal .illusive-dnd-frame-corner {
+  display: none;
+}
+
+body.illusive-dnd-theme-minimal #illusive-dnd-party-status .illusive-dnd-portrait-card.illusive-dnd-ornate-frame::before {
+  display: block;
+  border-width: 1px;
+  border-radius: 4px;
+  background: rgba(10, 8, 15, 0.92);
+  animation: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+body.illusive-dnd-ornate-disabled .illusive-dnd-ornate-frame::before,
+body.illusive-dnd-ornate-disabled .illusive-dnd-ornate-frame::after,
+body.illusive-dnd-ornate-disabled .illusive-dnd-ornate-panel::before,
+body.illusive-dnd-ornate-disabled .illusive-dnd-ornate-panel::after,
+body.illusive-dnd-ornate-disabled .illusive-dnd-frame-corner {
+  display: none !important;
+}
+
+body.illusive-dnd-ornate-disabled #illusive-dnd-party-status .illusive-dnd-portrait-card {
+  border: 1px solid #6b4f2a;
+  border-radius: 4px;
+  background: rgba(10, 8, 15, 0.92);
+}

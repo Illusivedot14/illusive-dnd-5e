@@ -1,0 +1,166 @@
+[
+  {
+    "id": "phbftAbilityScor",
+    "name": "Ability Score Improvement",
+    "featureType": "",
+    "subtype": "",
+    "identifier": "ability-score-improvement",
+    "activities": []
+  },
+  {
+    "id": "phbftAlert000000",
+    "name": "Alert",
+    "featureType": "feat",
+    "subtype": "origin",
+    "identifier": "alert",
+    "activities": []
+  },
+  {
+    "id": "phbfstArchery000",
+    "name": "Archery",
+    "featureType": "feat",
+    "subtype": "fightingStyle",
+    "identifier": "archery",
+    "activities": []
+  },
+  {
+    "id": "phbBoonofCombatP",
+    "name": "Boon of Combat Prowess",
+    "featureType": "feat",
+    "subtype": "epicBoon",
+    "identifier": "boon-of-combat-prowess",
+    "activities": []
+  },
+  {
+    "id": "phbBoonofDimensi",
+    "name": "Boon of Dimensional Travel",
+    "featureType": "feat",
+    "subtype": "epicBoon",
+    "identifier": "boon-of-dimensional-travel",
+    "activities": [
+      {
+        "id": "2nds7MCSvJOeZ3Ar",
+        "name": "Teleport",
+        "type": "utility",
+        "activation": ""
+      }
+    ]
+  },
+  {
+    "id": "phbBoonofFate000",
+    "name": "Boon of Fate",
+    "featureType": "feat",
+    "subtype": "epicBoon",
+    "identifier": "boon-of-fate",
+    "activities": [
+      {
+        "id": "BSFYZ98EvNknWsaE",
+        "name": "Improve Fate",
+        "type": "utility",
+        "activation": ""
+      }
+    ]
+  },
+  {
+    "id": "phbBoonofIrresis",
+    "name": "Boon of Irresistible Offense",
+    "featureType": "feat",
+    "subtype": "epicBoon",
+    "identifier": "boon-of-irresistible-offense",
+    "activities": []
+  },
+  {
+    "id": "phbBoonofSpellRe",
+    "name": "Boon of Spell Recall",
+    "featureType": "feat",
+    "subtype": "epicBoon",
+    "identifier": "boon-of-spell-recall",
+    "activities": [
+      {
+        "id": "mN72GMXgdNXQJhJN",
+        "name": "Free Cast Roll",
+        "type": "utility",
+        "activation": ""
+      }
+    ]
+  },
+  {
+    "id": "phbBoonoftheNigh",
+    "name": "Boon of the Night Spirit",
+    "featureType": "feat",
+    "subtype": "epicBoon",
+    "identifier": "boon-of-the-night-spirit",
+    "activities": [
+      {
+        "id": "z2BNb47xtdCmqViA",
+        "name": "Merge with the Shadows",
+        "type": "utility",
+        "activation": "bonus"
+      }
+    ]
+  },
+  {
+    "id": "phbBoonofTruesig",
+    "name": "Boon of Truesight",
+    "featureType": "feat",
+    "subtype": "epicBoon",
+    "identifier": "boon-of-truesight",
+    "activities": []
+  },
+  {
+    "id": "phbfstDefense000",
+    "name": "Defense",
+    "featureType": "feat",
+    "subtype": "fightingStyle",
+    "identifier": "defense",
+    "activities": []
+  },
+  {
+    "id": "phbftGrappler000",
+    "name": "Grappler",
+    "featureType": "feat",
+    "subtype": "general",
+    "identifier": "grappler",
+    "activities": []
+  },
+  {
+    "id": "phbfstGreatWeapo",
+    "name": "Great Weapon Fighting",
+    "featureType": "feat",
+    "subtype": "fightingStyle",
+    "identifier": "great-weapon-fighting",
+    "activities": []
+  },
+  {
+    "id": "phbftMagicInitia",
+    "name": "Magic Initiate",
+    "featureType": "feat",
+    "subtype": "origin",
+    "identifier": "magic-initiate",
+    "activities": []
+  },
+  {
+    "id": "phbftSavageAttac",
+    "name": "Savage Attacker",
+    "featureType": "feat",
+    "subtype": "origin",
+    "identifier": "savage-attacker",
+    "activities": []
+  },
+  {
+    "id": "phbftSkilled0000",
+    "name": "Skilled",
+    "featureType": "feat",
+    "subtype": "origin",
+    "identifier": "skilled",
+    "activities": []
+  },
+  {
+    "id": "phbfstTwoWeaponF",
+    "name": "Two-Weapon Fighting",
+    "featureType": "feat",
+    "subtype": "fightingStyle",
+    "identifier": "two-weapon-fighting",
+    "activities": []
+  }
+]

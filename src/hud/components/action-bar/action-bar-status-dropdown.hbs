@@ -1,0 +1,29 @@
+<div class="illusive-dnd-util-dropdown illusive-dnd-util-dropdown-status" role="menu" aria-label="{{title}}">
+  <label class="illusive-dnd-token-status-search">
+    <span class="fa-solid fa-magnifying-glass" aria-hidden="true"></span>
+    <input
+      type="search"
+      class="illusive-dnd-token-status-search-input"
+      placeholder="{{searchPlaceholder}}"
+      aria-label="{{searchPlaceholder}}"
+      autocomplete="off"
+      spellcheck="false"
+    >
+  </label>
+  <div class="illusive-dnd-token-status-picker" role="listbox">
+    {{#each effects}}
+    <button
+      type="button"
+      class="illusive-dnd-token-status-picker-btn{{#if isActive}} is-active{{/if}}{{#if isOverlay}} is-overlay{{/if}}"
+      data-status-id="{{id}}"
+      data-status-name="{{title}}"
+      data-status-sort="{{sortIndex}}"
+      aria-label="{{title}}"
+      aria-pressed="{{isActive}}"
+    >
+      <img src="{{src}}" alt="" width="24" height="24" loading="lazy">
+      <span class="illusive-dnd-token-status-picker-name">{{title}}</span>
+    </button>
+    {{/each}}
+  </div>
+</div>

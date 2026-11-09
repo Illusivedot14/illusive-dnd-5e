@@ -1,0 +1,3620 @@
+[
+  {
+    "id": "s0Cc2zcX0JzIgam5",
+    "name": "Ability Score Improvement",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": null,
+    "activities": [],
+    "identifier": "ability-score-improvement"
+  },
+  {
+    "id": "sPy2OLoN7JaAcMl4",
+    "name": "Ability Score Improvement",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Fighter 4",
+    "activities": [],
+    "identifier": "ability-score-improvement"
+  },
+  {
+    "id": "v7MxFuTAgOsmxZCD",
+    "name": "Ability Score Improvement",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Rogue 4",
+    "activities": [],
+    "identifier": "ability-score-improvement"
+  },
+  {
+    "id": "xF1VTcJ3AdkbTsdQ",
+    "name": "Action Surge",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Fighter 2",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "special"
+      }
+    ],
+    "identifier": "action-surge"
+  },
+  {
+    "id": "kYJsED0rqqqUcgKz",
+    "name": "Additional Fighting Style",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Champion 10",
+    "activities": [],
+    "identifier": "additional-fighting-style"
+  },
+  {
+    "id": "myBu3zi5eYvQIcuy",
+    "name": "Additional Magical Secrets",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "College of Lore 6",
+    "activities": [],
+    "identifier": "additional-magical-secrets"
+  },
+  {
+    "id": "2fyuw7MiCnocDeAU",
+    "name": "Agonizing Blast",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "eldritchInvocation",
+    "source": "",
+    "requirements": "Warlock 2, Eldritch Blast",
+    "activities": [],
+    "identifier": "agonizing-blast"
+  },
+  {
+    "id": "e0uTcFPpgxjIyUW9",
+    "name": "Arcane Recovery",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Wizard 1",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "special"
+      }
+    ],
+    "identifier": "arcane-recovery"
+  },
+  {
+    "id": "AEWr9EMxy5gj4ZFT",
+    "name": "Arcane Tradition",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Wizard 2",
+    "activities": [],
+    "identifier": "arcane-tradition"
+  },
+  {
+    "id": "ip4bvmGoz3qkoqes",
+    "name": "Archdruid",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Druid 20",
+    "activities": [],
+    "identifier": "archdruid"
+  },
+  {
+    "id": "8YwPFv3UAPjWVDNf",
+    "name": "Archery",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "fightingStyle",
+    "source": "",
+    "requirements": "Fighter 1, Champion 10, Ranger 2",
+    "activities": [],
+    "identifier": "archery"
+  },
+  {
+    "id": "alUqO6c6OEKFQJdb",
+    "name": "Armor of Shadows",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "eldritchInvocation",
+    "source": "",
+    "requirements": "Warlock 2",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ],
+    "identifier": "armor-of-shadows"
+  },
+  {
+    "id": "QEuH5TeBN4PPYT2g",
+    "name": "Ascendant Step",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "eldritchInvocation",
+    "source": "",
+    "requirements": "Warlock 9",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ],
+    "identifier": "ascendant-step"
+  },
+  {
+    "id": "nahSkBO6LH4HkpaT",
+    "name": "Aura of Courage",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Paladin 10",
+    "activities": [],
+    "identifier": "aura-of-courage"
+  },
+  {
+    "id": "M2DxVsgLeZgXOznT",
+    "name": "Aura of Devotion",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Oath of Devotion 7",
+    "activities": [],
+    "identifier": "aura-of-devotion"
+  },
+  {
+    "id": "carGDhkIdoduTC0I",
+    "name": "Aura of Protection",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Paladin 6",
+    "activities": [],
+    "identifier": "aura-of-protection"
+  },
+  {
+    "id": "ILhzFHiRrqgQ9dFJ",
+    "name": "Bard College",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Bard 3",
+    "activities": [],
+    "identifier": "bard-college"
+  },
+  {
+    "id": "hpLNiGq7y67d2EHA",
+    "name": "Bardic Inspiration",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Bard 1",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "bonus"
+      }
+    ],
+    "identifier": "bardic-inspiration"
+  },
+  {
+    "id": "61kXR1sniXHjvN17",
+    "name": "Beast Speech",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "eldritchInvocation",
+    "source": "",
+    "requirements": "Warlock 2",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ],
+    "identifier": "beast-speech"
+  },
+  {
+    "id": "xvgPu1O57DgXCM86",
+    "name": "Beast Spells",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Druid 18",
+    "activities": [],
+    "identifier": "beast-spells"
+  },
+  {
+    "id": "eNvpIaSnJUdF8fHl",
+    "name": "Beguiling Influence",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "eldritchInvocation",
+    "source": "",
+    "requirements": "Warlock 2",
+    "activities": [],
+    "identifier": "beguiling-influence"
+  },
+  {
+    "id": "KygHql3cTj4IRrvZ",
+    "name": "Bewitching Whispers",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "eldritchInvocation",
+    "source": "",
+    "requirements": "Warlock 7",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ],
+    "identifier": "bewitching-whispers"
+  },
+  {
+    "id": "yv49QN6Bzqs0ecCs",
+    "name": "Blessed Healer",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Life Domain 6",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "",
+        "type": "heal",
+        "activation": "special"
+      }
+    ],
+    "identifier": "blessed-healer"
+  },
+  {
+    "id": "fjsBk7zxoAbLf8ZI",
+    "name": "Blindsense",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Rogue 14",
+    "activities": [],
+    "identifier": "blindsense"
+  },
+  {
+    "id": "lT8GsPOPgRzDC3QJ",
+    "name": "Bonus Cantrip",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Circle of the Land 2",
+    "activities": [],
+    "identifier": "bonus-cantrip"
+  },
+  {
+    "id": "e9ytGikyLFgwZ5wi",
+    "name": "Bonus Proficiencies",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "College of Lore 3",
+    "activities": [],
+    "identifier": "bonus-proficiencies"
+  },
+  {
+    "id": "68bYIOvx6rIqnlOW",
+    "name": "Bonus Proficiency",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Life Domain 1",
+    "activities": [],
+    "identifier": "bonus-proficiency"
+  },
+  {
+    "id": "CFIYXDmbmSP8BXjN",
+    "name": "Book of Ancient Secrets",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "eldritchInvocation",
+    "source": "",
+    "requirements": "Warlock 3, Pact of the Tome",
+    "activities": [],
+    "identifier": "book-of-ancient-secrets"
+  },
+  {
+    "id": "L94gyvNpUhUe0rwh",
+    "name": "Brutal Critical",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Barbarian 9",
+    "activities": [],
+    "identifier": "brutal-critical"
+  },
+  {
+    "id": "zElYrOcCFFMhB6Xl",
+    "name": "Careful Spell",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "metamagic",
+    "source": "",
+    "requirements": "Sorcerer 3",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "special"
+      }
+    ],
+    "identifier": "careful-spell"
+  },
+  {
+    "id": "Phy02H5x0TKHd7T3",
+    "name": "Chains of Carceri",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "eldritchInvocation",
+    "source": "",
+    "requirements": "Warlock 15, Pact of the Chain",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ],
+    "identifier": "chains-of-carceri"
+  },
+  {
+    "id": "8M7uOPhbTxoxxJSo",
+    "name": "Channel Divinity",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Paladin 3",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "special"
+      }
+    ],
+    "identifier": "channel-divinity"
+  },
+  {
+    "id": "YpiLQEKGalROn7iJ",
+    "name": "Channel Divinity",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Cleric 2",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "special"
+      }
+    ],
+    "identifier": "channel-divinity"
+  },
+  {
+    "id": "hEymt45rICi4f9eL",
+    "name": "Channel Divinity: Preserve Life",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "channelDivinity",
+    "source": "",
+    "requirements": "Life Domain 2",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "",
+        "type": "heal",
+        "activation": "action"
+      }
+    ],
+    "identifier": "channel-divinity-preserve-life"
+  },
+  {
+    "id": "xNN0JMKqlG4hKVYu",
+    "name": "Channel Divinity: Sacred Weapon",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "channelDivinity",
+    "source": "",
+    "requirements": "Oath of Devotion 3",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "",
+        "type": "utility",
+        "activation": "action"
+      }
+    ],
+    "identifier": "channel-divinity-sacred-weapon"
+  },
+  {
+    "id": "ZdwGlsJNtc7pGFCd",
+    "name": "Channel Divinity: Turn the Unholy",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "channelDivinity",
+    "source": "",
+    "requirements": "Oath of Devotion 3",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "",
+        "type": "save",
+        "activation": "action"
+      }
+    ],
+    "identifier": "channel-divinity-turn-the-unholy"
+  },
+  {
+    "id": "r91UIgwFdHwkXdia",
+    "name": "Channel Divinity: Turn Undead",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "channelDivinity",
+    "source": "",
+    "requirements": "Cleric 2",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "",
+        "type": "save",
+        "activation": "action"
+      }
+    ],
+    "identifier": "channel-divinity-turn-undead"
+  },
+  {
+    "id": "YiK59gWSlcQ6Mbdz",
+    "name": "Circle Spells",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Circle of the Land 3",
+    "activities": [],
+    "identifier": "circle-spells"
+  },
+  {
+    "id": "U7BIPVPsptBmwsnV",
+    "name": "Cleansing Touch",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Paladin 14",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ],
+    "identifier": "restoring-touch"
+  },
+  {
+    "id": "5gx1O0sxK08awEO9",
+    "name": "Colossus Slayer",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "huntersPrey",
+    "source": "",
+    "requirements": "Hunter 3",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "damage",
+        "activation": "special"
+      }
+    ],
+    "identifier": "colossus-slayer"
+  },
+  {
+    "id": "SEJmsjkEhdAZ90ki",
+    "name": "Countercharm",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Bard 6",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ],
+    "identifier": "countercharm"
+  },
+  {
+    "id": "01pcLg6PRu5zGrsb",
+    "name": "Cunning Action",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Rogue 2",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "bonus"
+      }
+    ],
+    "identifier": "cunning-action"
+  },
+  {
+    "id": "5zPmHPQUne7RDfaU",
+    "name": "Cutting Words",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "College of Lore 3",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "",
+        "type": "utility",
+        "activation": "reaction"
+      }
+    ],
+    "identifier": "cutting-words"
+  },
+  {
+    "id": "vt31lWAULygEl7yk",
+    "name": "Danger Sense",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Barbarian 2",
+    "activities": [],
+    "identifier": "danger-sense"
+  },
+  {
+    "id": "Jv0zu4BtUi8bFCqJ",
+    "name": "Dark One's Blessing",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "The Fiend 1",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "",
+        "type": "heal",
+        "activation": ""
+      }
+    ],
+    "identifier": "dark-ones-blessing"
+  },
+  {
+    "id": "OQSb0bO1yDI4aiMx",
+    "name": "Dark One's Own Luck",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "The Fiend 6",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "special"
+      }
+    ],
+    "identifier": "dark-ones-own-luck"
+  },
+  {
+    "id": "zSlV0O2rQMdoq6pB",
+    "name": "Defense",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "fightingStyle",
+    "source": "",
+    "requirements": "Fighter 1, Champion 10, Paladin 2, Ranger 2",
+    "activities": [],
+    "identifier": "defense"
+  },
+  {
+    "id": "WgQrqjmeyMqDzVt3",
+    "name": "Defensive Tactics",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Hunter 7",
+    "activities": [],
+    "identifier": "defensive-tactics"
+  },
+  {
+    "id": "mzweVbnsJPQiVkAe",
+    "name": "Deflect Missiles",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "ki",
+    "source": "",
+    "requirements": "Monk 3",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "attack",
+        "activation": "reaction"
+      }
+    ],
+    "identifier": "deflect-attacks"
+  },
+  {
+    "id": "NMy4piwXIpLjYbRE",
+    "name": "Destroy Undead",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Cleric 5",
+    "activities": [],
+    "identifier": "sear-undead"
+  },
+  {
+    "id": "3sN91lT1R3oxcDKd",
+    "name": "Devil's Sight",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "eldritchInvocation",
+    "source": "",
+    "requirements": "Warlock 2",
+    "activities": [],
+    "identifier": "devils-sight"
+  },
+  {
+    "id": "3JYlSTG0olbm1FQC",
+    "name": "Devil's Sight",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "7D2EkLdISwShEDlN",
+    "name": "Diamond Soul",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "ki",
+    "source": "",
+    "requirements": "Monk 14",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": ""
+      }
+    ],
+    "identifier": "disciplined-survivor"
+  },
+  {
+    "id": "v6jhyPoAYRIIXBG1",
+    "name": "Diamond Soul",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "jF8AFfEMICIJnAkR",
+    "name": "Disciple of Life",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Life Domain 1",
+    "activities": [],
+    "identifier": "disciple-of-life"
+  },
+  {
+    "id": "DZpAa3LzMNBexbmX",
+    "name": "Distant Spell",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "metamagic",
+    "source": "",
+    "requirements": "Sorcerer 3",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "special"
+      }
+    ],
+    "identifier": "distant-spell"
+  },
+  {
+    "id": "x637K2Icp2ZFM1TB",
+    "name": "Divine Domain",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Cleric 1",
+    "activities": [],
+    "identifier": "divine-domain"
+  },
+  {
+    "id": "dY9yrqkyEDuF0CG2",
+    "name": "Divine Health",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Paladin 3",
+    "activities": [],
+    "identifier": "divine-health"
+  },
+  {
+    "id": "eVXqHn0ojWrEuYGU",
+    "name": "Divine Intervention",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Cleric 10",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ],
+    "identifier": "divine-intervention"
+  },
+  {
+    "id": "E8ozg8avUVOX9N7u",
+    "name": "Divine Sense",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Paladin 1",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ],
+    "identifier": "divine-sense"
+  },
+  {
+    "id": "ySMPQ6zNSlvkrl2f",
+    "name": "Divine Smite",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Paladin 2",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "damage",
+        "activation": "special"
+      },
+      {
+        "id": "dnd5eactivity200",
+        "name": null,
+        "type": "damage",
+        "activation": "special"
+      }
+    ],
+    "identifier": "divine-smite"
+  },
+  {
+    "id": "T6u5z8ZTX6UftXqE",
+    "name": "Divine Strike",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Life Domain 8",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "damage",
+        "activation": ""
+      }
+    ],
+    "identifier": "divine-strike"
+  },
+  {
+    "id": "Gsha4bl0apxqspFy",
+    "name": "Draconic Presence",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Draconic Bloodline 18",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ],
+    "identifier": "draconic-presence"
+  },
+  {
+    "id": "MW1ExvBLm8Hg82aA",
+    "name": "Draconic Resilience",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Draconic Bloodline 1",
+    "activities": [],
+    "identifier": "draconic-resilience"
+  },
+  {
+    "id": "Pu89Tsgy2FJjYPQi",
+    "name": "Draconic Resilience",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "EZsonMThTNLZq35j",
+    "name": "Dragon Ancestor",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Draconic Bloodline 1",
+    "activities": [],
+    "identifier": "dragon-ancestor"
+  },
+  {
+    "id": "3647zjKSE9zFwOXc",
+    "name": "Dragon Wings",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Draconic Bloodline 14",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "bonus"
+      }
+    ],
+    "identifier": "dragon-wings"
+  },
+  {
+    "id": "QBk1RsuTIEF4GEBC",
+    "name": "Dreadful Word",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "eldritchInvocation",
+    "source": "",
+    "requirements": "Warlock 7",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ],
+    "identifier": "dreadful-word"
+  },
+  {
+    "id": "u6Du2P9s81SWuGbi",
+    "name": "Druid Circle",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Druid 2",
+    "activities": [],
+    "identifier": "druid-circle"
+  },
+  {
+    "id": "LzJ5ayHt0OlSVGxi",
+    "name": "Druidic",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Druid 1",
+    "activities": [],
+    "identifier": "druidic"
+  },
+  {
+    "id": "hCop9uJrWhF1QPb4",
+    "name": "Dueling",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "fightingStyle",
+    "source": "",
+    "requirements": "Fighter 1, Champion 10, Paladin 2, Ranger 2",
+    "activities": [],
+    "identifier": "dueling"
+  },
+  {
+    "id": "8MlxM2nEfE3Q0EVk",
+    "name": "Eldritch Invocations",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Warlock 2",
+    "activities": [],
+    "identifier": "eldritch-invocations"
+  },
+  {
+    "id": "0C04rwyvoknvFYiy",
+    "name": "Eldritch Master",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Warlock 20",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "minute"
+      }
+    ],
+    "identifier": "eldritch-master"
+  },
+  {
+    "id": "bbUEsCPTLzbbwK6o",
+    "name": "Eldritch Sight",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "eldritchInvocation",
+    "source": "",
+    "requirements": "Warlock 2",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ],
+    "identifier": "eldritch-sight"
+  },
+  {
+    "id": "r01WtcxTg4yTHm9m",
+    "name": "Eldritch Spear",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "eldritchInvocation",
+    "source": "",
+    "requirements": "Warlock 2, Eldritch Blast",
+    "activities": [],
+    "identifier": "eldritch-spear"
+  },
+  {
+    "id": "x6eEZ9GUsuOcEa3G",
+    "name": "Elemental Affinity",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Draconic Bloodline 6",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "damage",
+        "activation": "special"
+      }
+    ],
+    "identifier": "elemental-affinity"
+  },
+  {
+    "id": "L7nJSRosos8sHJH9",
+    "name": "Elusive",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Rogue 18",
+    "activities": [],
+    "identifier": "elusive"
+  },
+  {
+    "id": "7O85kj6uDEG5NzUE",
+    "name": "Empowered Evocation",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "School of Evocation 10",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "damage",
+        "activation": "special"
+      }
+    ],
+    "identifier": "empowered-evocation"
+  },
+  {
+    "id": "IWpe0Y9uAStHGiH1",
+    "name": "Empowered Spell",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "metamagic",
+    "source": "",
+    "requirements": "Sorcerer 3",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "special"
+      }
+    ],
+    "identifier": "empowered-spell"
+  },
+  {
+    "id": "3jwFt3hSqDswBlOH",
+    "name": "Empty Body",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "ki",
+    "source": "",
+    "requirements": "Monk 18",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ],
+    "identifier": "superior-defense"
+  },
+  {
+    "id": "pAQMJU5R9SGUmzHU",
+    "name": "Escape the Horde",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "defensiveTactic",
+    "source": "",
+    "requirements": "Hunter 7",
+    "activities": [],
+    "identifier": "escape-the-horde"
+  },
+  {
+    "id": "a4P4DNMmH8CqSNkC",
+    "name": "Evasion",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Monk 7, Rogue 7",
+    "activities": [],
+    "identifier": "evasion"
+  },
+  {
+    "id": "laVHAIOKIsUeezWd",
+    "name": "Evasion",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "superiorHuntersDefense",
+    "source": "",
+    "requirements": "Hunter 15",
+    "activities": [],
+    "identifier": "evasion"
+  },
+  {
+    "id": "7uzJ2JkmsdRGLra3",
+    "name": "Evocation Savant",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "School of Evocation 2",
+    "activities": [],
+    "identifier": "evocation-savant"
+  },
+  {
+    "id": "4IHsIcBhAVDt8QjY",
+    "name": "Expanded Spell List",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "The Fiend 1",
+    "activities": [],
+    "identifier": "expanded-spell-list"
+  },
+  {
+    "id": "3sYPftQKnbbVnHrh",
+    "name": "Expertise",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Rogue 1",
+    "activities": [],
+    "identifier": "expertise"
+  },
+  {
+    "id": "aQLg7BWdRnm4Hr9S",
+    "name": "Expertise",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Bard 3",
+    "activities": [],
+    "identifier": "expertise"
+  },
+  {
+    "id": "tQxlKyAx9sgPrbgj",
+    "name": "Extended Spell",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "metamagic",
+    "source": "",
+    "requirements": "Sorcerer 3",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "special"
+      }
+    ],
+    "identifier": "extended-spell"
+  },
+  {
+    "id": "XogoBnFWmCAHXppo",
+    "name": "Extra Attack",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": null,
+    "activities": [],
+    "identifier": "extra-attack"
+  },
+  {
+    "id": "q9g1MLXuLZyxjQMg",
+    "name": "Extra Attack",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Fighter 5",
+    "activities": [],
+    "identifier": "extra-attack"
+  },
+  {
+    "id": "lEZKbWaVrSljRa9n",
+    "name": "Eyes of the Rune Keeper",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "eldritchInvocation",
+    "source": "",
+    "requirements": "Warlock 2",
+    "activities": [],
+    "identifier": "eyes-of-the-rune-keeper"
+  },
+  {
+    "id": "ga3dt2zrCn2MHK8R",
+    "name": "Fast Hands",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Thief 3",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "bonus"
+      }
+    ],
+    "identifier": "fast-hands"
+  },
+  {
+    "id": "Kl6zifJ5OmdHlOi2",
+    "name": "Fast Movement",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Barbarian 5",
+    "activities": [],
+    "identifier": "fast-movement"
+  },
+  {
+    "id": "TIBmPKKnAAiWYuN4",
+    "name": "Fast Movement",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "4Vpj9vCOB37GtXk6",
+    "name": "Favored Enemy",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Ranger 1",
+    "activities": [],
+    "identifier": "favored-enemy"
+  },
+  {
+    "id": "NlXslw4yAqmKZWtN",
+    "name": "Feral Instinct",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Barbarian 7",
+    "activities": [],
+    "identifier": "feral-instinct"
+  },
+  {
+    "id": "q7TkJQX7PeVOzTQH",
+    "name": "Feral Instinct",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "QBVmY56RMQuh6C8h",
+    "name": "Feral Senses",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Ranger 18",
+    "activities": [],
+    "identifier": "feral-senses"
+  },
+  {
+    "id": "9UZ2WjUF2k58CQug",
+    "name": "Fiendish Resilience",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "The Fiend 10",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "special"
+      }
+    ],
+    "identifier": "fiendish-resilience"
+  },
+  {
+    "id": "reg3sjReHspgkd0I",
+    "name": "Fiendish Resilience",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "id0gmGvzNZBEdzbx",
+    "name": "Fiendish Vigor",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "eldritchInvocation",
+    "source": "",
+    "requirements": "Warlock 2",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "heal",
+        "activation": "action"
+      }
+    ],
+    "identifier": "fiendish-vigor"
+  },
+  {
+    "id": "Ho7dVxBlOYFlfBHk",
+    "name": "Fighting Style",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Paladin 2",
+    "activities": [],
+    "identifier": "fighting-style"
+  },
+  {
+    "id": "fbExzwNwEAl2kW9c",
+    "name": "Fighting Style",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Fighter 1",
+    "activities": [],
+    "identifier": "fighting-style"
+  },
+  {
+    "id": "nJA3ISVmyj3uPRVM",
+    "name": "Fighting Style",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Ranger 2",
+    "activities": [],
+    "identifier": "fighting-style"
+  },
+  {
+    "id": "F0Bh4n8Tu1ZZnwSr",
+    "name": "Fighting Style: Archery",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "U3so0zDcVt4sIBRz",
+    "name": "Fighting Style: Defense",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "B5KM6oYsKC7vRMgG",
+    "name": "Fighting Style: Dueling",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "5MwNlVZK7m6VolOH",
+    "name": "Flurry of Blows",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "ki",
+    "source": "",
+    "requirements": "Monk 2",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "bonus"
+      }
+    ],
+    "identifier": "flurry-of-blows"
+  },
+  {
+    "id": "3CaP1vFHVR8LgHjx",
+    "name": "Foe Slayer",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Ranger 20",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "damage",
+        "activation": "special"
+      },
+      {
+        "id": "dnd5eactivity300",
+        "name": null,
+        "type": "utility",
+        "activation": "special"
+      }
+    ],
+    "identifier": "foe-slayer"
+  },
+  {
+    "id": "3VDZGs5Ug3hIE322",
+    "name": "Font of Inspiration",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Bard 5",
+    "activities": [],
+    "identifier": "font-of-inspiration"
+  },
+  {
+    "id": "LBKChJY5n02Afhnq",
+    "name": "Font of Magic",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Sorcerer 2",
+    "activities": [
+      {
+        "id": "EHLXN6WrPpxg0pRN",
+        "name": "Regain Spell Slot",
+        "type": "utility",
+        "activation": "bonus"
+      },
+      {
+        "id": "72ZtIT83h5t5iHHC",
+        "name": "Regain Sorcery Points",
+        "type": "utility",
+        "activation": ""
+      }
+    ],
+    "identifier": "font-of-magic"
+  },
+  {
+    "id": "CkbbAckeCtyHXEnL",
+    "name": "Frenzy",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Path of the Berserker 3",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "bonus"
+      }
+    ],
+    "identifier": "frenzy"
+  },
+  {
+    "id": "65ReXU4ZWqcSs3Cm",
+    "name": "Gaze of Two Minds",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "eldritchInvocation",
+    "source": "",
+    "requirements": "Warlock 2",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ],
+    "identifier": "gaze-of-two-minds"
+  },
+  {
+    "id": "StfmqK1twVfukpa0",
+    "name": "Giant Killer",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "huntersPrey",
+    "source": "",
+    "requirements": "Hunter 3",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "reaction"
+      }
+    ],
+    "identifier": "giant-killer"
+  },
+  {
+    "id": "Dop1RcU5UdhSVLYS",
+    "name": "Grappler",
+    "type": "feat",
+    "featureType": "feat",
+    "subtype": "",
+    "source": "",
+    "requirements": "STR 13 or higher",
+    "activities": [],
+    "identifier": "grappler"
+  },
+  {
+    "id": "3Nc6u9pyStByuJsm",
+    "name": "Great Weapon Fighting",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "fightingStyle",
+    "source": "",
+    "requirements": "Fighter 1, Champion 10, Paladin 2",
+    "activities": [],
+    "identifier": "great-weapon-fighting"
+  },
+  {
+    "id": "tNG2qi9zhmXEkecA",
+    "name": "Heightened Spell",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "metamagic",
+    "source": "",
+    "requirements": "Sorcerer 3",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "special"
+      }
+    ],
+    "identifier": "heightened-spell"
+  },
+  {
+    "id": "r0unvWK0lPsDthDx",
+    "name": "Hide in Plain Sight",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Ranger 10",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "minute"
+      }
+    ],
+    "identifier": "hide-in-plain-sight"
+  },
+  {
+    "id": "7if4vIkT84Sw2zFm",
+    "name": "Hide in Plain Sight",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "ANE5gjojvhNEagzz",
+    "name": "Holy Nimbus",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Oath of Devotion 20",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "damage",
+        "activation": "action"
+      }
+    ],
+    "identifier": "holy-nimbus"
+  },
+  {
+    "id": "C6sHdDGmCMo0cYHd",
+    "name": "Horde Breaker",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "huntersPrey",
+    "source": "",
+    "requirements": "Hunter 3",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "special"
+      }
+    ],
+    "identifier": "horde-breaker"
+  },
+  {
+    "id": "wrxIW5sDfmGr3u5s",
+    "name": "Hunter's Prey",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Hunter 3",
+    "activities": [],
+    "identifier": "hunters-prey"
+  },
+  {
+    "id": "aCUmlnHlUPHS0rdu",
+    "name": "Hurl Through Hell",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "The Fiend 14",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "damage",
+        "activation": "special"
+      }
+    ],
+    "identifier": "hurl-through-hell"
+  },
+  {
+    "id": "YgLQV1O849wE5TgM",
+    "name": "Improved Critical",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Champion 3",
+    "activities": [],
+    "identifier": "improved-critical"
+  },
+  {
+    "id": "FAk41RPCTcvCk6KI",
+    "name": "Improved Divine Smite",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Paladin 11",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "damage",
+        "activation": ""
+      }
+    ],
+    "identifier": "radiant-strikes"
+  },
+  {
+    "id": "yvLL91omI6kHMHau",
+    "name": "Improved Divine Smite",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "653ZHbNcmm7ZGXbw",
+    "name": "Indomitable",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Fighter 9",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "special"
+      }
+    ],
+    "identifier": "indomitable"
+  },
+  {
+    "id": "Q1exex5ALteprrPo",
+    "name": "Indomitable Might",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Barbarian 18",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "special"
+      }
+    ],
+    "identifier": "indomitable-might"
+  },
+  {
+    "id": "M6VSMzVtKPhh8B0i",
+    "name": "Intimidating Presence",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Path of the Berserker 10",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ],
+    "identifier": "intimidating-presence"
+  },
+  {
+    "id": "ezWijmCnlnQ9ZRX2",
+    "name": "Jack of All Trades",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Bard 2",
+    "activities": [],
+    "identifier": "jack-of-all-trades"
+  },
+  {
+    "id": "K4xQzXl1Z4zMnyOa",
+    "name": "Jack of All Trades",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "10b6z2W1txNkrGP7",
+    "name": "Ki",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Monk 2",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "special"
+      }
+    ],
+    "identifier": "monks-focus"
+  },
+  {
+    "id": "7flZKruSSu6dHg6D",
+    "name": "Ki-Empowered Strikes",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Monk 6",
+    "activities": [],
+    "identifier": "empowered-strikes"
+  },
+  {
+    "id": "4dvYtqvbQGDsVi51",
+    "name": "Ki: Empty Body",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "3FB25qKxmkmxcxuC",
+    "name": "Land's Stride",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Circle of the Land 6",
+    "activities": [],
+    "identifier": "lands-stride"
+  },
+  {
+    "id": "C5fzaOBc6HxyOWRn",
+    "name": "Land's Stride",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Ranger 8",
+    "activities": [],
+    "identifier": "lands-stride"
+  },
+  {
+    "id": "OdrvL3afwLOPeuYZ",
+    "name": "Lay on Hands",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Paladin 1",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "heal",
+        "activation": "action"
+      },
+      {
+        "id": "dnd5eactivity001",
+        "name": "Cure Disease and Poison",
+        "type": "utility",
+        "activation": "action"
+      }
+    ],
+    "identifier": "lay-on-hands"
+  },
+  {
+    "id": "zUIAzBnyt0NDvVXb",
+    "name": "Lifedrinker",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "eldritchInvocation",
+    "source": "",
+    "requirements": "Warlock 12, Pact of the Blade",
+    "activities": [],
+    "identifier": "lifedrinker"
+  },
+  {
+    "id": "aonJ2YjkqkYB9WYB",
+    "name": "Magical Secrets",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Bard 10",
+    "activities": [],
+    "identifier": "magical-secrets"
+  },
+  {
+    "id": "ax8M0X0q1GGWM26j",
+    "name": "Martial Archetype",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Fighter 3",
+    "activities": [],
+    "identifier": "martial-archetype"
+  },
+  {
+    "id": "l50hjTxO2r0iecKw",
+    "name": "Martial Arts",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Monk 1",
+    "activities": [],
+    "identifier": "martial-arts"
+  },
+  {
+    "id": "MhJfdBl1B7PdU4oZ",
+    "name": "Mask of Many Faces",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "eldritchInvocation",
+    "source": "",
+    "requirements": "Warlock 2",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ],
+    "identifier": "mask-of-many-faces"
+  },
+  {
+    "id": "lxfdjLer3uKjyZqU",
+    "name": "Master of Myriad Forms",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "eldritchInvocation",
+    "source": "",
+    "requirements": "Warlock 15",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ],
+    "identifier": "master-of-myriad-forms"
+  },
+  {
+    "id": "9Uh7uTDNZ04oTJsL",
+    "name": "Metamagic",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Sorcerer 3",
+    "activities": [],
+    "identifier": "metamagic"
+  },
+  {
+    "id": "0Jgf8fYY2ExwgQpN",
+    "name": "Mindless Rage",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Path of the Berserker 6",
+    "activities": [],
+    "identifier": "mindless-rage"
+  },
+  {
+    "id": "QnRKYXb2bXpnNd2k",
+    "name": "Minions of Chaos",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "eldritchInvocation",
+    "source": "",
+    "requirements": "Warlock 9",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ],
+    "identifier": "minions-of-chaos"
+  },
+  {
+    "id": "DjXi0IkCTbJx1gsp",
+    "name": "Mire the Mind",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "eldritchInvocation",
+    "source": "",
+    "requirements": "Warlock 5",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ],
+    "identifier": "mire-the-mind"
+  },
+  {
+    "id": "k5DU0mMuYVHejiqz",
+    "name": "Misty Visions",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "eldritchInvocation",
+    "source": "",
+    "requirements": "Warlock 2",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "check",
+        "activation": "action"
+      }
+    ],
+    "identifier": "misty-visions"
+  },
+  {
+    "id": "rtpQdX77dYWbDIOH",
+    "name": "Monastic Tradition",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Monk 3",
+    "activities": [],
+    "identifier": "monastic-tradition"
+  },
+  {
+    "id": "7zlTRRXT1vWSBGjX",
+    "name": "Multiattack",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Hunter 11",
+    "activities": [],
+    "identifier": "multiattack"
+  },
+  {
+    "id": "slelvrm83v9UAKZU",
+    "name": "Multiattack Defense",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "defensiveTactic",
+    "source": "",
+    "requirements": "Hunter 7",
+    "activities": [],
+    "identifier": "multiattack-defense"
+  },
+  {
+    "id": "zB77V8BcCJvWVxck",
+    "name": "Mystic Arcanum",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Warlock 11",
+    "activities": [],
+    "identifier": "mystic-arcanum"
+  },
+  {
+    "id": "8fbZt2Qh7ZttwIan",
+    "name": "Natural Explorer",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Ranger 1",
+    "activities": [],
+    "identifier": "deft-explorer"
+  },
+  {
+    "id": "wKdRtFsvGfMKQHLY",
+    "name": "Natural Recovery",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Circle of the Land 2",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "special"
+      }
+    ],
+    "identifier": "natural-recovery"
+  },
+  {
+    "id": "EuX1kJNIw1F68yus",
+    "name": "Nature's Sanctuary",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Circle of the Land 14",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": ""
+      }
+    ],
+    "identifier": "natures-sanctuary"
+  },
+  {
+    "id": "OTvrJSJSUgAwXrWX",
+    "name": "Nature's Ward",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Circle of the Land 10",
+    "activities": [],
+    "identifier": "natures-ward"
+  },
+  {
+    "id": "Jxpz4MZmgTy7z7cm",
+    "name": "Nature's Ward",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "KfnUyjUWAk0bAAus",
+    "name": "One With Shadows",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "eldritchInvocation",
+    "source": "",
+    "requirements": "Warlock 5",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ],
+    "identifier": "one-with-shadows"
+  },
+  {
+    "id": "iQxLNydNLlCHNKbp",
+    "name": "Open Hand Technique",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Way of the Open Hand 3",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "special"
+      }
+    ],
+    "identifier": "open-hand-technique"
+  },
+  {
+    "id": "8zciiglzEOZo7DDN",
+    "name": "Otherworldly Leap",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "eldritchInvocation",
+    "source": "",
+    "requirements": "Warlock 9",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ],
+    "identifier": "otherworldly-leap"
+  },
+  {
+    "id": "jTXHaK0vvT5DV3uO",
+    "name": "Otherworldly Patron",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Warlock 1",
+    "activities": [],
+    "identifier": "otherworldly-patron"
+  },
+  {
+    "id": "VUtSLeCzFubGXmGx",
+    "name": "Overchannel",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "School of Evocation 14",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "damage",
+        "activation": "special"
+      },
+      {
+        "id": "dnd5eactivity200",
+        "name": null,
+        "type": "damage",
+        "activation": "special"
+      }
+    ],
+    "identifier": "overchannel"
+  },
+  {
+    "id": "QwgfIpCN8VWfoUtX",
+    "name": "Pact Boon",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Warlock 3",
+    "activities": [],
+    "identifier": "pact-boon"
+  },
+  {
+    "id": "x6IJZwr6f0SGral7",
+    "name": "Pact Magic",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Warlock 1",
+    "activities": [],
+    "identifier": "pact-magic"
+  },
+  {
+    "id": "9dSSa68mIPoX2ezA",
+    "name": "Pact of the Blade",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "pact",
+    "source": "",
+    "requirements": "Warlock 3",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ],
+    "identifier": "pact-of-the-blade"
+  },
+  {
+    "id": "Ic1CSjvbWKudVUv9",
+    "name": "Pact of the Chain",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "pact",
+    "source": "",
+    "requirements": "Warlock 3",
+    "activities": [],
+    "identifier": "pact-of-the-chain"
+  },
+  {
+    "id": "MYM908WLZ1lVvA1u",
+    "name": "Pact of the Tome",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "pact",
+    "source": "",
+    "requirements": "Warlock 3",
+    "activities": [],
+    "identifier": "pact-of-the-tome"
+  },
+  {
+    "id": "TDglPcxIVEzvVSgK",
+    "name": "Patient Defense",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "ki",
+    "source": "",
+    "requirements": "Monk 2",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "bonus"
+      }
+    ],
+    "identifier": "patient-defense"
+  },
+  {
+    "id": "pquwueEMweRhiWaq",
+    "name": "Peerless Skill",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "College of Lore 14",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "",
+        "type": "utility",
+        "activation": "special"
+      }
+    ],
+    "identifier": "peerless-skill"
+  },
+  {
+    "id": "mQNPg89YIs7g5tG4",
+    "name": "Perfect Self",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Monk 20",
+    "activities": [],
+    "identifier": "perfect-focus"
+  },
+  {
+    "id": "l8tUhZ5Pecm9wz7I",
+    "name": "Persistent Rage",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Barbarian 15",
+    "activities": [],
+    "identifier": "persistent-rage"
+  },
+  {
+    "id": "evEWCpE5MYgr5RRW",
+    "name": "Potent Cantrip",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "School of Evocation 6",
+    "activities": [],
+    "identifier": "potent-cantrip"
+  },
+  {
+    "id": "jVU4AgqfrFaqgXns",
+    "name": "Primal Champion",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Barbarian 20",
+    "activities": [],
+    "identifier": "primal-champion"
+  },
+  {
+    "id": "TH1QAf6YNGSeBVjT",
+    "name": "Primal Path",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Barbarian 3",
+    "activities": [],
+    "identifier": "primal-path"
+  },
+  {
+    "id": "kaHcUGiwi8AtfZIm",
+    "name": "Primeval Awareness",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Ranger 3",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ],
+    "identifier": "primeval-awareness"
+  },
+  {
+    "id": "06NVMYf58Z76O85O",
+    "name": "Protection",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "fightingStyle",
+    "source": "",
+    "requirements": "Fighter 1, Champion 10, Paladin 2",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "reaction"
+      }
+    ],
+    "identifier": "protection"
+  },
+  {
+    "id": "bqWA7t9pDELbNRkp",
+    "name": "Purity of Body",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Monk 10",
+    "activities": [],
+    "identifier": "purity-of-body"
+  },
+  {
+    "id": "ZHJyYrqMYSLub4RY",
+    "name": "Purity of Spirit",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Oath of Devotion 15",
+    "activities": [],
+    "identifier": "purity-of-spirit"
+  },
+  {
+    "id": "nViGf6bZ6DQAJhkw",
+    "name": "Quickened Spell",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "metamagic",
+    "source": "",
+    "requirements": "Sorcerer 3",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "special"
+      }
+    ],
+    "identifier": "quickened-spell"
+  },
+  {
+    "id": "h1gM8SH3BNRtFevE",
+    "name": "Quivering Palm",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "ki",
+    "source": "",
+    "requirements": "Way of the Open Hand 17",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ],
+    "identifier": "quivering-palm"
+  },
+  {
+    "id": "VoR0SUrNX5EJVPIO",
+    "name": "Rage",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Barbarian 1",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "bonus"
+      }
+    ],
+    "identifier": "rage"
+  },
+  {
+    "id": "eWhL8hUr0c2ujDUm",
+    "name": "Rage",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "1dJHU48yNqn3lcfx",
+    "name": "Ranger Archetype",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Ranger 3",
+    "activities": [],
+    "identifier": "ranger-archetype"
+  },
+  {
+    "id": "SCVjqRdlZ9cvHVSR",
+    "name": "Reckless Attack",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Barbarian 2",
+    "activities": [],
+    "identifier": "reckless-attack"
+  },
+  {
+    "id": "FqfmbPgxiyrWzhYk",
+    "name": "Relentless Rage",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Barbarian 11",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": ""
+      },
+      {
+        "id": "dnd5eactivity100",
+        "name": null,
+        "type": "save",
+        "activation": ""
+      }
+    ],
+    "identifier": "relentless-rage"
+  },
+  {
+    "id": "YN9xm6MCvse4Y60u",
+    "name": "Reliable Talent",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Rogue 11",
+    "activities": [],
+    "identifier": "reliable-talent"
+  },
+  {
+    "id": "vMMZHZQ0qT7MT4I4",
+    "name": "Reliable Talent",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "dHu1yzIjD38BvGGd",
+    "name": "Remarkable Athlete",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Champion 7",
+    "activities": [],
+    "identifier": "remarkable-athlete"
+  },
+  {
+    "id": "rdBPd6CwqXT64iJM",
+    "name": "Repelling Blast",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "eldritchInvocation",
+    "source": "",
+    "requirements": "Warlock 2, Eldritch Blast",
+    "activities": [],
+    "identifier": "repelling-blast"
+  },
+  {
+    "id": "xzD9zlRP6dUxCtCl",
+    "name": "Retaliation",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Path of the Berserker 14",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "reaction"
+      }
+    ],
+    "identifier": "retaliation"
+  },
+  {
+    "id": "80USV8ZFPIahpLd0",
+    "name": "Roguish Archetype",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Rogue 3",
+    "activities": [],
+    "identifier": "roguish-archetype"
+  },
+  {
+    "id": "olAqNsUTIef9x8xC",
+    "name": "Sacred Oath",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Paladin 3",
+    "activities": [],
+    "identifier": "sacred-oath"
+  },
+  {
+    "id": "6VBXkjjBgjSpNElh",
+    "name": "Sculpt Spells",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "School of Evocation 2",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "special"
+      }
+    ],
+    "identifier": "sculpt-spells"
+  },
+  {
+    "id": "Xa2MLUJGCReJ28B7",
+    "name": "Sculptor of Flesh",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "eldritchInvocation",
+    "source": "",
+    "requirements": "Warlock 7",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ],
+    "identifier": "sculptor-of-flesh"
+  },
+  {
+    "id": "nTjmWbyHweXuIqwc",
+    "name": "Second Wind",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Fighter 1",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "heal",
+        "activation": "bonus"
+      }
+    ],
+    "identifier": "second-wind"
+  },
+  {
+    "id": "FGrbXs6Ku5qxFK5G",
+    "name": "Second-Story Work",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Thief 3",
+    "activities": [],
+    "identifier": "second-story-work"
+  },
+  {
+    "id": "dTSV0xZMpY5CxkRk",
+    "name": "Sign of Ill Omen",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "eldritchInvocation",
+    "source": "",
+    "requirements": "Warlock 5",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ],
+    "identifier": "sign-of-ill-omen"
+  },
+  {
+    "id": "nUrZDi6QN1YjwAr6",
+    "name": "Signature Spells",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Wizard 20",
+    "activities": [],
+    "identifier": "signature-spells"
+  },
+  {
+    "id": "V4pwFxlwHtNeB4w9",
+    "name": "Slippery Mind",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Rogue 15",
+    "activities": [],
+    "identifier": "slippery-mind"
+  },
+  {
+    "id": "KQz9bqxVkXjDl8gK",
+    "name": "Slow Fall",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Monk 4",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "reaction"
+      }
+    ],
+    "identifier": "slow-fall"
+  },
+  {
+    "id": "DPN2Gfk8yi1Z5wp7",
+    "name": "Sneak Attack",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Rogue 1",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "damage",
+        "activation": ""
+      }
+    ],
+    "identifier": "sneak-attack"
+  },
+  {
+    "id": "he8RpPXwSl2lVSIk",
+    "name": "Song of Rest",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Bard 2",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "heal",
+        "activation": "special"
+      }
+    ],
+    "identifier": "song-of-rest"
+  },
+  {
+    "id": "cmRCL9T9UgRYOj1c",
+    "name": "Sorcerous Origins",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Sorcerer 1",
+    "activities": [],
+    "identifier": "sorcerous-origins"
+  },
+  {
+    "id": "F2lEKSmOY0NUruzY",
+    "name": "Sorcerous Restoration",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Sorcerer 20",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "special"
+      }
+    ],
+    "identifier": "sorcerous-restoration"
+  },
+  {
+    "id": "JfFfHTeIszx1hNRx",
+    "name": "Spell Mastery",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Wizard 18",
+    "activities": [],
+    "identifier": "spell-mastery"
+  },
+  {
+    "id": "gbNo5eVPaqr8IVKL",
+    "name": "Spellcasting",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Wizard 1",
+    "activities": [],
+    "identifier": "spellcasting"
+  },
+  {
+    "id": "i6tPm3FNK13Ftc9v",
+    "name": "Spellcasting",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Druid 1",
+    "activities": [],
+    "identifier": "spellcasting"
+  },
+  {
+    "id": "ihoQHsmVZlyDbPhX",
+    "name": "Spellcasting",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Paladin 2",
+    "activities": [],
+    "identifier": "spellcasting"
+  },
+  {
+    "id": "oygRF3ZjTv2T7z0Y",
+    "name": "Spellcasting",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Sorcerer 1",
+    "activities": [],
+    "identifier": "spellcasting"
+  },
+  {
+    "id": "u4NLajXETJhJU31v",
+    "name": "Spellcasting",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Bard 1",
+    "activities": [],
+    "identifier": "spellcasting"
+  },
+  {
+    "id": "u6xV3Ki3TXRrD7zg",
+    "name": "Spellcasting",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Ranger 2",
+    "activities": [],
+    "identifier": "spellcasting"
+  },
+  {
+    "id": "v4gKwLhAq9vuqza7",
+    "name": "Spellcasting",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Cleric 1",
+    "activities": [],
+    "identifier": "spellcasting"
+  },
+  {
+    "id": "Xf763cJoDHPPWSGG",
+    "name": "Stand Against the Tide",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "superiorHuntersDefense",
+    "source": "",
+    "requirements": "Hunter 15",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "reaction"
+      }
+    ],
+    "identifier": "stand-against-the-tide"
+  },
+  {
+    "id": "zbHu0NvHuII8lR7W",
+    "name": "Steel Will",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "defensiveTactic",
+    "source": "",
+    "requirements": "Hunter 7",
+    "activities": [],
+    "identifier": "steel-will"
+  },
+  {
+    "id": "yrSFIGTaQOH2PFRI",
+    "name": "Step of the Wind",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "ki",
+    "source": "",
+    "requirements": "Monk 2",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "bonus"
+      }
+    ],
+    "identifier": "step-of-the-wind"
+  },
+  {
+    "id": "ZmC31XKS4YNENnoc",
+    "name": "Stillness of Mind",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Monk 7",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ],
+    "identifier": "self-restoration"
+  },
+  {
+    "id": "rQhWDaMHMn7iU4f2",
+    "name": "Stroke of Luck",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Rogue 20",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "special"
+      }
+    ],
+    "identifier": "stroke-of-luck"
+  },
+  {
+    "id": "pvRc6GAu1ok6zihC",
+    "name": "Stunning Strike",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "ki",
+    "source": "",
+    "requirements": "Monk 5",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "special"
+      }
+    ],
+    "identifier": "stunning-strike"
+  },
+  {
+    "id": "ydyOZkp3pCtwM0Xb",
+    "name": "Stunning Strike",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "fXa0DMhoVLtbBu9l",
+    "name": "Subtle Spell",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "metamagic",
+    "source": "",
+    "requirements": "Sorcerer 3",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "special"
+      }
+    ],
+    "identifier": "subtle-spell"
+  },
+  {
+    "id": "aVKH6TLn1AG9hPSA",
+    "name": "Superior Critical",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Champion 15",
+    "activities": [],
+    "identifier": "superior-critical"
+  },
+  {
+    "id": "a0Sq88dgnREcIMfl",
+    "name": "Superior Hunter's Defense",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Hunter 15",
+    "activities": [],
+    "identifier": "superior-hunters-defense"
+  },
+  {
+    "id": "GBYN5rH4nh1ocRlY",
+    "name": "Superior Inspiration",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Bard 20",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "",
+        "type": "utility",
+        "activation": "encounter"
+      }
+    ],
+    "identifier": "superior-inspiration"
+  },
+  {
+    "id": "4UOgxzr83vFuUash",
+    "name": "Supreme Healing",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Life Domain 17",
+    "activities": [],
+    "identifier": "supreme-healing"
+  },
+  {
+    "id": "Ei1Oh4UAA2E30jcD",
+    "name": "Supreme Sneak",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Thief 9",
+    "activities": [],
+    "identifier": "supreme-sneak"
+  },
+  {
+    "id": "ipG5yx1tRNmeJfSH",
+    "name": "Survivor",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Champion 18",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "heal",
+        "activation": ""
+      }
+    ],
+    "identifier": "survivor"
+  },
+  {
+    "id": "rhbwDZ9XNTmdkX2u",
+    "name": "Thief of Five Fates",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "eldritchInvocation",
+    "source": "",
+    "requirements": "Warlock 2",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "action"
+      }
+    ],
+    "identifier": "thief-of-five-fates"
+  },
+  {
+    "id": "LhRm1EeUMvp2EWhV",
+    "name": "Thief's Reflexes",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Thief 17",
+    "activities": [],
+    "identifier": "thiefs-reflexes"
+  },
+  {
+    "id": "ohwfuwnvuoBWlSQr",
+    "name": "Thieves' Cant",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Rogue 1",
+    "activities": [],
+    "identifier": "thieves-cant"
+  },
+  {
+    "id": "pJADgAxxefgcATWr",
+    "name": "Thirsting Blade",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "eldritchInvocation",
+    "source": "",
+    "requirements": "Warlock 5, Pact of the Blade",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "special"
+      }
+    ],
+    "identifier": "thirsting-blade"
+  },
+  {
+    "id": "cVDEQo0ow1WJT7Wl",
+    "name": "Timeless Body",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Druid 18",
+    "activities": [],
+    "identifier": "timeless-body"
+  },
+  {
+    "id": "gDH8PMrKvLHaNmEI",
+    "name": "Timeless Body",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Monk 15",
+    "activities": [],
+    "identifier": "timeless-body"
+  },
+  {
+    "id": "XjuGBeB8Y0C3A5D4",
+    "name": "Tongue of the Sun and Moon",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Monk 13",
+    "activities": [],
+    "identifier": "tongue-of-the-sun-and-moon"
+  },
+  {
+    "id": "rBDZLatuoolT2FUW",
+    "name": "Tranquility",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Way of the Open Hand 11",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "save",
+        "activation": "special"
+      }
+    ],
+    "identifier": "tranquility"
+  },
+  {
+    "id": "Qb391hakCfmH4w8p",
+    "name": "Twinned Spell",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "metamagic",
+    "source": "",
+    "requirements": "Sorcerer 3",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "special"
+      }
+    ],
+    "identifier": "twinned-spell"
+  },
+  {
+    "id": "mHcSjcHJ8oZu3hkb",
+    "name": "Two-Weapon Fighting",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "fightingStyle",
+    "source": "",
+    "requirements": "Fighter 1, Champion 10, Ranger 2",
+    "activities": [],
+    "identifier": "two-weapon-fighting"
+  },
+  {
+    "id": "eGxoNmSMWKNzChCO",
+    "name": "Unarmed Strike",
+    "type": "weapon",
+    "featureType": "natural",
+    "subtype": null,
+    "source": "",
+    "requirements": null,
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "attack",
+        "activation": "action"
+      }
+    ],
+    "identifier": "unarmed-strike"
+  },
+  {
+    "id": "UAvV7N7T4zJhxdfI",
+    "name": "Unarmored Defense",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Monk 1",
+    "activities": [],
+    "identifier": "unarmored-defense"
+  },
+  {
+    "id": "hEgUnQNVxtBo2zkK",
+    "name": "Unarmored Defense",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "R5ro4AuNjcdWD56O",
+    "name": "Unarmored Defense",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "SZbsNbaxFFGwBpNK",
+    "name": "Unarmored Defense (Barbarian)",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Barbarian 1",
+    "activities": [],
+    "identifier": "unarmored-defense-barbarian"
+  },
+  {
+    "id": "zCeqyQ8uIPNdYJSW",
+    "name": "Unarmored Movement",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Monk 2",
+    "activities": [],
+    "identifier": "unarmored-movement"
+  },
+  {
+    "id": "Veg0vXI93A0qlxZn",
+    "name": "Unarmored Movement",
+    "type": "base",
+    "featureType": null,
+    "subtype": null,
+    "source": null,
+    "requirements": null,
+    "activities": [],
+    "identifier": null
+  },
+  {
+    "id": "7pyZjz5vlUWV01qQ",
+    "name": "Uncanny Dodge",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "superiorHuntersDefense",
+    "source": "",
+    "requirements": "Hunter 15",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "reaction"
+      }
+    ],
+    "identifier": "uncanny-dodge"
+  },
+  {
+    "id": "Mm64SKAHJWYecgXS",
+    "name": "Uncanny Dodge",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Rogue 5",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "reaction"
+      }
+    ],
+    "identifier": "uncanny-dodge"
+  },
+  {
+    "id": "NqWyHE7Rpw9lyKWu",
+    "name": "Use Magic Device",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Thief 13",
+    "activities": [],
+    "identifier": "use-magic-device"
+  },
+  {
+    "id": "DhU2dWCNnX78TstR",
+    "name": "Vanish",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Ranger 14",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "bonus"
+      }
+    ],
+    "identifier": "natures-veil"
+  },
+  {
+    "id": "zYIdNAjqRyhS6qWs",
+    "name": "Visions of Distant Realms",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "eldritchInvocation",
+    "source": "",
+    "requirements": "Warlock 15",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ],
+    "identifier": "visions-of-distant-realms"
+  },
+  {
+    "id": "k5M8gsl7MMcdjOjs",
+    "name": "Voice of the Chain Master",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "eldritchInvocation",
+    "source": "",
+    "requirements": "Warlock 3, Pact of the Chain",
+    "activities": [],
+    "identifier": "voice-of-the-chain-master"
+  },
+  {
+    "id": "l7W6JB9yWLLLtQKP",
+    "name": "Volley",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "multiattack",
+    "source": "",
+    "requirements": "Hunter 11",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ],
+    "identifier": "volley"
+  },
+  {
+    "id": "1DY8w3CXeD7PHDXF",
+    "name": "Whirlwind Attack",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "multiattack",
+    "source": "",
+    "requirements": "Hunter 11",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ],
+    "identifier": "whirlwind-attack"
+  },
+  {
+    "id": "gFjxo01hAN4c9hDG",
+    "name": "Whispers of the Grave",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "eldritchInvocation",
+    "source": "",
+    "requirements": "Warlock 9",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "utility",
+        "activation": "action"
+      }
+    ],
+    "identifier": "whispers-of-the-grave"
+  },
+  {
+    "id": "Q7mOdk4b1lgjcptF",
+    "name": "Wholeness of Body",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Way of the Open Hand 6",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": null,
+        "type": "heal",
+        "activation": "action"
+      }
+    ],
+    "identifier": "wholeness-of-body"
+  },
+  {
+    "id": "swK0r5TOIxredxWS",
+    "name": "Wild Shape",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "",
+    "source": "",
+    "requirements": "Druid 2",
+    "activities": [
+      {
+        "id": "dnd5eactivity000",
+        "name": "",
+        "type": "transform",
+        "activation": "action"
+      }
+    ],
+    "identifier": "wild-shape"
+  },
+  {
+    "id": "snsjxGfmzWfZR5Nh",
+    "name": "Witch Sight",
+    "type": "feat",
+    "featureType": "class",
+    "subtype": "eldritchInvocation",
+    "source": "",
+    "requirements": "Warlock 15",
+    "activities": [],
+    "identifier": "witch-sight"
+  }
+]
