@@ -1,5 +1,6 @@
 import { illusiveDnd } from "../i18n/index.mjs";
 import { deleteDocs } from "../foundry/write-gateway.mjs";
+import { rollAsOwner } from "./dice.mjs";
 
 /** Drop concentration via dnd5e API when available. */
 export async function endActorConcentration(actor) {
@@ -45,9 +46,7 @@ export async function challengeConcentrationAfterDamage(actor, damageTotal) {
   let total = null;
   try {
     if (typeof actor.rollSavingThrow === "function") {
-      const rolls = await actor.rollSavingThrow({ ability: "con", target: dc }, { configure: false });
-      const roll = Array.isArray(rolls) ? rolls[0] : rolls;
-      total = Number(roll?.total);
+      total = Number((await rollAsOwner(actor, "save", { ability: "con", target: dc }))?.total);
     } else if (typeof actor.rollAbilitySave === "function") {
       const roll = await actor.rollAbilitySave("con", { targetValue: dc, chatMessage: true });
       total = Number(roll?.total);

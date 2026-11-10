@@ -4,10 +4,11 @@
  *   self.* / trigger.*   isTrigger isTarget isDamaged hp.value hp.max hp.temp hp.pct
  *                        creatureType effects statuses armor.heavy armor.type
  *                        wieldsFinesse wieldsShield senses.<sense> prof level
- *                        isOwnTurn system.<path> flags.<path>
- *   relation.*           hostile ally distance sees
- *   activity.*           isAttack isMelee isRanged isWeapon isSpell spellLevel elemental
- *   damage.*             types total
+ *                        isOwnTurn usesLeft.<item name pattern> system.<path> flags.<path>
+ *   relation.*           hostile ally distance sees nearTarget (attacked creature within 5 ft)
+ *   activity.*           isAttack isMelee isRanged isWeapon isSpell spellLevel elemental charmOrFear
+ *                        (isAttack / isWeapon are undefined when the moment doesn't say)
+ *   damage.*             types typeCount total
  *   damaged.*            self dropped droppedHostile droppedAlly
  *   combat.*             round turn
  *   edition              "2014" | "2024"
@@ -19,6 +20,7 @@
 import { isHostile } from "../../domain/combat/disposition.mjs";
 import { actorFromUuid, tokenUuidOf } from "../../foundry/token-lookup.mjs";
 import { resolveRulesContext } from "../../foundry/dnd5e-adapter.mjs";
+import { usesLeft } from "./derived.mjs";
 
 function dig(obj, path) {
   let cur = obj;
@@ -113,6 +115,7 @@ function creatureFact(actor, rest, { isTrigger, isTarget, isDamaged, tokenId }) 
       const combat = globalThis.game?.combat;
       return Boolean(tokenId && combat?.combatant?.tokenId === tokenId);
     }
+    case "usesLeft": return tail[0] ? usesLeft(actor, tail[0]) : undefined;
     case "system": return dig(actor?.system, tail);
     case "flags": return dig(actor?.flags, tail);
     default: return undefined;
@@ -174,22 +177,25 @@ export function createFactReader(ctx, scope, entry = null) {
           case "ally": return ctx.isTrigger ? true : (ctx.hostile == null ? undefined : !ctx.hostile);
           case "distance": return ctx.distanceToTrigger ?? undefined;
           case "sees": return ctx.canSeeTrigger;
+          case "nearTarget": return ctx.nearTargetUuid ?? null;
           default: return undefined;
         }
       case "activity":
         switch (rest[0]) {
-          case "isAttack": return Boolean(ctx.attackRoll);
+          case "isAttack": return ctx.attackRoll == null ? undefined : Boolean(ctx.attackRoll);
           case "isMelee": return Boolean(ctx.melee);
           case "isRanged": return Boolean(ctx.ranged);
-          case "isWeapon": return Boolean(ctx.weaponAttack);
+          case "isWeapon": return ctx.weaponAttack == null ? undefined : Boolean(ctx.weaponAttack);
           case "isSpell": return Boolean(ctx.isSpell ?? (ctx.spellLevel != null));
           case "spellLevel": return ctx.spellLevel ?? undefined;
           case "elemental": return Boolean(ctx.elemental);
+          case "charmOrFear": return Boolean(ctx.charmOrFear);
           default: return undefined;
         }
       case "damage":
         switch (rest[0]) {
           case "types": return new Set((ctx.damageTypes ?? []).map((t) => String(t).toLowerCase()));
+          case "typeCount": return new Set(ctx.damageTypes ?? []).size;
           case "total": return ctx.damageTotal ?? undefined;
           default: return undefined;
         }
@@ -223,10 +229,18 @@ export function createFactReader(ctx, scope, entry = null) {
   };
 }
 
-/** Actor for a selector ("self", "trigger", "target", "targets", "damaged"). */
+/** Actors for a selector (domain/triggers/steps.mjs SELECTORS). */
 export function selectActors(selector, ctx, scope) {
   switch (selector) {
     case "trigger": return scope.trigger?.actor ? [scope.trigger.actor] : [];
+    case "ally": {
+      const ally = ctx.allyUuid ? actorFromUuid(ctx.allyUuid) : null;
+      return ally ? [ally] : (ctx.actor ? [ctx.actor] : []);
+    }
+    case "nearTarget": {
+      const near = ctx.nearTargetUuid ? actorFromUuid(ctx.nearTargetUuid) : null;
+      return near ? [near] : [];
+    }
     case "target": {
       const first = scope.targetList[0];
       const actor = first ? actorFromUuid(first) : null;

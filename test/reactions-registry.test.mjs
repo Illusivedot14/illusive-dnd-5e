@@ -1,10 +1,7 @@
 import { describe, it, expect, beforeEach } from "vitest";
 import {
   REACTION_REGISTRY,
-  getReactionSpec,
   listReactionsForWindow,
-  buildReactionPatches,
-  resolveCounterspell,
   mergePatches
 } from "../src/application/reactions/registry.mjs";
 import {
@@ -23,96 +20,22 @@ import {
 import { saveResolution } from "../src/foundry/workflow-store.mjs";
 
 describe("reaction registry", () => {
-  it("maps hard windows for rewrite reactions", () => {
-    expect(getReactionSpec("shield").window).toBe("on-attack-hit");
-    expect(getReactionSpec("shield").mode).toBe("hard");
-    expect(getReactionSpec("counterspell").window).toBe("on-cast");
-    expect(getReactionSpec("uncanny-dodge").window).toBe("on-damage-known");
-    expect(getReactionSpec("hellish-rebuke").mode).toBe("soft");
+  it("holds only Ready; item reactions are declarations", () => {
+    expect(Object.keys(REACTION_REGISTRY)).toEqual(["ready"]);
+    expect(listReactionsForWindow("after-move").map((s) => s.id)).toEqual(["ready"]);
+    expect(listReactionsForWindow("on-attack-hit")).toEqual([]);
   });
 
-  it("matches 2024 Deflect Attacks and 2014 Deflect Missiles", () => {
-    const deflect = getReactionSpec("deflect");
-    expect(deflect.match({ name: "Deflect Missiles" })).toBe(true);
-    expect(deflect.match({ name: "Deflect Attacks" })).toBe(true);
-    expect(deflect.match({ name: "Deflect Energy" })).toBe(true);
-    expect(deflect.match({ system: { identifier: "deflect-attacks" } })).toBe(true);
-  });
-
-  it("lists reactions per window", () => {
-    const hit = listReactionsForWindow("on-attack-hit").map((s) => s.id);
-    expect(hit).toContain("shield");
-    expect(hit).toContain("silvery-barbs");
-    expect(hit).toContain("cutting-words");
-    expect(listReactionsForWindow("after-damage-applied").map((s) => s.id)).toEqual([
-      "hellish-rebuke", "storms-thunder", "wrath-of-the-storm", "retaliation"
-    ]);
-  });
-
-  it("merges rewrite patches", async () => {
-    const monk = { system: { abilities: { dex: { mod: 3 } } }, classes: { monk: { system: { levels: 5 } } } };
+  it("merges rewrite patches per target", () => {
     const merged = mergePatches([
-      ...await buildReactionPatches("shield", { targetUuid: "T1" }),
-      ...await buildReactionPatches("uncanny-dodge", { targetUuid: "T1" }),
-      ...await buildReactionPatches("deflect", { targetUuid: "T1", reactor: monk })
+      { type: "acBonus", targetUuid: "T1", value: 5, source: "shield" },
+      { type: "damageMultiplier", targetUuid: "T1", value: 0.5, source: "uncanny-dodge" },
+      { type: "damageReduce", targetUuid: "T1", value: 13, source: "deflect" }
     ]);
     expect(merged.acBonusByTarget.get("T1")).toBe(5);
     expect(merged.damageMultiplierByTarget.get("T1")).toBe(0.5);
-    // 1d10 + Dex + monk level; average fallback without Roll = 5 + 3 + 5.
     expect(merged.damageReduceByTarget.get("T1")).toBe(13);
-  });
-
-  it("matches Deflect variants by edition trigger", () => {
-    const deflect = getReactionSpec("deflect");
-    const missiles = { name: "Deflect Missiles" };
-    const attacks = { name: "Deflect Attacks" };
-    const energy = { name: "Deflect Energy" };
-    const meleeSlash = { attackRoll: true, ranged: false, damageTypes: ["slashing"] };
-    const rangedFire = { attackRoll: true, ranged: true, damageTypes: ["fire"] };
-    expect(deflect.match(missiles, meleeSlash)).toBe(false);
-    expect(deflect.match(missiles, rangedFire)).toBe(true);
-    expect(deflect.match(attacks, meleeSlash)).toBe(true);
-    expect(deflect.match(attacks, rangedFire)).toBe(false);
-    expect(deflect.match(energy, rangedFire)).toBe(true);
-    expect(deflect.match(energy, { attackRoll: false, damageTypes: ["fire"] })).toBe(false);
-  });
-
-  it("Cutting Words subtracts the bardic die instead of forcing a miss", async () => {
-    const bard = { system: { scale: { bard: { "bardic-inspiration": { die: "d8" } } } } };
-    const [patch] = await buildReactionPatches("cutting-words", { reactor: bard });
-    expect(patch.type).toBe("attackPenalty");
-    expect(patch.formula).toBe("1d8");
-    expect(mergePatches([patch]).attackPenalty).toBeGreaterThan(0);
-  });
-
-  it("Silvery Barbs rerolls and keeps the lower roll", async () => {
-    const [patch] = await buildReactionPatches("silvery-barbs", { windowId: "on-attack-hit" });
-    expect(patch).toMatchObject({ type: "rerollAttack", keep: "lower" });
-  });
-
-  it("Absorb Elements resists only the elemental damage types", async () => {
-    const [patch] = await buildReactionPatches("absorb-elements", {
-      targetUuid: "T1",
-      damageTypes: ["slashing", "fire"]
-    });
-    expect(patch.value).toEqual(["fire"]);
-  });
-
-  it("Counterspell 2014 auto-counters level 3 or lower; 2024 refunds the slot", async () => {
-    const legacy = await resolveCounterspell({ spellLevel: 3, ctx: { rulesContext: { legacy: true } } });
-    expect(legacy).toMatchObject({ countered: true, auto: true, edition: "2014" });
-
-    const caster = { rollSavingThrow: async () => [{ total: 5 }] };
-    const reactor = { system: { attributes: { spell: { dc: 15 } } } };
-    const modern = await resolveCounterspell({ reactor, caster, spellLevel: 5, ctx: {} });
-    expect(modern).toMatchObject({ countered: true, edition: "2024", refundSlot: true });
-
-    const saved = await resolveCounterspell({
-      reactor,
-      caster: { rollSavingThrow: async () => [{ total: 18 }] },
-      spellLevel: 5
-    });
-    expect(saved.countered).toBe(false);
+    expect(merged.sources).toEqual(["shield", "uncanny-dodge", "deflect"]);
   });
 
   it("maps damage patches per target for the trail write", () => {
@@ -131,10 +54,6 @@ describe("reaction registry", () => {
     expect(getRule("combat.reaction.shield").automation).toBe("full");
     expect(getRule("combat.reaction.deflect").id).toBe("combat.reaction.deflect");
     expect(getRule("combat.economy.reaction").notes).toMatch(/hard\/soft/i);
-  });
-
-  it("exposes every registry entry", () => {
-    expect(Object.keys(REACTION_REGISTRY).length).toBeGreaterThanOrEqual(8);
   });
 });
 

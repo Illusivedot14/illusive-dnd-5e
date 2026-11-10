@@ -10,6 +10,7 @@ import { tokenFromUuid } from "../foundry/token-lookup.mjs";
 import { flatDamageRoll } from "./damage-apply.mjs";
 import { primaryDamageType } from "../domain/combat/activity-kind.mjs";
 import { createEmbedded, updateDoc, setDocFlag, unsetDocFlag, toggleActorStatus } from "../foundry/write-gateway.mjs";
+import { rollAsOwner } from "./dice.mjs";
 
 async function applyRoundEffect(actor, name, statuses = [], changes = []) {
   if (!actor?.createEmbeddedDocuments) return null;
@@ -139,11 +140,7 @@ export async function applyWeaponMastery({
       let total = null;
       try {
         if (typeof target.actor.rollSavingThrow === "function") {
-          const rolls = await target.actor.rollSavingThrow(
-            { ability: "con", target: dc },
-            { configure: false }
-          );
-          total = Number((Array.isArray(rolls) ? rolls[0] : rolls)?.total);
+          total = Number((await rollAsOwner(target.actor, "save", { ability: "con", target: dc }))?.total);
         }
       } catch {
         /* ignore */

@@ -38,6 +38,7 @@ import {
   consumeRollAdvantage
 } from "./roll-modifiers.mjs";
 import { takePendingHitRiders } from "./reactions/reaction-state.mjs";
+import { rollVisible } from "./dice.mjs";
 import {
   expireOnAttack,
   expireOnAttacked,
@@ -888,7 +889,7 @@ async function resolveAttack({ result, token, actor, item, activity, targets, ta
     for (const rider of listPassiveHitRiders(actor)) {
       if (!RollCls || (rider.oncePerTurn && wasPassiveRiderUsed(actor, rider.id))) continue;
       try {
-        const roll = await new RollCls(rider.formula, actor.getRollData?.() ?? {}).evaluate();
+        const roll = await rollVisible(rider.formula, { actor, flavor: rider.item?.name ?? rider.id });
         const value = Number(roll.total) || 0;
         if (value <= 0) continue;
         rollsByTarget.get(firstHit)?.push(flatDamageRoll(value, rider.type || mainType, rider.formula));
@@ -904,7 +905,7 @@ async function resolveAttack({ result, token, actor, item, activity, targets, ta
     for (const rider of await takePendingHitRiders(actor, { melee, ownTurn })) {
       if (!RollCls) break;
       try {
-        const roll = await new RollCls(rider.formula, actor.getRollData?.() ?? {}).evaluate();
+        const roll = await rollVisible(rider.formula, { actor, flavor: rider.label ?? rider.source });
         const value = Number(roll.total) || 0;
         if (value <= 0) continue;
         rollsByTarget.get(firstHit)?.push(flatDamageRoll(value, rider.damageType || mainType, rider.formula));

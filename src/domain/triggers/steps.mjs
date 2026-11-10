@@ -8,10 +8,15 @@
  *   "gateway"      — the write gateway records the inverse (undo restores it)
  *   "irreversible" — a chat card / dice; undo cannot take it back
  *
- * `to` selects creatures: "self" | "trigger" | "target" (first) | "targets" | "damaged".
+ * `to` selects creatures: "self" | "trigger" | "target" (first) | "targets" | "damaged"
+ * | "ally" (the reactor's chosen ally, else self) | "nearTarget" (the attacked
+ * creature within 5 ft of self).
  */
 
-export const SELECTORS = Object.freeze(["self", "trigger", "target", "targets", "damaged"]);
+export const SELECTORS = Object.freeze(["self", "trigger", "target", "targets", "damaged", "ally", "nearTarget"]);
+
+/** Damage types a step can take from the moment: every type, or only the elemental ones. */
+export const TYPE_SOURCES = Object.freeze(["trigger", "elemental"]);
 
 export const STEPS = Object.freeze({
   // ---- patches ---------------------------------------------------------
@@ -23,8 +28,11 @@ export const STEPS = Object.freeze({
   damageReduce: { kind: "patch", patch: "damageReduce", inverse: "none-needed", params: ["value"], targeted: true },
   damageMultiplier: { kind: "patch", patch: "damageMultiplier", inverse: "none-needed", params: ["value"], targeted: true },
   resist: { kind: "patch", patch: "resistTypes", inverse: "none-needed", params: ["types"], targeted: true },
-  reroll: { kind: "patch", patch: "rerollD20", inverse: "none-needed", params: [] },
+  // On an attack hit this rerolls the attack; on a save or check, the d20.
+  reroll: { kind: "patch", patch: "rerollD20", inverse: "none-needed", params: ["keep", "advantage"] },
   cancelCast: { kind: "patch", patch: "cancelCast", inverse: "none-needed", params: [] },
+  // 2024: the caster saves against the reactor's DC. 2014: automatic up to the counter slot, else a check.
+  counterspell: { kind: "patch", patch: "cancelCast", inverse: "none-needed", params: [] },
   // ---- writes ----------------------------------------------------------
   damage: { kind: "write", inverse: "gateway", params: ["value", "damageType"], targeted: true },
   heal: { kind: "write", inverse: "gateway", params: ["value"], targeted: true },
@@ -34,13 +42,20 @@ export const STEPS = Object.freeze({
   applyEffect: { kind: "write", inverse: "gateway", params: ["effect"], targeted: true },
   endEffect: { kind: "write", inverse: "gateway", params: ["name"], targeted: true },
   setFlag: { kind: "write", inverse: "gateway", params: ["key", "value"], targeted: true },
-  spendUses: { kind: "write", inverse: "gateway", params: ["amount"] },
+  // `item` names another item to spend from (a pattern, e.g. "superiority"); default is the source item.
+  spendUses: { kind: "write", inverse: "gateway", params: ["amount", "item"] },
+  // Advantage on the creature's next attack, check or save within a minute.
+  grantAdvantage: { kind: "write", inverse: "gateway", params: [], targeted: true },
+  // Bonus damage on a later hit; ownTurnOnly arms at the creature's next turn.
+  hitRider: { kind: "write", inverse: "gateway", params: ["formula", "damageType", "meleeOnly", "ownTurnOnly"], targeted: true },
+  // Resistance that outlasts the moment, as an effect ending at `until` (a special duration).
+  resistEffect: { kind: "write", inverse: "gateway", params: ["types", "until"], targeted: true },
   note: { kind: "write", inverse: "irreversible", params: ["text"] }
 });
 
 export const STEP_IDS = Object.freeze(Object.keys(STEPS));
 
-const OPTIONAL = new Set(["damageType", "amount", "value"]);
+const OPTIONAL = new Set(["damageType", "amount", "value", "item", "keep", "advantage", "meleeOnly", "ownTurnOnly"]);
 
 export function stepDef(id) {
   return STEPS[id] ?? null;
@@ -53,6 +68,10 @@ export function isPatchStep(step) {
 /** A numeric value or a formula string ("2d8", "5 * @sourceLevel"). */
 function isValue(v) {
   return (typeof v === "number" && Number.isFinite(v)) || (typeof v === "string" && v.trim().length > 0);
+}
+
+function isTypes(types) {
+  return TYPE_SOURCES.includes(types) || Array.isArray(types);
 }
 
 export function stepErrors(step, path = "do") {
@@ -71,15 +90,17 @@ export function stepErrors(step, path = "do") {
     .includes(step.step) && step.value == null) {
     errors.push(`${path}: "${step.step}" needs "value"`);
   }
-  if (step.step === "resist" && step.types !== "trigger" && !Array.isArray(step.types)) {
-    errors.push(`${path}: "resist.types" must be a list or "trigger"`);
+  if (["resist", "resistEffect"].includes(step.step) && step.types != null && !isTypes(step.types)) {
+    errors.push(`${path}: "${step.step}.types" must be a list, "trigger" or "elemental"`);
+  }
+  if (step.keep != null && !["lower", "new"].includes(step.keep)) {
+    errors.push(`${path}: "keep" must be "lower" or "new"`);
   }
   return errors;
 }
 
 /** Default selector when a targeted step omits `to`. */
 export function defaultSelector(step) {
-  if (["acBonus", "damageReduce", "damageMultiplier", "resist"].includes(step?.step)) return "self";
   if (step?.step === "damage") return "trigger";
   return "self";
 }

@@ -2,7 +2,8 @@
  * Declaration index — which rules each actor carries, grouped by moment.
  *
  * Sources, per actor:
- *   content  — src/content/declarations.mjs matched by item identifier / name,
+ *   content  — src/content/declarations.mjs matched by item identifier / name
+ *              (optionally limited to item types, or to reaction activations),
  *              or by an active effect's name
  *   item     — flags.illusive-dnd-5e.triggers on an owned item
  *   effect   — flags.illusive-dnd-5e.triggers on an active (applied) effect
@@ -16,6 +17,7 @@ import { MODULE_ID } from "../../constants.mjs";
 import { CONTENT } from "../../content/declarations.mjs";
 import { normalizeDeclaration, declarationErrors } from "../../domain/triggers/declarations.mjs";
 import { resolveRulesContext } from "../../foundry/dnd5e-adapter.mjs";
+import { listActivities } from "../../domain/combat/activity-kind.mjs";
 
 /** @type {Map<string, { all: object[], byMoment: Map<string, object[]> }>} */
 const cache = new Map();
@@ -25,8 +27,16 @@ function idOf(item) {
   return String(item?.system?.identifier ?? item?.identifier ?? "").toLowerCase();
 }
 
+/** 2014 and 2024 share names where only the 2024 feature is a Reaction (Countercharm, Hunter's Defense). */
+function usesReaction(item) {
+  if (item?.system?.activation?.type === "reaction") return true;
+  return listActivities(item).some((a) => a?.activation?.type === "reaction");
+}
+
 function contentMatchesItem(content, item) {
   const m = content.match ?? {};
+  if (m.types && !m.types.includes(item?.type)) return false;
+  if (m.reactionOnly && !usesReaction(item)) return false;
   if (m.identifiers?.includes(idOf(item))) return true;
   return (m.names ?? []).some((re) => re.test(String(item?.name ?? "")));
 }

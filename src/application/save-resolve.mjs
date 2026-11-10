@@ -18,6 +18,7 @@ import { beginOwnedResolve, endOwnedResolve } from "./owned-resolve.mjs";
 import { tokenFromUuid } from "../foundry/token-lookup.mjs";
 import { isElementalType } from "../domain/combat/activity-kind.mjs";
 import { openReactionWindow, damageTargetsFromPatches } from "./reactions/window.mjs";
+import { rollAsOwner } from "./dice.mjs";
 
 function saveAbility(activity) {
   const set = activity?.save?.ability;
@@ -93,8 +94,7 @@ export async function rollActivitySave(actor, activity, {
   }
 
   const rollOnce = async (overrides = {}) => {
-    const rolls = await actor.rollSavingThrow({ ...rollConfig, ...overrides }, { configure: false }, {});
-    const roll = Array.isArray(rolls) ? rolls[0] : rolls;
+    const roll = await rollAsOwner(actor, "save", { ...rollConfig, ...overrides });
     let total = Number(roll?.total);
     // If the roll API ignored parts, nudge the total for DC comparison only.
     if (bonus && Number.isFinite(total)) {

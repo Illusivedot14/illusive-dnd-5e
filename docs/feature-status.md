@@ -1,6 +1,6 @@
 # Feature status
 
-What Illusive D&D 5e does today, what works with a known gap, and what is still to build. Snapshot: November 2026, Foundry 14.370 with dnd5e 6.0.6, 789 unit tests across 86 files.
+What Illusive D&D 5e does today, what works with a known gap, and what is still to build. Snapshot: November 2026, Foundry 14.370 with dnd5e 6.0.6, 813 unit tests across 89 files.
 
 - **Implemented:** automated and unit-tested.
 - **Partial:** automated, with the gap written next to it.
@@ -19,7 +19,7 @@ Engine details are in [combat-engine.md](combat-engine.md); the per-item pack ca
 3. **Movement logged once,** on the client that moved the token; forced moves (Push) are not logged as movement.
 4. **NPC reactions prompt the GM,** not the attacking player.
 5. **Game-log journal.** The log is persisted by the GM on the combat and synced to every client through idempotent ops. Players apply ops immediately and reconcile when the persisted copy arrives (§14).
-6. **Declared triggers.** Rules as data: moments, structured conditions, a step library, and passive, soft or hard modes that share the reaction windows (§15).
+6. **Declared triggers.** Rules as data: moments, structured conditions, a step library, and passive, soft or hard modes that share the reaction windows (§15). Every item reaction (items 33 and 34) is a declaration; only Ready stays as code. Reaction writes (Silvery Barbs advantage, Absorb Elements and Riposte riders, Hunter's Defense resistance) are journaled for undo, and spell reactions match spell items only.
 7. **Declaration sources:** shipped content (matched by item identifier, item name or effect name), item flags, and effect flags.
 8. **Efficiency:**
    - a per-actor declaration index, so creatures with nothing listening are skipped;
@@ -111,8 +111,9 @@ Engine details are in [combat-engine.md](combat-engine.md); the per-item pack ca
 52. HUD: action bar, camera pad, token statuses, token auras, party status, boss bar, turn tracker.
 53. Mobile sheet and a connection QR code for phones.
 54. Loot transfer between actors.
-55. Animation hook `illusive-dnd-5e.combatFx` (attack hit / miss, reactions, mastery).
+55. Animation hook `illusive-dnd-5e.combatFx` (attack hit / miss, reactions, mastery). Every die is a chat roll, so Dice So Nice shows it: hit riders, over-time damage and declaration dice included. Forced saves and checks (spell saves, Topple, concentration, over-time, Counterspell) roll on the creature owner's client: a player clicks the roll in dnd5e's dialog (closing it rolls normally), NPC saves roll on the GM without one. No answer in 60 s rolls on the resolving client (`src/application/dice.mjs`). Dice So Nice is optional: without it the same rolls show as chat cards.
 56. Gated debug logging by channel.
+57. **Animations** (`src/animation`). Automated Animations plays an item it recognises, including a translated name matched back to its English entry. Otherwise Sequencer plays a free JB2A effect for impacts, areas and auras. Token Magic FX, then a plain ring, covers a table with neither. `relevantAnimations` names the fresh Sequencer effects a resolution could wait for; hit points are not delayed on them yet.
 
 ---
 
@@ -139,7 +140,7 @@ Engine details are in [combat-engine.md](combat-engine.md); the per-item pack ca
 
 ### Foundation (finish the engine)
 
-1. **Port the existing rules onto declarations:** the 20+ reaction registry specs, hit riders (Smite, Sneak Attack, Hex), masteries, auras and over-time. Each port's test: this declaration produces this patch.
+1. **Port the remaining rules onto declarations:** hit riders (Smite, Sneak Attack, Hex), masteries, auras and over-time. Reactions are done. Each port's test: this declaration produces this patch.
 2. **More moments:** `preAttackRoll`, `isTargeted`, `preDamageRoll`, `gainsCondition`, area enter / leave / per-square, `disengages`, `rest`. Plus ally and enemy variants (`allyIsHit`, `enemyAttacks`).
 3. **More steps:**
    - bonus damage;
@@ -213,5 +214,4 @@ Engine details are in [combat-engine.md](combat-engine.md); the per-item pack ca
 
 42. Loot and trade: corpse search, CR-based treasure, locked containers, pickpocketing, merchants (Item Piles covers this today).
 43. Shadows and ambience: contact shadows, flying bob, blur beyond darkvision, scene transitions.
-44. Animations bridge: map `illusive-dnd-5e.combatFx` to Automated Animations / JB2A.
-45. Homebrew creator: build declarations without code, on top of the declaration schema.
+44. Homebrew creator: build declarations without code, on top of the declaration schema.

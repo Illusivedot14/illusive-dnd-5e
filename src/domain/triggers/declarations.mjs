@@ -11,6 +11,8 @@
  *       soft     — offered as a reaction prompt, nothing waits
  *       hard     — offered as a reaction prompt, the triggering action waits
  *     cost?: "reaction",               prompted modes spend the reaction
+ *     selfTrigger?: true,               prompted: the triggering creature may react to itself
+ *     offer?: "meleeWeapons",           prompted: offer these activities instead of the source item's
  *     if?: condition,                   (domain/triggers/conditions.mjs)
  *     range?: feet,                     self ↔ triggering creature
  *     sight?: true,                     self must see the triggering creature
@@ -18,6 +20,10 @@
  *     edition?: "2014" | "2024",
  *     do: [ { step, to?, ...params } ]  (domain/triggers/steps.mjs)
  *   }
+ *
+ * A prompted declaration's steps run when the reaction is used: hard ones when
+ * the paused action resumes, soft ones before the offered activity. A prompted
+ * declaration may have no steps; the offered activity is then the whole effect.
  */
 
 import { isMoment } from "./moments.mjs";
@@ -25,6 +31,7 @@ import { conditionErrors } from "./conditions.mjs";
 import { stepErrors } from "./steps.mjs";
 
 export const MODES = Object.freeze(["passive", "soft", "hard"]);
+export const OFFERS = Object.freeze(["meleeWeapons"]);
 const ONCE = new Set(["turn", "round"]);
 
 export function normalizeDeclaration(decl = {}) {
@@ -51,7 +58,11 @@ export function declarationErrors(raw) {
   if (decl.edition != null && !["2014", "2024"].includes(String(decl.edition))) {
     errors.push(`${where}: "edition" must be "2014" or "2024"`);
   }
-  if (!decl.do.length) errors.push(`${where}: needs at least one step in "do"`);
+  if (decl.offer != null && !OFFERS.includes(decl.offer)) errors.push(`${where}: unknown offer "${decl.offer}"`);
+  if (decl.mode === "passive" && (decl.offer != null || decl.selfTrigger != null)) {
+    errors.push(`${where}: "offer" and "selfTrigger" apply to prompted modes only`);
+  }
+  if (decl.mode === "passive" && !decl.do.length) errors.push(`${where}: needs at least one step in "do"`);
   decl.do.forEach((step, i) => errors.push(...stepErrors(step, `${where}.do[${i}]`)));
   errors.push(...conditionErrors(decl.if, `${where}.if`));
   return errors;

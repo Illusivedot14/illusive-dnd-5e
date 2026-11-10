@@ -24,7 +24,6 @@ import {
 import {
   listReactionsForWindow,
   listMatchingActivities,
-  buildReactionPatches,
   mergePatches
 } from "./registry.mjs";
 
@@ -280,15 +279,15 @@ export async function openReactionWindow({
       ...patchCtx,
       parentId,
       rulesContext,
+      actor: group.actor,
+      tokenUuid: group.ctx.tokenUuid ?? tokenUuidOf(group.token),
       reactor: group.actor,
       slotLevel: decision.slotLevel ?? null,
       counterSlotLevel: decision.slotLevel ?? null,
       allyUuid: decision.allyUuid ?? null,
       targetUuid: group.ctx.isTarget ? tokenUuidOf(group.token) : (group.ctx.targetUuids?.[0] ?? null)
     };
-    const patches = typeof spec.buildPatches === "function"
-      ? await spec.buildPatches(patchInput, scope)
-      : await buildReactionPatches(spec.id, patchInput);
+    const patches = typeof spec.buildPatches === "function" ? await spec.buildPatches(patchInput, scope) : [];
     collected.push(...patches);
     if (patches.some((p) => p.type === "cancelCast")) break;
   }

@@ -24,18 +24,27 @@ function readFlag(actor, key) {
   }
 }
 
+/** Gateway result ({ ok, undo }) of one flag write. */
+async function writeFlagResult(actor, key, value) {
+  if (!actor?.setFlag) return { ok: false, undo: [] };
+  return value == null
+    ? unsetDocFlag(actor, MODULE_ID, key)
+    : setDocFlag(actor, MODULE_ID, key, value);
+}
+
 async function writeFlag(actor, key, value) {
-  if (!actor?.setFlag) return false;
-  const result = value == null
-    ? await unsetDocFlag(actor, MODULE_ID, key)
-    : await setDocFlag(actor, MODULE_ID, key, value);
-  return Boolean(result.ok);
+  return Boolean((await writeFlagResult(actor, key, value)).ok);
 }
 
 /* ---------------- Silvery Barbs advantage ---------------- */
 
-export async function grantNextD20Advantage(actor, { source = null, seconds = 60 } = {}) {
-  return writeFlag(actor, ADV_FLAG, { source, expiresAt: worldTime() + seconds });
+/** @returns {Promise<{ ok: boolean, undo?: object[] }>} */
+export async function writeNextD20Advantage(actor, { source = null, seconds = 60 } = {}) {
+  return writeFlagResult(actor, ADV_FLAG, { source, expiresAt: worldTime() + seconds });
+}
+
+export async function grantNextD20Advantage(actor, options = {}) {
+  return Boolean((await writeNextD20Advantage(actor, options)).ok);
 }
 
 export function hasNextD20Advantage(actor) {
@@ -62,10 +71,15 @@ export function listPendingHitRiders(actor) {
   return Array.isArray(list) ? list : [];
 }
 
-export async function addPendingHitRider(actor, rider) {
-  if (!rider?.formula) return false;
+/** @returns {Promise<{ ok: boolean, undo?: object[] }>} */
+export async function writePendingHitRider(actor, rider) {
+  if (!rider?.formula) return { ok: false, undo: [] };
   const list = listPendingHitRiders(actor).filter((r) => r.source !== rider.source);
-  return writeFlag(actor, RIDER_FLAG, [...list, { ...rider, armed: !rider.ownTurnOnly }]);
+  return writeFlagResult(actor, RIDER_FLAG, [...list, { ...rider, armed: !rider.ownTurnOnly }]);
+}
+
+export async function addPendingHitRider(actor, rider) {
+  return Boolean((await writePendingHitRider(actor, rider)).ok);
 }
 
 /** Remove and return the riders this hit should add. */

@@ -24,7 +24,8 @@ import {
 } from "../src/application/reactions/window.mjs";
 import { remoteOwnerFor } from "../src/foundry/reaction-socket.mjs";
 import { openReactionWindow } from "../src/application/reactions/window.mjs";
-import { getReactionSpec } from "../src/application/reactions/registry.mjs";
+import { declarationSpecsForWindow } from "../src/application/triggers/engine.mjs";
+import { _resetTriggerIndex } from "../src/application/triggers/index.mjs";
 import { _resetCombatMemory, getResolution } from "../src/application/combat.mjs";
 import { createActionResolution } from "../src/domain/combat/action-state.mjs";
 import { saveResolution } from "../src/foundry/workflow-store.mjs";
@@ -37,7 +38,11 @@ import {
 
 function spellItem(name) {
   const activity = { id: "act1", type: "utility" };
-  return { id: `item-${name}`, name, system: { activities: makeCollection([activity]) } };
+  return { id: `item-${name}`, name, type: "spell", system: { activities: makeCollection([activity]) } };
+}
+
+function shieldSpell() {
+  return { ...spellItem("Shield"), id: "shield" };
 }
 
 function placeToken({ id, actor, col, row = 0, disposition = -1 }) {
@@ -54,6 +59,7 @@ describe("reaction window eligibility", () => {
   beforeEach(() => {
     installFoundry();
     _resetHardWindowWaits();
+    _resetTriggerIndex();
     const caster = makeActor({ id: "caster", name: "Caster" });
     caster.uuid = "Actor.caster";
     const near = makeActor({ id: "near", items: [spellItem("Counterspell")] });
@@ -111,6 +117,9 @@ describe("reaction window eligibility", () => {
 });
 
 describe("reaction relay", () => {
+  beforeEach(() => {
+    _resetTriggerIndex();
+  });
   afterEach(() => {
     resetFoundry();
     _resetHardWindowWaits();
@@ -180,12 +189,12 @@ describe("reaction relay", () => {
     installFoundry();
     _resetCombatMemory();
     await saveResolution(createActionResolution({ id: "hw-1", phase: "awaiting-attack", actorUuid: "Actor.orc" }));
-    const wizard = makeActor({ id: "wiz", isOwner: true });
+    const wizard = makeActor({ id: "wiz", isOwner: true, items: [shieldSpell()] });
     wizard.uuid = "Actor.wiz";
     const group = {
       actor: wizard,
       token: { id: "tw", document: { uuid: "Token.wiz" } },
-      specs: [getReactionSpec("shield")],
+      specs: declarationSpecsForWindow("on-attack-hit", wizard),
       activities: [{ id: "a1", item: { id: "shield" } }],
       ctx: { isTarget: true, targetUuids: ["Token.wiz"] }
     };
@@ -209,13 +218,13 @@ describe("reaction relay", () => {
     const emit = vi.fn();
     globalThis.game.socket = { emit, on: vi.fn() };
     globalThis.game.users = [{ id: "player2", active: true, isGM: false }];
-    const wizard = makeActor({ id: "wiz" });
+    const wizard = makeActor({ id: "wiz", items: [shieldSpell()] });
     wizard.uuid = "Actor.wiz";
     wizard.testUserPermission = (u) => u.id === "player2";
     const group = {
       actor: wizard,
       token: { id: "tw", document: { uuid: "Token.wiz" } },
-      specs: [getReactionSpec("shield")],
+      specs: declarationSpecsForWindow("on-attack-hit", wizard),
       activities: [{ id: "a1", item: { id: "shield" } }],
       ctx: { isTarget: true, targetUuids: ["Token.wiz"] }
     };

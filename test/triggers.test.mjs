@@ -10,7 +10,7 @@ import { installFoundry } from "./helpers.mjs";
 import { evaluateCondition, conditionErrors } from "../src/domain/triggers/conditions.mjs";
 import { declarationErrors } from "../src/domain/triggers/declarations.mjs";
 import { momentForWindow, MOMENTS } from "../src/domain/triggers/moments.mjs";
-import { evaluateArithmetic, substituteRefs } from "../src/domain/triggers/formula.mjs";
+import { evaluateArithmetic, substituteRefs, expandRefs, averageDice } from "../src/domain/triggers/formula.mjs";
 import { CONTENT } from "../src/content/declarations.mjs";
 import { getRule } from "../src/rules/catalog.mjs";
 import { declarationsFor, _resetTriggerIndex, invalidateActor } from "../src/application/triggers/index.mjs";
@@ -95,6 +95,16 @@ describe("declarations", () => {
     expect(declarationErrors({ id: "x", on: "isHit", do: [{ step: "acBonus", value: "@prof" }] })).toEqual([]);
   });
 
+  it("prompted declarations may offer weapons and have no steps; passive ones may not", () => {
+    expect(declarationErrors({ id: "x", on: "isDamaged", mode: "soft", offer: "meleeWeapons", do: [] })).toEqual([]);
+    expect(declarationErrors({ id: "x", on: "isDamaged", do: [] }).join()).toMatch(/at least one step/);
+    expect(declarationErrors({ id: "x", on: "isHit", selfTrigger: true, do: [{ step: "advantage" }] }).join())
+      .toMatch(/prompted modes only/);
+    expect(declarationErrors({ id: "x", on: "isHit", mode: "hard", offer: "spells", do: [] }).join()).toMatch(/unknown offer/);
+    expect(declarationErrors({ id: "x", on: "failedSave", mode: "hard", do: [{ step: "reroll", keep: "best" }] }).join())
+      .toMatch(/"keep"/);
+  });
+
   it("every shipped declaration is valid and cites a catalog rule", () => {
     for (const content of CONTENT) {
       for (const decl of content.declarations) {
@@ -114,6 +124,9 @@ describe("declarations", () => {
     expect(substituteRefs("5 * @sourceLevel", { sourceLevel: 3 })).toBe("5 * 3");
     expect(evaluateArithmetic("max(1, 3 + 5) - 2 * (1 + 1)")).toBe(4);
     expect(evaluateArithmetic("1d6")).toBe(null);
+    expect(expandRefs("@bardicDie + @prof", { bardicDie: "1d8", prof: 3 })).toBe("1d8 + 3");
+    expect(expandRefs("(@slotLevel)d6", { slotLevel: 2 })).toBe("2d6");
+    expect(evaluateArithmetic(averageDice("1d10 + 2d6 + 3"))).toBe(5 + 6 + 3);
   });
 });
 

@@ -17,7 +17,6 @@ import {
   getEconomyAvailability,
   isItemsEconomySpent
 } from "../../../application/economy.mjs";
-import { getLastResolutionView } from "../../../application/combat.mjs";
 import {
   getGameLogView,
   setGameLogCombatActive
@@ -992,13 +991,6 @@ async function buildActionBarContext(token) {
     languageSummary
   });
   const targetPick = buildTargetPickView();
-  const lastView = getLastResolutionView();
-  const resolutionStrip = lastView?.headline && (game.user?.isGM || lastView.actorUuid === actor.uuid)
-    ? {
-      headline: lastView.headline,
-      resolutionId: lastView.id
-    }
-    : null;
 
   // Keep the combat game-log stack armed whenever a combat is started.
   setGameLogCombatActive(combatStarted);
@@ -1048,7 +1040,6 @@ async function buildActionBarContext(token) {
     reactionBanner: getReactionBanner(),
     showReactionPass: Boolean(reactionCtx?.actorId === actor.id),
     reactionGemPrompt: Boolean(reactionCtx?.actorId === actor.id),
-    resolutionStrip,
     movement,
     speedRing,
     movementTitle,

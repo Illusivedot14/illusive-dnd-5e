@@ -30,6 +30,8 @@ import { createSpellOmnibusNpc } from "./application/dev-fixtures.mjs";
 import * as writeGateway from "./foundry/write-gateway.mjs";
 import { isPrimaryWriter, activeGm } from "./foundry/gm-query.mjs";
 import { bindGameLogJournal, journalChanges } from "./application/combat-game-log.mjs";
+import { bindOwnerRolls } from "./application/dice.mjs";
+import { bindAnimations } from "./animation/bind.mjs";
 import * as triggerEngine from "./application/triggers/engine.mjs";
 import { allDeclarations, invalidateAll as refreshTriggerIndex } from "./application/triggers/index.mjs";
 import { declarationErrors } from "./domain/triggers/declarations.mjs";
@@ -61,13 +63,15 @@ Hooks.once("init", () => {
     default: true
   });
   registerDebugSettings();
-  // GM-side query handlers must exist before any player asks.
+  // Query handlers must exist before any other client asks.
   writeGateway.bindWriteGateway();
   bindGameLogJournal();
+  bindOwnerRolls();
 });
 
 Hooks.once("ready", () => {
   bindAutomationHooks();
+  bindAnimations();
 
   const mod = game.modules.get(MODULE_ID);
   if (mod) {

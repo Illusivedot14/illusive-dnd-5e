@@ -22,11 +22,16 @@ import { momentForWindow as windowMoment } from "../../domain/triggers/moments.m
 import { evaluateCondition } from "../../domain/triggers/conditions.mjs";
 import { stepDef, defaultSelector } from "../../domain/triggers/steps.mjs";
 import { onceKey } from "../../domain/triggers/declarations.mjs";
-import { substituteRefs, hasDice, evaluateArithmetic } from "../../domain/triggers/formula.mjs";
-import { declarationsFor, bindTriggerIndex } from "./index.mjs";
+import { expandRefs, averageDice, hasDice, evaluateArithmetic } from "../../domain/triggers/formula.mjs";
+import { isElementalType } from "../../domain/combat/activity-kind.mjs";
+import { declarationsFor, allDeclarations, bindTriggerIndex } from "./index.mjs";
 import { createFactReader, selectActors } from "./facts.mjs";
+import { derivedRollData, offeredActivities, usesItem } from "./derived.mjs";
 import { createMomentScope, candidateContext } from "../reactions/candidates.mjs";
-import { tokenUuidOf } from "../../foundry/token-lookup.mjs";
+import { counterspellPatches } from "../reactions/counterspell.mjs";
+import { rollVisible } from "../dice.mjs";
+import { writeNextD20Advantage, writePendingHitRider } from "../reactions/reaction-state.mjs";
+import { tokenForActor, tokenUuidOf } from "../../foundry/token-lookup.mjs";
 import { debugLog, DEBUG_CHANNELS } from "../../foundry/debug.mjs";
 import {
   applyActorDamage,
@@ -85,36 +90,56 @@ function sourceLevel(entry) {
   return Math.max(1, base + scaling);
 }
 
-function rollDataFor(actor, entry) {
+function rollDataFor(actor, entry, ctx) {
   let data = {};
   try {
     data = typeof actor?.getRollData === "function" ? { ...actor.getRollData() } : { ...(actor?.system ?? {}) };
   } catch {
     data = { ...(actor?.system ?? {}) };
   }
+  Object.assign(data, derivedRollData(actor, entry, ctx));
   data.prof = Number(actor?.system?.attributes?.prof) || 0;
   data.sourceLevel = sourceLevel(entry);
   return data;
 }
 
-async function resolveValue(value, actor, entry, label) {
-  if (typeof value === "number") return value;
-  if (value == null) return 0;
-  const data = rollDataFor(actor, entry);
-  const RollCls = globalThis.Roll;
-  if (RollCls) {
+/**
+ * A step value: a number, or a formula rolled with Foundry's Roll (dice post a
+ * chat roll). Without Roll, dice count as their average.
+ * @returns {Promise<{ value: number, formula?: string }>}
+ */
+async function resolveValue(value, actor, entry, label, ctx = {}) {
+  if (typeof value === "number") return { value };
+  if (value == null) return { value: 0 };
+  const data = rollDataFor(actor, entry, ctx);
+  const expanded = expandRefs(value, data);
+  const formula = hasDice(expanded) ? expanded : undefined;
+  if (globalThis.Roll) {
     try {
-      const roll = await new RollCls(String(value), data).evaluate();
-      if (hasDice(value) && typeof roll?.toMessage === "function") {
-        try { await roll.toMessage({ flavor: label }); } catch { /* chat optional */ }
-      }
+      const roll = await rollVisible(expanded, { actor, data, flavor: label });
       const total = Number(roll?.total);
-      if (Number.isFinite(total)) return total;
+      if (Number.isFinite(total)) return { value: total, formula };
     } catch {
       /* fall through to the arithmetic evaluator */
     }
   }
-  return evaluateArithmetic(substituteRefs(value, data)) ?? 0;
+  return { value: evaluateArithmetic(averageDice(expanded)) ?? 0, formula };
+}
+
+/** Damage types a step names: a list, every type of the moment, or its elemental ones. */
+function typesFor(types, ctx) {
+  if (Array.isArray(types)) return [...types];
+  const all = [...new Set(ctx.damageTypes ?? [])];
+  return types === "elemental" ? all.filter(isElementalType) : all;
+}
+
+function damageTypeFor(damageType, ctx) {
+  if (damageType === "trigger" || damageType === "elemental") return typesFor(damageType, ctx)[0] ?? null;
+  return damageType ?? null;
+}
+
+function isAttackRerollMoment(ctx) {
+  return ctx.windowId === "on-attack-hit" || ctx.momentId === "isHit";
 }
 
 /* --------------------------------------------------------------- selection */
@@ -125,28 +150,42 @@ function targetUuidsFor(selector, ctx, scope) {
     case "target": return scope.targetList.slice(0, 1);
     case "targets": return [...scope.targetList];
     case "damaged": return [...scope.damaged];
+    case "nearTarget": return ctx.nearTargetUuid ? [ctx.nearTargetUuid] : [];
+    case "ally": return ctx.allyUuid ? [ctx.allyUuid] : selfUuids(ctx);
     case "self":
     default:
-      return ctx.tokenUuid ? [ctx.tokenUuid] : (ctx.actor?.uuid ? [ctx.actor.uuid] : []);
+      return selfUuids(ctx);
   }
+}
+
+function selfUuids(ctx) {
+  return ctx.tokenUuid ? [ctx.tokenUuid] : (ctx.actor?.uuid ? [ctx.actor.uuid] : []);
 }
 
 /* ------------------------------------------------------------------- steps */
 
 async function runPatchStep(step, def, ctx, scope, entry, label) {
   const source = entry.decl.id;
-  const value = def.params.includes("value") ? await resolveValue(step.value, ctx.actor, entry, label) : undefined;
+  if (step.step === "counterspell") return counterspellPatches(ctx, source);
+  if (step.step === "reroll") {
+    const keep = step.keep === "new" ? "new" : "lower";
+    if (isAttackRerollMoment(ctx)) return [{ type: "rerollAttack", keep, source }];
+    return [{ type: "rerollD20", keep, advantage: Boolean(step.advantage), source }];
+  }
+  const resolved = def.params.includes("value")
+    ? await resolveValue(step.value, ctx.actor, entry, label, ctx)
+    : { value: undefined };
+  const extra = resolved.formula ? { formula: resolved.formula } : {};
   if (def.patch === "resistTypes") {
-    const types = step.types === "trigger" ? [...(ctx.damageTypes ?? [])] : [...(step.types ?? [])];
+    const types = typesFor(step.types, ctx);
     return targetUuidsFor(step.to ?? defaultSelector(step), ctx, scope)
       .map((targetUuid) => ({ type: "resistTypes", targetUuid, value: types, source }));
   }
   if (def.targeted) {
     return targetUuidsFor(step.to ?? defaultSelector(step), ctx, scope)
-      .map((targetUuid) => ({ type: def.patch, targetUuid, value, source }));
+      .map((targetUuid) => ({ type: def.patch, targetUuid, value: resolved.value, source, ...extra }));
   }
-  if (def.patch === "rerollD20") return [{ type: "rerollD20", keep: step.keep === "new" ? "new" : "lower", source }];
-  return [{ type: def.patch, value, source }];
+  return [{ type: def.patch, value: resolved.value, source, ...extra }];
 }
 
 async function runWriteStep(step, ctx, scope, entry, label) {
@@ -158,7 +197,7 @@ async function runWriteStep(step, ctx, scope, entry, label) {
     case "damage":
     case "heal":
     case "tempHp": {
-      const value = Math.max(0, await resolveValue(step.value, ctx.actor, entry, label));
+      const value = Math.max(0, (await resolveValue(step.value, ctx.actor, entry, label, ctx)).value);
       if (!value) break;
       const type = step.step === "damage" ? (step.damageType ?? undefined)
         : step.step === "heal" ? "healing" : "temphp";
@@ -197,10 +236,44 @@ async function runWriteStep(step, ctx, scope, entry, label) {
       for (const actor of actors) push(await setDocFlag(actor, MODULE_ID, step.key, step.value ?? true));
       break;
     case "spendUses": {
-      const item = entry.item;
+      const item = step.item ? usesItem(ctx.actor, step.item) : entry.item;
       const amount = Number(step.amount ?? 1) || 1;
       if (item?.system?.uses) {
         push(await updateDoc(item, { "system.uses.spent": (Number(item.system.uses.spent) || 0) + amount }));
+      }
+      break;
+    }
+    case "grantAdvantage":
+      for (const actor of actors) push(await writeNextD20Advantage(actor, { source: entry.decl.id }));
+      break;
+    case "hitRider": {
+      const data = rollDataFor(ctx.actor, entry, ctx);
+      const formula = expandRefs(step.formula, data);
+      const damageType = damageTypeFor(step.damageType, ctx);
+      if (step.damageType && !damageType) break;
+      for (const actor of actors) {
+        push(await writePendingHitRider(actor, {
+          source: entry.decl.id,
+          label: entry.decl.label ?? entry.item?.name ?? entry.decl.id,
+          formula,
+          ...(damageType ? { damageType } : {}),
+          meleeOnly: Boolean(step.meleeOnly),
+          ownTurnOnly: Boolean(step.ownTurnOnly)
+        }));
+      }
+      break;
+    }
+    case "resistEffect": {
+      const types = typesFor(step.types, ctx);
+      if (!types.length) break;
+      for (const actor of actors) {
+        push(await createEmbedded(actor, "ActiveEffect", [{
+          name: label,
+          img: entry.item?.img ?? "icons/magic/defensive/shield-barrier-glowing-blue.webp",
+          transfer: false,
+          changes: types.map((t) => ({ key: "system.traits.dr.value", type: "add", value: t })),
+          flags: { [MODULE_ID]: { specialDuration: [step.until], source: entry.decl.id, trigger: entry.key } }
+        }]));
       }
       break;
     }
@@ -224,12 +297,15 @@ async function runWriteStep(step, ctx, scope, entry, label) {
 
 /* ------------------------------------------------------------- evaluation */
 
-/** Range, sight, once and the condition — the whole "does this fire?" test. */
+/**
+ * Range, sight, once and the condition — the whole "does this fire?" test.
+ * An unmeasurable distance blocks a passive rule but still offers a prompt.
+ */
 export function entryHolds(entry, ctx, scope) {
   const decl = entry.decl;
   if (decl.range != null && !ctx.isTrigger) {
     const feet = ctx.distanceToTrigger;
-    if (feet == null || feet > Number(decl.range)) return false;
+    if (feet == null ? decl.mode === "passive" : feet > Number(decl.range)) return false;
   }
   if (decl.sight && !ctx.canSeeTrigger) return false;
   if (usedThisPeriod(ctx.actor, entry)) return false;
@@ -319,7 +395,8 @@ export async function runPassiveTriggers(momentId, { baseCtx = {}, parentId = nu
 /**
  * Prompted (soft / hard) declarations on one actor as reaction specs, so the
  * window offers them beside the registry. They need a source item: the prompt
- * uses that item's activity, which also spends the reaction.
+ * uses that item's activity (or the `offer` list), which also spends the reaction.
+ * The spec id is the declaration id ("shield"), which is also the patch source.
  */
 export function declarationSpecsForWindow(windowId, actor) {
   const moment = windowMoment(windowId);
@@ -327,23 +404,56 @@ export function declarationSpecsForWindow(windowId, actor) {
   return declarationsFor(actor, moment)
     .filter((e) => e.decl.mode !== "passive" && e.item)
     .map((entry) => ({
-      id: `decl:${entry.key}`,
+      id: entry.decl.id,
+      declarationKey: entry.key,
       window: windowId,
       mode: entry.decl.mode,
       rule: entry.decl.rule ?? `trigger.${entry.decl.id}`,
       label: entry.decl.label ?? entry.decl.id,
       rewriteKeys: [],
       declaration: entry,
-      selfTrigger: true,
+      selfTrigger: Boolean(entry.decl.selfTrigger),
       rangeFeet: entry.decl.range ?? null,
       needsSight: Boolean(entry.decl.sight),
       match: (item) => item?.id === entry.item.id,
+      ...(entry.decl.offer ? { offer: (who) => offeredActivities(entry.decl.offer, who) } : {}),
       eligible: (ctx, scope) => entryHolds(entry, ctx, scope ?? createMomentScope(ctx)),
       buildPatches: async (ctx, scope) => {
         const out = await runEntry(entry, ctx, scope ?? createMomentScope(ctx), { parentId: ctx.parentId ?? null });
         return out.patches;
       }
     }));
+}
+
+function usedThroughEntry(entry, actor, item) {
+  if (!item) return true;
+  if (entry.decl.offer) return offeredActivities(entry.decl.offer, actor).some((a) => a.item?.id === item.id);
+  return entry.item?.id === item.id;
+}
+
+/**
+ * A soft prompt was answered with a use: run the steps of the soft declarations
+ * it offered (Riposte spends a superiority die and arms its rider before the attack).
+ * @param {object} options  the prompt options (triggerIds, triggerTokenUuid, targetUuids, windowId, parentId)
+ */
+export async function runSoftDeclarationUse(actor, item, options = {}) {
+  if (!actor || !featureEnabled("declaredTriggers")) return;
+  const ids = new Set(options.triggerIds ?? []);
+  const entries = allDeclarations(actor).filter((e) => ids.has(e.decl.id)
+    && e.decl.mode === "soft" && e.decl.do.length && usedThroughEntry(e, actor, item));
+  if (!entries.length) return;
+  const scope = createMomentScope({
+    triggerTokenUuid: options.triggerTokenUuid ?? null,
+    targetUuids: options.targetUuids ?? [],
+    damageTypes: options.damageTypes ?? []
+  });
+  const token = tokenForActor(actor);
+  const ctx = token
+    ? candidateContext(scope, token, { windowId: options.windowId ?? null })
+    : { ...scope.baseCtx, actor, windowId: options.windowId ?? null };
+  for (const entry of entries) {
+    await runEntry(entry, ctx, scope, { parentId: options.parentId ?? null });
+  }
 }
 
 /**

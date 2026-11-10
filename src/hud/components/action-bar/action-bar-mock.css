@@ -2287,30 +2287,6 @@ body.illusive-dnd-target-picking #board {
   margin: 0 0 2px;
 }
 
-.illusive-dnd-resolution-strip {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin: 0 0 4px;
-  padding: 2px 6px;
-  font-size: 12px;
-  color: #d8d0c4;
-}
-
-.illusive-dnd-resolution-strip-text {
-  flex: 1;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.illusive-dnd-resolution-undo-btn {
-  flex: 0 0 auto;
-  padding: 2px 8px;
-  font-size: 11px;
-}
-
 .illusive-dnd-picker-prompt {
   margin: 0 0 8px;
   color: #d8d0c4;

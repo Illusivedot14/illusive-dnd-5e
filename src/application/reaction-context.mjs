@@ -267,9 +267,9 @@ export async function useReactionFromHud(token, itemId, activityId, { spellLevel
   const { runReactionUseHooks } = await import("./reactions/registry.mjs");
   // Clear first: the reaction's own resolution may open nested windows (Counterspell on Shield).
   clearReactionPrompt();
-  await runReactionUseHooks("before", triggerIds, actor, item);
+  await runReactionUseHooks("before", triggerIds, actor, item, options);
   const used = await useActivityFromHud(token, item, activity, "reaction", {}, context, { spellLevel });
-  if (used) await runReactionUseHooks("after", triggerIds, actor, item);
+  if (used) await runReactionUseHooks("after", triggerIds, actor, item, options);
   try {
     await decideReactionPrompt(options, { used, itemId, slotLevel, allyUuid });
   } catch {

@@ -10,7 +10,7 @@ import {
 } from "../src/domain/combat/special-duration.mjs";
 import { isFlanking, footprintsAdjacent } from "../src/domain/combat/flanking.mjs";
 import { AURA_CATALOG, findAuraFeatures } from "../src/domain/combat/aura-effects.mjs";
-import { REACTION_REGISTRY } from "../src/application/reactions/registry.mjs";
+import { CONTENT } from "../src/content/declarations.mjs";
 import {
   collectToggleAttackModifiers,
   listPassiveHitRiders,
@@ -104,8 +104,9 @@ describe("expanded auras", () => {
 
 describe("reaction catalog", () => {
   it("registers defense and disrupt reactions", () => {
+    const declared = new Set(CONTENT.flatMap((c) => c.declarations.map((d) => d.id)));
     for (const id of ["absorb-elements", "uncanny-dodge", "silvery-barbs", "cutting-words", "deflect"]) {
-      expect(REACTION_REGISTRY[id]).toBeTruthy();
+      expect(declared.has(id), id).toBe(true);
     }
   });
 });

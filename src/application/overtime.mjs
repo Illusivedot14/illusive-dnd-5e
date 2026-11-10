@@ -8,15 +8,12 @@ import { MODULE_ID } from "../constants.mjs";
 import { emitCombatFx } from "./combat-fx.mjs";
 import { applyDamageWithTrail, flatDamageRoll } from "./damage-apply.mjs";
 import { journalChanges, entriesForEffects } from "./combat-game-log.mjs";
+import { rollVisible, rollAsOwner } from "./dice.mjs";
 
-async function rollFormula(formula, actor) {
+async function rollFormula(formula, actor, flavor) {
   if (!formula) return null;
   try {
-    const RollCls = globalThis.Roll;
-    if (!RollCls) return null;
-    const data = typeof actor?.getRollData === "function" ? actor.getRollData() : {};
-    const roll = await new RollCls(String(formula), data).evaluate();
-    return roll;
+    return await rollVisible(formula, { actor, flavor });
   } catch {
     return null;
   }
@@ -26,12 +23,7 @@ async function rollSave(actor, ability, dc) {
   if (!actor || typeof actor.rollSavingThrow !== "function") {
     return { total: null, success: false };
   }
-  const rolls = await actor.rollSavingThrow(
-    { ability, target: dc },
-    { configure: false },
-    {}
-  );
-  const roll = Array.isArray(rolls) ? rolls[0] : rolls;
+  const roll = await rollAsOwner(actor, "save", { ability, target: dc });
   const total = Number(roll?.total);
   return {
     total: Number.isFinite(total) ? total : null,
@@ -64,7 +56,7 @@ export async function processOverTimeForActor(actor, turn) {
     let damageTotal = 0;
     let changes = [];
     if (spec.damageFormula && factor > 0) {
-      const roll = await rollFormula(spec.damageFormula, actor);
+      const roll = await rollFormula(spec.damageFormula, actor, spec.label ?? effect.name);
       damageTotal = Math.floor((Number(roll?.total) || 0) * factor);
       if (damageTotal > 0) {
         const trail = await applyDamageWithTrail({
@@ -98,7 +90,7 @@ export async function processOverTimeForActor(actor, turn) {
       kind: "overTime",
       subtype: turn,
       actorUuid: actor.uuid,
-      outcome: row
+      outcome: { ...row, damageType: spec.damageType ?? null }
     });
   }
   return applied;

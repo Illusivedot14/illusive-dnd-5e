@@ -23,6 +23,29 @@ export function substituteRefs(formula, data = {}) {
   });
 }
 
+/**
+ * Replace @refs with their values, keeping dice strings ("@bardicDie" → "1d8").
+ * "(2)d6" from a counted ref collapses to "2d6". Unknown refs → 0.
+ */
+export function expandRefs(formula, data = {}) {
+  const out = String(formula).replace(REF, (_, path) => {
+    const raw = dig(data, path);
+    const value = typeof raw === "object" && raw != null ? (raw.value ?? raw.total ?? raw.mod) : raw;
+    if (typeof value === "string" && DICE.test(value)) return value;
+    const n = Number(value);
+    return Number.isFinite(n) ? String(n) : "0";
+  });
+  return out.replace(/\((\d+)\)d/gi, "$1d");
+}
+
+/** Dice as their floored average ("2d6" → "6"), for deterministic evaluation without Foundry. */
+export function averageDice(formula) {
+  return String(formula).replace(/(\d*)d(\d+)/gi, (_, count, faces) => {
+    const n = Number(count || 1);
+    return String(n * Math.floor((Number(faces) + 1) / 2));
+  });
+}
+
 export function hasDice(formula) {
   return DICE.test(String(formula));
 }

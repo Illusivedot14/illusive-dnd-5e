@@ -5,7 +5,7 @@
 **Last updated:** 2026-11-09  
 **Product context:** [design-doc.md](design-doc.md) · content inventory: [content-inventory.md](content-inventory.md)
 
-This document owns **how combat resolutions run**: phases, irreversibility, reaction windows, pause/resume, game-log undo, and the reaction registry. Product goals and package scope stay in the design doc.
+This document owns **how combat resolutions run**: phases, irreversibility, reaction windows, pause/resume, game-log undo, and reactions as declarations. Product goals and package scope stay in the design doc.
 
 ---
 
@@ -39,7 +39,7 @@ Key files:
 | Start / pause / correct | `src/application/combat.mjs` |
 | Attack / save / damage pipeline | `src/application/resolve-activity.mjs` |
 | Single HP write path (trail + concentration + KO) | `src/application/damage-apply.mjs` → `applyDamageWithTrail` |
-| Reaction registry (rules) + windows (protocol) | `src/application/reactions/registry.mjs`, `window.mjs` |
+| Reactions (declarations, §9) + windows (protocol) | `src/content/declarations.mjs`, `src/application/reactions/window.mjs` |
 | Reaction relay to the owner's client | `src/foundry/reaction-socket.mjs` |
 | HUD prompt state + Pass/use settle | `src/application/reaction-context.mjs` |
 | OA leave-reach | `src/application/opportunity-attack.mjs` + domain |
@@ -143,11 +143,11 @@ Do **not** write HP before `on-damage-known` completes. Do **not** treat soft He
 
 ### Hard window
 
-1. `openReactionWindow({ parentId, windowId, baseCtx, patchCtx, detached })` collects eligible reactors (`collectWindowCandidates`): not the triggering creature (unless the spec sets `selfTrigger`, e.g. Countercharm / Feather Fall / Slow Fall), not incapacitated, reaction unspent, registry `eligible(ctx)`, `rangeFeet` / `needsSight` vs the triggering token, `match(item, ctx)` or `offer(actor, ctx)`.
+1. `openReactionWindow({ parentId, windowId, baseCtx, patchCtx, detached })` collects eligible reactors (`collectWindowCandidates`): not the triggering creature (unless the declaration sets `selfTrigger`, e.g. Countercharm / Feather Fall / Slow Fall), not incapacitated, reaction unspent, the declaration's condition, `range` / `sight` vs the triggering token, the source item or the `offer` list.
 2. Reactors are **grouped per creature** (one reaction each) and queued by **initiative, highest first**, then token id. A creature with any hard reaction in the window gets the hard (waiting) prompt; creatures with only soft reactions are prompted without waiting.
 3. `detached: true` (falls) waits on a synthetic id without pausing a parent resolution.
 4. For each reactor: `pauseParentForReaction` (parent → `awaiting-reaction`, resume phase derived from the parent's own state), then prompt.
-5. Decision: **Pass** (no patch) or **use** `{ used, itemId, slotLevel, allyUuid }` → the reaction's own resolution runs (linked via `parentResolutionId`), then `buildReactionPatches(triggerId, ctx)` computes the rule outcome (rolled Deflect / Cutting Words die, Counterspell save/check). `slotLevel` comes from the HUD slot picker (2014 Counterspell, Absorb Elements dice); `allyUuid` is the owner's first target other than the trigger (Silvery Barbs advantage).
+5. Decision: **Pass** (no patch) or **use** `{ used, itemId, slotLevel, allyUuid }` → the reaction's own resolution runs (linked via `parentResolutionId`), then the declaration's steps compute the rule outcome (rolled Deflect / Cutting Words die, Counterspell save/check). `slotLevel` comes from the HUD slot picker (2014 Counterspell, Absorb Elements dice); `allyUuid` is the owner's first target other than the trigger (Silvery Barbs advantage).
 6. Queue empty or `cancelCast`: `resumeParent(parentId, patches)` → `reactionResolved`, and the pipeline applies the merged patches.
 7. Timeout (`reactionTimeout` setting) = Pass. The waiting side has its own grace timer (timeout + 3 s) so a disconnected owner never stalls combat.
 
@@ -224,29 +224,31 @@ Synced with [content-inventory.md](content-inventory.md):
 
 ## 9. Reactions
 
-### 9.1 Registry shape
+### 9.1 Reactions as declarations
+
+Item reactions are prompted declarations (§15) in `src/content/declarations.mjs`:
 
 ```js
 {
   id: "shield",
-  window: "on-attack-hit",         // or windows: [...] (Silvery Barbs, Ready)
-  mode: "hard",                    // "hard" | "soft"
-  rule: "combat.reaction.shield",  // catalog citation
-  rewriteKeys: ["acBonus"],        // patches this reaction may emit
-  rangeFeet: null,                 // e.g. 60 for Counterspell / Silvery Barbs / Cutting Words / Hellish Rebuke
-  needsSight: false,               // reactor must see the triggering creature
-  selfTrigger: false,              // the triggering creature may react to itself (Countercharm, falls)
-  match(item, ctx),                // identifier / name; ctx picks edition variants (Deflect)
-  offer(actor, ctx),               // optional: activities to offer instead of the matched item's (Retaliation → melee weapons)
-  eligible(ctx),                   // windowId, actor, isTarget, isTrigger, hostile, distanceToTrigger, nearTargetUuid, melee, charmOrFear, …
-  beforeUse(actor, item), afterUse(actor, item)  // optional soft-use hooks
+  match: { types: ["spell"], identifiers: ["shield"], names: [/^shield$/i] },
+  declarations: [{
+    id: "shield",                    // spec id, patch source and combatFx subtype
+    rule: "combat.reaction.shield",  // catalog citation
+    on: "isHit",                     // moment = window (Silvery Barbs lists three)
+    mode: "hard",                    // "hard" | "soft"
+    range: 60, sight: true,          // optional: vs the triggering creature
+    selfTrigger: true,               // optional: the triggering creature may react to itself (Countercharm, falls)
+    offer: "meleeWeapons",           // optional: offer these instead of the item's activities (Retaliation, Riposte)
+    if: { all: [{ "self.isTarget": true }, { not: { "activity.isAttack": false } }] },
+    do: [{ step: "acBonus", to: "self", value: 5 }]
+  }]
 }
 ```
 
-Outcomes come from `buildReactionPatches(id, ctx)` (async; rolls dice) and are merged by `mergePatches`.
+Match fields: `identifiers`, `names` (accept **2024** names, e.g. Deflect Attacks / Deflect Energy, as well as 2014 Deflect Missiles), `types` (spells match only spell items, so a shield named "Shield" never offers the Shield spell), and `reactionOnly` (the 2024 Countercharm and Hunter's Defense, whose 2014 versions are actions). Do **not** trust pack-dump `activation: "action"` on spells like Shield/Counterspell — match by identifier/name.
 
-Module path: `src/application/reactions/registry.mjs`.  
-Matchers must accept **2024** names (e.g. Deflect Attacks / Deflect Energy) as well as 2014 Deflect Missiles. Do **not** trust pack-dump `activation: "action"` on spells like Shield/Counterspell — match by identifier/name.
+Patches are merged by `mergePatches` (`src/application/reactions/registry.mjs`). The registry itself now holds only **Ready**, which reads the readier's flag rather than an item.
 
 ### 9.2 Window → content
 
@@ -327,8 +329,8 @@ When several creatures are eligible in one window: sort by **initiative, highest
 - Shield miss / crit still hits; Silvery Barbs keeps lower; Cutting Words penalty; Counterspell slot refund (`test/attack-pipeline.test.mjs`)
 - One HP write per hit with riders + bonus; Uncanny halves riders too (`test/attack-pipeline.test.mjs`)
 - Concentration from HP actually lost; immunity skips the check (`test/concentration-save.test.mjs`)
-- Registry rules: Deflect variants, Absorb elemental-only, Counterspell editions (`test/reactions-registry.test.mjs`)
-- Save/check Silvery Barbs + advantage grant, Countercharm edition gate, 2014 Counterspell slot, Absorb / Riposte riders, Ready offer + range, fall matching, Feather/Slow Fall, Parry, Protection (`test/reactions-expansion.test.mjs`)
+- Every reaction declaration: window and mode, Shield matches the spell only, Deflect variants, Cutting Words die, Silvery Barbs on attacks / saves / checks with the journaled advantage grant, Protection and Interception near the attacked ally, Absorb Elements types and rider, Hunter's Defense lingering resistance, Counterspell editions, Countercharm edition gate, Feather / Slow Fall, Riposte spend and rider on use (`test/reaction-declarations.test.mjs`)
+- Ready offer + range, rider arming, advantage grant on saves, fall matching (`test/reactions-expansion.test.mjs`)
 - OA still holds move; game-log cascade undo; regression suite green
 
 ---
@@ -370,7 +372,7 @@ Status: **covered** = automated + tested; **partial** = automated with a known g
 
 1. Live multi-client playtest of the relay, the gateway and the journal (unit-tested only).
 2. Monster Redirect Attack / Split.
-3. Porting the reaction registry, hit riders, masteries and auras onto declarations (they still run as code).
+3. Porting hit riders, masteries, auras and over-time onto declarations (reactions are ported; these still run as code).
 
 Full list of implemented and planned features: [feature-status.md](feature-status.md).
 
@@ -438,8 +440,9 @@ Rules as data instead of code. Files:
 | `src/domain/triggers/formula.mjs` | `@ref` values and arithmetic without Foundry |
 | `src/application/triggers/index.mjs` | Per-actor declaration index, grouped by moment |
 | `src/application/triggers/facts.mjs` | Lazy facts for conditions (`self.*`, `trigger.*`, `relation.*`, `activity.*`, `damage.*`, `damaged.*`) |
+| `src/application/triggers/derived.mjs` | Formula values dnd5e keeps in scale tables or text (`@bardicDie`, `@parryBonus`, …) and `offer` lists |
 | `src/application/triggers/engine.mjs` | Runs declarations; turns prompted ones into reaction specs |
-| `src/content/declarations.mjs` | Shipped rules |
+| `src/content/declarations.mjs` | Shipped rules, including every item reaction (§9.1) |
 
 **Declaration:**
 
@@ -473,17 +476,17 @@ Rules as data instead of code. Files:
 **Modes:**
 
 1. **Passive** runs inside `openReactionWindow` before anyone is prompted, whether or not reaction pausing is on. Its patches are merged with the reactions' patches.
-2. **Soft / hard** become reaction specs (`declarationSpecsForWindow`) next to the registry, so they share the prompt, the wait and the pause. They need a source item with an activity, which the prompt uses and which spends the reaction.
+2. **Soft / hard** become reaction specs (`declarationSpecsForWindow`, id = declaration id), so they share the prompt, the wait and the pause. They need a source item; the prompt offers its activities (or the `offer` list), and using one spends the reaction. Hard steps run when the paused action resumes; soft steps run before the offered activity. A prompted declaration may have no steps when the activity is the whole effect (Hellish Rebuke). An unmeasurable distance blocks a passive rule but still offers a prompt.
 
 **Steps:**
 
 | Kind | Steps | Undo |
 |---|---|---|
-| Patch | `advantage`, `disadvantage`, `attackBonus`, `attackPenalty`, `acBonus`, `damageReduce`, `damageMultiplier`, `resist`, `reroll`, `cancelCast` | Only exists inside the moment |
-| Write | `damage`, `heal`, `tempHp`, `applyStatus`, `removeStatus`, `applyEffect`, `endEffect`, `setFlag`, `spendUses` | Gateway record, journaled |
+| Patch | `advantage`, `disadvantage`, `attackBonus`, `attackPenalty`, `acBonus`, `damageReduce`, `damageMultiplier`, `resist`, `reroll` (the attack on a hit, else the d20; `keep`, `advantage`), `cancelCast`, `counterspell` | Only exists inside the moment |
+| Write | `damage`, `heal`, `tempHp`, `applyStatus`, `removeStatus`, `applyEffect`, `endEffect`, `setFlag`, `spendUses` (`item` pattern for another item's uses), `grantAdvantage`, `hitRider`, `resistEffect` | Gateway record, journaled |
 | Note | `note` | Irreversible (chat) |
 
-`to` picks creatures: `self`, `trigger`, `target`, `targets`, `damaged`. Values are numbers or formulas (`@prof`, `@sourceLevel`, any roll-data path; dice post a chat roll).
+`to` picks creatures: `self`, `trigger`, `target`, `targets`, `damaged`, `ally` (the reactor's chosen ally, else self), `nearTarget` (the attacked creature within 5 ft). `types` is a list, `"trigger"` (every damage type of the moment) or `"elemental"`. Values are numbers or formulas (`@prof`, `@sourceLevel`, `@slotLevel`, `@monkLevel`, `@bardicDie`, `@superiorityDie`, `@parryBonus`, any roll-data path; dice post a chat roll, and count as their average without Foundry).
 
 **Undo:** a declaration's writes are journaled onto the causing resolution. One that comes from an active effect also depends on the row that created that effect, so undoing the cast undoes what the effect did since. `once` is a flag write, so undo restores it too.
 
