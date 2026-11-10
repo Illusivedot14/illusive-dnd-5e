@@ -80,6 +80,23 @@ describe("action-bar-foundry-ui", () => {
     expect(document.getElementById("hotbar").classList.contains("illusive-dnd-ui-hidden")).toBe(false);
   });
 
+  it("treats a hidden hotbar as absent so the dock can rest on the screen edge", () => {
+    document.documentElement.classList.add("illusive-dnd-tabletop");
+    document.getElementById("illusive-dnd-action-bar").hidden = false;
+    globalThis.game.settings._store.set("actionBarMinimized", true);
+    syncFoundryUiVisibility();
+    expect(isFoundryHotbarHidden()).toBe(true);
+    expect(document.getElementById("hotbar").classList.contains("illusive-dnd-ui-hidden")).toBe(false);
+    document.documentElement.classList.remove("illusive-dnd-tabletop");
+  });
+
+  it("treats a display-none hotbar as absent", () => {
+    const hotbar = document.getElementById("hotbar");
+    hotbar.style.display = "none";
+    expect(isFoundryHotbarHidden()).toBe(true);
+    hotbar.style.display = "";
+  });
+
   it("shows Foundry hotbar when the action bar is minimized", () => {
     document.getElementById("illusive-dnd-action-bar").hidden = false;
     globalThis.game.settings._store.set("actionBarMinimized", true);

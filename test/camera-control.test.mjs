@@ -9,7 +9,6 @@ import {
   nextViewPosition,
   withLockViewUnlocked
 } from "../src/foundry/camera-control.mjs";
-import { isTouchTableClient } from "../src/hud/lib/hooks/touch-table.mjs";
 import { shouldShowCameraPad } from "../src/hud/components/camera-pad/camera-pad.mjs";
 
 function asUser(name, { isGM = false, settings = {} } = {}) {
@@ -111,16 +110,19 @@ describe("applyCanvasView", () => {
 });
 
 describe("shouldShowCameraPad", () => {
-  it("defaults to the Touchscreen account", () => {
-    asUser("Touchscreen");
+  it("shows the pad only for the user chosen to move the table", () => {
+    asUser("Table", { settings: { tabletopUser: "user1", tabletopCameraUser: "pilot" } });
+    expect(shouldShowCameraPad()).toBe(false);
+    asUser("Pilot", { settings: { tabletopUser: "table", tabletopCameraUser: "user1" } });
     expect(shouldShowCameraPad()).toBe(true);
-    expect(isTouchTableClient()).toBe(true);
   });
 
-  it("hides for the GM and every other player by default", () => {
-    asUser("Gamemaster", { isGM: true });
-    expect(shouldShowCameraPad()).toBe(false);
-    expect(isTouchTableClient()).toBe(false);
+  it("shows the pad on the table when that user is also the controller", () => {
+    asUser("Table", { settings: { tabletopUser: "user1", tabletopCameraUser: "user1" } });
+    expect(shouldShowCameraPad()).toBe(true);
+  });
+
+  it("hides for every other player by default", () => {
     asUser("Vesper");
     expect(shouldShowCameraPad()).toBe(false);
     asUser("Broccoli");
@@ -130,7 +132,9 @@ describe("shouldShowCameraPad", () => {
   });
 
   it("hides when this client disables the pad", () => {
-    asUser("Touchscreen", { settings: { enableCameraPad: false } });
+    asUser("Pilot", {
+      settings: { enableCameraPad: false, tabletopUser: "table", tabletopCameraUser: "user1" }
+    });
     expect(shouldShowCameraPad()).toBe(false);
   });
 

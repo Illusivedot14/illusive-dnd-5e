@@ -18,6 +18,7 @@ import { bindSceneLoadDeselect } from "./scene-selection.mjs";
 import { bindTouchTableClient } from "./touch-table.mjs";
 import { bindSpellRegionCleanup } from "../../../foundry/spell-regions.mjs";
 import { bindCameraPad } from "../../components/camera-pad/camera-pad.mjs";
+import { bindTabletop } from "../../../tabletop/index.mjs";
 import { bindTokenAuras } from "../../components/token-aura/token-aura.mjs";
 
 /** Canvas + token behavior (register during init, before canvasReady). */
@@ -25,6 +26,7 @@ export function bindCanvasHooks() {
   bindSceneLoadDeselect();
   bindTouchTableClient();
   bindSpellRegionCleanup();
+  bindTabletop();
   bindCameraPad();
   bindTokenAuras();
 }

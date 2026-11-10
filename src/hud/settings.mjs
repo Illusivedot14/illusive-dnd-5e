@@ -15,7 +15,7 @@ import {
 import { applyLayoutVariables } from "./lib/layout.mjs";
 import { DISPLAY_PROFILE_CHOICES } from "./lib/hud-bounds.mjs";
 import { refreshCameraPad } from "./components/camera-pad/camera-pad.mjs";
-const DISPLAY_KEYS = ["displayProfile"];
+const DISPLAY_KEYS = ["displayProfile", "tabletopUser", "tabletopCameraUser"];
 
 const PARTY_KEYS = [
   "partyMaxPortraits",
@@ -94,11 +94,32 @@ export function registerSettings() {
     refreshHud(ILLUSIVE_DND_RENDER.THEME);
   };
 
+  const syncTabletop = () => {
+    import("../tabletop/index.mjs")
+      .then((mod) => {
+        mod.syncTabletopClient();
+        refreshCameraPad();
+      })
+      .catch((err) => console.error(`${MODULE_ID} | tabletop sync failed`, err));
+  };
+
   registerHidden("displayProfile", {
     type: String,
     default: "auto",
     choices: illusiveDndSettingChoices("displayProfile", [...DISPLAY_PROFILE_CHOICES]),
     onChange: displayRefresh
+  });
+
+  registerWorldHidden("tabletopUser", {
+    type: String,
+    default: "",
+    onChange: syncTabletop
+  });
+
+  registerWorldHidden("tabletopCameraUser", {
+    type: String,
+    default: "",
+    onChange: syncTabletop
   });
 
   registerSettingsSubmenu("displayMenu", {

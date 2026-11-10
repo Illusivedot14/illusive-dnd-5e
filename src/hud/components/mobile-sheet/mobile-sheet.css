@@ -1,4 +1,4 @@
-/* Early paint: hide Foundry chrome on phones before JS finishes.
+/* Early paint: hide Foundry chrome on phones and tablets before JS finishes.
    html.illusive-dnd-mobile-boot is set from sessionStorage / heuristic in mobile-boot.mjs */
 
 html.illusive-dnd-mobile-boot,
@@ -57,8 +57,9 @@ html.illusive-dnd-mobile-boot #interface {
   background: #121116 !important;
 }
 
-/* Heuristic cover for first visit before session flag exists (phones only). */
-@media (hover: none) and (pointer: coarse) and (max-width: 1024px) {
+/* First visit, before the session flag exists: phones and tablets.
+   max-width and max-height stop at iPad Pro 13" (1376×1032). A 1080p touch table is taller or wider. */
+@media (hover: none) and (pointer: coarse) and (max-width: 1400px) and (max-height: 1400px) {
   html:not(.illusive-dnd-mobile-force-desktop):not(.illusive-dnd-mobile-boot) #ui-left,
   html:not(.illusive-dnd-mobile-force-desktop):not(.illusive-dnd-mobile-boot) #ui-right,
   html:not(.illusive-dnd-mobile-force-desktop):not(.illusive-dnd-mobile-boot) #ui-top,

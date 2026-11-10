@@ -165,6 +165,12 @@ function cameraPadUserChoices(value) {
     .sort((a, b) => String(a.name ?? "").localeCompare(String(b.name ?? "")));
 }
 
+function sortedUsers() {
+  return listWorldUsers()
+    .filter((user) => user?.id)
+    .sort((a, b) => String(a.name ?? "").localeCompare(String(b.name ?? "")));
+}
+
 function submittedIdList(raw) {
   if (Array.isArray(raw)) return raw.filter(Boolean);
   if (raw && typeof raw === "object") {
@@ -184,6 +190,7 @@ export function buildSettingField(key) {
   const value = game.settings.get(MODULE_ID, key);
   const hasChoices = Boolean(registered.choices);
   const isUserList = registered.type === Array && key === "cameraPadVisibleTo";
+  const isUserSelect = key === "tabletopUser" || key === "tabletopCameraUser";
   const isBoolean = registered.type === Boolean;
   const isNumber = registered.type === Number;
   const isSelect = registered.type === String && hasChoices;
@@ -204,12 +211,26 @@ export function buildSettingField(key) {
     isColor,
     isString,
     isUserList,
+    isUserSelect,
+    disabled: false,
     filePickerType: typeof registered.filePicker === "string" ? registered.filePicker : "image"
   };
 
   if (isUserList) {
     field.users = cameraPadUserChoices(value);
     field.empty = illusiveDndSetting(key, "empty");
+  }
+
+  if (isUserSelect) {
+    const tableId = String(game.settings.get(MODULE_ID, "tabletopUser") ?? "").trim();
+    field.noneLabel = illusiveDndSetting(key, "none");
+    field.disabled = key === "tabletopCameraUser" && !tableId;
+    field.users = sortedUsers()
+      .map((user) => ({
+        id: user.id,
+        name: user.name,
+        selected: user.id === value
+      }));
   }
 
   if (field.isNumber && registered.range) {
@@ -265,6 +286,17 @@ export class IllusiveDndSubsettingsForm extends FormApplication {
 
   activateListeners(html) {
     super.activateListeners(html);
+    const tableSelect = html.find('[name="tabletopUser"]');
+    const cameraSelect = html.find('[name="tabletopCameraUser"]');
+    const syncCameraControl = () => {
+      const tableId = String(tableSelect.val() ?? "");
+      const locked = !tableId;
+      cameraSelect.prop("disabled", locked);
+      if (locked) cameraSelect.val("");
+    };
+    tableSelect.on("change", syncCameraControl);
+    syncCameraControl();
+
     html.find('input[type="range"]').on("input", (event) => {
       const output = event.target.nextElementSibling;
       if (output?.classList.contains("range-value")) output.textContent = event.target.value;
@@ -305,6 +337,11 @@ export class IllusiveDndSubsettingsForm extends FormApplication {
 
       if (registered.type === Array) {
         await game.settings.set(MODULE_ID, key, submittedIdList(formData[key]));
+        continue;
+      }
+
+      if (key === "tabletopCameraUser" && !formData.tabletopUser) {
+        await game.settings.set(MODULE_ID, key, "");
         continue;
       }
 

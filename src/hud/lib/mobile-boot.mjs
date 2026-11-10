@@ -6,9 +6,52 @@
 const BOOT_KEY = "illusive-dnd-mobile-boot";
 const BOOT_STYLE_ID = "illusive-dnd-mobile-boot-css";
 
-function isNativeMobileHeuristic() {
-  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i
-    .test(navigator.userAgent ?? "");
+/** Longest side of a tablet viewport. iPad Pro 13" landscape is 1376. */
+const TABLET_LONG_SIDE = 1400;
+/** Shortest side still treated as a tablet when the pointer is coarse. */
+const TABLET_SHORT_SIDE = 1100;
+
+function measurementPairs() {
+  const pairs = [];
+  const add = (w, h) => {
+    const width = Number(w) || 0;
+    const height = Number(h) || 0;
+    if (width > 0 && height > 0) {
+      pairs.push({
+        longSide: Math.max(width, height),
+        shortSide: Math.min(width, height)
+      });
+    }
+  };
+  add(screen?.width, screen?.height);
+  if (typeof window !== "undefined") add(window.innerWidth, window.innerHeight);
+  return pairs;
+}
+
+/** Screen or window larger than a tablet. The touch table qualifies. */
+export function isOversizedDisplay() {
+  return measurementPairs().some((m) => m.longSide > TABLET_LONG_SIDE || m.shortSide > TABLET_SHORT_SIDE);
+}
+
+/**
+ * Phones and tablets. iPadOS sends a desktop Macintosh user agent, so a Mac
+ * with multiple touch points counts. Size wins over the user agent: a huge
+ * touch table stays on the canvas even when the browser looks like an iPad.
+ */
+export function isPhoneOrTablet() {
+  if (isOversizedDisplay()) return false;
+
+  const ua = navigator.userAgent ?? "";
+  if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua)) return true;
+
+  const touchPoints = Number(navigator.maxTouchPoints) || 0;
+  if (touchPoints > 1 && /Macintosh|Mac OS X/i.test(ua)) return true;
+
+  const coarse = typeof matchMedia === "function"
+    && matchMedia("(hover: none) and (pointer: coarse)").matches;
+  if (!coarse || touchPoints < 1) return false;
+
+  return measurementPairs().length > 0;
 }
 
 /** CSS that must exist before Foundry paints sidebar/hotbar/etc. */
@@ -90,8 +133,11 @@ export function applyEarlyMobileBootClass() {
   let sticky = null;
   try { sticky = sessionStorage.getItem(BOOT_KEY); } catch { /* ignore */ }
 
-  const phone = isNativeMobileHeuristic();
-  if (!phone || sticky === "0") {
+  const oversized = isOversizedDisplay();
+  const handheld = isPhoneOrTablet();
+  // A saved sheet session stays up through reload on a phone or tablet.
+  // A huge display drops that flag so the touch table cannot stay on the sheet.
+  if (oversized || sticky === "0" || (!handheld && sticky !== "1")) {
     document.documentElement.classList.remove("illusive-dnd-mobile-boot");
     document.body?.classList?.remove("illusive-dnd-mobile-client");
     try { sessionStorage.setItem(BOOT_KEY, "0"); } catch { /* ignore */ }

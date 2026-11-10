@@ -1,21 +1,22 @@
 import { MODULE_ID } from "../../constants.mjs";
 import { settingOn } from "./hud-settings.mjs";
 import { isTouchTableClient } from "./hooks/touch-table.mjs";
-import { applyEarlyMobileBootClass, persistMobileBootFlag } from "./mobile-boot.mjs";
+import { applyEarlyMobileBootClass, isOversizedDisplay, isPhoneOrTablet, persistMobileBootFlag } from "./mobile-boot.mjs";
 
 const RELOAD_GUARD = "illusive-dnd-mobile-client-reload";
 
-/** Real phones/tablets only. A Windows touch table is still a desktop canvas. */
+/** Phones and tablets. A Windows touch table is still a desktop canvas. */
 export function isNativeMobile() {
-  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i
-    .test(navigator.userAgent ?? "");
+  return isPhoneOrTablet();
 }
 
 /**
- * Sheet-only for every player account.
- * GM and the Touchscreen table user keep the full canvas HUD.
+ * Sheet-only on phones and tablets.
+ * GM, the Touchscreen user, and any display larger than a tablet keep the canvas.
  */
 export function detectMobileDevice() {
+  if (isOversizedDisplay()) return false;
+
   const mode = getMobileClientMode();
   if (mode === "forceMobile") return true;
   if (mode === "forceDesktop") return false;
@@ -23,10 +24,9 @@ export function detectMobileDevice() {
   const user = game.user;
   if (user) {
     if (user.isGM || isTouchTableClient()) return false;
-    return true;
+    return isNativeMobile();
   }
 
-  // User not ready yet (very early boot) — phones only.
   return isNativeMobile();
 }
 

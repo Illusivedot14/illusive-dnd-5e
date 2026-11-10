@@ -3,6 +3,7 @@ import { settingOn } from "../../lib/hud-settings.mjs";
 import { desktopHudEnabled } from "../../lib/mobile-client.mjs";
 import { getHudBand } from "../../lib/hud-bounds.mjs";
 import { getUiLocalRect } from "../../lib/viewport.mjs";
+import { isTabletopChromeOn } from "../../../tabletop/chrome.mjs";
 import { isActionBarMinimized } from "./action-bar-minimize.mjs";
 
 const HIDE_SELECTORS = ["#players", "#fps"];
@@ -176,8 +177,18 @@ export async function beginFoundryChromeConceal() {
   clearFoundryHotbarAlignment();
 }
 
+/** Hotbar is on screen and has a box the action bar can sit above. */
+function hotbarOccupiesLayout(hotbar) {
+  if (!hotbar || isTabletopChromeOn()) return false;
+  const style = getComputedStyle(hotbar);
+  if (style.display === "none" || style.visibility === "hidden") return false;
+  const rect = getUiLocalRect(hotbar);
+  return Boolean(rect && rect.width >= 1 && rect.height >= 1);
+}
+
 /** @returns {boolean} whether Foundry bottom chrome was hidden for the expanded action bar */
 export function syncFoundryUiVisibility() {
+  if (isTabletopChromeOn()) return false;
   restoreFoundryHotbarParent();
 
   // During minimize/expand, chrome opacity is owned by the handoff helpers.
@@ -203,6 +214,7 @@ export function syncFoundryUiVisibility() {
 export function isFoundryHotbarHidden() {
   const hotbar = document.getElementById("hotbar");
   if (!hotbar) return false;
+  if (!hotbarOccupiesLayout(hotbar)) return true;
   if (hotbar.classList.contains("illusive-dnd-ui-hidden")) return true;
   // Mid-handoff reveal still counts as "present" for dock positioning.
   if (hotbar.classList.contains("illusive-dnd-ui-handoff")) return false;

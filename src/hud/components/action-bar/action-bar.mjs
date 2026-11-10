@@ -134,8 +134,10 @@ export function positionActionBar() {
 
   syncFoundryUiVisibility();
 
-  // When the action bar is tucked away, sit above Foundry's restored hotbar.
-  const hotbarRect = isFoundryHotbarHidden() ? null : (hotbar ? getUiLocalRect(hotbar) : null);
+  // Sit above Foundry's hotbar only when that bar is actually on screen.
+  // A missing hotbar (tabletop hides it) keeps the chevron at the bottom edge.
+  const measured = (!hotbar || isFoundryHotbarHidden()) ? null : getUiLocalRect(hotbar);
+  const hotbarRect = measured && measured.width >= 1 && measured.height >= 1 ? measured : null;
   const uiH = getUiViewportSize().h;
   dock.style.bottom = hotbarRect != null
     ? `${Math.max(12, uiH - hotbarRect.top + 8 + offsetY)}px`

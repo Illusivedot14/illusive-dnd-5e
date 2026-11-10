@@ -21,6 +21,13 @@
         <p class="hint">{{empty}}</p>
         {{/if}}
       </div>
+      {{else if isUserSelect}}
+      <select name="{{key}}" {{#if disabled}}disabled{{/if}}>
+        <option value="" {{#unless value}}selected{{/unless}}>{{noneLabel}}</option>
+        {{#each users}}
+        <option value="{{id}}" {{#if selected}}selected{{/if}}>{{name}}</option>
+        {{/each}}
+      </select>
       {{else if isSelect}}
       <select name="{{key}}">
         {{selectOptions choices selected=value localize=false}}

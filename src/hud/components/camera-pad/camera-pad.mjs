@@ -6,6 +6,9 @@ import { getUiLocalRect, getUiViewportSize, setImportant } from "../../lib/viewp
 import { getActionBarToken } from "../../../application/reaction-context.mjs";
 import { panCanvasToToken } from "../../../foundry/token-actions.mjs";
 import { getHudFocusToken, isTouchTableClient } from "../../lib/hooks/touch-table.mjs";
+import { isTabletopClient, isTabletopPilot } from "../../../tabletop/roles.mjs";
+import { recenterTabletop } from "../../../tabletop/lock.mjs";
+import { driveLocalTable, driveTableFromStick, requestTabletopRecenter, tabletopControlsItself } from "../../../tabletop/pilot.mjs";
 import {
   applyCanvasView,
   canvasScaleLimits,
@@ -36,10 +39,16 @@ function cameraPadAllowed() {
   }
 }
 
-/** Pad is on when this client enables it, desktop HUD is up, and this user is on the world list. */
+/**
+ * Pad is on when this client enables it and the desktop HUD is up.
+ * The tabletop user gets one only when they are also the camera controller. Anyone else chosen as controller gets one too.
+ * Anyone else needs to be on the world list (unset means nobody else).
+ */
 export function shouldShowCameraPad() {
   if (!desktopHudEnabled()) return false;
   if (!settingOn("enableCameraPad")) return false;
+  if (isTabletopClient() && !isTabletopPilot()) return false;
+  if (isTabletopPilot()) return true;
   const allowed = cameraPadAllowed();
   if (Array.isArray(allowed)) return allowed.includes(game.user?.id);
   if (allowed === "gm") return Boolean(game.user?.isGM);
@@ -174,10 +183,12 @@ function tick(ts) {
     return;
   }
 
-  const view = readCanvasView();
-  const { dx, dy } = stickToSceneDelta(stick.x, stick.y, view.scale, dt);
-  const scale = nextScale(view.scale, zoomHeld, dt, canvasScaleLimits());
-  applyCanvasView(nextViewPosition(view, { dx, dy, scale }));
+  if (!driveLocalTable({ stick, zoomHeld, dt }) && !driveTableFromStick({ stick, zoomHeld, dt })) {
+    const view = readCanvasView();
+    const { dx, dy } = stickToSceneDelta(stick.x, stick.y, view.scale, dt);
+    const scale = nextScale(view.scale, zoomHeld, dt, canvasScaleLimits());
+    applyCanvasView(nextViewPosition(view, { dx, dy, scale }));
+  }
   rafId = requestAnimationFrame(tick);
 }
 
@@ -190,6 +201,14 @@ function setHeld(el, held) {
 }
 
 function recenterOnToken() {
+  if (tabletopControlsItself()) {
+    recenterTabletop();
+    return;
+  }
+  if (isTabletopPilot()) {
+    requestTabletopRecenter();
+    return;
+  }
   const token = getActionBarToken() ?? getHudFocusToken();
   if (!token) return;
   withLockViewUnlocked(() => panCanvasToToken(token));
@@ -255,7 +274,7 @@ function onPointerUp(event) {
 }
 
 function paintPad(root) {
-  root.setAttribute("aria-label", illusiveDnd.cameraPad("title"));
+  root.setAttribute("aria-label", illusiveDnd.cameraPad(isTabletopPilot() ? "tableTitle" : "title"));
   for (const [action, key] of [
     ["up", "panUp"],
     ["down", "panDown"],

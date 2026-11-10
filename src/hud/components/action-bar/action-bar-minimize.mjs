@@ -13,6 +13,7 @@ import {
   updateMinimizeControl as updateMinimizeControlShared,
   waitForCssMotion
 } from "../../lib/viewport.mjs";
+import { isTabletopChromeOn } from "../../../tabletop/chrome.mjs";
 import {
   beginFoundryChromeConceal,
   beginFoundryChromeReveal,
@@ -118,7 +119,8 @@ async function animateActionBarMinimized(dock, minimized) {
 
     // Fade the Foundry hotbar in under the departing action bar, and lift the
     // dock to its final resting height so the end doesn't snap.
-    beginFoundryChromeReveal();
+    // Tabletop has no hotbar: the chevron just rests on the bottom edge.
+    if (!isTabletopChromeOn()) beginFoundryChromeReveal();
     await repositionDock();
 
     const slidePx = slideOffDistance(motion);
@@ -140,13 +142,13 @@ async function animateActionBarMinimized(dock, minimized) {
     clearBarMotionStyles(motion);
     dock.style.removeProperty("overflow");
     motion.setAttribute("aria-hidden", "true");
-    finishFoundryChromeReveal();
+    if (!isTabletopChromeOn()) finishFoundryChromeReveal();
     dock.classList.remove(HANDOFF_DOCK);
     return;
   }
 
   // Expand: fade hotbar away first, drop the dock, then slide the action bar up.
-  await beginFoundryChromeConceal();
+  if (!isTabletopChromeOn()) await beginFoundryChromeConceal();
   await repositionDock();
 
   const storedHeight = Math.ceil(parseFloat(dock.style.getPropertyValue("--illusive-dnd-action-bar-frame-height")) || 0);
