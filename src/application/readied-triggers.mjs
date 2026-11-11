@@ -13,6 +13,7 @@ function anyMoveReadied(scene = globalThis.canvas) {
 
 /** updateToken (mover's client): offer readied move triggers once the move lands. */
 export async function offerReadiedMoveTrigger(tokenDoc, changes, options, userId) {
+  if (options?.isUndo || options?.illusiveSkipOA) return;
   if (userId && userId !== globalThis.game?.user?.id) return;
   if (changes?.x == null && changes?.y == null) return;
   if (options?.dnd5e?.fall) return;

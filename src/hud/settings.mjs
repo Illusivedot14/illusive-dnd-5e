@@ -115,7 +115,34 @@ function registerMain(key, config) {
   });
 }
 
+function registerWorld(key, config) {
+  game.settings.register(MODULE_ID, key, {
+    scope: "world",
+    config: true,
+    ...illusiveDndMainSettingLabels(key),
+    ...config
+  });
+}
+
 export function registerSettings() {
+  const saveRollChoices = ["physical", "manual", "automated"];
+  registerWorldHidden("playerSaveRolls", {
+    type: Object,
+    default: {}
+  });
+  registerSettingsSubmenu("playerMenu", {
+    menuId: "player",
+    titleKey: "settings.menus.player.title",
+    icon: "fas fa-users",
+    settingKeys: ["playerSaveRolls"],
+    restricted: true
+  });
+  registerWorld("gmSaveRolls", {
+    type: String,
+    default: "automated",
+    choices: illusiveDndSettingChoices("gmSaveRolls", saveRollChoices)
+  });
+
   const layoutRefresh = () => repositionHud();
   const displayRefresh = () => {
     applyLayoutVariables();

@@ -5,9 +5,52 @@ import { resolveActionBarToken } from "../hud/lib/action-bar-token.mjs";
 import { getTargetPickState } from "../hud/components/action-bar/action-bar-target-picker.mjs";
 import { findActorTokenDoc, findTokenViewById, tokenViewFromDoc } from "../foundry/token-step.mjs";
 import { tokenForActor } from "../foundry/token-lookup.mjs";
+import { illusiveDnd } from "../i18n/index.mjs";
 
 let reactionContext = null;
 let reactionPromptTimer = null;
+/** @type {Map<string, { close: Function }>} */
+const reactionDialogs = new Map();
+
+export function trackReactionDialog(actorId, dialog) {
+  if (actorId && dialog) reactionDialogs.set(actorId, dialog);
+}
+
+export function closeReactionDialog(actorId) {
+  const dialog = reactionDialogs.get(actorId);
+  reactionDialogs.delete(actorId);
+  try {
+    dialog?.close();
+  } catch {
+    /* already closed */
+  }
+  releaseDialogLock();
+}
+
+/**
+ * A modal dialog that is removed while open leaves the page inert in Chromium.
+ * Tokens then ignore clicks. Drop that lock once nothing is still open.
+ */
+export function releaseDialogLock() {
+  const root = globalThis.document;
+  if (!root?.body) return;
+  setTimeout(() => {
+    if ([...root.querySelectorAll("dialog")].some((dialog) => dialog.open)) return;
+    for (const el of root.querySelectorAll("[inert]")) {
+      try { el.inert = false; } catch { /* ignore */ }
+    }
+    const dummy = root.createElement("dialog");
+    dummy.style.cssText = "position:fixed;width:0;height:0;padding:0;border:0;opacity:0";
+    root.body.append(dummy);
+    try {
+      dummy.showModal();
+      dummy.close();
+    } catch {
+      /* ignore */
+    }
+    dummy.remove();
+  }, 0);
+}
 
 export function getReactionContext() {
   return reactionContext;
@@ -145,9 +188,219 @@ function showReactionPrompt(actor, activities, triggerType, options = {}) {
   });
 
   if (reactionPromptTimer) clearTimeout(reactionPromptTimer);
-  reactionPromptTimer = setTimeout(() => {
+  reactionPromptTimer = null;
+  // The dialog is the decision. A timer that passes underneath it makes the click do nothing.
+  const dialog = globalThis.foundry?.applications?.api?.DialogV2;
+  if (typeof dialog?.wait !== "function") {
+    reactionPromptTimer = setTimeout(() => {
+      passReaction();
+    }, timeoutMs);
+  }
+
+  try {
+    globalThis.Hooks?.callAll?.(`${MODULE_ID}.reactionPrompt`, { actor, triggerType, options });
+  } catch {
+    /* HUD optional */
+  }
+  void presentReactionChoice(actor, activities, options);
+}
+
+function activityItemName(activity) {
+  try {
+    return activity?.item?.name ?? activity?.parent?.parent?.name ?? null;
+  } catch {
+    return activity?.parent?.parent?.name ?? null;
+  }
+}
+
+/** dnd5e names most weapon activities "Attack". The weapon name is what the player can tell apart. */
+function reactionChoiceLabel(activity) {
+  const itemName = activityItemName(activity);
+  const activityName = activity?.name || activity?.label || null;
+  const generic = !activityName || /^(attack|use|action)$/i.test(String(activityName).trim());
+  if (itemName && (generic || itemName === activityName)) return itemName;
+  if (itemName && activityName) return `${itemName} — ${activityName}`;
+  return activityName || itemName || "Use";
+}
+
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
+function moverName(options) {
+  const uuid = options?.moverUuid;
+  if (!uuid || typeof globalThis.fromUuidSync !== "function") return null;
+  try {
+    const doc = globalThis.fromUuidSync(uuid);
+    return doc?.name ?? doc?.actor?.name ?? null;
+  } catch {
+    return null;
+  }
+}
+
+function checkedPickValues(root) {
+  if (!root?.querySelectorAll) return [];
+  const selected = [];
+  root.querySelectorAll('input[type="checkbox"]').forEach((box) => {
+    if (box.checked && box.value) selected.push(box.value);
+  });
+  return selected;
+}
+
+function parseBatchPicks(choice, groups) {
+  if (choice == null || choice === false || choice === "pass") return [];
+  const values = Array.isArray(choice) ? choice : [];
+  const seen = new Set();
+  const picks = [];
+  for (const value of values) {
+    const [groupRaw, optionRaw] = String(value).split(":");
+    const group = Number(groupRaw);
+    const option = Number(optionRaw);
+    const chosen = groups[group]?.options?.[option];
+    if (!chosen || seen.has(group)) continue;
+    seen.add(group);
+    picks.push({ group, option, id: chosen.id });
+  }
+  return picks;
+}
+
+/**
+ * One window for every creature who can react.
+ * Each option is a checkbox. One check per creature. All pass or Confirm.
+ * @returns {Promise<{ picks: { group: number, option: number, id: string }[] }>}
+ */
+export async function reactionBatchDialog({ title, sentence, groups = [] } = {}) {
+  const DialogV2 = globalThis.foundry?.applications?.api?.DialogV2;
+  if (typeof DialogV2?.wait !== "function") {
+    console.info("illusive-dnd-5e | oa | reaction dialog missing", {
+      actors: groups.map((group) => group.actorName),
+      waitType: typeof DialogV2?.wait
+    });
+    return null;
+  }
+  const sections = groups.map((group, groupIndex) => {
+    const actorKey = String(group.actorId ?? groupIndex);
+    const rows = (group.options ?? []).map((option, optionIndex) => {
+      const value = `${groupIndex}:${optionIndex}`;
+      return `<label class="checkbox" style="display:flex;align-items:center;gap:0.75rem;margin:0.35rem 0;font-size:1rem;"><input type="checkbox" name="pick-${value}" value="${escapeHtml(value)}" data-actor="${escapeHtml(actorKey)}" style="width:1.25rem;height:1.25rem;flex:0 0 1.25rem;"> ${escapeHtml(option.label)}</label>`;
+    }).join("");
+    return `<section style="margin:0.75rem 0 1rem;"><h4 style="margin:0 0 0.35rem;">${escapeHtml(group.actorName ?? "A creature")}</h4>${rows}</section>`;
+  }).join("");
+  console.info("illusive-dnd-5e | oa | reaction dialog open", {
+    actors: groups.map((group) => group.actorName),
+    options: groups.map((group) => (group.options ?? []).map((option) => option.label))
+  });
+  let choice = null;
+  try {
+    choice = await DialogV2.wait({
+      window: { title },
+      position: { width: 480 },
+      content: `<div style="min-width:28rem;"><p>${escapeHtml(sentence)}</p>${sections}</div>`,
+      rejectClose: false,
+      modal: false,
+      buttons: [
+        {
+          action: "pass",
+          label: illusiveDnd.reaction("allPass"),
+          callback: () => "pass"
+        },
+        {
+          action: "confirm",
+          label: illusiveDnd.reaction("confirm"),
+          default: true,
+          callback: (_event, button, dialog) => checkedPickValues(dialog?.element ?? button?.form)
+        }
+      ],
+      render: (_event, dialog) => {
+        trackReactionDialog(groups[0]?.actorId, dialog);
+        const root = dialog?.element;
+        if (!root?.querySelectorAll) return;
+        for (const box of root.querySelectorAll('input[type="checkbox"]')) {
+          box.addEventListener("change", () => {
+            if (!box.checked) return;
+            const actor = box.getAttribute("data-actor");
+            for (const other of root.querySelectorAll('input[type="checkbox"]')) {
+              if (other !== box && other.getAttribute("data-actor") === actor) other.checked = false;
+            }
+          });
+        }
+      }
+    });
+  } catch {
+    return { picks: [] };
+  } finally {
+    releaseDialogLock();
+  }
+  return { picks: parseBatchPicks(choice, groups) };
+}
+
+/** A real dialog. The action bar is not the prompt. */
+async function presentReactionChoice(actor, activities, options = {}) {
+  const reactorName = actor?.name ?? "A creature";
+  const opportunity = options?.opportunityAttack === true;
+  const title = opportunity ? illusiveDnd.t("opportunity.title") : illusiveDnd.reaction("title");
+  const mover = moverName(options);
+  const sentence = opportunity
+    ? illusiveDnd.t("opportunity.batch", { mover: mover || "A creature" })
+    : illusiveDnd.reaction("prompt", { name: reactorName });
+  const result = await reactionBatchDialog({
+    title,
+    sentence,
+    groups: [{
+      actorId: actor?.id ?? null,
+      actorName: reactorName,
+      options: (activities ?? []).map((activity, index) => ({
+        id: String(activity?.id ?? activity?._id ?? index),
+        label: reactionChoiceLabel(activity)
+      }))
+    }]
+  });
+  if (!result) return;
+  if (getReactionContext()?.actorId !== actor?.id) return;
+  const pick = result.picks[0];
+  if (!pick) {
     passReaction();
-  }, timeoutMs);
+    return;
+  }
+  const activity = activities?.[pick.option];
+  const itemId = activity?.item?.id ?? activity?.parent?.id ?? null;
+  const token = findTokenForActor(actor);
+  if (!activity || !itemId || !token) {
+    passReaction();
+    return;
+  }
+  const used = await useReactionFromHud(token, itemId, activity.id ?? activity._id);
+  if (!used && getReactionContext()?.actorId === actor?.id) passReaction();
+}
+
+/** GM prompt that can end a player-owned reaction. Closing it leaves the player's choice open. */
+export async function showForceEndDialog(actor) {
+  const DialogV2 = globalThis.foundry?.applications?.api?.DialogV2;
+  if (typeof DialogV2?.wait !== "function") return false;
+  const name = actor?.name || "They";
+  let choice = null;
+  try {
+    choice = await DialogV2.wait({
+      window: { title: illusiveDnd.reaction("forceTitle") },
+      content: `<p>${illusiveDnd.reaction("forceBody", { name })}</p>`,
+      rejectClose: false,
+      modal: false,
+      buttons: [{
+        action: "end",
+        label: illusiveDnd.reaction("force"),
+        callback: () => "end"
+      }],
+      render: (_event, dialog) => trackReactionDialog(actor?.id, dialog)
+    });
+  } catch {
+    return false;
+  } finally {
+    releaseDialogLock();
+  }
+  return choice === "end";
 }
 
 /**

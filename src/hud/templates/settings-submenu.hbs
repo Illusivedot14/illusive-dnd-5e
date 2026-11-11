@@ -1,5 +1,23 @@
 <form class="illusive-dnd-subsettings-form">
   {{#each fields}}
+  {{#if isPlayerRolls}}
+  <div class="illusive-dnd-player-rolls">
+    <h3>{{name}}</h3>
+    {{#if hint}}<p class="hint">{{hint}}</p>{{/if}}
+    {{#if users.length}}
+    {{#each users}}
+    <div class="illusive-dnd-player-roll">
+      <label for="illusive-dnd-player-roll-{{id}}">{{name}}</label>
+      <select id="illusive-dnd-player-roll-{{id}}" name="{{../key}}.{{id}}">
+        {{selectOptions ../modeChoices selected=mode localize=false}}
+      </select>
+    </div>
+    {{/each}}
+    {{else}}
+    <p class="hint">{{empty}}</p>
+    {{/if}}
+  </div>
+  {{else}}
   <div class="form-group">
     <label>{{name}}</label>
     <div class="form-fields">
@@ -45,6 +63,7 @@
     </div>
     {{#if hint}}<p class="hint">{{hint}}</p>{{/if}}
   </div>
+  {{/if}}
   {{/each}}
   <footer class="form-footer">
     <button type="submit"><i class="fas fa-save"></i> {{saveLabel}}</button>

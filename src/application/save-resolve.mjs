@@ -97,7 +97,8 @@ export async function rollActivitySave(actor, activity, {
     const roll = await rollAsOwner(actor, "save", { ...rollConfig, ...overrides });
     let total = Number(roll?.total);
     // If the roll API ignored parts, nudge the total for DC comparison only.
-    if (bonus && Number.isFinite(total)) {
+    // A physical save was already judged against the DC, cover included.
+    if (bonus && Number.isFinite(total) && !roll?.physical) {
       const formula = String(roll?.formula ?? "");
       if (!formula.includes(String(bonus))) total += bonus;
     }
@@ -106,7 +107,9 @@ export async function rollActivitySave(actor, activity, {
 
   let { roll, total } = await rollOnce();
   await consumeRollAdvantage(actor, mods.reasons);
-  let outcome = evaluateSaveVsDc({ total, dc });
+  let outcome = roll?.physical
+    ? { success: Boolean(roll.success), reason: roll.success ? "saved" : "failed" }
+    : evaluateSaveVsDc({ total, dc });
   const reactions = [];
 
   if (resolutionId && tokenUuid && Number.isFinite(dc) && Number.isFinite(total)) {

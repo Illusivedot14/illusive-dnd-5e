@@ -81,7 +81,7 @@ function onUpdateToken(doc, changes, options, userId) {
     const token = doc?.object
       ?? globalThis.canvas?.tokens?.placeables?.find((t) => t.document?.id === doc?.id)
       ?? null;
-    if (token) noteTokenMovedDuringCombat(token, changes);
+    if (token) noteTokenMovedDuringCombat(token, changes, options);
   }
 
   if (isTokenMovementChange(changes)) {

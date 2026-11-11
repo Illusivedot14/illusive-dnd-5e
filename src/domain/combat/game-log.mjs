@@ -48,7 +48,8 @@ export function createGameLogEntry(input = {}) {
     movementId: input.movementId ?? null,
     costFeet: input.costFeet ?? null,
     at: input.at ?? Date.now(),
-    appliedChanges: Array.isArray(input.appliedChanges) ? [...input.appliedChanges] : []
+    appliedChanges: Array.isArray(input.appliedChanges) ? [...input.appliedChanges] : [],
+    economySpend: input.economySpend ?? null
   };
 }
 
@@ -225,10 +226,10 @@ export function collectUndoCascade(turns = [], entryId) {
     const cause = queue.shift();
     for (const e of all) {
       if (picked.has(e.id)) continue;
-      const reaction = e.kind === "reaction" && (
-        e.parentId === cause.id
+      // A reaction against this row, including one stored as an action (a spell).
+      const reaction = e.parentId === cause.id
         || (cause.resolutionId && e.parentResolutionId === cause.resolutionId)
-      );
+        || (cause.resolutionId && e.parentId === cause.resolutionId);
       const deps = e.dependsOn ?? [];
       const dependent = deps.includes(cause.id)
         || (cause.resolutionId && deps.includes(cause.resolutionId));

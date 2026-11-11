@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach } from "vitest";
+import { describe, it, expect, beforeEach, vi } from "vitest";
 import { MODULE_ID, installFoundry, makeActor, makeCombatant, makeCombat, makeToken } from "./helpers.mjs";
 import {
   getEconomyActions,
@@ -6,8 +6,10 @@ import {
   getEconomyAvailability,
   markEconomyUsed,
   readBudget,
-  freshBudget
+  freshBudget,
+  writeBudget
 } from "../src/application/economy.mjs";
+import { bindCombatTurnHooks } from "../src/foundry/combat-turn.mjs";
 
 function installCombatWithActor(actor, token, budget = freshBudget()) {
   const combatant = makeCombatant({
@@ -65,6 +67,56 @@ describe("activity economy (combatant budget)", () => {
     expect(spend.after.action).toBe(0);
     expect(readBudget(combatant).action).toBe(0);
     expect(isEconomyAvailable(actor, "action")).toBe(false);
+  });
+
+  it("a player asks the GM to save a combatant budget instead of updating it", async () => {
+    installFoundry();
+    const query = vi.fn(async () => ({ ok: true }));
+    globalThis.game.user.isGM = false;
+    globalThis.game.users = [{ id: "user1", active: true, isGM: false, name: "Vesper" }];
+    globalThis.game.users.activeGM = { id: "gm", isSelf: false, query };
+    const combatant = makeCombatant({ id: "GLBnA7yc6B6eIKvR" });
+    combatant.uuid = "Combat.OUNariBh0nbQ1ieO.Combatant.GLBnA7yc6B6eIKvR";
+
+    await writeBudget(combatant, freshBudget());
+
+    expect(combatant.setFlag).not.toHaveBeenCalled();
+    expect(query).toHaveBeenCalledWith(
+      "illusive-dnd-5e.write",
+      expect.objectContaining({
+        op: expect.objectContaining({
+          type: "setFlag",
+          uuid: combatant.uuid,
+          key: "turn"
+        })
+      }),
+      expect.any(Object)
+    );
+  });
+
+  it("a player's turn-change hook does not update the combatant", async () => {
+    installFoundry();
+    const previousOn = globalThis.Hooks.on;
+    const handlers = {};
+    globalThis.Hooks.on = (name, fn) => { handlers[name] = fn; };
+    try {
+      bindCombatTurnHooks();
+      const combatant = makeCombatant({ id: "c1", tokenId: "t1" });
+      const combat = makeCombat({ id: "combat", started: true, combatants: [combatant] });
+      combat.current = { tokenId: "t1" };
+      globalThis.game.combat = combat;
+      globalThis.game.user.isGM = false;
+      globalThis.game.users = [{ id: "user1", active: true, isGM: false }];
+      globalThis.game.users.activeGM = { id: "gm", isSelf: false, query: vi.fn() };
+      globalThis.canvas.ready = true;
+
+      handlers.combatTurnChange(combat, null, { tokenId: "t1" });
+      await Promise.resolve();
+
+      expect(combatant.setFlag).not.toHaveBeenCalled();
+    } finally {
+      globalThis.Hooks.on = previousOn;
+    }
   });
 
   it("defaults unknown economy types to available", () => {

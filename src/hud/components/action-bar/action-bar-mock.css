@@ -1843,6 +1843,12 @@
   border-radius: 6px;
 }
 
+.illusive-dnd-game-log-item[data-depth="1"] { padding-left: 1.6rem; }
+.illusive-dnd-game-log-item[data-depth="2"] { padding-left: 3rem; }
+.illusive-dnd-game-log-item[data-depth="3"] { padding-left: 4.4rem; }
+.illusive-dnd-game-log-item[data-depth="4"] { padding-left: 5.8rem; }
+.illusive-dnd-game-log-item[data-depth="5"] { padding-left: 7.2rem; }
+
 .illusive-dnd-game-log-item:hover {
   background: rgba(255, 255, 255, 0.06);
 }

@@ -84,6 +84,36 @@
   color: #1a1208 !important;
 }
 
+.illusive-dnd-subsettings-form .illusive-dnd-player-rolls {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  width: 100%;
+}
+
+.illusive-dnd-subsettings-form .illusive-dnd-player-rolls h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.illusive-dnd-subsettings-form .illusive-dnd-player-roll {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+}
+
+.illusive-dnd-subsettings-form .illusive-dnd-player-roll label {
+  flex: 1 1 auto;
+  margin: 0;
+}
+
+.illusive-dnd-subsettings-form .illusive-dnd-player-roll select {
+  flex: 0 0 11rem;
+}
+
 .illusive-dnd-subsettings-form .illusive-dnd-user-list {
   display: flex;
   flex-direction: column;

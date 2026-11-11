@@ -21,6 +21,8 @@ export async function saveResolution(resolution) {
   memory.set(resolution.id, clone(resolution));
 
   try {
+    // World setting. A player write is rejected and shows up as a socket error.
+    if (globalThis.game?.user && globalThis.game.user.isGM !== true) return;
     if (!game?.settings?.settings?.has?.(`${MODULE_ID}.workflowStore`)) return;
     const all = { ...(game.settings.get(MODULE_ID, "workflowStore") ?? {}) };
     // Keep only non-terminal or recently completed for undo window

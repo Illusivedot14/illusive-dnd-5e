@@ -152,7 +152,8 @@ export async function startHudAction({ token, item, activity, section, event, us
     actorUuid: actor?.uuid ?? null,
     tokenUuid: token?.document?.uuid ?? token?.uuid ?? null,
     section,
-    resolutionId: id
+    resolutionId: id,
+    parentId: useOptions.parentLogId ?? null
   });
 
   let resolved;
@@ -579,6 +580,10 @@ export async function resumePending() {
 
 export function getCausingResolutionId() {
   return causingResolutionId;
+}
+
+export function _rememberResolutionForTests(state) {
+  if (state?.id) memory.set(state.id, state);
 }
 
 export function _resetCombatMemory() {

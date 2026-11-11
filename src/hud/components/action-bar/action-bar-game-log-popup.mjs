@@ -7,7 +7,7 @@ import { MODULE_PATH, illusiveDndRenderTemplate } from "../../../constants.mjs";
 import { illusiveDnd } from "../../../i18n/index.mjs";
 import { refreshHud } from "../../lib/render/core.mjs";
 import { ILLUSIVE_DND_RENDER } from "../../lib/render/scopes.mjs";
-import { getActionBarToken } from "../../../application/reaction-context.mjs";
+import { getActionBarToken, releaseDialogLock } from "../../../application/reaction-context.mjs";
 import { getActiveCombatant, getViewedCombat } from "../../../foundry/combat.mjs";
 import {
   getGameLogView,
@@ -54,12 +54,16 @@ function resolvePopupFilter(options = {}) {
 
 async function confirmUndo(label) {
   const DialogV2 = foundry.applications.api.DialogV2;
-  return Boolean(await DialogV2.confirm({
-    window: { title: illusiveDnd.actionBar("gameLogUndoTitle") },
-    content: `<p>${illusiveDnd.actionBar("gameLogUndoConfirm", { label })}</p>`,
-    modal: true,
-    rejectClose: false
-  }));
+  try {
+    return Boolean(await DialogV2.confirm({
+      window: { title: illusiveDnd.actionBar("gameLogUndoTitle") },
+      content: `<p>${illusiveDnd.actionBar("gameLogUndoConfirm", { label })}</p>`,
+      modal: false,
+      rejectClose: false
+    }));
+  } finally {
+    releaseDialogLock();
+  }
 }
 
 async function handleUndo(entryId, label, dialog) {
@@ -143,6 +147,7 @@ export async function openGameLogPopup(options = {}) {
       icon: "fas fa-scroll"
     },
     content,
+    modal: false,
     position: { width: master ? 480 : 420 },
     buttons: [
       {
@@ -154,6 +159,7 @@ export async function openGameLogPopup(options = {}) {
     ],
     close: () => {
       if (openDialog === dialog) openDialog = null;
+      releaseDialogLock();
     }
   });
 

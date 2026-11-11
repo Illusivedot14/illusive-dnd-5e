@@ -20,6 +20,7 @@ import {
   recordResolutionOnGameLog,
   recordAbilityUseStartedOnGameLog,
   recordMovementOnGameLog,
+  openProvokedMovement,
   recordStandardActionOnGameLog,
   recordGameLogEvent,
   noteTokenMovedDuringCombat,
@@ -231,6 +232,47 @@ describe("combat game-log application", () => {
     expect(getGameLogView({ scope: "all" }).empty).toBe(true);
   });
 
+  it("indents each reaction one step under the action it answers", () => {
+    setGameLogCombatActive(true);
+    _setGameLogCursorForTests(1, 0);
+    const move = recordMovementOnGameLog({ tokenUuid: "Token.v", label: "Vesper moved" });
+    recordAbilityUseStartedOnGameLog({
+      item: { name: "Slam" },
+      section: "reaction",
+      resolutionId: "res-slam",
+      parentId: move.id
+    });
+    recordResolutionOnGameLog(createActionResolution({
+      id: "res-slam",
+      phase: "completed",
+      activationType: "action",
+      trace: [{ detail: "Slam finished · 1 hit" }]
+    }));
+    recordResolutionOnGameLog(createActionResolution({
+      id: "res-shield",
+      phase: "completed",
+      parentResolutionId: "res-slam",
+      activationType: "reaction",
+      trace: [{ detail: "Shield" }]
+    }), { parentId: "res-slam" });
+    recordResolutionOnGameLog(createActionResolution({
+      id: "res-counter",
+      phase: "completed",
+      parentResolutionId: "res-shield",
+      activationType: "reaction",
+      trace: [{ detail: "Counterspell" }]
+    }), { parentId: "res-shield" });
+
+    expect(getGameLogView({ scope: "all" }).entries.map((entry) => (
+      [entry.label, entry.kind, entry.depth]
+    ))).toEqual([
+      ["Vesper moved", "movement", 0],
+      ["Slam", "reaction", 1],
+      ["Shield", "reaction", 2],
+      ["Counterspell", "reaction", 3]
+    ]);
+  });
+
   it("clears all turn lists when combat ends", () => {
     setGameLogCombatActive(true);
     recordMovementOnGameLog({ tokenUuid: "T1", label: "Move" });
@@ -301,6 +343,35 @@ describe("combat game-log application", () => {
     expect(entry).toBeTruthy();
     expect(entry.kind).toBe("movement");
     expect(entry.detail).toMatch(/5 ft/);
+  });
+
+  it("fills the reserved move row instead of adding a second one", () => {
+    setGameLogCombatActive(true);
+    _setGameLogCursorForTests(1, 0);
+    const doc = {
+      name: "Vesper",
+      uuid: "Token.vesper",
+      x: 0,
+      y: 0,
+      elevation: 0,
+      _source: { _movementHistory: [{ x: 0, y: 0, cost: 0 }] },
+      movementHistory: [{ x: 0, y: 0, cost: 0 }]
+    };
+    const token = { name: "Vesper", document: doc, actor: { uuid: "Actor.v" }, x: 0, y: 0 };
+    doc.object = token;
+    const reservedId = openProvokedMovement(doc);
+    doc._source._movementHistory = [
+      { x: 0, y: 0, cost: 0 },
+      { x: 200, y: 0, cost: 10, movementId: "drag-1" }
+    ];
+    doc.movementHistory = doc._source._movementHistory;
+    doc.x = 200;
+    token.x = 200;
+    noteTokenMovedDuringCombat(token, { x: 200, y: 0 }, { illusiveMovementLogId: reservedId });
+    const actions = getGameLogStack()[0].actions;
+    expect(actions).toHaveLength(1);
+    expect(actions[0].id).toBe(reservedId);
+    expect(actions[0].detail).toMatch(/10 ft/);
   });
 
   it("keeps separate drags as separate rows so undo stops at B not A", () => {

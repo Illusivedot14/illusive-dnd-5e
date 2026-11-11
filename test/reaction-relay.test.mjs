@@ -138,6 +138,21 @@ describe("reaction relay", () => {
     expect(remoteOwnerFor({ testUserPermission: () => false })).toBeNull();
   });
 
+  it("sends a player character's reaction to the assigned player while the GM is the one moving", () => {
+    installFoundry();
+    const vesper = { id: "vesper", uuid: "Actor.vesper" };
+    const player = { id: "vesper-user", active: true, isGM: false, character: vesper };
+    globalThis.game.user = { id: "gm", isGM: true };
+    globalThis.game.users = [player, { id: "gm", active: true, isGM: true, isSelf: true }];
+    const actor = {
+      id: "vesper",
+      uuid: "Actor.vesper",
+      isOwner: true,
+      testUserPermission: () => false
+    };
+    expect(remoteOwnerFor(actor)?.id).toBe("vesper-user");
+  });
+
   it("sends a remote owner the prompt instead of showing it locally", () => {
     installFoundry();
     const emit = vi.fn();
@@ -239,5 +254,18 @@ describe("reaction relay", () => {
 
     expect(merged.acBonusByTarget.get("Token.wiz")).toBe(5);
     expect(getResolution("hw-2").phase).toBe("awaiting-attack");
+  });
+
+  it("a player does not write the world workflow store", async () => {
+    installFoundry();
+    globalThis.game.user.isGM = false;
+    const set = vi.fn();
+    globalThis.game.settings = {
+      settings: { has: () => true },
+      get: () => ({}),
+      set
+    };
+    await saveResolution(createActionResolution({ id: "player-res", phase: "created", actorUuid: "Actor.vesper" }));
+    expect(set).not.toHaveBeenCalled();
   });
 });

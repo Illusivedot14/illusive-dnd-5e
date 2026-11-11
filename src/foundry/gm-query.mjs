@@ -16,9 +16,9 @@ export function queryName(name) {
 
 /** Register a GM-side query handler. Call during init. */
 export function registerQuery(name, handler) {
-  const queries = globalThis.CONFIG?.queries;
-  if (!queries) return false;
-  queries[queryName(name)] = async (data = {}) => handler(data ?? {});
+  const config = globalThis.CONFIG ?? (globalThis.CONFIG = {});
+  if (!config.queries || typeof config.queries !== "object") config.queries = {};
+  config.queries[queryName(name)] = async (data = {}) => handler(data ?? {});
   return true;
 }
 

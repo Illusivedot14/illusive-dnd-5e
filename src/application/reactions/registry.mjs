@@ -8,7 +8,7 @@
  * See docs/combat-engine.md §9. Citations: src/rules/catalog.mjs.
  */
 
-import { listActivities } from "../../domain/combat/activity-kind.mjs";
+import { linkActivityItem, listActivities } from "../../domain/combat/activity-kind.mjs";
 import { MODULE_ID } from "../../constants.mjs";
 import { runSoftDeclarationUse } from "../triggers/engine.mjs";
 import { getReadiedAction, setReadiedAction } from "./reaction-state.mjs";
@@ -77,7 +77,7 @@ export function listMatchingActivities(actor, spec, ctx = undefined) {
     if (!spec.match(item, ctx)) continue;
     const list = listActivities(item);
     for (const act of list) {
-      act.item = item;
+      linkActivityItem(act, item);
       out.push(act);
     }
     if (!list.length) out.push({ id: item.id, item, type: "utility", name: item.name });
@@ -98,7 +98,7 @@ function readiedActivities(actor, ctx = {}) {
   const act = (readied.activityId ? item?.system?.activities?.get?.(readied.activityId) : null)
     ?? listActivities(item)[0];
   if (!act) return [];
-  act.item = item;
+  linkActivityItem(act, item);
   return [act];
 }
 

@@ -125,4 +125,40 @@ describe("resolveSaveActivity", () => {
     expect(saver.actor.applyDamage).not.toHaveBeenCalled();
     expect(result.applied).toHaveLength(0);
   });
+
+  it("applies half damage when the GM marks a physical player save as passed", async () => {
+    globalThis.game.user.isGM = true;
+    globalThis.game.users = [{ id: "player2", active: true, isGM: false }];
+    globalThis.foundry.applications.api.DialogV2.wait = vi.fn(async () => true);
+    const saver = wireToken(
+      makeToken({
+        id: "t-save",
+        name: "Hero",
+        actor: {
+          uuid: "Actor.save",
+          name: "Hero",
+          testUserPermission: (user) => user.id === "player2",
+          system: { attributes: { hp: { value: 30, max: 30 } } },
+          rollSavingThrow: vi.fn(async () => [{ total: 1 }]),
+          applyDamage: vi.fn(async () => ({}))
+        }
+      }),
+      "Token.save"
+    );
+    globalThis.fromUuidSync = () => saver;
+    canvas.tokens.placeables = [saver];
+
+    const activity = makeSaveActivity({ onSave: "half" });
+    const result = await resolveSaveActivity({
+      activity,
+      targetUuids: ["Token.save"]
+    });
+
+    expect(saver.actor.rollSavingThrow).not.toHaveBeenCalled();
+    expect(result.saveOutcomes[0].success).toBe(true);
+    expect(saver.actor.applyDamage).toHaveBeenCalledWith(
+      [expect.objectContaining({ value: 10, type: "fire" })],
+      expect.objectContaining({ multiplier: 0.5, isDelta: true })
+    );
+  });
 });

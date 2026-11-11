@@ -2,6 +2,20 @@
  * Pure classification of dnd5e items / activities (no Foundry globals).
  */
 
+/**
+ * Remember which item an activity came from, when the activity will accept it.
+ * dnd5e PseudoDocument#item is a getter; assigning it throws.
+ */
+export function linkActivityItem(activity, item) {
+  if (!activity || !item) return;
+  try {
+    if (activity.item) return;
+    activity.item = item;
+  } catch {
+    /* read-only item */
+  }
+}
+
 /** Activities on an item: array / Collection / iterable / values(). */
 export function listActivities(item) {
   const acts = item?.system?.activities;

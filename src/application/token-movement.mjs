@@ -789,6 +789,10 @@ export async function undoTokenMovementToPrior(token, prior, historyLenBefore = 
       action: "walk",
       _movementHistory: kept
     }, {
+      // Foundry treats isUndo as "rewind the whole path". This truncate is one
+      // segment, so mark it as a replay instead: opportunity and readied prompts
+      // must not open again for a move the log is putting back.
+      illusiveSkipOA: true,
       illusiveDndBypassMovementBudget: true,
       diff: false,
       pan: false,

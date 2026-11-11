@@ -44,6 +44,7 @@ Hooks.once("init", () => {
 });
 
 Hooks.once("ready", () => {
+  bindOwnerRolls();
   if (isIllusiveMobileMode()) {
     console.info(`${MODULE_ID} | ready | combat deferred`);
     return;

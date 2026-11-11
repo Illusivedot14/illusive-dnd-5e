@@ -15,11 +15,14 @@ import {
   submitEvent
 } from "../application/combat.mjs";
 import {
+  oaLog,
   previewTokenMoveOpportunity,
   promptOpportunityReactions,
-  stashPendingMove
+  stashPendingMove,
+  getPendingMove
 } from "../application/opportunity-attack.mjs";
 import { enforceCombatMovementBudget } from "../application/token-movement.mjs";
+import { openProvokedMovement } from "../application/combat-game-log.mjs";
 import { applyDamageRolls } from "../application/damage-apply.mjs";
 import { wasDamageApplied, markDamageApplied } from "../application/resolve-activity.mjs";
 import {
@@ -124,12 +127,29 @@ export function bindAutomationHooks() {
   });
 
   route("preUpdateToken", "Hold leave-reach moves for opportunity attacks", (tokenDoc, changes, options) => {
+    const keys = Object.keys(changes ?? {});
+    const movement = keys.some((key) => key === "x" || key === "y" || key === "elevation" || key === "_movementHistory");
+    if (!movement) return;
+    oaLog("preUpdateToken", {
+      token: tokenDoc?.name ?? tokenDoc?.id ?? null,
+      keys,
+      x: changes?.x ?? null,
+      y: changes?.y ?? null
+    });
     if (!featureEnabled("opportunityAttacks")) return;
     if (changes?.x == null && changes?.y == null) return;
     const preview = previewTokenMoveOpportunity({ tokenDoc, changes, options });
-    if (!preview.provoked) return;
+    if (!preview.provoked) {
+      oaLog("not provoked", { token: tokenDoc?.name ?? tokenDoc?.id ?? null });
+      return;
+    }
+    oaLog("holding move", { token: tokenDoc?.name ?? tokenDoc?.id ?? null, candidates: preview.candidates?.length ?? 0 });
     stashPendingMove(tokenDoc, changes, options);
-    void promptOpportunityReactions(preview);
+    const pending = tokenDoc?.id ? getPendingMove(tokenDoc.id) : null;
+    if (pending) pending.logId = openProvokedMovement(tokenDoc);
+    void promptOpportunityReactions(preview).catch((err) => {
+      console.error("illusive-dnd-5e | oa | prompt failed", err);
+    });
     return false;
   });
 

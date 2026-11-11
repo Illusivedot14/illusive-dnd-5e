@@ -8,7 +8,14 @@
 
 import { featureEnabled } from "../levels.mjs";
 import { isEconomyAvailable, getReactionTimeoutMs } from "../economy.mjs";
-import { startReactionPrompt, clearReactionPromptFor } from "../reaction-context.mjs";
+import {
+  startReactionPrompt,
+  clearReactionPrompt,
+  clearReactionPromptFor,
+  getReactionContext,
+  closeReactionDialog,
+  showForceEndDialog
+} from "../reaction-context.mjs";
 import { emitCombatFx } from "../combat-fx.mjs";
 import { MODULE_ID } from "../../constants.mjs";
 import { isIncapacitated } from "../../domain/combat/conditions.mjs";
@@ -19,6 +26,7 @@ import {
   remoteOwnerFor,
   sendReactionPrompt,
   sendReactionDecision,
+  sendReactionControl,
   bindReactionSocket
 } from "../../foundry/reaction-socket.mjs";
 import {
@@ -164,7 +172,7 @@ function activitiesFromRefs(actor, refs = []) {
     const item = actor.items?.get?.(itemId);
     const act = item?.system?.activities?.get?.(activityId);
     if (!act) continue;
-    act.item = item;
+    // PseudoDocument#item is a getter. Writing it throws and the prompt never opens.
     out.push(act);
   }
   return out;
@@ -318,17 +326,40 @@ export function damageTargetsFromPatches(targets = [], merged = null) {
 
 /** Owner-side handler for a relayed prompt: show it here, answer the origin on decide. */
 function onRemotePrompt(data) {
-  const actor = actorFromUuid(data.actorUuid);
-  const activities = actor ? activitiesFromRefs(actor, data.refs) : [];
-  const options = { ...(data.options ?? {}), relayUserId: data.fromUserId };
-  if (!activities.length) {
+  try {
+    const actor = actorFromUuid(data.actorUuid);
+    const activities = actor ? activitiesFromRefs(actor, data.refs) : [];
+    const options = { ...(data.options ?? {}), relayUserId: data.fromUserId };
+    if (!activities.length) {
+      sendReactionDecision(data.fromUserId, { options: data.options ?? {}, used: false });
+      return;
+    }
+    startReactionPrompt(actor, activities, data.windowId, options);
+  } catch (err) {
+    console.error("illusive-dnd-5e | oa | remote prompt failed", err);
     sendReactionDecision(data.fromUserId, { options: data.options ?? {}, used: false });
-    return;
   }
-  startReactionPrompt(actor, activities, data.windowId, options);
+}
+
+function onDismiss(data) {
+  const actorId = data?.actorId ?? null;
+  if (actorId && getReactionContext()?.actorId === actorId) clearReactionPrompt();
+  closeReactionDialog(actorId);
+}
+
+async function onWatch(data) {
+  const ended = await showForceEndDialog({
+    id: data?.actorId,
+    name: data?.actorName,
+    uuid: data?.actorUuid
+  });
+  if (!ended) return;
+  if (data?.ownerUserId) sendReactionControl(data.ownerUserId, "dismiss", { actorId: data.actorId });
+  sendReactionDecision(data?.fromUserId, { options: data?.options ?? {}, used: false });
 }
 
 async function onRemoteDecision(data) {
+  closeReactionDialog(data.options?.actorId ?? null);
   const { settleReactionPrompt } = await import("../reaction-context.mjs");
   await settleReactionPrompt(data.options ?? {}, {
     used: Boolean(data.used),
@@ -339,5 +370,10 @@ async function onRemoteDecision(data) {
 }
 
 export function bindReactionRelay() {
-  bindReactionSocket({ onPrompt: onRemotePrompt, onDecision: (data) => void onRemoteDecision(data) });
+  bindReactionSocket({
+    onPrompt: onRemotePrompt,
+    onDecision: (data) => void onRemoteDecision(data),
+    onDismiss,
+    onWatch: (data) => void onWatch(data)
+  });
 }

@@ -5,6 +5,7 @@ import { illusiveDndMenu, illusiveDndSetting } from "./labels.mjs";
 const MODULE_KEY_RE = /illusive-dnd-5e\./;
 
 const MENU_KEYS = {
+  playerMenu: "player",
   displayMenu: "display",
   partyMenu: "party",
   turnTrackerMenu: "turnTracker",
@@ -16,6 +17,8 @@ const MENU_KEYS = {
 
 /** Desired main-config order: enable checkbox, then its settings menu. */
 const MAIN_CONFIG_ORDER = [
+  "playerMenu",
+  "gmSaveRolls",
   "displayMenu",
   "enablePartyStatus",
   "partyMenu",
@@ -216,6 +219,21 @@ export function buildSettingField(key) {
     filePickerType: typeof registered.filePicker === "string" ? registered.filePicker : "image"
   };
 
+  if (key === "playerSaveRolls") {
+    field.isPlayerRolls = true;
+    const stored = value && typeof value === "object" && !Array.isArray(value) ? value : {};
+    const modes = ["physical", "manual", "automated"];
+    field.modeChoices = Object.fromEntries(modes.map((mode) => [mode, illusiveDndSetting(key, mode)]));
+    field.users = sortedUsers()
+      .filter((user) => !user.isGM)
+      .map((user) => ({
+        id: user.id,
+        name: user.name,
+        mode: modes.includes(stored[user.id]) ? stored[user.id] : "physical"
+      }));
+    field.empty = illusiveDndSetting(key, "empty");
+  }
+
   if (isUserList) {
     field.users = cameraPadUserChoices(value);
     field.empty = illusiveDndSetting(key, "empty");
@@ -337,6 +355,18 @@ export class IllusiveDndSubsettingsForm extends FormApplication {
 
       if (registered.type === Array) {
         await game.settings.set(MODULE_ID, key, submittedIdList(formData[key]));
+        continue;
+      }
+
+      if (key === "playerSaveRolls") {
+        const raw = formData[key];
+        const modes = {};
+        if (raw && typeof raw === "object") {
+          for (const [id, mode] of Object.entries(raw)) {
+            if (mode === "physical" || mode === "manual" || mode === "automated") modes[id] = mode;
+          }
+        }
+        await game.settings.set(MODULE_ID, key, modes);
         continue;
       }
 

@@ -2,7 +2,7 @@
  * Opportunity attack use case — detect leave-reach on move, hold the move, prompt reactors.
  */
 
-import { collectOpportunityCandidates, resolveReachFeet } from "../domain/combat/opportunity-attack.mjs";
+import { collectOpportunityCandidates, evaluateOpportunityAttack, resolveReachFeet } from "../domain/combat/opportunity-attack.mjs";
 import { resolveRulesContext } from "../foundry/dnd5e-adapter.mjs";
 import { getGridFacts, getTokenFacts } from "../foundry/scene-adapter.mjs";
 import { spaceFeetBetween } from "../domain/spatial/geometry.mjs";
@@ -15,16 +15,25 @@ import {
   getReactionTimeoutMs
 } from "./economy.mjs";
 import { featureEnabled } from "./levels.mjs";
-import { settleReactionPrompt } from "./reaction-context.mjs";
-import { promptReactor } from "./reactions/window.mjs";
-import { beginPendingReaction } from "./combat.mjs";
+import { settleReactionPrompt, reactionBatchDialog } from "./reaction-context.mjs";
 import { MODULE_ID } from "../constants.mjs";
+import { canAskGm, queryName } from "../foundry/gm-query.mjs";
+import { remoteOwnerFor } from "../foundry/reaction-socket.mjs";
+import { illusiveDndLocalize } from "../i18n/index.mjs";
+import { tokenForActor, tokenFromUuid } from "../foundry/token-lookup.mjs";
 import { isHostile } from "../domain/combat/disposition.mjs";
 import { isIncapacitated } from "../domain/combat/conditions.mjs";
-import { listActivities } from "../domain/combat/activity-kind.mjs";
+import { isMeleeAttack, linkActivityItem, listActivities } from "../domain/combat/activity-kind.mjs";
 
 /** @type {Map<string, { changes: object, options: object, tokenUuid: string|null }>} */
 const pendingMoves = new Map();
+
+/** Always-on. Filter the browser console by `illusive-dnd-5e | oa`. */
+export function oaLog(tag, data) {
+  const prefix = `illusive-dnd-5e | oa | ${tag}`;
+  if (data === undefined) console.info(prefix);
+  else console.info(prefix, data);
+}
 
 function feetBetween(aFacts, bFacts, grid) {
   return spaceFeetBetween(aFacts, bFacts, {
@@ -57,21 +66,41 @@ function hasDisengageEffect(actor) {
   }
 }
 
+/** dnd5e Activity#item is a getter. Assigning it throws and kills the prompt. */
+function activityItem(activity) {
+  try {
+    return activity?.item ?? activity?.parent?.parent ?? null;
+  } catch {
+    return activity?.parent?.parent ?? null;
+  }
+}
+
 function listMeleeAttackActivities(actor) {
   const out = [];
-  for (const item of actor.items ?? []) {
-    for (const act of listActivities(item)) {
-      if (act?.type !== "attack") continue;
-      const range = act.range ?? item.system?.range ?? {};
-      const units = range.units;
-      const value = Number(range.value ?? range.reach ?? 0);
-      const isMelee = units === "ft" && (range.reach != null || value <= 10)
-        || act.attack?.type?.value === "melee"
-        || item.system?.actionType === "mwak";
-      if (!isMelee && units === "mi") continue;
-      if (units === "ft" && value > 10 && !range.reach) continue;
-      act.item = item;
-      out.push(act);
+  let items = [];
+  try {
+    items = [...(actor?.items ?? [])];
+  } catch (err) {
+    oaLog("melee failed", { actor: actor?.name ?? null, message: err?.message ?? String(err) });
+    return out;
+  }
+  for (const item of items) {
+    try {
+      const attacks = listActivities(item).filter((act) => act?.type === "attack" && isMeleeAttack(act, item));
+      if (attacks.length) {
+        for (const act of attacks) linkActivityItem(act, item);
+        out.push(...attacks);
+        continue;
+      }
+      if (!isMeleeAttack(null, item)) continue;
+      out.push({
+        id: `${item.id}-melee`,
+        type: "attack",
+        item,
+        attack: { type: { value: "melee" } }
+      });
+    } catch (err) {
+      oaLog("melee item failed", { item: item?.name ?? item?.id ?? null, message: err?.message ?? String(err) });
     }
   }
   return out;
@@ -83,17 +112,37 @@ function listMeleeAttackActivities(actor) {
  */
 export function previewTokenMoveOpportunity({ tokenDoc, changes, options = {} }) {
   if (!featureEnabled("opportunityAttacks")) {
+    oaLog("preview stop", { reason: "opportunity attacks disabled" });
+    return { provoked: false, candidates: [], observers: [], token: null };
+  }
+  if (!globalThis.game?.combat?.started) {
+    oaLog("preview stop", { reason: "not in combat" });
     return { provoked: false, candidates: [], observers: [], token: null };
   }
   if (changes?.x == null && changes?.y == null) {
+    oaLog("preview stop", { reason: "update has no x/y", keys: Object.keys(changes ?? {}) });
     return { provoked: false, candidates: [], observers: [], token: null };
   }
-  if (options.teleport || options.forced || options.illusiveSkipOA || options.illusiveApplyPending) {
+  if (options.teleport || options.forced || options.isUndo || options.illusiveSkipOA || options.illusiveApplyPending) {
+    oaLog("preview stop", {
+      reason: "move flagged to skip",
+      teleport: Boolean(options.teleport),
+      forced: Boolean(options.forced),
+      illusiveSkipOA: Boolean(options.illusiveSkipOA),
+      illusiveApplyPending: Boolean(options.illusiveApplyPending),
+      isUndo: Boolean(options.isUndo)
+    });
     return { provoked: false, candidates: [], observers: [], token: null };
   }
 
   const token = tokenDoc?.object ?? canvas.tokens?.get(tokenDoc?.id);
   if (!token?.actor) {
+    oaLog("preview stop", {
+      reason: "mover token or actor missing",
+      docId: tokenDoc?.id ?? null,
+      hasObject: Boolean(tokenDoc?.object),
+      canvasHit: Boolean(canvas.tokens?.get?.(tokenDoc?.id))
+    });
     return { provoked: false, candidates: [], observers: [], token: null };
   }
 
@@ -127,13 +176,47 @@ export function previewTokenMoveOpportunity({ tokenDoc, changes, options = {} })
     });
   }
 
-  const candidates = collectOpportunityCandidates({
+  const scan = {
     moverUuid: token.document?.uuid,
     moverDisengaging,
     forcedMovement: Boolean(options.forced),
     teleport: Boolean(options.teleport),
     edition: resolveRulesContext(token.actor).edition,
     observers
+  };
+  const candidates = collectOpportunityCandidates(scan);
+  oaLog("preview", {
+    mover: token.name ?? token.actor?.name ?? token.id,
+    from: { x: prior?.x, y: prior?.y },
+    to: { x: nextFacts.x, y: nextFacts.y },
+    disengaging: moverDisengaging,
+    placeables: (canvas.tokens?.placeables ?? []).length,
+    hostile: observers.length,
+    provoked: candidates.length,
+    watchers: observers.map((observer) => {
+      const verdict = evaluateOpportunityAttack({
+        edition: scan.edition ?? observer.edition,
+        moverHostile: observer.moverHostile,
+        observerCanSee: observer.canSee,
+        observerHasReaction: observer.hasReaction,
+        observerIncapacitated: observer.incapacitated,
+        moverDisengaging,
+        fromFeet: observer.fromFeet,
+        toFeet: observer.toFeet,
+        reachFeet: observer.reachFeet
+      });
+      return {
+        name: observer.token?.name ?? observer.token?.actor?.name ?? observer.uuid,
+        fromFeet: observer.fromFeet,
+        toFeet: observer.toFeet,
+        reachFeet: observer.reachFeet,
+        hasReaction: observer.hasReaction,
+        incapacitated: observer.incapacitated,
+        canSee: observer.canSee,
+        provokes: verdict.provokes,
+        reason: verdict.reason
+      };
+    })
   });
 
   return {
@@ -144,54 +227,267 @@ export function previewTokenMoveOpportunity({ tokenDoc, changes, options = {} })
   };
 }
 
-/**
- * Prompt reactors for a leave-reach move (after the move was held).
- */
-export async function promptOpportunityReactions({ candidates, observers, token }) {
-  if (!candidates?.length || !token) return { prompted: false };
+function attackLabel(activity) {
+  const itemName = activityItem(activity)?.name ?? null;
+  const activityName = activity?.name ?? activity?.label ?? null;
+  const generic = !activityName || /^(attack|use|action)$/i.test(String(activityName).trim());
+  if (itemName && (generic || itemName === activityName)) return itemName;
+  if (itemName && activityName) return `${itemName} — ${activityName}`;
+  return activityName || itemName || "Attack";
+}
 
-  for (const candidate of candidates) {
-    const observer = observers.find((o) => o.uuid === candidate.observerUuid);
-    if (!observer?.token?.actor) continue;
-    if (!isEconomyAvailable(observer.token.actor, "reaction")) continue;
+function activityRefs(activities) {
+  return activities.map((activity) => ({
+    itemId: activityItem(activity)?.id ?? null,
+    activityId: activity.id ?? activity._id ?? null,
+    label: attackLabel(activity)
+  }));
+}
 
-    const melee = listMeleeAttackActivities(observer.token.actor);
-    if (!melee.length) continue;
+function batchGroups(entries) {
+  return entries.map((entry) => ({
+    actorId: entry.actorId ?? null,
+    actorName: entry.actorName ?? "A creature",
+    options: (entry.refs ?? []).map((ref) => ({
+      id: ref.activityId,
+      label: ref.label || "Attack"
+    }))
+  }));
+}
 
-    const options = {
-      triggerTokenUuid: token.document?.uuid,
-      opportunityAttack: true,
-      moverUuid: token.document?.uuid,
-      rule: candidate.rule,
-      pendingMoveTokenId: token.id
-    };
-    const where = promptReactor(observer.token.actor, melee, "opportunityAttack", options);
-    if (where === "remote") {
-      // Owner disconnected or never answered: pass, so the held move is not stuck.
-      setTimeout(() => {
-        if (!pendingMoves.has(token.id)) return;
-        void settleReactionPrompt({ ...options, actorUuid: observer.token.actor.uuid }, { used: false });
-      }, getReactionTimeoutMs() + 3000);
-    }
+async function opportunityDialog({ moverName = "a creature", groups = [] } = {}) {
+  oaLog("dialog open", {
+    moverName,
+    actors: groups.map((group) => group.actorName),
+    attacks: groups.map((group) => (group.options ?? []).map((option) => option.label))
+  });
+  const result = await reactionBatchDialog({
+    title: illusiveDndLocalize("opportunity.title"),
+    sentence: illusiveDndLocalize("opportunity.batch").replace("{mover}", moverName),
+    groups
+  });
+  const picks = result?.picks ?? [];
+  oaLog("dialog choice", { picks: picks.map((pick) => groups[pick.group]?.options?.[pick.option]?.label ?? pick.id) });
+  return picks;
+}
 
-    await beginPendingReaction({
-      actorUuid: observer.token.actor.uuid,
-      moverUuid: token.document?.uuid,
-      trigger: "opportunity",
-      rule: candidate.rule
-    });
+async function swingOpportunity({ actorUuid, tokenUuid = null, moverUuid, refs = [], parentLogId = null } = {}) {
+  const actor = await globalThis.fromUuid?.(actorUuid);
+  const token = tokenFromUuid(tokenUuid) ?? (actor ? tokenForActor(actor) : null);
+  const ref = refs.find((entry) => entry?.itemId && entry?.activityId);
+  const item = actor?.items?.get?.(ref?.itemId);
+  const activity = item?.system?.activities?.get?.(ref?.activityId);
+  if (!token || !item || !activity) return false;
+  try {
+    if (activity.item !== item) activity.item = item;
+  } catch {
+    /* Activity#item is a getter and already points at the weapon */
+  }
+  const { useActivityFromHud } = await import("./activity.mjs");
+  return useActivityFromHud(token, item, activity, "reaction", {}, {
+    triggerTokenUuid: moverUuid,
+    options: { triggerTokenUuid: moverUuid, opportunityAttack: true, parentLogId }
+  }, { validateTargets: false });
+}
 
+function queryGroups(data = {}) {
+  if (data.groups?.length) return data.groups;
+  return [{
+    actorName: data.reactorName ?? "A creature",
+    actorUuid: data.actorUuid ?? null,
+    actorId: data.actorId ?? null,
+    refs: data.refs ?? []
+  }];
+}
+
+/** GM-side query: one window for every reactor, then make each checked attack. */
+export async function adjudicateOpportunityQuery(data = {}) {
+  const groups = queryGroups(data);
+  const picks = await opportunityDialog({
+    moverName: data.moverName ?? "a creature",
+    groups: batchGroups(groups)
+  });
+  let used = false;
+  for (const pick of picks) {
+    const group = groups[pick.group];
+    const ref = group?.refs?.[pick.option] ?? null;
     try {
-      Hooks.callAll(`${MODULE_ID}.opportunityAttack`, {
-        mover: token,
-        observer: observer.token,
-        candidate,
-        activities: melee
+      const swung = await swingOpportunity({
+        actorUuid: group?.actorUuid ?? data.actorUuid ?? null,
+        tokenUuid: group?.tokenUuid ?? null,
+        moverUuid: data.moverUuid ?? null,
+        refs: ref ? [ref] : [],
+        parentLogId: data.parentLogId ?? null
       });
+      if (swung) used = true;
     } catch {
-      /* ignore */
+      /* the move still releases */
     }
   }
+  return { used };
+}
+
+/** Linked tokens share one actor. Unlinked copies share that actor id, so they key off the token. */
+function reactorKey(token, actor) {
+  const linked = token?.document?.actorLink !== false;
+  if (!linked) return token?.document?.uuid ?? token?.uuid ?? token?.id ?? actor?.uuid ?? actor?.id ?? null;
+  return actor?.uuid ?? actor?.id ?? token?.document?.uuid ?? token?.uuid ?? token?.id ?? null;
+}
+
+function wireGroup(group) {
+  return {
+    actorName: group.actorName,
+    actorUuid: group.actorUuid ?? null,
+    actorId: group.actorId ?? null,
+    tokenUuid: group.tokenUuid ?? null,
+    refs: group.refs ?? []
+  };
+}
+
+/** The creature's owner decides, on their client, whoever dragged the token. */
+async function askOwner(user, payload) {
+  if (typeof user?.query !== "function") {
+    oaLog("ask failed", { user: user?.id ?? null, reason: "owner has no query" });
+    return { used: false };
+  }
+  try {
+    const result = await user.query(
+      queryName("opportunityAttack"),
+      payload,
+      { timeout: getReactionTimeoutMs() + 3000 }
+    );
+    oaLog("ask result", { user: user.id, used: Boolean(result?.used) });
+    return result ?? { used: false };
+  } catch (err) {
+    oaLog("ask failed", { user: user.id, message: err?.message ?? String(err) });
+    console.error("illusive-dnd-5e | oa | owner query failed", err);
+    return { used: false };
+  }
+}
+
+/**
+ * Prompt reactors for a leave-reach move (after the move was held).
+ * Each owning player gets their creatures. The GM gets the rest. Then the move is released.
+ */
+export async function promptOpportunityReactions({ candidates, observers, token }) {
+  if (!candidates?.length || !token) {
+    oaLog("prompt stop", { reason: "nothing to ask", candidates: candidates?.length ?? 0, token: token?.id ?? null });
+    return { prompted: false };
+  }
+  oaLog("prompt start", {
+    mover: token.name ?? token.id,
+    candidates: candidates.map((candidate) => candidate.observerUuid)
+  });
+
+  const groups = [];
+  const seen = new Set();
+  for (const candidate of candidates) {
+    try {
+      const observer = observers.find((o) => o.uuid === candidate.observerUuid);
+      const actorName = observer?.token?.name ?? observer?.token?.actor?.name ?? candidate.observerUuid;
+      if (!observer?.token?.actor) {
+        oaLog("skip", { name: actorName, reason: "observer has no actor" });
+        continue;
+      }
+      if (!isEconomyAvailable(observer.token.actor, "reaction")) {
+        oaLog("skip", { name: actorName, reason: "reaction already spent" });
+        continue;
+      }
+      const melee = listMeleeAttackActivities(observer.token.actor);
+      if (!melee.length) {
+        oaLog("skip", {
+          name: actorName,
+          reason: "no melee weapon",
+          items: [...(observer.token.actor.items ?? [])].map((item) => ({
+            name: item?.name,
+            type: item?.type,
+            actionType: item?.system?.actionType ?? null,
+            weaponType: item?.system?.type?.value ?? null
+          }))
+        });
+        continue;
+      }
+      const actor = observer.token.actor;
+      const key = reactorKey(observer.token, actor);
+      if (key && seen.has(key)) {
+        oaLog("skip", { name: actorName, reason: "same creature", key });
+        continue;
+      }
+      if (key) seen.add(key);
+      const owner = remoteOwnerFor(actor);
+      oaLog("reactor", {
+        name: actor.name,
+        key,
+        owner: owner?.id ?? null,
+        isGM: Boolean(globalThis.game?.user?.isGM),
+        melee: melee.map((activity) => activityItem(activity)?.name ?? activity.id)
+      });
+      try {
+        Hooks.callAll(`${MODULE_ID}.opportunityAttack`, {
+          mover: token,
+          observer: observer.token,
+          candidate,
+          activities: melee
+        });
+      } catch {
+        /* ignore */
+      }
+      groups.push({
+        actor,
+        actorName: observer.token?.name ?? actor.name ?? actorName,
+        actorUuid: actor.uuid ?? null,
+        actorId: key,
+        tokenUuid: observer.uuid ?? observer.token?.document?.uuid ?? null,
+        owner,
+        refs: activityRefs(melee)
+      });
+    } catch (err) {
+      oaLog("reactor failed", {
+        uuid: candidate?.observerUuid ?? null,
+        message: err?.message ?? String(err)
+      });
+      console.error("illusive-dnd-5e | oa | reactor failed", err);
+    }
+  }
+
+  const moverName = token.name ?? token.actor?.name ?? "a creature";
+  const moverUuid = token.document?.uuid ?? null;
+  const parentLogId = getPendingMove(token.id)?.logId ?? null;
+  let used = false;
+  if (groups.length) {
+    const buckets = new Map();
+    for (const group of groups) {
+      const ownerId = group.owner?.id ?? "local";
+      if (!buckets.has(ownerId)) buckets.set(ownerId, { owner: group.owner ?? null, groups: [] });
+      buckets.get(ownerId).groups.push(group);
+    }
+    oaLog("ask", {
+      isGM: Boolean(globalThis.game?.user?.isGM),
+      canAskGm: canAskGm(),
+      owners: [...buckets.entries()].map(([id, bucket]) => ({
+        id,
+        actors: bucket.groups.map((group) => group.actorName)
+      }))
+    });
+    const results = await Promise.all([...buckets.values()].map((bucket) => {
+      const payload = {
+        moverName,
+        moverUuid,
+        parentLogId,
+        groups: bucket.groups.map(wireGroup)
+      };
+      if (!bucket.owner) return adjudicateOpportunityQuery(payload);
+      return askOwner(bucket.owner, payload);
+    }));
+    used = results.some((result) => result?.used);
+  }
+
+  oaLog("prompt end", { used, actors: groups.map((group) => group.actorName) });
+  await settleReactionPrompt({
+    pendingMoveTokenId: token.id,
+    moverUuid,
+    actorUuid: groups[0]?.actorUuid ?? null
+  }, { used });
 
   return { prompted: true };
 }
@@ -215,7 +511,8 @@ export function stashPendingMove(tokenDoc, changes, options = {}) {
       ...(changes.y != null ? { y: changes.y } : {})
     },
     options: { ...options },
-    tokenUuid: tokenDoc.uuid ?? null
+    tokenUuid: tokenDoc.uuid ?? null,
+    logId: null
   });
 }
 
@@ -225,16 +522,26 @@ export function getPendingMove(tokenId) {
 
 export async function applyPendingMove(tokenId) {
   const pending = pendingMoves.get(tokenId);
-  pendingMoves.delete(tokenId);
   if (!pending?.changes) return false;
   const token = canvas.tokens?.get(tokenId);
   const doc = token?.document;
-  if (!doc?.update) return false;
-  await doc.update(pending.changes, {
-    ...pending.options,
-    illusiveSkipOA: true,
-    illusiveApplyPending: true
-  });
+  if (!doc?.update) {
+    pendingMoves.delete(tokenId);
+    return false;
+  }
+  // The held update's options still carry Foundry's movement id. Sending them
+  // again makes #preUpdateMovement redefine that property and the move never lands.
+  try {
+    await doc.update(pending.changes, {
+      illusiveSkipOA: true,
+      illusiveApplyPending: true,
+      ...(pending.logId ? { illusiveMovementLogId: pending.logId } : {})
+    });
+  } catch (err) {
+    oaLog("release failed", { token: token?.name ?? tokenId, message: err?.message ?? String(err) });
+    throw err;
+  }
+  pendingMoves.delete(tokenId);
   return true;
 }
 

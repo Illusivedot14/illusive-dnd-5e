@@ -20,6 +20,7 @@ describe("reaction-context", () => {
     installFoundry();
     _resetReactionPromptQueue();
     clearReactionContext();
+    delete globalThis.foundry.applications.api.DialogV2.wait;
   });
   afterEach(() => resetFoundry());
 
@@ -50,6 +51,17 @@ describe("reaction-context", () => {
 
     expect(getActionBarToken()).toBe(wizardToken);
     expect(getReactionContext()?.triggerTokenUuid).toBe("Scene.1.Token.attacker");
+  });
+
+  it("announces a shown reaction so the deciding client can open it", () => {
+    const actor = makeActor({ id: "goblin", name: "Goblin", isOwner: true });
+    startReactionPrompt(actor, [{ id: "a1", item: { id: "i1" } }], "opportunityAttack", {
+      pendingMoveTokenId: "mover"
+    });
+    expect(globalThis.Hooks.callAll).toHaveBeenCalledWith(
+      "illusive-dnd-5e.reactionPrompt",
+      expect.objectContaining({ actor, triggerType: "opportunityAttack" })
+    );
   });
 
   it("clears the prompt when the player passes", () => {

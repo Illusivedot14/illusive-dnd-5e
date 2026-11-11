@@ -4,6 +4,7 @@
  */
 
 import { MODULE_ID } from "../constants.mjs";
+import { askGm, canAskGm } from "../foundry/gm-query.mjs";
 import { getViewedCombat } from "../foundry/combat.mjs";
 import {
   freshBudget,
@@ -65,6 +66,20 @@ export function readBudget(combatant) {
 
 export async function writeBudget(combatant, budget) {
   if (!combatant || !budget) return null;
+  // Combatant updates are GM-only. A player setFlag is rejected by the server.
+  const user = globalThis.game?.user;
+  if (user && user.isGM !== true && combatant.uuid && canAskGm()) {
+    await askGm("write", {
+      op: {
+        type: "setFlag",
+        uuid: combatant.uuid,
+        scope: MODULE_ID,
+        key: TURN_FLAG,
+        value: budget
+      }
+    });
+    return budget;
+  }
   await combatant.setFlag(MODULE_ID, TURN_FLAG, budget);
   return budget;
 }

@@ -238,6 +238,7 @@ function mapEntryView(e) {
     detail: e.detail,
     resolutionId: e.resolutionId,
     parentId: e.parentId,
+    parentResolutionId: e.parentResolutionId ?? null,
     tokenUuid: e.tokenUuid,
     actorUuid: e.actorUuid,
     round: e.round,
@@ -245,6 +246,25 @@ function mapEntryView(e) {
     combatantId: e.combatantId,
     canUndo: true
   };
+}
+
+/** One indent per reaction in the chain: move, then the attack, then Shield, then Counterspell. */
+function withReactionDepth(entries) {
+  const byId = new Map(entries.map((entry) => [entry.id, entry]));
+  const byResolution = new Map();
+  for (const entry of entries) {
+    if (entry.resolutionId) byResolution.set(entry.resolutionId, entry);
+  }
+  const depthOf = (entry, seen) => {
+    if (!entry || seen.has(entry.id)) return 0;
+    const parent = (entry.parentId && byId.get(entry.parentId))
+      || (entry.parentResolutionId && byResolution.get(entry.parentResolutionId))
+      || null;
+    if (!parent) return 0;
+    seen.add(entry.id);
+    return depthOf(parent, seen) + 1;
+  };
+  return entries.map((entry) => ({ ...entry, depth: depthOf(entry, new Set()) }));
 }
 
 /**
@@ -265,7 +285,7 @@ export function getGameLogView(filter = {}) {
     listed = listTurnActionsChronological(turn);
   }
 
-  const entries = listed.map(mapEntryView);
+  const entries = withReactionDepth(listed.map(mapEntryView));
   return {
     enabled: combatActive,
     empty: entries.length === 0,
@@ -312,7 +332,8 @@ export function recordGameLogEvent(input = {}) {
     turnIndex: stamp.turnIndex,
     combatantId: input.combatantId ?? stamp.combatantId,
     movementId: input.movementId ?? null,
-    costFeet: input.costFeet ?? null
+    costFeet: input.costFeet ?? null,
+    economySpend: input.economySpend ?? null
   });
   commit({ type: "push", stamp, entry });
   return findTurnForAction(turns, entry.id)?.actions?.find((a) => a.id === entry.id) ?? entry;
@@ -417,9 +438,6 @@ export function recordResolutionOnGameLog(resolution, { parentId = null } = {}) 
     parentLogId = parentEntry?.id ?? null;
   }
 
-  const kind = resolution.phase === "cancelled"
-    ? "skip"
-    : kindForResolution(resolution, { parentLogId, parentResolutionId });
   const actorUuid = resolution.actorUuid ?? null;
   const appliedChanges = resolution.appliedChanges ?? [];
   // Prefer a real result line over the "Activity launched · … finished" mashup.
@@ -429,6 +447,12 @@ export function recordResolutionOnGameLog(resolution, { parentId = null } = {}) 
   const existing = listAllActionsNewestFirst(turns).find(
     (e) => e.resolutionId === resolution.id
   );
+  let kind = resolution.phase === "cancelled"
+    ? "skip"
+    : kindForResolution(resolution, { parentLogId, parentResolutionId });
+  // A reaction use is logged up front as a reaction. Completing it must not
+  // flatten it back into an action just because the weapon's activation is "action".
+  if (existing?.kind === "reaction" && kind === "action") kind = "reaction";
   const label = usefulSummary
     || existing?.label
     || (resolution.phase === "cancelled" ? "Action cancelled" : null)
@@ -496,7 +520,8 @@ export function recordAbilityUseStartedOnGameLog({
   actorUuid = null,
   tokenUuid = null,
   section = "action",
-  resolutionId = null
+  resolutionId = null,
+  parentId = null
 } = {}) {
   if (!combatActive) return null;
   const name = item?.name ?? activity?.name ?? "Ability";
@@ -512,9 +537,26 @@ export function recordAbilityUseStartedOnGameLog({
     label: name,
     detail,
     resolutionId,
+    parentId,
     actorUuid,
     tokenUuid: tokenUuid ?? tokenUuidForActor(actorUuid)
   });
+}
+
+/** A row for a move that is still waiting on reactions, so those reactions can sit under it. */
+export function openProvokedMovement(tokenDoc) {
+  if (!combatActive || !tokenDoc) return null;
+  const token = tokenDoc.object ?? null;
+  const tokenUuid = tokenDoc.uuid ?? token?.document?.uuid ?? token?.uuid ?? null;
+  if (!tokenUuid) return null;
+  const name = token?.name ?? tokenDoc.name ?? "Token";
+  const entry = recordMovementOnGameLog({
+    tokenUuid,
+    actorUuid: token?.actor?.uuid ?? tokenDoc.actor?.uuid ?? null,
+    label: `${name} moved`,
+    detail: "Combat movement"
+  });
+  return entry?.id ?? null;
 }
 
 export function recordMovementOnGameLog({
@@ -724,7 +766,7 @@ function resolveSegmentAnchor(doc, history, prev, { sameDrag = false } = {}) {
  * One Foundry drag (shared movementId) → one log row with total feet + segments[].
  * Undo peels the last segment (A→B→C → B); turn/round rewind restores the start.
  */
-export function noteTokenMovedDuringCombat(token, changes = null) {
+export function noteTokenMovedDuringCombat(token, changes = null, options = null) {
   if (!combatActive || !token?.document) return null;
 
   const keys = Object.keys(changes ?? {});
@@ -787,6 +829,25 @@ export function noteTokenMovedDuringCombat(token, changes = null) {
   };
 
   writeMovementSnapshot(token, { len, x, y, elev, usedFeet }, doc);
+
+  const reservedId = options?.illusiveMovementLogId ?? null;
+  if (reservedId && findTurnForAction(turns, reservedId)) {
+    return amendGameLogEntry(reservedId, {
+      detail: movementDetail(segmentCost),
+      costFeet: segmentCost,
+      movementId,
+      appliedChanges: [{
+        type: "token-movement",
+        tokenUuid,
+        prior: anchor.prior,
+        historyLenBefore: anchor.historyLenBefore,
+        movementId,
+        costFeet: segmentCost,
+        usedFeetAtStart: anchor.usedFeetAtStart,
+        segments: [segment]
+      }]
+    });
+  }
 
   if (sameDrag && lastMove) {
     const segments = [...(lastChange.segments ?? [{
@@ -1073,6 +1134,19 @@ async function peelMovementEntry(entry, { all = false } = {}) {
   return { ok: false, entry, keep: false };
 }
 
+async function refundEntrySpend(entry, actorUuid = entry?.actorUuid) {
+  const spend = entry?.economySpend;
+  if (!spend?.before || !spend?.after || !actorUuid || typeof fromUuid !== "function") return false;
+  try {
+    const actor = await fromUuid(actorUuid);
+    if (!actor) return false;
+    await refundEconomySpend(actor, spend.before, spend.after);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 async function undoSingleEntry(entry, { allMovement = false } = {}) {
   if (entry.kind === "skip") {
     return { ok: true, entry, soft: true };
@@ -1099,6 +1173,7 @@ async function undoSingleEntry(entry, { allMovement = false } = {}) {
 
   const { correctResolution, getResolution } = await import("./combat.mjs");
   let corrected = false;
+  let resolutionRefunded = false;
   if (entry.resolutionId) {
     const before = getResolution(entry.resolutionId);
     dbg("undo.action.resolution", {
@@ -1107,12 +1182,19 @@ async function undoSingleEntry(entry, { allMovement = false } = {}) {
       resolutionChanges: before?.appliedChanges?.length ?? 0
     });
     if (before && before.phase === "completed") {
+      resolutionRefunded = Boolean(before.economySpend?.before && before.economySpend?.after);
       await correctResolution({
         resolutionId: entry.resolutionId,
         correction: { reason: "Game log undo", cascade: true }
       });
       corrected = true;
     }
+  }
+
+  // The log row can hold the spend when the live resolution does not.
+  if (corrected && !resolutionRefunded) {
+    const refunded = await refundEntrySpend(entry);
+    if (refunded) return { ok: true, entry };
   }
 
   // Live resolution missing/already corrected — undo from the log row itself
@@ -1128,34 +1210,15 @@ async function undoSingleEntry(entry, { allMovement = false } = {}) {
       }))
     });
     const resolution = entry.resolutionId ? getResolution(entry.resolutionId) : null;
-    const spend = resolution?.economySpend ?? entry.economySpend ?? null;
-    if (spend?.before && spend?.after) {
-      try {
-        const actorUuid = resolution?.actorUuid ?? entry.actorUuid;
-        const actor = actorUuid && typeof fromUuid === "function"
-          ? await fromUuid(actorUuid)
-          : null;
-        if (actor) await refundEconomySpend(actor, spend.before, spend.after);
-      } catch {
-        /* ignore */
-      }
+    if (!resolution?.economySpend) {
+      await refundEntrySpend(entry, resolution?.actorUuid ?? entry.actorUuid);
     }
     return { ok: results.some((r) => r.ok), entry };
   }
 
   // No applied changes but we still owe an economy refund (cancelled cast after spend, etc.).
-  if (!corrected && entry.economySpend?.before && entry.economySpend?.after) {
-    try {
-      const actor = entry.actorUuid && typeof fromUuid === "function"
-        ? await fromUuid(entry.actorUuid)
-        : null;
-      if (actor) {
-        await refundEconomySpend(actor, entry.economySpend.before, entry.economySpend.after);
-        return { ok: true, entry };
-      }
-    } catch {
-      /* ignore */
-    }
+  if (!corrected && await refundEntrySpend(entry)) {
+    return { ok: true, entry };
   }
 
   if (corrected) {

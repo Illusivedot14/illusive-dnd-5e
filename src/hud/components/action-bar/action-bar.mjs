@@ -29,9 +29,7 @@ import {
   clearReactionPrompt,
   getActionBarToken,
   getReactionContext,
-  isReactionActorForUser,
-  passReaction,
-  startReactionPrompt
+  passReaction
 } from "../../../application/reaction-context.mjs";
 import {
   buildVitalityIcon,
@@ -403,18 +401,18 @@ function resetSectionForToken(token) {
   const tokenId = token?.id ?? null;
   if (tokenId !== selectedTokenId) {
     selectedTokenId = tokenId;
-    selectedSection = null;
+    const prompting = getReactionContext()?.actorId === token?.actor?.id;
+    selectedSection = prompting ? "reaction" : null;
     lastSpeedVisual = { fillLength: null, fillGap: null, modes: Object.create(null) };
   }
 }
 
-function setReactionPrompt(actor, activities, triggerType, options) {
-  if (!actor?.id || !isReactionActorForUser(actor)) return;
-
-  startReactionPrompt(actor, activities, triggerType, options);
+function showReactionOnBar() {
+  const actor = getReactionContext()?.actor;
+  if (!actor?.id) return;
   selectedSection = "reaction";
-  ui.notifications.info(illusiveDnd.reaction("prompt", { name: actor.name }), { localize: false });
-  requestPanelRefresh();
+  ui.notifications?.info?.(illusiveDnd.reaction("prompt", { name: actor.name }), { localize: false });
+  if (settingOn("enableActionBar")) requestPanelRefresh();
 }
 
 function buildTargetHint(token, abilities) {
@@ -1540,6 +1538,9 @@ function bindActivityRefreshHooks() {
     requestPanelRefresh();
   });
 
+  Hooks.on(`${MODULE_ID}.reactionPrompt`, () => {
+    showReactionOnBar();
+  });
   Hooks.on(`${MODULE_ID}.reactionPromptClosed`, () => {
     if (!settingOn("enableActionBar")) return;
     requestPanelRefresh();

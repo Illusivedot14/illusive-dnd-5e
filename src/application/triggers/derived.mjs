@@ -6,7 +6,7 @@
  * @parryBonus and @slotLevel.
  */
 
-import { listActivities, isMeleeAttack } from "../../domain/combat/activity-kind.mjs";
+import { isMeleeAttack, linkActivityItem, listActivities } from "../../domain/combat/activity-kind.mjs";
 
 function rollData(actor) {
   try {
@@ -72,7 +72,7 @@ export function meleeWeaponAttacks(actor) {
     if (item.system?.equipped === false) continue;
     for (const act of listActivities(item)) {
       if (act?.type !== "attack" || !isMeleeAttack(act, item)) continue;
-      act.item = item;
+      linkActivityItem(act, item);
       out.push(act);
     }
   }

@@ -4,6 +4,7 @@ import { canControlToken, selectToken, selectTokenForTurn } from "./token-action
 import { combatantToken } from "../hud/components/turn-tracker/turn-tracker-combatant.mjs";
 import { resetCombatantBudget, freshBudget, writeBudget } from "../application/economy.mjs";
 import { MODULE_ID } from "../constants.mjs";
+import { isPrimaryWriter } from "./gm-query.mjs";
 
 function getTurnCombatant(combat, current) {
   if (!combat) return null;
@@ -45,7 +46,7 @@ function onTurnChange(combat, _prior, current) {
 
   const combatant = getTurnCombatant(combat, current);
   const token = combatantToken(combatant);
-  if (combatant) void refreshTurnEconomy(combatant);
+  if (combatant && isPrimaryWriter()) void refreshTurnEconomy(combatant);
   if (!token) return;
 
   // Owned current combatant: always select + pan (players expect control focus).
@@ -60,7 +61,8 @@ function onTurnChange(combat, _prior, current) {
 export function bindCombatTurnHooks() {
   Hooks.on("combatTurnChange", onTurnChange);
   Hooks.on("combatStart", (combat) => {
-    void seedAllCombatants(combat).then(() => {
+    const begin = isPrimaryWriter() ? seedAllCombatants(combat) : Promise.resolve();
+    void begin.then(() => {
       onTurnChange(combat, null, combat?.current);
     });
   });
