@@ -3,13 +3,8 @@
  */
 import { MODULE_ID, MODULE_PATH, illusiveDndLoadTemplates } from "../constants.mjs";
 import { initI18n, bindI18nHooks } from "../i18n/index.mjs";
-import { bindRenderHooks, refreshHud, ILLUSIVE_DND_RENDER } from "./lib/render.mjs";
 import { registerSettings } from "./settings.mjs";
-import { bindActionBarInteractions } from "./components/action-bar/action-bar.mjs";
-import { bindTokenStatusInteractions } from "./components/token-statuses/token-statuses.mjs";
-import { bindLayoutHooks } from "./lib/layout.mjs";
 import { bindCombatTurnHooks } from "../foundry/combat-turn.mjs";
-import { bindPanelThemeHooks } from "./lib/panel-theme.mjs";
 import { migrateStalePartyPlayerPrefs } from "./lib/party-player-prefs.mjs";
 import { initBossBar, onBossBarReady } from "./components/boss-bar/boss-bar-init.mjs";
 import { bindMobileSheet, MOBILE_SHEET_TEMPLATE } from "./components/mobile-sheet/mobile-sheet.mjs";
@@ -23,7 +18,7 @@ import {
 } from "./lib/mobile-client.mjs";
 import { applyEarlyMobileBootClass, persistMobileBootFlag } from "./lib/mobile-boot.mjs";
 import { bindTokenStepSocket } from "../foundry/token-step.mjs";
-import { bindReactionRelay } from "../application/reactions/window.mjs";
+import { bindLazyReactionRelay } from "../foundry/combat-runtime.mjs";
 import { bindDdbPullSocket } from "../foundry/ddb-pull.mjs";
 import { bindCanvasHooks } from "./lib/hooks/index.mjs";
 import { bindOverlayGuardHooks } from "./lib/overlay-guard.mjs";
@@ -35,9 +30,9 @@ export function bindHudInit() {
   Hooks.once("init", async () => {
     await initI18n();
     bindI18nHooks();
-    bindCanvasHooks();
     bindOverlayGuardHooks();
     registerSettings();
+    await bindCanvasHooks();
 
     if (isIllusiveMobileMode()) {
       persistMobileBootFlag(true);
@@ -48,14 +43,17 @@ export function bindHudInit() {
     }
 
     initBossBar();
-    await illusiveDndLoadTemplates([
+    const desktopTemplates = [
       `${MODULE_PATH}/src/hud/components/party-status/party-status.hbs`,
       `${MODULE_PATH}/src/hud/components/token-statuses/token-statuses.hbs`,
       `${MODULE_PATH}/src/hud/components/token-statuses/set-duration.hbs`,
       `${MODULE_PATH}/src/hud/components/action-bar/action-bar-full.hbs`,
       `${MODULE_PATH}/src/hud/components/turn-tracker/turn-tracker.hbs`,
       `${MODULE_PATH}/src/hud/components/turn-tracker/add-event.hbs`,
-      `${MODULE_PATH}/src/hud/components/action-bar/action-bar-abilities.hbs`,
+      `${MODULE_PATH}/src/hud/components/action-bar/action-bar-abilities.hbs`
+    ];
+    await illusiveDndLoadTemplates([
+      ...(isIllusiveMobileMode() ? [] : desktopTemplates),
       `${MODULE_PATH}/src/hud/templates/settings-submenu.hbs`,
       MOBILE_SHEET_TEMPLATE
     ]);
@@ -89,8 +87,8 @@ export function bindHudInit() {
     bindMobileSheet();
     bindMobileSheetDiceBroadcast();
     bindTokenStepSocket();
-    bindReactionRelay();
     bindDdbPullSocket();
+    if (isIllusiveMobileMode()) bindLazyReactionRelay();
     await bootMobileClientUi();
 
     import("./components/camera-pad/camera-pad.mjs")
@@ -102,6 +100,10 @@ export function bindHudInit() {
       return;
     }
 
+    const [{ bindLayoutHooks }, { bindPanelThemeHooks }] = await Promise.all([
+      import("./lib/layout.mjs"),
+      import("./lib/panel-theme.mjs")
+    ]);
     bindLayoutHooks();
     bindPanelThemeHooks();
     try {
@@ -114,11 +116,16 @@ export function bindHudInit() {
     } catch (err) {
       console.error(`${MODULE_ID} | boss bar ready failed`, err);
     }
-    bindRenderHooks();
-    bindTokenStatusInteractions();
-    bindActionBarInteractions();
+    const [render, tokenStatuses, actionBar] = await Promise.all([
+      import("./lib/render.mjs"),
+      import("./components/token-statuses/token-statuses.mjs"),
+      import("./components/action-bar/action-bar.mjs")
+    ]);
+    render.bindRenderHooks();
+    tokenStatuses.bindTokenStatusInteractions();
+    actionBar.bindActionBarInteractions();
     bindCombatTurnHooks();
-    refreshHud(ILLUSIVE_DND_RENDER.ALL);
+    render.refreshHud(render.ILLUSIVE_DND_RENDER.ALL);
   });
 }
 

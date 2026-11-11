@@ -2110,6 +2110,9 @@ const STYLE_ID = "illusive-dnd-mobile-sheet-critical-css";
 const AMETHYST_LINK_ID = "illusive-dnd-amethyst-sheet-css";
 const AMETHYST_HREF = "modules/illusive-dnd-5e/src/hud/components/mobile-sheet/amethyst-sheet.css";
 
+let sheetCssReady = false;
+let accentApplied = false;
+
 export function ensureMobileSheetStyles() {
   let link = document.getElementById(AMETHYST_LINK_ID);
   if (!link) {
@@ -2125,11 +2128,16 @@ export function ensureMobileSheetStyles() {
     el = document.createElement("style");
     el.id = STYLE_ID;
     document.head.appendChild(el);
+    sheetCssReady = false;
   }
-  el.textContent = MOBILE_SHEET_CRITICAL_CSS;
+  if (!sheetCssReady) {
+    el.textContent = MOBILE_SHEET_CRITICAL_CSS;
+    sheetCssReady = true;
+  }
 
-  // Apply per-player accent after base CSS is in place
+  if (accentApplied || !globalThis.game?.settings) return;
+  accentApplied = true;
   import("./mobile-accent.mjs")
     .then((m) => m.applyMobileAccentColor())
-    .catch(() => { /* settings may not be ready yet */ });
+    .catch(() => { accentApplied = false; });
 }

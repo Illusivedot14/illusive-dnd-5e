@@ -2,8 +2,7 @@
  * Prevent invisible HUD layers from eating clicks (dialogs, target-pick confirm, etc.).
  */
 
-import { closeUtilDropdown } from "../components/action-bar/action-bar-util-dropdown.mjs";
-import { hideActionBarUiTooltip } from "../components/action-bar/action-bar-ui-tooltip.mjs";
+import { isIllusiveMobileMode } from "./mobile-client.mjs";
 
 const DIALOG_SELECTOR = [
   ".application.dialog",
@@ -19,8 +18,9 @@ export function cleanupStaleHudOverlays() {
   document.querySelectorAll(STALE_OVERLAY_SELECTOR).forEach((el) => el.remove());
   document.getElementById("illusive-dnd-portrait-hp-menu")?.remove();
   document.getElementById("illusive-dnd-status-context-menu")?.remove();
-  closeUtilDropdown();
-  hideActionBarUiTooltip();
+  if (isIllusiveMobileMode()) return;
+  void import("../components/action-bar/action-bar-util-dropdown.mjs").then((m) => m.closeUtilDropdown());
+  void import("../components/action-bar/action-bar-ui-tooltip.mjs").then((m) => m.hideActionBarUiTooltip());
 }
 
 /** Close floating HUD chrome before modal flows (target pick, dialogs). */

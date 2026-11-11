@@ -15,9 +15,8 @@ import {
 } from "./mobile-sheet-dialogs.mjs";
 import { canUseItem } from "./mobile-sheet-data.mjs";
 import { ensureMobileSheetStyles } from "./mobile-sheet-styles.mjs";
-import { useActivityFromHud } from "../../../application/activity.mjs";
-import { listActivities, requiresCanvasTargets } from "../../../application/ability.mjs";
-import { findTokenForActor } from "../../../application/reaction-context.mjs";
+import { listActivities } from "../../../domain/combat/activity-kind.mjs";
+import { ensureCombatRuntime, loadCombatUse } from "../../../foundry/combat-runtime.mjs";
 import {
   applyDeathSaveResult,
   toggleActorInspiration,
@@ -212,6 +211,7 @@ async function rollMobileDamage(actor, item) {
     ui.notifications.warn("No damage formula on that item.");
     return false;
   }
+  await ensureCombatRuntime();
 
   const data = {
     ...(actor.getRollData?.() ?? {}),
@@ -234,6 +234,7 @@ async function rollMobileAttack(actor, item) {
   const title = `${item.name} Attack`;
   const mode = await pickRollMode(title);
   if (!mode) return false;
+  await ensureCombatRuntime();
 
   let formula = null;
   let data = actor.getRollData?.() ?? {};
@@ -336,6 +337,7 @@ async function inspectAndActItem(actor, itemId, event) {
  * If the use needs people, close the sheet and pick from a range list first.
  */
 async function useItemLikeSheet(actor, item, event) {
+  const { useActivityFromHud, requiresCanvasTargets, findTokenForActor } = await loadCombatUse();
   const activity = getPrimaryUseActivity(item);
   const token = findTokenForActor(actor, { preferControlled: true }) ?? { actor };
   const section = activity?.activation?.type ?? item?.system?.activation?.type ?? "action";

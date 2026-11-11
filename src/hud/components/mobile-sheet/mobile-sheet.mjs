@@ -268,7 +268,33 @@ function markBusy() {
   }, 10000);
 }
 
-async function renderSheet({ capture = true } = {}) {
+function sheetActorId() {
+  return rootEl()?.querySelector(".illusive-dnd-illusive-mobile-sheet")?.dataset?.actorId ?? null;
+}
+
+function nextFrame() {
+  if (typeof requestAnimationFrame !== "function") return Promise.resolve();
+  return new Promise((resolve) => requestAnimationFrame(() => resolve()));
+}
+
+function syncTabChrome() {
+  const root = rootEl();
+  const sheet = root?.querySelector(".illusive-dnd-illusive-mobile-sheet");
+  if (sheet) sheet.dataset.tab = currentTab;
+  root?.querySelectorAll(".section-tab").forEach((btn) => {
+    btn.classList.toggle("active", btn.dataset.tab === currentTab);
+  });
+}
+
+function finishSheetPaint() {
+  publishSheetState();
+  bindSectionScrollCapture();
+  restoreTabScrollSoon();
+  restoreNavScroll();
+  requestAnimationFrame(() => restoreNavScroll());
+}
+
+async function renderSheet({ capture = true, progressive = false } = {}) {
   ensureMobileSheetStyles();
   if (capture) captureTabScroll();
   captureNavScroll();
@@ -284,16 +310,19 @@ async function renderSheet({ capture = true } = {}) {
   hideForeignMobileSheets();
   if (!openActorId) openActorId = actor.id;
 
+  const sameActor = sheetActorId() === actor.id && root.querySelector(".sections-container");
+  if (progressive && !sameActor) {
+    const shell = buildMobileSheetContext(actor, { tab: currentTab, shell: true });
+    root.innerHTML = await illusiveDndRenderTemplate(TEMPLATE, shell);
+    finishSheetPaint();
+    await nextFrame();
+    await renderSheetBody();
+    return;
+  }
+
   const context = buildMobileSheetContext(actor, { tab: currentTab });
   root.innerHTML = await illusiveDndRenderTemplate(TEMPLATE, context);
-  publishSheetState();
-  bindSectionScrollCapture();
-
-  // Restore after layout so the section has a real scroll height
-  restoreTabScrollSoon();
-  // Keep tab bar where the user left it — never scrollIntoView / snap
-  restoreNavScroll();
-  requestAnimationFrame(() => restoreNavScroll());
+  finishSheetPaint();
 }
 
 function queueRefresh() {
@@ -335,8 +364,7 @@ async function renderSheetBody() {
     return;
   }
   current.replaceWith(fresh);
-  bindSectionScrollCapture();
-  restoreTabScrollSoon();
+  finishSheetPaint();
 }
 
 async function dispatchSheetAction(actionEl, event) {
@@ -371,7 +399,8 @@ async function dispatchSheetAction(actionEl, event) {
     captureTabScroll(currentTab);
     captureNavScroll();
     currentTab = nextTab;
-    await renderSheet({ capture: false });
+    syncTabChrome();
+    await renderSheetBody();
     return;
   }
 
@@ -471,7 +500,7 @@ export async function openMobileSheet(actor, { tab } = {}) {
   openActorId = actor.id;
   setMobileFocusedActorId(actor.id);
   if (tab) currentTab = tab;
-  await renderSheet();
+  await renderSheet({ progressive: true });
   return true;
 }
 

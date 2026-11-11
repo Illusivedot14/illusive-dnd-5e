@@ -1,4 +1,5 @@
 import { isIllusiveMobileMode } from "../../lib/mobile-client.mjs";
+import { shouldShowCameraPad } from "../camera-pad/camera-pad.mjs";
 import { getViewedCombat } from "../../../foundry/combat.mjs";
 import {
   buildIdleMovementData,
@@ -123,7 +124,7 @@ function applyMoveChrome(root, { showFeet = false, showUndo = false } = {}) {
   root.classList.toggle("is-hidden", hidden);
   root.classList.toggle("no-token", !hasToken);
   const panel = root.querySelector(".illusive-dnd-move-panel");
-  if (panel) panel.hidden = hidden || !hasToken;
+  if (panel) panel.hidden = hidden || !hasToken || shouldShowCameraPad();
   root.querySelectorAll(".illusive-dnd-move-utils").forEach((el) => {
     el.hidden = hidden || !hasToken;
   });

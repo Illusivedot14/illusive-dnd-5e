@@ -1,6 +1,4 @@
 import { MODULE_ID } from "../constants.mjs";
-import { applyPanelTheme } from "./lib/panel-theme.mjs";
-import { refreshHud, repositionHud } from "./lib/render/core.mjs";
 import { ILLUSIVE_DND_RENDER } from "./lib/render/scopes.mjs";
 import { applyTurnTrackerMinimized } from "./components/turn-tracker/turn-tracker-minimize.mjs";
 import { BossBar } from "./components/boss-bar/boss-bar-init.mjs";
@@ -12,9 +10,47 @@ import {
   illusiveDndSettingChoices,
   registerSettingsSubmenu
 } from "../i18n/index.mjs";
-import { applyLayoutVariables } from "./lib/layout.mjs";
 import { DISPLAY_PROFILE_CHOICES } from "./lib/hud-bounds.mjs";
-import { refreshCameraPad } from "./components/camera-pad/camera-pad.mjs";
+import { isIllusiveMobileMode } from "./lib/mobile-client.mjs";
+
+function whenDesktop(load) {
+  if (isIllusiveMobileMode()) return;
+  void load().catch((err) => console.error(`${MODULE_ID} | desktop refresh failed`, err));
+}
+
+function repositionHud() {
+  whenDesktop(async () => {
+    const { repositionHud: run } = await import("./lib/render/core.mjs");
+    run();
+  });
+}
+
+function refreshHud(mask, options) {
+  whenDesktop(async () => {
+    const { refreshHud: run } = await import("./lib/render/core.mjs");
+    run(mask, options);
+  });
+}
+
+function applyLayoutVariables() {
+  whenDesktop(async () => {
+    const { applyLayoutVariables: run } = await import("./lib/layout.mjs");
+    run();
+  });
+}
+
+function applyPanelTheme() {
+  whenDesktop(async () => {
+    const { applyPanelTheme: run } = await import("./lib/panel-theme.mjs");
+    run();
+  });
+}
+
+function refreshCameraPad() {
+  void import("./components/camera-pad/camera-pad.mjs")
+    .then((m) => m.refreshCameraPad())
+    .catch((err) => console.error(`${MODULE_ID} | camera pad failed`, err));
+}
 const DISPLAY_KEYS = ["displayProfile", "tabletopUser", "tabletopCameraUser"];
 
 const PARTY_KEYS = [

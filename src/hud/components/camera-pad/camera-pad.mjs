@@ -3,7 +3,6 @@ import { setting, settingOn } from "../../lib/hud-settings.mjs";
 import { desktopHudEnabled } from "../../lib/mobile-client.mjs";
 import { getHudBand } from "../../lib/hud-bounds.mjs";
 import { getUiLocalRect, getUiViewportSize, setImportant } from "../../lib/viewport.mjs";
-import { getActionBarToken } from "../../../application/reaction-context.mjs";
 import { panCanvasToToken } from "../../../foundry/token-actions.mjs";
 import { getHudFocusToken, isTouchTableClient } from "../../lib/hooks/touch-table.mjs";
 import { isTabletopClient, isTabletopPilot } from "../../../tabletop/roles.mjs";
@@ -45,10 +44,10 @@ function cameraPadAllowed() {
  * Anyone else needs to be on the world list (unset means nobody else).
  */
 export function shouldShowCameraPad() {
-  if (!desktopHudEnabled()) return false;
   if (!settingOn("enableCameraPad")) return false;
   if (isTabletopClient() && !isTabletopPilot()) return false;
   if (isTabletopPilot()) return true;
+  if (!desktopHudEnabled()) return false;
   const allowed = cameraPadAllowed();
   if (Array.isArray(allowed)) return allowed.includes(game.user?.id);
   if (allowed === "gm") return Boolean(game.user?.isGM);
@@ -200,7 +199,7 @@ function setHeld(el, held) {
   el?.classList.toggle("is-held", held);
 }
 
-function recenterOnToken() {
+async function recenterOnToken() {
   if (tabletopControlsItself()) {
     recenterTabletop();
     return;
@@ -209,6 +208,7 @@ function recenterOnToken() {
     requestTabletopRecenter();
     return;
   }
+  const { getActionBarToken } = await import("../../../application/reaction-context.mjs");
   const token = getActionBarToken() ?? getHudFocusToken();
   if (!token) return;
   withLockViewUnlocked(() => panCanvasToToken(token));
@@ -423,8 +423,39 @@ function actionBarObstacle() {
   return getUiLocalRect(dock);
 }
 
+const MOBILE_PAD_HIDDEN = [
+  "illusive-dnd-mobile-sheet-open",
+  "illusive-dnd-mobile-target-picking",
+  "illusive-dnd-mobile-sidebar-open",
+  "illusive-dnd-foundry-dialog-open",
+  "illusive-dnd-dsn-showing",
+  "illusive-dnd-mobile-roller-open"
+];
+
+function mobileCameraBlocked() {
+  const classes = document.body?.classList;
+  if (!classes) return false;
+  return MOBILE_PAD_HIDDEN.some((name) => classes.contains(name));
+}
+
+/** Same slot as the phone movement stick: centered, just above the character carousel. */
+function placeMobilePad(root) {
+  setImportant(root, {
+    left: "50%",
+    right: "auto",
+    bottom: "calc(var(--illusive-dnd-carousel-dock, 96px) + 12px)",
+    transform: "translateX(-50%)",
+    "z-index": "100004",
+    display: mobileCameraBlocked() ? "none" : "flex"
+  });
+}
+
 function placePad(root) {
   applyCameraPadChrome(root);
+  if (!desktopHudEnabled()) {
+    placeMobilePad(root);
+    return;
+  }
   const ui = getUiViewportSize();
   const { left, bottom } = cameraPadPlacement({
     viewportHeight: ui.h,
@@ -475,6 +506,9 @@ function watchObstacles() {
     attributes: true,
     attributeFilter: ["class", "hidden"]
   });
+  if (document.body && overlay !== document.body) {
+    mutations.observe(document.body, { attributes: true, attributeFilter: ["class"] });
+  }
   obstacleWatch = { observer, mutations };
 }
 

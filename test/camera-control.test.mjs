@@ -145,6 +145,30 @@ describe("shouldShowCameraPad", () => {
     expect(shouldShowCameraPad()).toBe(false);
   });
 
+  it("shows the pad on a phone that has the table camera", () => {
+    installFoundry({
+      settings: {
+        enableMobileSheet: true,
+        mobileClientMode: "forceMobile",
+        tabletopUser: "table",
+        tabletopCameraUser: "user1"
+      }
+    });
+    expect(shouldShowCameraPad()).toBe(true);
+  });
+
+  it("keeps a phone's own-map pad off when that player is not the camera", () => {
+    globalThis.screen = { width: 390, height: 844 };
+    installFoundry({
+      settings: {
+        enableMobileSheet: true,
+        mobileClientMode: "forceMobile",
+        cameraPadVisibleTo: ["user1"]
+      }
+    });
+    expect(shouldShowCameraPad()).toBe(false);
+  });
+
   it("hides everyone when the list is empty", () => {
     asUser("Touchscreen", { settings: { cameraPadVisibleTo: [] } });
     expect(shouldShowCameraPad()).toBe(false);

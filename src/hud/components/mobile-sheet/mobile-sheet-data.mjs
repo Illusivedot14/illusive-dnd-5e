@@ -2,7 +2,7 @@ import { getClassResources, getPactMagic, buildSpellSlotDiamondsForLevel } from 
 import { resolvePortraitSrc } from "../../../foundry/actor-data.mjs";
 import { canPullActorFromDdb, readDdbCharacterId } from "../../../foundry/ddb-pull.mjs";
 import { illusiveDnd } from "../../../i18n/index.mjs";
-import { listActivities } from "../../../application/ability.mjs";
+import { listActivities } from "../../../domain/combat/activity-kind.mjs";
 import { ABILITY_ORDER, SKILL_ORDER, abilityLabel, formatMod, skillLabel } from "../../../foundry/actor-stats.mjs";
 import { primarySpeed, senseRange } from "../../../domain/combat/actor-paths.mjs";
 
@@ -185,20 +185,70 @@ function deathPips(filled, side = "inward-right") {
   return order.map((index) => ({ index, filled: index < n }));
 }
 
-/**
- * Amethyst-style context for Illusive mobile sheet.
- * @param {Actor} actor
- * @param {{ tab?: string }} [options]
- */
-export function buildMobileSheetContext(actor, options = {}) {
-  if (!actor) return null;
+/** One cached body per actor. Dropped when that actor's items or effects change. */
+const tabCache = new Map();
 
-  const tab = TABS.includes(options.tab) ? options.tab : "abilities";
+function mixStamp(sig, text) {
+  const value = String(text ?? "");
+  let next = sig;
+  for (let i = 0; i < value.length; i += 1) next = (Math.imul(next, 33) + value.charCodeAt(i)) >>> 0;
+  return next;
+}
+
+function actorStamp(actor) {
+  let sig = mixStamp(0, actor.id);
+  sig = mixStamp(sig, actor._stats?.modifiedTime ?? 0);
+  for (const item of allItems(actor)) {
+    sig = mixStamp(sig, item.id);
+    sig = mixStamp(sig, item.name);
+    sig = mixStamp(sig, item.type);
+    sig = mixStamp(sig, item._stats?.modifiedTime ?? item.sort ?? 0);
+    sig = mixStamp(sig, item.system?.equipped);
+    sig = mixStamp(sig, item.system?.quantity);
+    sig = mixStamp(sig, item.system?.preparation?.prepared);
+    sig = mixStamp(sig, item.system?.uses?.value);
+  }
+  for (const effect of actor.effects?.contents ?? [...(actor.effects ?? [])]) {
+    sig = mixStamp(sig, effect.id);
+    sig = mixStamp(sig, effect.name);
+    sig = mixStamp(sig, effect.disabled);
+    sig = mixStamp(sig, effect._stats?.modifiedTime ?? 0);
+  }
+  return sig;
+}
+
+function emptyTabFields() {
+  return {
+    abilities: [],
+    skills: [],
+    combat: [],
+    inventory: [],
+    features: [],
+    spellLevels: [],
+    spellSlots: [],
+    pact: null,
+    effects: [],
+    currency: [],
+    resources: [],
+    hitDice: null,
+    senses: [],
+    passive: null,
+    canPullDdb: false,
+    ddbUrl: false,
+    labels: { pullDdb: "", openDdb: "" },
+    biography: "",
+    appearance: "",
+    trait: "",
+    ideal: "",
+    bond: "",
+    flaw: ""
+  };
+}
+
+function buildHeader(actor, tab) {
   const hp = actor.system?.attributes?.hp ?? {};
   const movement = actor.system?.attributes?.movement ?? {};
   const death = actor.system?.attributes?.death ?? {};
-  const items = allItems(actor);
-
   const hpValue = Number(hp.value) || 0;
   const hpMax = Number(hp.max) || 0;
   const hpTemp = Number(hp.temp) || 0;
@@ -208,118 +258,8 @@ export function buildMobileSheetContext(actor, options = {}) {
   const tempPercent = effectiveMax > 0 && hpTemp > 0
     ? Math.max(0, Math.min(100 - hpPercent, Math.round((hpTemp / effectiveMax) * 100)))
     : 0;
-
-  const abilities = ABILITY_ORDER
-    .filter((id) => actor.system?.abilities?.[id])
-    .map((id) => {
-      const ab = actor.system.abilities[id];
-      const save = ab.save?.value ?? ab.save ?? ab.mod;
-      return {
-        id,
-        label: abilityLabel(id),
-        abbr: (CONFIG.DND5E?.abilities?.[id]?.abbreviation ?? id).toUpperCase(),
-        value: ab.value ?? 10,
-        checkMod: formatMod(ab.mod),
-        saveMod: formatMod(typeof save === "object" ? save.value ?? ab.mod : save),
-        proficientSave: Boolean(ab.proficient || ab.save?.proficient)
-      };
-    });
-
-  const skills = SKILL_ORDER
-    .filter((id) => actor.system?.skills?.[id])
-    .map((id) => {
-      const sk = actor.system.skills[id];
-      const proficient = (sk.proficient ?? sk.value ?? 0) > 0;
-      return {
-        id,
-        label: skillLabel(id),
-        ability: (sk.ability ?? CONFIG.DND5E?.skills?.[id]?.ability ?? "").toUpperCase(),
-        mod: formatMod(sk.total ?? sk.mod),
-        proficient,
-        expertise: (sk.proficient ?? sk.value ?? 0) >= 2
-      };
-    });
-
-  const combat = items
-    .filter((item) => {
-      if (item.type === "weapon") return true;
-      if (item.type === "feat" && canUseItem(item)) {
-        const actTypes = listActivities(item).map((a) => a.type);
-        return actTypes.some((t) => ["attack", "damage", "heal", "save", "utility"].includes(t));
-      }
-      return false;
-    })
-    .sort((a, b) => Number(b.system?.equipped) - Number(a.system?.equipped) || (a.sort ?? 0) - (b.sort ?? 0))
-    .map((item) => mapItem(item));
-
-  const inventory = items
-    .filter((item) => ["weapon", "equipment", "consumable", "tool", "container", "loot"].includes(item.type))
-    .sort((a, b) => (a.sort ?? 0) - (b.sort ?? 0) || a.name.localeCompare(b.name))
-    .map((item) => mapItem(item));
-
-  const features = items
-    .filter((item) => ["feat", "race", "background", "class", "subclass"].includes(item.type))
-    .sort((a, b) => (a.sort ?? 0) - (b.sort ?? 0) || a.name.localeCompare(b.name))
-    .map((item) => mapItem(item));
-
-  const spellsByLevel = {};
-  for (const item of items) {
-    if (item.type !== "spell") continue;
-    const level = Number(item.system?.level ?? 0);
-    const mode = item.system?.preparation?.mode;
-    const always = ["always", "innate", "atwill", "pact"].includes(mode);
-    const prepared = always || Boolean(item.system?.preparation?.prepared);
-    const canPrepare = mode === "prepared" || (mode == null && level > 0);
-    const key = String(level);
-    if (!spellsByLevel[key]) {
-      spellsByLevel[key] = { level, label: spellLevelLabel(level), spells: [] };
-    }
-    spellsByLevel[key].spells.push({
-      ...mapItem(item),
-      level,
-      prepared: always ? true : prepared,
-      always,
-      canPrepare: canPrepare && !always,
-      mode: mode || "prepared"
-    });
-    // mapItem already sets itemName; keep explicit for template clarity.
-  }
-  const spellLevels = Object.values(spellsByLevel).sort((a, b) => a.level - b.level);
-  const { slots: spellSlots, pact } = buildSpellSlots(actor);
-
-  const effects = [...(actor.effects?.contents ?? actor.effects ?? [])]
-    .filter((effect) => !effect.getFlag?.("dnd5e", "type") || true)
-      .map((effect) => ({
-        id: effect.id,
-        name: effect.name,
-        itemName: String(effect.name ?? "").trim() || "Effect",
-        img: effect.img || effect.icon || "icons/svg/aura.svg",
-        disabled: Boolean(effect.disabled),
-        duration: effect.duration?.label || null,
-        isTemporary: Boolean(effect.isTemporary ?? (effect.duration?.rounds || effect.duration?.seconds))
-      }));
-
-  const currency = Object.entries(actor.system?.currency ?? {})
-    .filter(([, amount]) => Number(amount) !== 0)
-    .map(([key, amount]) => ({
-      key,
-      amount: Number(amount) || 0,
-      label: CONFIG.DND5E?.currencies?.[key]?.abbreviation
-        ?? CONFIG.DND5E?.currencies?.[key]?.label
-        ?? key.toUpperCase()
-    }));
-
-  const resources = getClassResources(actor);
-  const hitDice = buildHitDice(actor);
-  const senses = buildSenses(actor);
-  const passive = actor.system?.skills?.prc?.passive
-    ?? actor.system?.attributes?.senses?.passivePerception
-    ?? null;
-
   const deathSuccess = Number(death.success) || 0;
   const deathFailure = Number(death.failure) || 0;
-  const showDeathSaves = hpValue <= 0;
-  const tabs = Object.fromEntries(TABS.map((id) => [id, id === tab]));
 
   return {
     actorId: actor.id,
@@ -328,7 +268,7 @@ export function buildMobileSheetContext(actor, options = {}) {
     subtitle: classRaceText(actor),
     isOwner: actor.isOwner,
     tab,
-    tabs,
+    tabs: Object.fromEntries(TABS.map((id) => [id, id === tab])),
     hp: {
       value: hpValue,
       max: hpMax,
@@ -356,21 +296,146 @@ export function buildMobileSheetContext(actor, options = {}) {
       dead: deathFailure >= 3,
       stabilized: deathSuccess >= 3
     },
-    showDeathSaves,
-    abilities,
-    skills,
-    combat,
-    inventory,
-    features,
-    spellLevels,
-    spellSlots,
-    pact,
-    effects,
-    currency,
-    resources,
-    hitDice,
-    senses,
-    passive,
+    showDeathSaves: hpValue <= 0
+  };
+}
+
+/** Item lists for the open tab only. The other tabs stay cached until the stamp changes. */
+function buildTabSlice(actor, tab) {
+  const items = allItems(actor);
+
+  if (tab === "abilities") {
+    const abilities = ABILITY_ORDER
+      .filter((id) => actor.system?.abilities?.[id])
+      .map((id) => {
+        const ab = actor.system.abilities[id];
+        const save = ab.save?.value ?? ab.save ?? ab.mod;
+        return {
+          id,
+          label: abilityLabel(id),
+          abbr: (CONFIG.DND5E?.abilities?.[id]?.abbreviation ?? id).toUpperCase(),
+          value: ab.value ?? 10,
+          checkMod: formatMod(ab.mod),
+          saveMod: formatMod(typeof save === "object" ? save.value ?? ab.mod : save),
+          proficientSave: Boolean(ab.proficient || ab.save?.proficient)
+        };
+      });
+    const skills = SKILL_ORDER
+      .filter((id) => actor.system?.skills?.[id])
+      .map((id) => {
+        const sk = actor.system.skills[id];
+        const proficient = (sk.proficient ?? sk.value ?? 0) > 0;
+        return {
+          id,
+          label: skillLabel(id),
+          ability: (sk.ability ?? CONFIG.DND5E?.skills?.[id]?.ability ?? "").toUpperCase(),
+          mod: formatMod(sk.total ?? sk.mod),
+          proficient,
+          expertise: (sk.proficient ?? sk.value ?? 0) >= 2
+        };
+      });
+    return {
+      abilities,
+      skills,
+      resources: getClassResources(actor),
+      hitDice: buildHitDice(actor),
+      senses: buildSenses(actor),
+      passive: actor.system?.skills?.prc?.passive
+        ?? actor.system?.attributes?.senses?.passivePerception
+        ?? null
+    };
+  }
+
+  if (tab === "combat") {
+    return {
+      combat: items
+        .filter((item) => {
+          if (item.type === "weapon") return true;
+          if (item.type === "feat" && canUseItem(item)) {
+            const actTypes = listActivities(item).map((a) => a.type);
+            return actTypes.some((t) => ["attack", "damage", "heal", "save", "utility"].includes(t));
+          }
+          return false;
+        })
+        .sort((a, b) => Number(b.system?.equipped) - Number(a.system?.equipped) || (a.sort ?? 0) - (b.sort ?? 0))
+        .map((item) => mapItem(item))
+    };
+  }
+
+  if (tab === "inventory") {
+    return {
+      inventory: items
+        .filter((item) => ["weapon", "equipment", "consumable", "tool", "container", "loot"].includes(item.type))
+        .sort((a, b) => (a.sort ?? 0) - (b.sort ?? 0) || a.name.localeCompare(b.name))
+        .map((item) => mapItem(item)),
+      currency: Object.entries(actor.system?.currency ?? {})
+        .filter(([, amount]) => Number(amount) !== 0)
+        .map(([key, amount]) => ({
+          key,
+          amount: Number(amount) || 0,
+          label: CONFIG.DND5E?.currencies?.[key]?.abbreviation
+            ?? CONFIG.DND5E?.currencies?.[key]?.label
+            ?? key.toUpperCase()
+        }))
+    };
+  }
+
+  if (tab === "features") {
+    return {
+      features: items
+        .filter((item) => ["feat", "race", "background", "class", "subclass"].includes(item.type))
+        .sort((a, b) => (a.sort ?? 0) - (b.sort ?? 0) || a.name.localeCompare(b.name))
+        .map((item) => mapItem(item))
+    };
+  }
+
+  if (tab === "spells") {
+    const spellsByLevel = {};
+    for (const item of items) {
+      if (item.type !== "spell") continue;
+      const level = Number(item.system?.level ?? 0);
+      const mode = item.system?.preparation?.mode;
+      const always = ["always", "innate", "atwill", "pact"].includes(mode);
+      const prepared = always || Boolean(item.system?.preparation?.prepared);
+      const canPrepare = mode === "prepared" || (mode == null && level > 0);
+      const key = String(level);
+      if (!spellsByLevel[key]) {
+        spellsByLevel[key] = { level, label: spellLevelLabel(level), spells: [] };
+      }
+      spellsByLevel[key].spells.push({
+        ...mapItem(item),
+        level,
+        prepared: always ? true : prepared,
+        always,
+        canPrepare: canPrepare && !always,
+        mode: mode || "prepared"
+      });
+    }
+    const { slots: spellSlots, pact } = buildSpellSlots(actor);
+    return {
+      spellLevels: Object.values(spellsByLevel).sort((a, b) => a.level - b.level),
+      spellSlots,
+      pact
+    };
+  }
+
+  if (tab === "effects") {
+    return {
+      effects: [...(actor.effects?.contents ?? actor.effects ?? [])]
+        .filter((effect) => !effect.getFlag?.("dnd5e", "type") || true)
+        .map((effect) => ({
+          id: effect.id,
+          name: effect.name,
+          itemName: String(effect.name ?? "").trim() || "Effect",
+          img: effect.img || effect.icon || "icons/svg/aura.svg",
+          disabled: Boolean(effect.disabled),
+          duration: effect.duration?.label || null,
+          isTemporary: Boolean(effect.isTemporary ?? (effect.duration?.rounds || effect.duration?.seconds))
+        }))
+    };
+  }
+
+  return {
     canPullDdb: canPullActorFromDdb(actor),
     ddbUrl: Boolean(readDdbCharacterId(actor)),
     labels: {
@@ -386,3 +451,28 @@ export function buildMobileSheetContext(actor, options = {}) {
   };
 }
 
+function cachedTabSlice(actor, tab) {
+  const stamp = actorStamp(actor);
+  let entry = tabCache.get(actor.id);
+  if (!entry || entry.stamp !== stamp) {
+    entry = { stamp, tabs: {} };
+    tabCache.set(actor.id, entry);
+  }
+  if (!entry.tabs[tab]) entry.tabs[tab] = buildTabSlice(actor, tab);
+  return entry.tabs[tab];
+}
+
+/**
+ * Amethyst-style context for Illusive mobile sheet.
+ * Header is always current. Only the open tab's lists are built.
+ * @param {Actor} actor
+ * @param {{ tab?: string, shell?: boolean }} [options]
+ */
+export function buildMobileSheetContext(actor, options = {}) {
+  if (!actor) return null;
+
+  const tab = TABS.includes(options.tab) ? options.tab : "abilities";
+  const header = buildHeader(actor, tab);
+  if (options.shell) return { ...header, ...emptyTabFields() };
+  return { ...header, ...emptyTabFields(), ...cachedTabSlice(actor, tab) };
+}

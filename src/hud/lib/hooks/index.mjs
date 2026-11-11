@@ -17,16 +17,18 @@
 import { bindSceneLoadDeselect } from "./scene-selection.mjs";
 import { bindTouchTableClient } from "./touch-table.mjs";
 import { bindSpellRegionCleanup } from "../../../foundry/spell-regions.mjs";
-import { bindCameraPad } from "../../components/camera-pad/camera-pad.mjs";
 import { bindTabletop } from "../../../tabletop/index.mjs";
 import { bindTokenAuras } from "../../components/token-aura/token-aura.mjs";
+import { isIllusiveMobileMode } from "../mobile-client.mjs";
 
 /** Canvas + token behavior (register during init, before canvasReady). */
-export function bindCanvasHooks() {
+export async function bindCanvasHooks() {
   bindSceneLoadDeselect();
   bindTouchTableClient();
   bindSpellRegionCleanup();
   bindTabletop();
-  bindCameraPad();
   bindTokenAuras();
+  if (isIllusiveMobileMode()) return;
+  const { bindCameraPad } = await import("../../components/camera-pad/camera-pad.mjs");
+  bindCameraPad();
 }

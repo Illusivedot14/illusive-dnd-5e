@@ -68,8 +68,13 @@ export function sendReactionDecision(toUserId, payload) {
 function onMessage(data) {
   if (!data || data.type !== SOCKET_TYPE) return;
   if (data.toUserId && data.toUserId !== game.user?.id) return;
-  if (data.kind === "prompt") handlers.onPrompt?.(data);
-  else if (data.kind === "decision") handlers.onDecision?.(data);
+  deliverReaction(data.kind, data);
+}
+
+/** Run whatever handler is installed now. A lazy listener uses this after the runtime loads. */
+export function deliverReaction(kind, data) {
+  if (kind === "prompt") handlers.onPrompt?.(data);
+  else if (kind === "decision") handlers.onDecision?.(data);
 }
 
 export function bindReactionSocket({ onPrompt, onDecision } = {}) {

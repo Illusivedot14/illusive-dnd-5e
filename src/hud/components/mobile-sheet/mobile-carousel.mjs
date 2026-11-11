@@ -360,7 +360,6 @@ export async function bootMobileClientUi() {
   renderMobileMove();
   document.getElementById("illusive-dnd-mobile-global-gear")?.remove();
   bindMobileCarousel();
-  renderMobileCarousel();
 
   const actors = getMobileSheetActors();
   if (!actors.length) {

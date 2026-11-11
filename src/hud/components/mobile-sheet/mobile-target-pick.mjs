@@ -4,13 +4,10 @@
  */
 
 import { illusiveDnd } from "../../../i18n/index.mjs";
-import { requiresCanvasTargets } from "../../../application/ability.mjs";
-import { useActivityFromHud } from "../../../application/activity.mjs";
-import { getRequiredTargetCount } from "../action-bar/action-bar-target-picker.mjs";
 import { viewedScene } from "../../../foundry/token-step.mjs";
 import { closeMobileSheet, openMobileSheet } from "./mobile-sheet.mjs";
 import { ensureMobileSheetStyles } from "./mobile-sheet-styles.mjs";
-import { listTargetsInRange, tokenId } from "../../../application/targeting.mjs";
+import { loadCombatUse } from "../../../foundry/combat-runtime.mjs";
 
 const OVERLAY_ID = "illusive-dnd-mobile-target-pick";
 const OVERLAY_Z = "100070";
@@ -121,6 +118,13 @@ export async function startMobileTargetUse({
   spellLevel = null
 }) {
   if (!actor || !item) return false;
+  const {
+    requiresCanvasTargets,
+    listTargetsInRange,
+    tokenId,
+    getRequiredTargetCount,
+    useActivityFromHud
+  } = await loadCombatUse();
   if (!requiresCanvasTargets(item, activity)) return false;
   if (!token?.document && !token?.id) {
     ui.notifications.warn(illusiveDnd.mobileMove("noToken"));
