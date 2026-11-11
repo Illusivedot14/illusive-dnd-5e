@@ -3,35 +3,33 @@
  */
 
 import { isRangedAttack } from "./activity-kind.mjs";
+import { MASTERY_RULES } from "../../content/masteries.mjs";
 
-export const MASTERY_KEYS = Object.freeze([
-  "cleave", "graze", "nick", "push", "sap", "slow", "topple", "vex"
-]);
+export const MASTERY_KEYS = Object.freeze(MASTERY_RULES.map((rule) => rule.id));
+
+/**
+ * @param {object|null} rule
+ * @param {{ hit?: boolean, fumble?: boolean }} args
+ */
+export function planMasteryRule(rule, { hit = false, fumble = false } = {}) {
+  if (!rule || fumble) return null;
+  const key = rule.id;
+  const steps = rule.do ?? [];
+  if (rule.phase === "miss") {
+    return hit ? null : { key, phase: "miss", effect: rule.effect, steps };
+  }
+  if (!hit) return null;
+  return { key, phase: "hit", effect: rule.effect, steps };
+}
 
 /**
  * @param {{ mastery?: string|null, hit?: boolean, fumble?: boolean }} args
- * @returns {{ key: string, phase: "hit"|"miss", effect: string }|null}
+ * @returns {{ key: string, phase: "hit"|"miss", effect: string, steps: object[] }|null}
  */
 export function planMastery({ mastery = null, hit = false, fumble = false } = {}) {
   const key = String(mastery ?? "").toLowerCase();
-  if (!MASTERY_KEYS.includes(key)) return null;
-  if (fumble) return null;
-
-  if (key === "graze") {
-    return hit ? null : { key, phase: "miss", effect: "abilityModDamage" };
-  }
-  if (!hit) return null;
-
-  const effects = {
-    cleave: "extraAdjacentAttack",
-    nick: "lightAttackAsAttackAction",
-    push: "push10",
-    sap: "disadvantageNextAttack",
-    slow: "reduceSpeed10",
-    topple: "conSaveOrProne",
-    vex: "advantageNextAttackVsTarget"
-  };
-  return { key, phase: "hit", effect: effects[key] };
+  const rule = MASTERY_RULES.find((entry) => entry.id === key) ?? null;
+  return planMasteryRule(rule, { hit, fumble });
 }
 
 /** Ability modifier from a raw ability score. */

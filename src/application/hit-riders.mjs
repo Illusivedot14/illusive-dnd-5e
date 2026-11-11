@@ -6,6 +6,8 @@
 
 import { listAvailableHitRiders } from "../domain/combat/hit-riders.mjs";
 import { emitCombatFx } from "./combat-fx.mjs";
+import { flatDamageRoll } from "./damage-apply.mjs";
+import { rollVisible } from "./dice.mjs";
 import { targetHasCastersMark } from "./roll-modifiers.mjs";
 import { actorFromUuid } from "../foundry/token-lookup.mjs";
 
@@ -76,6 +78,11 @@ export async function offerHitRiders({
       rolls = (await rider.item.rollDamage({ event, isCritical: critical })) ?? [];
     }
     rolls = Array.isArray(rolls) ? rolls : [];
+    if (!rolls.length && rider.formula) {
+      const roll = await rollVisible(rider.formula, { actor, flavor: rider.item?.name ?? rider.id });
+      const value = Number(roll?.total) || 0;
+      if (value > 0) rolls = [flatDamageRoll(value, null, rider.formula)];
+    }
     out.push({
       rider: rider.id,
       itemUuid: rider.item?.uuid ?? null,

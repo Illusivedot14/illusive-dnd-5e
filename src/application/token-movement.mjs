@@ -8,6 +8,8 @@ import { getViewedCombat } from "../foundry/combat.mjs";
 import { debugLog, DEBUG_CHANNELS, isDebugLoggingEnabled } from "../foundry/debug.mjs";
 import { isDashed } from "./economy.mjs";
 import { movementSpeed } from "../domain/combat/actor-paths.mjs";
+import { tokenFromUuid } from "../foundry/token-lookup.mjs";
+import { movementCostMultiplier } from "./zones.mjs";
 
 function dbgMove(tag, data = {}) {
   debugLog(DEBUG_CHANNELS.GAME_LOG, tag, data);
@@ -397,8 +399,9 @@ export function estimateProposedMoveCostFeet(tokenDoc, changes = {}) {
     cost: changes.cost
   };
 
+  const scale = movementCostMultiplier(doc);
   const cost = segmentMovementCost(token, from, to, gridDistance);
-  if (cost > 0) return cost;
+  if (cost > 0) return cost * scale;
 
   // Fallback: one grid step ≈ grid distance when Foundry didn't store a cost.
   const dx = Math.abs((Number(to.x) || 0) - (Number(from.x) || 0));
@@ -411,7 +414,7 @@ export function estimateProposedMoveCostFeet(tokenDoc, changes = {}) {
   // Diagonal counts as one space under 5e/foundry default for a single step.
   const diag = dx > 0 && dy > 0 ? 1 : 0;
   const counted = spaces > 0 ? Math.max(spaces, diag || spaces) : (diag ? 1 : 0);
-  return counted * gridDistance;
+  return counted * gridDistance * scale;
 }
 
 /**
@@ -444,6 +447,22 @@ export function combatMoveExceedsBudget(tokenDoc, changes = {}, options = {}) {
  * preUpdateToken gate: return false to block. Optionally notifies.
  */
 export function enforceCombatMovementBudget(tokenDoc, changes, options = {}) {
+  const bypass = options.illusiveDndForced || options.isUndo || options.illusiveApplyPending;
+  const denied = tokenDoc?.actor?.getFlag?.(MODULE_ID, "control");
+  if (Array.isArray(denied) && denied.includes("move") && !bypass) return false;
+  const order = tokenDoc?.actor?.getFlag?.(MODULE_ID, "controlOrder");
+  if (!bypass && order && (changes.x != null || changes.y != null)) {
+    const source = order.sourceUuid ? tokenFromUuid(order.sourceUuid)?.document : null;
+    if (source) {
+      const before = Math.hypot((Number(tokenDoc.x) || 0) - (Number(source.x) || 0), (Number(tokenDoc.y) || 0) - (Number(source.y) || 0));
+      const after = Math.hypot(
+        (Number(changes.x ?? tokenDoc.x) || 0) - (Number(source.x) || 0),
+        (Number(changes.y ?? tokenDoc.y) || 0) - (Number(source.y) || 0)
+      );
+      if (order.order === "approach" && after > before + 1) return false;
+      if (order.order === "flee" && after < before - 1) return false;
+    }
+  }
   if (!combatMoveExceedsBudget(tokenDoc, changes, options)) return true;
   try {
     const token = tokenDoc.object ?? tokenDoc;

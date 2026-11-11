@@ -3,6 +3,7 @@
  */
 
 import { planMastery, weaponAbilityKey } from "../domain/combat/mastery.mjs";
+import { pushDestination } from "../domain/spatial/push.mjs";
 import { emitCombatFx } from "./combat-fx.mjs";
 import { combatantForActor, readBudget, writeBudget } from "./economy.mjs";
 import { MODULE_ID } from "../constants.mjs";
@@ -29,20 +30,10 @@ async function applyRoundEffect(actor, name, statuses = [], changes = []) {
 
 function pushOffset(attacker, target, feet = 10) {
   const grid = canvas?.grid;
-  const size = Number(grid?.size) || 100;
-  const distance = Number(grid?.distance) || 5;
-  const pixels = (feet / distance) * size;
-  const ax = attacker.center?.x ?? attacker.x;
-  const ay = attacker.center?.y ?? attacker.y;
-  const tx = target.center?.x ?? target.x;
-  const ty = target.center?.y ?? target.y;
-  const dx = tx - ax;
-  const dy = ty - ay;
-  const len = Math.hypot(dx, dy) || 1;
-  return {
-    x: (target.document?.x ?? target.x) + (dx / len) * pixels,
-    y: (target.document?.y ?? target.y) + (dy / len) * pixels
-  };
+  return pushDestination(attacker, target, feet, {
+    size: Number(grid?.size) || 100,
+    distance: Number(grid?.distance) || 5
+  });
 }
 
 /**
@@ -83,6 +74,34 @@ export async function applyWeaponMastery({
   });
 
   try {
+    if (plan.effect === "steps") {
+      for (const step of plan.steps ?? []) {
+        if (step.step === "damage" && target?.actor && primaryUuid) {
+          const value = Math.max(0, Number(step.value) || 0);
+          if (value > 0) {
+            applied.push({
+              mastery: plan.key,
+              type: "damage",
+              value,
+              targetUuid: primaryUuid,
+              attackHit: false,
+              rolls: [flatDamageRoll(value, step.damageType || primaryDamageType(item), `${plan.key} ${value}`)]
+            });
+          }
+        }
+        if (step.step === "applyStatus" && target?.actor && step.status) {
+          const status = await toggleActorStatus(target.actor, step.status, { active: true });
+          applied.push({
+            mastery: plan.key,
+            type: "status",
+            status: step.status,
+            targetUuid: primaryUuid,
+            undo: status?.undo ?? []
+          });
+        }
+      }
+    }
+
     if (plan.effect === "abilityModDamage" && target?.actor) {
       const key = weaponAbilityKey(item, actor);
       const mod = Number(actor?.system?.abilities?.[key]?.mod) || 0;

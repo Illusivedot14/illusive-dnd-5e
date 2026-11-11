@@ -7,6 +7,14 @@ import { shouldApplyEffectOnSave } from "../domain/combat/save-outcome.mjs";
 import { getConcentrationEffect } from "../foundry/dnd5e-adapter.mjs";
 import { tokenFromUuid as resolveToken } from "../foundry/token-lookup.mjs";
 import { createEmbedded, updateDoc } from "../foundry/write-gateway.mjs";
+import { readMetamagic } from "./triggers/feature-steps.mjs";
+
+function extendDuration(data, caster) {
+  if (readMetamagic(caster) !== "extended" || !data?.duration) return;
+  const duration = data.duration;
+  if (Number(duration.seconds) > 0) duration.seconds *= 2;
+  if (Number(duration.rounds) > 0) duration.rounds *= 2;
+}
 
 /**
  * Resolve the ActiveEffect document for an activity effect profile.
@@ -127,6 +135,7 @@ export async function applyActivityEffects({
         } else if (globalThis.ActiveEffect?.getInitialDuration) {
           Object.assign(data, globalThis.ActiveEffect.getInitialDuration());
         }
+        extendDuration(data, caster);
 
         if (typeof actor.createEmbeddedDocuments === "function") {
           const made = await createEmbedded(actor, "ActiveEffect", [data]);

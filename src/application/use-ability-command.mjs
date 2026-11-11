@@ -12,6 +12,7 @@ import {
 import { isEconomyAvailable, resolveEconomySection } from "./economy.mjs";
 import { useAbility } from "./action-data.mjs";
 import { executeStandardAction } from "./standard-actions.mjs";
+import { movePlacedZone } from "./zones.mjs";
 import { clearUserTargets } from "../foundry/token-actions.mjs";
 import { isTokenInCombat } from "./action-economy.mjs";
 import { recordGameLogEvent } from "./combat-game-log.mjs";
@@ -46,6 +47,31 @@ export async function planAndUseAbility({
 } = {}) {
   const actor = token?.actor;
   if (!actor) return { ok: false, reason: "no-actor" };
+
+  if (String(itemId).startsWith("zone:")) {
+    const selected = targetCount ?? (globalThis.game?.user?.targets?.size ?? 0);
+    if (!selected) {
+      return {
+        ok: true,
+        action: "pick-targets",
+        pick: {
+          tokenId: token.id,
+          actorId: actor.id,
+          itemId,
+          activityId: "",
+          section: "bonus",
+          spellLevel: null,
+          isStandard: false,
+          actionId: null,
+          required: 1,
+          abilityName
+        }
+      };
+    }
+    const used = await movePlacedZone(token, String(itemId).slice(5));
+    if (used) clearUserTargets();
+    return { ok: true, action: "fire", result: Boolean(used) };
+  }
 
   const inCombat = isTokenInCombat(token);
   const economyType = resolveEconomySection(section, activationType);
@@ -152,6 +178,11 @@ export async function fireAfterTargetPick({
   if (!token?.actor || !pending) return false;
   if (pending.isStandard) {
     const used = await executeStandardAction(token, pending.actionId);
+    if (used) clearUserTargets();
+    return Boolean(used);
+  }
+  if (String(pending.itemId).startsWith("zone:")) {
+    const used = await movePlacedZone(token, String(pending.itemId).slice(5));
     if (used) clearUserTargets();
     return Boolean(used);
   }

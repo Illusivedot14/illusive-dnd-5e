@@ -18,12 +18,11 @@ vi.mock("../src/application/economy.mjs", async (importOriginal) => ({
 import { installFoundry, resetFoundry, makeActor, makeCollection } from "./helpers.mjs";
 import {
   collectWindowCandidates,
-  completeHardWindowDecision,
   promptReactor,
+  openReactionWindow,
   _resetHardWindowWaits
 } from "../src/application/reactions/window.mjs";
 import { remoteOwnerFor } from "../src/foundry/reaction-socket.mjs";
-import { openReactionWindow } from "../src/application/reactions/window.mjs";
 import { declarationSpecsForWindow } from "../src/application/triggers/engine.mjs";
 import { _resetTriggerIndex } from "../src/application/triggers/index.mjs";
 import { _resetCombatMemory, getResolution } from "../src/application/combat.mjs";
@@ -32,7 +31,6 @@ import { saveResolution } from "../src/foundry/workflow-store.mjs";
 import {
   passReaction,
   startReactionPrompt,
-  settleReactionPrompt,
   getReactionContext
 } from "../src/application/reaction-context.mjs";
 
@@ -204,53 +202,63 @@ describe("reaction relay", () => {
     installFoundry();
     _resetCombatMemory();
     await saveResolution(createActionResolution({ id: "hw-1", phase: "awaiting-attack", actorUuid: "Actor.orc" }));
-    const wizard = makeActor({ id: "wiz", isOwner: true, items: [shieldSpell()] });
+    const wizard = makeActor({ id: "wiz", name: "Wizard", isOwner: true, items: [shieldSpell()] });
     wizard.uuid = "Actor.wiz";
-    const group = {
-      actor: wizard,
-      token: { id: "tw", document: { uuid: "Token.wiz" } },
-      specs: declarationSpecsForWindow("on-attack-hit", wizard),
-      activities: [{ id: "a1", item: { id: "shield" } }],
-      ctx: { isTarget: true, targetUuids: ["Token.wiz"] }
-    };
+    const fighter = makeActor({ id: "fig", name: "Fighter", isOwner: true, items: [shieldSpell()] });
+    fighter.uuid = "Actor.fig";
+    const groupFor = (actor) => ({
+      actor,
+      token: { id: actor.id, name: actor.name, document: { uuid: `Token.${actor.id}` } },
+      specs: declarationSpecsForWindow("on-attack-hit", actor),
+      activities: [{ id: "a1", item: { id: "shield" }, name: "Shield" }],
+      ctx: { isTarget: true, targetUuids: [`Token.${actor.id}`] }
+    });
 
-    const pending = openReactionWindow({ parentId: "hw-1", windowId: "on-attack-hit", candidates: [group] });
-    await vi.waitFor(() => expect(getReactionContext()?.options?.parentId).toBe("hw-1"));
-    expect(getResolution("hw-1").phase).toBe("awaiting-reaction");
+    const wait = vi.fn(async (dialog) => {
+      expect(getResolution("hw-1").phase).toBe("awaiting-reaction");
+      expect(dialog.content).toContain("Wizard");
+      expect(dialog.content).toContain("Fighter");
+      expect(dialog.buttons.map((button) => button.action)).toEqual(["pass", "confirm"]);
+      return "pass";
+    });
+    globalThis.foundry.applications.api.DialogV2.wait = wait;
 
-    passReaction();
-    const merged = await pending;
+    const merged = await openReactionWindow({
+      parentId: "hw-1",
+      windowId: "on-attack-hit",
+      candidates: [groupFor(wizard), groupFor(fighter)]
+    });
 
+    expect(wait).toHaveBeenCalledOnce();
     expect(merged.acBonusByTarget.size).toBe(0);
     expect(getResolution("hw-1").phase).toBe("awaiting-attack");
-    expect(completeHardWindowDecision({ parentId: "hw-1", actorUuid: "Actor.wiz" })).toBe(false);
   });
 
   it("hard window: a relayed decision settles on the asking client", async () => {
     installFoundry();
     _resetCombatMemory();
     await saveResolution(createActionResolution({ id: "hw-2", phase: "awaiting-attack", actorUuid: "Actor.orc" }));
-    const emit = vi.fn();
-    globalThis.game.socket = { emit, on: vi.fn() };
-    globalThis.game.users = [{ id: "player2", active: true, isGM: false }];
-    const wizard = makeActor({ id: "wiz", items: [shieldSpell()] });
+    const query = vi.fn(async (name) => {
+      if (String(name).endsWith("reactionUse")) return { used: true, itemId: "shield" };
+      return { picks: [{ actorUuid: "Actor.wiz", itemId: "shield", activityId: "a1" }] };
+    });
+    globalThis.game.users = [{ id: "player2", active: true, isGM: false, query }];
+    const wizard = makeActor({ id: "wiz", name: "Wizard", items: [shieldSpell()] });
     wizard.uuid = "Actor.wiz";
     wizard.testUserPermission = (u) => u.id === "player2";
     const group = {
       actor: wizard,
-      token: { id: "tw", document: { uuid: "Token.wiz" } },
+      token: { id: "tw", name: "Wizard", document: { uuid: "Token.wiz" } },
       specs: declarationSpecsForWindow("on-attack-hit", wizard),
-      activities: [{ id: "a1", item: { id: "shield" } }],
+      activities: [{ id: "a1", item: { id: "shield" }, name: "Shield" }],
       ctx: { isTarget: true, targetUuids: ["Token.wiz"] }
     };
 
-    const pending = openReactionWindow({ parentId: "hw-2", windowId: "on-attack-hit", candidates: [group] });
-    await vi.waitFor(() => expect(emit).toHaveBeenCalled());
-    const prompt = emit.mock.calls[0][1];
-
-    // What the owner's client sends back after they click Shield.
-    await settleReactionPrompt(prompt.options, { used: true, itemId: "shield" });
-    const merged = await pending;
+    const merged = await openReactionWindow({ parentId: "hw-2", windowId: "on-attack-hit", candidates: [group] });
+    expect(query.mock.calls.map((call) => call[0])).toEqual([
+      "illusive-dnd-5e.reactionWindow",
+      "illusive-dnd-5e.reactionUse"
+    ]);
 
     expect(merged.acBonusByTarget.get("Token.wiz")).toBe(5);
     expect(getResolution("hw-2").phase).toBe("awaiting-attack");

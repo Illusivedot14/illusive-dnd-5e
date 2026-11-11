@@ -16,11 +16,12 @@ import {
 } from "../application/combat.mjs";
 import {
   oaLog,
-  previewTokenMoveOpportunity,
-  promptOpportunityReactions,
+  leaveReachContext,
+  openLeaveReachWindow,
   stashPendingMove,
   getPendingMove
 } from "../application/opportunity-attack.mjs";
+import { collectWindowCandidates } from "../application/reactions/window.mjs";
 import { enforceCombatMovementBudget } from "../application/token-movement.mjs";
 import { openProvokedMovement } from "../application/combat-game-log.mjs";
 import { applyDamageRolls } from "../application/damage-apply.mjs";
@@ -32,16 +33,21 @@ import {
 import { featureEnabled } from "../application/levels.mjs";
 import { syncAllAuras } from "../application/aura-effects.mjs";
 import { onCombatTurnChange } from "../application/overtime.mjs";
+import { tickZoneMove, tickZonesOnTurn } from "../application/zones.mjs";
+import { dragGrappled } from "../application/triggers/feature-steps.mjs";
 import {
   onCombatTurnChangeSpecial,
   expireOnCombatEnd,
-  expireOnRest
+  expireOnRest,
+  expireOnHealed
 } from "../application/special-duration.mjs";
 import { clearPassiveRidersUsed } from "../application/feature-toggles.mjs";
 import { bindIllusiveTemplatePlacer } from "../application/template-placer.mjs";
 import { noteFall, takeFallFor, resolveFallDamage } from "../application/falling.mjs";
 import { offerReadiedMoveTrigger } from "../application/readied-triggers.mjs";
-import { publishTurnMoments, bindTriggerIndexHooks } from "../application/triggers/engine.mjs";
+import { publishTurnMoments, bindTriggerIndexHooks, runPassiveTriggers } from "../application/triggers/engine.mjs";
+import { tickConfusion, tickRepeatSaves } from "../application/triggers/lifecycle.mjs";
+import { actorFromUuid, tokenForActor, tokenUuidOf } from "./token-lookup.mjs";
 import { isPrimaryWriter } from "./gm-query.mjs";
 
 const AURA_SYNC_DEBOUNCE_MS = 120;
@@ -136,18 +142,21 @@ export function bindAutomationHooks() {
       x: changes?.x ?? null,
       y: changes?.y ?? null
     });
-    if (!featureEnabled("opportunityAttacks")) return;
     if (changes?.x == null && changes?.y == null) return;
-    const preview = previewTokenMoveOpportunity({ tokenDoc, changes, options });
-    if (!preview.provoked) {
+    if (options?.isUndo || options?.illusiveSkipOA || options?.illusiveApplyPending) return;
+    if (!globalThis.game?.combat?.started) return;
+    const baseCtx = leaveReachContext(tokenDoc, changes, options);
+    if (!baseCtx?.triggerTokenUuid) return;
+    const groups = collectWindowCandidates("on-leave-reach", baseCtx);
+    if (!groups.length) {
       oaLog("not provoked", { token: tokenDoc?.name ?? tokenDoc?.id ?? null });
       return;
     }
-    oaLog("holding move", { token: tokenDoc?.name ?? tokenDoc?.id ?? null, candidates: preview.candidates?.length ?? 0 });
+    oaLog("holding move", { token: tokenDoc?.name ?? tokenDoc?.id ?? null, candidates: groups.length });
     stashPendingMove(tokenDoc, changes, options);
     const pending = tokenDoc?.id ? getPendingMove(tokenDoc.id) : null;
     if (pending) pending.logId = openProvokedMovement(tokenDoc);
-    void promptOpportunityReactions(preview).catch((err) => {
+    void openLeaveReachWindow(tokenDoc, baseCtx).catch((err) => {
       console.error("illusive-dnd-5e | oa | prompt failed", err);
     });
     return false;
@@ -164,6 +173,19 @@ export function bindAutomationHooks() {
     }, AURA_SYNC_DEBOUNCE_MS);
   };
   route("canvasReady", "Sync mechanical auras", syncAuras);
+  const zonePrior = new Map();
+  route("preUpdateToken", "Remember where a token was for zones", (tokenDoc, changes) => {
+    if (changes?.x == null && changes?.y == null) return;
+    zonePrior.set(tokenDoc.id, { x: Number(tokenDoc.x) || 0, y: Number(tokenDoc.y) || 0 });
+  });
+  route("updateToken", "Zones on enter and per square", (tokenDoc, changes) => {
+    if (!isPrimaryWriter()) return;
+    if (changes?.x == null && changes?.y == null) return;
+    const prior = zonePrior.get(tokenDoc.id) ?? null;
+    zonePrior.delete(tokenDoc.id);
+    void tickZoneMove(tokenDoc, prior);
+    void dragGrappled(tokenDoc, prior);
+  });
   route("updateToken", "Resync auras on move", (doc, changes) => {
     if (changes?.x != null || changes?.y != null || changes?.elevation != null) syncAuras();
   });
@@ -203,6 +225,11 @@ export function bindAutomationHooks() {
         await clearPassiveRidersUsed(currentActor);
       }
       await publishTurnMoments(combat, prior, current);
+      if (currentActor) {
+        await tickZonesOnTurn(currentActor);
+        await tickRepeatSaves(currentActor);
+        await tickConfusion(currentActor);
+      }
       syncAuras();
     })();
   });
@@ -214,6 +241,30 @@ export function bindAutomationHooks() {
 
   route("dnd5e.restCompleted", "Expire rest special durations", (actor, result) => {
     void expireOnRest(actor, { long: Boolean(result?.long) });
+    const token = tokenForActor(actor);
+    void runPassiveTriggers("rest", {
+      baseCtx: { triggerTokenUuid: token ? tokenUuidOf(token) : null, long: Boolean(result?.long) }
+    });
+  });
+
+  route(`${MODULE_ID}.healed`, "Effects that last until the creature regains hit points", (event) => {
+    if (event?.actor) void expireOnHealed(event.actor);
+  });
+
+  route(`${MODULE_ID}.statusToggled`, "A creature gains a condition", (event) => {
+    if (!event?.active || !event.statusId || !event.origin) return;
+    const source = actorFromUuid(event.origin);
+    if (!source || source === event.actor) return;
+    const trigger = tokenForActor(source);
+    if (!trigger) return;
+    const victim = tokenForActor(event.actor);
+    void runPassiveTriggers("gainsCondition", {
+      baseCtx: {
+        triggerTokenUuid: tokenUuidOf(trigger),
+        targetUuids: victim ? [tokenUuidOf(victim)] : [],
+        status: event.statusId
+      }
+    });
   });
 
   // Declarations are indexed per actor; item/effect edits invalidate that actor only.

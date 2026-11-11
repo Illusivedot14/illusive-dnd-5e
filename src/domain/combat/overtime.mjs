@@ -1,8 +1,12 @@
 /**
  * Over-time effect catalog — turn-start / turn-end damage & saves.
  *
- * Effects carry `flags.illusive-dnd-5e.overTime`.
+ * An effect flag `flags.illusive-dnd-5e.overTime` still ticks.
+ * A declaration on turnStart or turnEnd with `overTime` ticks the same way.
+ * A new one is that declaration.
  */
+
+import { declarationsFor } from "../../application/triggers/index.mjs";
 
 export const OVERTIME_FLAG = "overTime";
 
@@ -44,14 +48,36 @@ export function normalizeOverTime(raw) {
  * @param {string} [moduleId="illusive-dnd-5e"]
  * @returns {Array<{ effect: object, spec: OverTimeSpec }>}
  */
+function declaredOverTime(actor, turn) {
+  const moment = turn === "end" ? "turnEnd" : "turnStart";
+  const out = [];
+  for (const entry of declarationsFor(actor, moment)) {
+    const spec = normalizeOverTime(entry.decl.overTime);
+    if (!spec || spec.turn !== turn) continue;
+    const effect = entry.effect ?? entry.item;
+    if (!effect) continue;
+    out.push({
+      effect,
+      spec: { ...spec, label: spec.label || entry.decl.label || effect.name }
+    });
+  }
+  return out;
+}
+
 export function listOverTimeEffects(actor, turn, moduleId = "illusive-dnd-5e") {
   const out = [];
+  const seen = new Set();
   for (const effect of actor?.effects ?? []) {
     if (effect.disabled) continue;
     const illusive = normalizeOverTime(effect.flags?.[moduleId]?.[OVERTIME_FLAG]);
     if (illusive?.turn === turn) {
+      if (effect.id) seen.add(effect.id);
       out.push({ effect, spec: { ...illusive, label: illusive.label || effect.name } });
     }
+  }
+  for (const row of declaredOverTime(actor, turn)) {
+    if (row.effect?.id && seen.has(row.effect.id)) continue;
+    out.push(row);
   }
   return out;
 }

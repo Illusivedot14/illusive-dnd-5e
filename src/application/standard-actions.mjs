@@ -7,6 +7,7 @@ import { recordStandardActionOnGameLog } from "./combat-game-log.mjs";
 import { listActivities } from "../domain/combat/activity-kind.mjs";
 import { setReadiedAction, tickPendingHitRiders } from "./reactions/reaction-state.mjs";
 import { createEmbedded, setDocFlag, unsetDocFlag } from "../foundry/write-gateway.mjs";
+import { holdReadiedSpell, releaseReadiedConcentration } from "./triggers/lifecycle.mjs";
 import { isPrimaryWriter } from "../foundry/gm-query.mjs";
 
 const BASIC_BUDGET_ACTIONS = new Set(["dash", "disengage", "dodge", "ready"]);
@@ -262,8 +263,10 @@ export async function executeStandardAction(token, actionId) {
       if (!readied) return false;
       const act = readied.itemId ? actor.items.get(readied.itemId) : null;
       const chat = [act?.name, readied.text].filter(Boolean).join(": ") || label;
-      return finishStandard(token, actionId, `${actor.name} readies ${chat}`, () =>
-        setReadiedAction(actor, readied));
+      return finishStandard(token, actionId, `${actor.name} readies ${chat}`, async () => {
+        const held = await holdReadiedSpell(actor, act);
+        return setReadiedAction(actor, { ...readied, ...held });
+      });
     }
 
     default:
@@ -279,6 +282,7 @@ export async function clearTurnFlags(actor) {
   if (!actor) return;
   const writer = game.users?.activeGM ? isPrimaryWriter() : actor.isOwner;
   if (!writer) return;
+  await releaseReadiedConcentration(actor);
   for (const key of ["dashing", "readied", "weaponSwings", "disengaging"]) {
     await unsetDocFlag(actor, MODULE_ID, key);
   }

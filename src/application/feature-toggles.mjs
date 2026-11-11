@@ -5,6 +5,7 @@
 
 import { MODULE_ID } from "../constants.mjs";
 import { isRangedAttack } from "../domain/combat/activity-kind.mjs";
+import { listDeclaredPassiveRiders } from "../domain/combat/hit-riders.mjs";
 
 const TOGGLE_FLAG = "featureToggles";
 
@@ -91,27 +92,10 @@ export function collectToggleAttackModifiers(actor, item = null) {
 
 /**
  * Extra once-per-turn damage riders (Colossus Slayer, Divine Fury).
+ * The list is the hitDamage declarations marked passive.
  */
 export function listPassiveHitRiders(actor) {
-  const out = [];
-  for (const item of actor?.items ?? []) {
-    const id = item.system?.identifier ?? "";
-    const name = item.name ?? "";
-    if (id === "colossus-slayer" || /colossus\s*slayer/i.test(name)) {
-      out.push({ id: "colossus-slayer", item, formula: "1d8", oncePerTurn: true });
-    }
-    if (id === "divine-fury" || /divine\s*fury/i.test(name)) {
-      const level = Number(actor.system?.details?.level) || 1;
-      out.push({
-        id: "divine-fury",
-        item,
-        formula: `1d6+${Math.max(1, Math.floor(level / 2))}`,
-        type: "radiant",
-        oncePerTurn: true
-      });
-    }
-  }
-  return out;
+  return listDeclaredPassiveRiders(actor);
 }
 
 export function wasPassiveRiderUsed(actor, riderId) {

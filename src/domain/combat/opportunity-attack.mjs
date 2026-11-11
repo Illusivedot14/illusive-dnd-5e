@@ -6,6 +6,8 @@
  * teleportation / forced movement typically does not provoke (caller flags).
  */
 
+import { isMeleeAttack, listActivities } from "./activity-kind.mjs";
+
 /**
  * @typedef {"2024"|"2014"} Edition
  */
@@ -17,6 +19,23 @@
 export function resolveReachFeet(opts = {}) {
   const reach = Number(opts.weaponReachFeet ?? opts.reachFeet ?? 5);
   return Number.isFinite(reach) && reach > 0 ? reach : 5;
+}
+
+/** First attack reach on the creature, else 5 ft. */
+export function actorReachFeet(actor) {
+  const items = actor?.items ?? [];
+  for (const item of items) {
+    if (item.type !== "weapon" && item.type !== "feat") continue;
+    for (const act of listActivities(item)) {
+      if (act?.type !== "attack") continue;
+      const reach = Number(act.range?.reach ?? act.range?.value ?? item.system?.range?.reach ?? 0);
+      if (reach > 0) return resolveReachFeet({ reachFeet: reach });
+    }
+    if (!isMeleeAttack(null, item)) continue;
+    const itemReach = Number(item.system?.range?.reach ?? item.system?.range?.value ?? 0);
+    if (itemReach > 0) return resolveReachFeet({ reachFeet: itemReach });
+  }
+  return 5;
 }
 
 /**

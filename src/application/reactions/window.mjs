@@ -2,8 +2,9 @@
  * Hybrid reaction windows — hard pause on the parent, soft prompts elsewhere.
  * See docs/combat-engine.md §6.
  *
- * One prompt per reactor per window (a creature has one reaction): every
- * eligible reaction that creature has is offered together, in initiative order.
+ * Every reactor for a moment shares one checkbox window. The owning player
+ * sees their creatures; the GM sees the rest. Chosen reactions resolve in
+ * initiative order, and a cancelled cast stops the ones after it.
  */
 
 import { featureEnabled } from "../levels.mjs";
@@ -11,15 +12,18 @@ import { isEconomyAvailable, getReactionTimeoutMs } from "../economy.mjs";
 import {
   startReactionPrompt,
   clearReactionPrompt,
-  clearReactionPromptFor,
   getReactionContext,
   closeReactionDialog,
-  showForceEndDialog
+  showForceEndDialog,
+  reactionBatchDialog,
+  reactionChoiceLabel
 } from "../reaction-context.mjs";
 import { emitCombatFx } from "../combat-fx.mjs";
+import { queryName } from "../../foundry/gm-query.mjs";
+import { illusiveDnd } from "../../i18n/index.mjs";
 import { MODULE_ID } from "../../constants.mjs";
 import { isIncapacitated } from "../../domain/combat/conditions.mjs";
-import { actorFromUuid, tokenUuidOf } from "../../foundry/token-lookup.mjs";
+import { actorFromUuid, tokenFromUuid, tokenUuidOf } from "../../foundry/token-lookup.mjs";
 import { createMomentScope, candidateContext, initiativeOf } from "./candidates.mjs";
 import { momentForWindow, runPassiveTriggers, declarationSpecsForWindow } from "../triggers/engine.mjs";
 import {
@@ -32,7 +36,8 @@ import {
 import {
   listReactionsForWindow,
   listMatchingActivities,
-  mergePatches
+  mergePatches,
+  runReactionUseHooks
 } from "./registry.mjs";
 
 /** @type {Map<string, { resolve: Function, parentId: string, timer: any }>} */
@@ -59,7 +64,7 @@ export function collectWindowCandidates(windowId, baseCtx = {}, scope = createMo
     if (!actor) continue;
     const specs = [...registry, ...declarationSpecsForWindow(windowId, actor)];
     if (!specs.length) continue;
-    if (isIncapacitated(actor) || !isEconomyAvailable(actor, "reaction")) continue;
+    if (isIncapacitated(actor) || !isEconomyAvailable(actor, "reaction", token)) continue;
 
     const ctx = candidateContext(scope, token, { windowId });
     const matched = [];
@@ -128,20 +133,6 @@ export function _resetHardWindowWaits() {
   pendingHard.clear();
 }
 
-function promptOptions(group, { parentId, windowId, hard }) {
-  return {
-    hardWindow: hard,
-    parentId,
-    parentResolutionId: parentId,
-    windowId,
-    actorUuid: group.actor.uuid,
-    triggerIds: group.specs.map((s) => s.id),
-    triggerTokenUuid: group.ctx.triggerTokenUuid ?? null,
-    targetUuids: group.ctx.targetUuids ?? [],
-    damageTypes: group.ctx.damageTypes ?? []
-  };
-}
-
 function announce(group, parentId) {
   emitCombatFx({
     kind: "reaction",
@@ -194,19 +185,6 @@ export function promptReactor(actor, activities, windowId, options = {}) {
   return "local";
 }
 
-function showPrompt(group, options) {
-  return promptReactor(group.actor, group.activities, options.windowId, options);
-}
-
-function awaitDecision(parentId, actorUuid, graceMs) {
-  return new Promise((resolve) => {
-    const timer = setTimeout(() => {
-      completeHardWindowDecision({ parentId, actorUuid, used: false });
-    }, graceMs);
-    pendingHard.set(waitKey(parentId, actorUuid), { resolve, parentId, timer });
-  });
-}
-
 function specForUsedItem(group, itemId) {
   if (group.specs.length === 1 || !itemId) return group.specs[0];
   const item = group.actor.items?.get?.(itemId)
@@ -216,12 +194,205 @@ function specForUsedItem(group, itemId) {
 
 let detachedSeq = 0;
 
+function creatureKey(group) {
+  const token = group.token;
+  const actor = group.actor;
+  if (token?.document?.actorLink === false) {
+    return token.document?.uuid ?? token.uuid ?? token.id ?? actor?.uuid ?? actor?.id ?? null;
+  }
+  return actor?.uuid ?? actor?.id ?? token?.document?.uuid ?? token?.id ?? null;
+}
+
+function optionFor(activity, index) {
+  return {
+    id: String(activity?.id ?? activity?._id ?? index),
+    itemId: activity?.item?.id ?? activity?.parent?.id ?? null,
+    label: reactionChoiceLabel(activity)
+  };
+}
+
+function wireGroup(group) {
+  return {
+    actorName: group.token?.name ?? group.actor?.name ?? "A creature",
+    actorUuid: group.actor?.uuid ?? null,
+    actorId: creatureKey(group),
+    tokenUuid: tokenUuidOf(group.token),
+    triggerIds: (group.specs ?? []).map((spec) => spec.id),
+    options: (group.activities ?? []).map(optionFor)
+  };
+}
+
+/** The owner's client shows the same checkbox window and returns the checks. */
+export async function adjudicateReactionQuery(data = {}) {
+  const groups = data.groups ?? [];
+  const result = await reactionBatchDialog({
+    title: data.title || illusiveDnd.reaction("title"),
+    sentence: data.sentence || illusiveDnd.reaction("batch"),
+    groups: groups.map((group) => ({
+      actorId: group.actorId,
+      actorName: group.actorName,
+      options: group.options ?? []
+    }))
+  });
+  const picks = (result?.picks ?? []).map((pick) => {
+    const group = groups[pick.group];
+    const option = group?.options?.[pick.option];
+    if (!group || !option) return null;
+    return {
+      actorUuid: group.actorUuid ?? null,
+      tokenUuid: group.tokenUuid ?? null,
+      itemId: option.itemId ?? null,
+      activityId: option.id ?? null,
+      triggerIds: group.triggerIds ?? []
+    };
+  }).filter(Boolean);
+  return { picks };
+}
+
+async function askOwnerChoices(user, payload) {
+  if (typeof user?.query !== "function") return [];
+  try {
+    const result = await user.query(
+      queryName("reactionWindow"),
+      payload,
+      { timeout: getReactionTimeoutMs() + 3000 }
+    );
+    return result?.picks ?? [];
+  } catch {
+    return [];
+  }
+}
+
+async function chooseReactions(groups) {
+  const title = illusiveDnd.reaction("title");
+  const leaving = groups[0]?.ctx?.windowId === "on-leave-reach"
+    ? (tokenFromUuid(groups[0].ctx.triggerTokenUuid)?.name ?? "A creature")
+    : null;
+  const sentence = leaving
+    ? illusiveDnd.t("opportunity.batch", { mover: leaving })
+    : groups.length > 1
+      ? illusiveDnd.reaction("batch")
+      : illusiveDnd.reaction("prompt", { name: groups[0]?.token?.name ?? groups[0]?.actor?.name ?? "A creature" });
+  const buckets = new Map();
+  for (const group of groups) {
+    const owner = remoteOwnerFor(group.actor);
+    const ownerId = owner?.id ?? "local";
+    if (!buckets.has(ownerId)) buckets.set(ownerId, { owner, groups: [] });
+    buckets.get(ownerId).groups.push(group);
+  }
+  const picked = await Promise.all([...buckets.values()].map(async (bucket) => {
+    if (!bucket.owner) {
+      const local = await adjudicateReactionQuery({
+        title,
+        sentence,
+        groups: bucket.groups.map(wireGroup)
+      });
+      return local.picks ?? [];
+    }
+    return askOwnerChoices(bucket.owner, {
+      title,
+      sentence,
+      groups: bucket.groups.map(wireGroup)
+    });
+  }));
+  return picked.flat();
+}
+
+function allyFromTargets(triggerTokenUuid) {
+  for (const target of globalThis.game?.user?.targets ?? []) {
+    const uuid = target.document?.uuid ?? target.uuid ?? null;
+    if (uuid && uuid !== triggerTokenUuid && target.actor?.uuid) return target.actor.uuid;
+  }
+  return null;
+}
+
+async function useChosenReaction(group, pick) {
+  const actor = group.actor;
+  const activity = (group.activities ?? []).find((entry) => String(entry?.id ?? entry?._id) === String(pick.activityId))
+    ?? (group.activities ?? []).find((entry) => (entry?.item?.id ?? entry?.parent?.id) === pick.itemId);
+  const item = activity?.item ?? actor?.items?.get?.(pick.itemId) ?? null;
+  const token = group.token?.document ? group.token : (group.token?.object ?? group.token);
+  const triggerIds = pick.triggerIds ?? group.specs?.map((spec) => spec.id) ?? [];
+  const options = {
+    windowId: group.ctx?.windowId ?? null,
+    triggerIds,
+    triggerTokenUuid: group.ctx?.triggerTokenUuid ?? null,
+    targetUuids: group.ctx?.targetUuids ?? [],
+    parentId: group.ctx?.parentId ?? null
+  };
+  let used = false;
+  if (token && item && activity) {
+    try {
+      await runReactionUseHooks("before", triggerIds, actor, item, options);
+      const { useActivityFromHud } = await import("../activity.mjs");
+      const hudOptions = { ...options };
+      if (options.windowId === "on-leave-reach") {
+        hudOptions.parentLogId = options.parentId ?? null;
+        hudOptions.opportunityAttack = triggerIds.includes("opportunity");
+      }
+      used = await useActivityFromHud(token, item, activity, "reaction", {}, {
+        triggerTokenUuid: options.triggerTokenUuid,
+        options: hudOptions
+      }, { validateTargets: false });
+      if (used) await runReactionUseHooks("after", triggerIds, actor, item, options);
+    } catch {
+      used = false;
+    }
+  }
+  if (!used) return null;
+  const slotLevel = item?.type === "spell" ? (Number(item.system?.level) || null) : null;
+  return {
+    used: true,
+    itemId: pick.itemId ?? item?.id ?? null,
+    slotLevel,
+    allyUuid: allyFromTargets(options.triggerTokenUuid)
+  };
+}
+
+async function askOwnerUse(user, pick) {
+  if (typeof user?.query !== "function") return null;
+  try {
+    const result = await user.query(
+      queryName("reactionUse"),
+      pick,
+      { timeout: getReactionTimeoutMs() + 3000 }
+    );
+    return result?.used ? result : null;
+  } catch {
+    return null;
+  }
+}
+
+/** Owner-side: spend the reaction and use the chosen activity. */
+export async function useReactionQuery(data = {}) {
+  const actor = actorFromUuid(data.actorUuid);
+  const { tokenFromUuid } = await import("../../foundry/token-lookup.mjs");
+  const placeable = tokenFromUuid(data.tokenUuid) ?? (actor ? { actor, document: { uuid: data.tokenUuid } } : null);
+  if (!actor || !placeable) return { used: false };
+  const item = actor.items?.get?.(data.itemId);
+  const activity = item?.system?.activities?.get?.(data.activityId)
+    ?? (data.activityId ? { id: data.activityId, item } : null);
+  if (!item || !activity) return { used: false };
+  const decision = await useChosenReaction({
+    actor,
+    token: placeable,
+    activities: [activity],
+    specs: (data.triggerIds ?? []).map((id) => ({ id })),
+    ctx: {
+      windowId: data.windowId ?? null,
+      parentId: data.parentId ?? null,
+      triggerTokenUuid: data.triggerTokenUuid ?? null,
+      targetUuids: data.targetUuids ?? []
+    }
+  }, data);
+  return decision ?? { used: false };
+}
+
 /**
  * Open a reaction window on a parent resolution.
- * Hard: pause the parent, prompt each reactor in turn, resume with patches.
- * Soft: prompt reactors; nothing waits (a parent is optional).
- * A reactor with any hard spec in this window gets the hard (waiting) prompt.
- * detached: hard window with no parent resolution (falls) — waits without pausing anything.
+ * Every eligible creature is a section of one checkbox window.
+ * Hard: pause the parent until that window is confirmed.
+ * detached: hard window with no parent resolution (falls).
  * @returns {Promise<ReturnType<typeof mergePatches>>}
  */
 export async function openReactionWindow({
@@ -241,44 +412,48 @@ export async function openReactionWindow({
   const groups = candidates ?? collectWindowCandidates(windowId, baseCtx, scope);
   if (!groups.length) return done();
 
-  const isHard = (group) => group.specs.some((s) => (s.mode ?? "hard") === "hard");
-  for (const group of groups.filter((g) => !isHard(g))) {
-    announce(group, parentId);
-    showPrompt(group, promptOptions(group, { parentId, windowId, hard: false }));
-  }
-  const hardGroups = groups.filter(isHard);
-  if (!hardGroups.length) return done();
+  const isHard = (group) => group.specs.some((spec) => (spec.mode ?? "hard") === "hard");
+  const hard = groups.some(isHard);
+  const waitId = parentId ?? (detached && hard ? `detached:${windowId}:${++detachedSeq}` : null);
+  if (hard && !waitId) return done();
 
-  const waitId = parentId ?? (detached ? `detached:${windowId}:${++detachedSeq}` : null);
-  if (!waitId) return done();
   const combat = parentId ? await import("../combat.mjs") : null;
-  const graceMs = getReactionTimeoutMs() + 3000;
-  const headless = typeof globalThis.game === "undefined" || !globalThis.game?.user;
   let rulesContext = baseCtx.rulesContext ?? null;
-
-  const collected = [];
-  for (const group of hardGroups) {
-    if (!isEconomyAvailable(group.actor, "reaction")) continue;
-    // Resume phase is derived from the parent's own state (first pause) or its open window.
-    const paused = combat
-      ? await combat.pauseParentForReaction({
+  const holdKey = waitKey(waitId ?? windowId, "*");
+  if (hard) {
+    pendingHard.set(holdKey, { resolve: () => null, parentId: waitId, timer: null });
+    if (combat) {
+      const paused = await combat.pauseParentForReaction({
         resolutionId: parentId,
-        actorUuid: group.actor.uuid,
-        trigger: group.specs.map((s) => s.id).join(","),
+        actorUuid: groups.find(isHard)?.actor?.uuid ?? null,
+        trigger: groups.flatMap((group) => group.specs.map((spec) => spec.id)).join(","),
         windowId,
-        triggerId: group.specs[0]?.id ?? null,
+        triggerId: groups[0]?.specs?.[0]?.id ?? null,
         mode: "hard"
-      })
-      : null;
-    rulesContext = paused?.rulesContext ?? rulesContext;
-    announce(group, waitId);
-    const options = promptOptions(group, { parentId: waitId, windowId, hard: true });
-    const wait = awaitDecision(waitId, group.actor.uuid, graceMs);
-    if (headless) completeHardWindowDecision({ parentId: waitId, actorUuid: group.actor.uuid, used: false });
-    else showPrompt(group, options);
+      });
+      rulesContext = paused?.rulesContext ?? rulesContext;
+    }
+  }
 
-    const decision = await wait;
-    clearReactionPromptFor(waitId, group.actor.uuid);
+  let picks = [];
+  const collected = [];
+  try {
+    for (const group of groups) announce(group, waitId ?? parentId);
+    picks = await chooseReactions(groups);
+  for (const group of groups) {
+    const pick = picks.find((entry) => entry.actorUuid && entry.actorUuid === group.actor?.uuid)
+      ?? picks.find((entry) => entry.actorId && entry.actorId === creatureKey(group));
+    if (!pick) continue;
+    const owner = remoteOwnerFor(group.actor);
+    const decision = owner
+      ? await askOwnerUse(owner, {
+        ...pick,
+        windowId,
+        parentId: group.ctx?.parentId ?? parentId ?? null,
+        triggerTokenUuid: group.ctx?.triggerTokenUuid ?? null,
+        targetUuids: group.ctx?.targetUuids ?? []
+      })
+      : await useChosenReaction(group, pick);
     if (!decision?.used) continue;
 
     const spec = specForUsedItem(group, decision.itemId);
@@ -288,20 +463,25 @@ export async function openReactionWindow({
       parentId,
       rulesContext,
       actor: group.actor,
-      tokenUuid: group.ctx.tokenUuid ?? tokenUuidOf(group.token),
+      tokenUuid: group.ctx?.tokenUuid ?? tokenUuidOf(group.token),
       reactor: group.actor,
       slotLevel: decision.slotLevel ?? null,
       counterSlotLevel: decision.slotLevel ?? null,
       allyUuid: decision.allyUuid ?? null,
-      targetUuid: group.ctx.isTarget ? tokenUuidOf(group.token) : (group.ctx.targetUuids?.[0] ?? null)
+      targetUuid: group.ctx?.isTarget ? tokenUuidOf(group.token) : (group.ctx?.targetUuids?.[0] ?? null)
     };
-    const patches = typeof spec.buildPatches === "function" ? await spec.buildPatches(patchInput, scope) : [];
+    const patches = spec && typeof spec.buildPatches === "function"
+      ? await spec.buildPatches(patchInput, scope)
+      : [];
     collected.push(...patches);
-    if (patches.some((p) => p.type === "cancelCast")) break;
+    if (patches.some((patch) => patch.type === "cancelCast")) break;
   }
 
-  if (combat) await combat.resumeParent(parentId, collected);
-  return done(collected);
+    if (combat && hard) await combat.resumeParent(parentId, collected);
+    return done(collected);
+  } finally {
+    pendingHard.delete(holdKey);
+  }
 }
 
 /**

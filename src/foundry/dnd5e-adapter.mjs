@@ -98,7 +98,8 @@ export async function useActivity({
   const usage = { event };
   if (useOptions.subsequentActions === false) usage.subsequentActions = false;
   if (useOptions.subsequentActions === true) usage.subsequentActions = true;
-  if (useOptions.spellLevel != null) {
+  if (useOptions.consume === false) usage.consume = false;
+  if (useOptions.spellLevel != null && useOptions.consume !== false) {
     const actor = docActivity?.actor ?? docItem?.actor ?? null;
     const slot = spellSlotKeyForLevel(actor, useOptions.spellLevel);
     if (slot) usage.spell = { slot };

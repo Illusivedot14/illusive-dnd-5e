@@ -6,6 +6,7 @@ import {
 } from "./ability.mjs";
 import { illusiveDnd } from "../i18n/index.mjs";
 import { buildStandardActions } from "./standard-actions.mjs";
+import { zoneBonusActions } from "./zones.mjs";
 import { useReactionFromHud, getReactionContext } from "./reaction-context.mjs";
 import { isSuitcaseEntry, isFreeActivation, getInteractionActivationTypes } from "../foundry/item-interactions.mjs";
 import { useActivityFromHud } from "./activity.mjs";
@@ -347,7 +348,14 @@ export function buildActionBarSections(actor, context = {}) {
   const sections = [
     buildItemsSection(actor, context),
     buildActionSection(actor, context),
-    { id: "bonus", label: illusiveDnd.section("bonus"), abilities: getAbilitiesForTypes(actor, ["bonus"], "bonus", context) },
+    {
+      id: "bonus",
+      label: illusiveDnd.section("bonus"),
+      abilities: [
+        ...getAbilitiesForTypes(actor, ["bonus"], "bonus", context),
+        ...zoneBonusActions(actor)
+      ]
+    },
     { id: "reaction", label: illusiveDnd.section("reaction"), abilities: getAbilitiesForTypes(actor, ["reaction"], "reaction", context) },
     { id: "legendary", label: illusiveDnd.section("legendary"), abilities: getAbilitiesForTypes(actor, ["legendary"], "legendary", context) },
     { id: "lair", label: illusiveDnd.section("lair"), abilities: getAbilitiesForTypes(actor, ["lair"], "lair", context) }

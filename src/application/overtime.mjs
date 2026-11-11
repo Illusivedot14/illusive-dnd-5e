@@ -59,6 +59,12 @@ export async function processOverTimeForActor(actor, turn) {
       const roll = await rollFormula(spec.damageFormula, actor, spec.label ?? effect.name);
       damageTotal = Math.floor((Number(roll?.total) || 0) * factor);
       if (damageTotal > 0) {
+        emitCombatFx({
+          kind: "overTime",
+          subtype: turn,
+          actorUuid: actor.uuid,
+          outcome: { damageType: spec.damageType ?? null, totals: [damageTotal] }
+        });
         const trail = await applyDamageWithTrail({
           rolls: [flatDamageRoll(damageTotal, spec.damageType || null, spec.damageFormula)],
           targets: [{ actor }],
@@ -86,12 +92,6 @@ export async function processOverTimeForActor(actor, turn) {
         dependsOn: entriesForEffects([effect.uuid].filter(Boolean))
       });
     }
-    emitCombatFx({
-      kind: "overTime",
-      subtype: turn,
-      actorUuid: actor.uuid,
-      outcome: { ...row, damageType: spec.damageType ?? null }
-    });
   }
   return applied;
 }

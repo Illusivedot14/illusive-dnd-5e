@@ -16,6 +16,7 @@ import { challengeConcentrationAfterDamage } from "./combat-actions.mjs";
 import { maybeOfferKnockOut } from "./knockout.mjs";
 import { snapshotHp } from "./party-combat.mjs";
 import { applyActorDamage } from "../foundry/write-gateway.mjs";
+import { waitForCombatAnimations } from "../animation/wait.mjs";
 
 function healingTypes() {
   return globalThis.CONFIG?.DND5E?.healingTypes ?? {};
@@ -125,6 +126,14 @@ function hpPool(snapshot) {
  */
 export async function applyDamageWithTrail({ rolls = [], targets = [], melee = false, tag = null } = {}) {
   const out = { changes: [], damagedUuids: [], applied: 0, concentration: [], knockouts: [] };
+  const waitUuids = [];
+  for (const raw of targets) {
+    const spec = typeof raw === "string" ? { uuid: raw } : (raw ?? {});
+    if (spec.uuid) waitUuids.push(spec.uuid);
+    const actorUuid = spec.actor?.uuid;
+    if (actorUuid) waitUuids.push(actorUuid);
+  }
+  await waitForCombatAnimations(waitUuids);
 
   for (const raw of targets) {
     const spec = typeof raw === "string" ? { uuid: raw } : (raw ?? {});

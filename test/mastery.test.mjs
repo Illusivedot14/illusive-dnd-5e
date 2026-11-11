@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { planMastery, weaponAbilityKey, abilityModifier } from "../src/domain/combat/mastery.mjs";
+import { planMastery, planMasteryRule, weaponAbilityKey, abilityModifier } from "../src/domain/combat/mastery.mjs";
 import { listAvailableHitRiders } from "../src/domain/combat/hit-riders.mjs";
 import { freshBudget, spendUse } from "../src/domain/combat/turn-budget.mjs";
 
@@ -22,6 +22,17 @@ describe("planMastery", () => {
   it("ignores fumbles and unknown keys", () => {
     expect(planMastery({ mastery: "sap", hit: true, fumble: true })).toBe(null);
     expect(planMastery({ mastery: "nope", hit: true })).toBe(null);
+  });
+
+  it("a new mastery is a rule", () => {
+    const plan = planMasteryRule({
+      id: "hamstring",
+      phase: "hit",
+      effect: "steps",
+      do: [{ step: "damage", value: 3 }, { step: "applyStatus", status: "prone" }]
+    }, { hit: true });
+    expect(plan).toMatchObject({ key: "hamstring", effect: "steps" });
+    expect(plan.steps).toHaveLength(2);
   });
 });
 

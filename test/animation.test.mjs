@@ -4,7 +4,7 @@ import { englishKeys, resolveLabel } from "../src/animation/aa.mjs";
 import { planFx } from "../src/animation/plan.mjs";
 import { deferToAutomatedAnimations } from "../src/animation/bind.mjs";
 import { templateEnd } from "../src/animation/play.mjs";
-import { relevantAnimations } from "../src/animation/wait.mjs";
+import { relevantAnimations, waitForCombatAnimations } from "../src/animation/wait.mjs";
 
 const settings = {
   melee: [{ label: "Longsword" }],
@@ -83,5 +83,25 @@ describe("animation wait", () => {
       { id: "old", source: "Token.a", target: "Token.b", persist: false, started: -5000, ended: false }
     ];
     expect(relevantAnimations(effects, ["Token.b"], 2000)).toEqual(["bolt"]);
+  });
+
+  it("holds until the swing and the rider impact have both ended", async () => {
+    const effects = [
+      { id: "swing", source: "Token.a", target: "Token.b", persist: false, started: Date.now(), ended: false },
+      { id: "smite", source: "Token.a", target: "Token.b", persist: false, started: Date.now(), ended: false }
+    ];
+    let released = false;
+    const pending = waitForCombatAnimations(["Token.b"], {
+      pollMs: 5,
+      list: () => effects
+    }).then(() => { released = true; });
+    await new Promise((resolve) => setTimeout(resolve, 20));
+    expect(released).toBe(false);
+    effects[0].ended = true;
+    await new Promise((resolve) => setTimeout(resolve, 20));
+    expect(released).toBe(false);
+    effects[1].ended = true;
+    await pending;
+    expect(released).toBe(true);
   });
 });

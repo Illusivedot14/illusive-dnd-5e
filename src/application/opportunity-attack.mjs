@@ -2,7 +2,7 @@
  * Opportunity attack use case — detect leave-reach on move, hold the move, prompt reactors.
  */
 
-import { collectOpportunityCandidates, evaluateOpportunityAttack, resolveReachFeet } from "../domain/combat/opportunity-attack.mjs";
+import { actorReachFeet, collectOpportunityCandidates, evaluateOpportunityAttack } from "../domain/combat/opportunity-attack.mjs";
 import { resolveRulesContext } from "../foundry/dnd5e-adapter.mjs";
 import { getGridFacts, getTokenFacts } from "../foundry/scene-adapter.mjs";
 import { spaceFeetBetween } from "../domain/spatial/geometry.mjs";
@@ -41,19 +41,6 @@ function feetBetween(aFacts, bFacts, grid) {
     gridDistance: grid.distance || 5,
     includeElevation: true
   });
-}
-
-function actorReachFeet(actor) {
-  const items = actor?.items ?? [];
-  for (const item of items) {
-    if (item.type !== "weapon" && item.type !== "feat") continue;
-    for (const act of listActivities(item)) {
-      if (act?.type !== "attack") continue;
-      const reach = Number(act.range?.reach ?? act.range?.value ?? item.system?.range?.reach ?? 0);
-      if (reach > 0) return resolveReachFeet({ reachFeet: reach });
-    }
-  }
-  return 5;
 }
 
 function hasDisengageEffect(actor) {
@@ -365,6 +352,51 @@ async function askOwner(user, payload) {
   }
 }
 
+/** Facts the leave-reach window reads. The token has not moved yet. */
+export function leaveReachContext(tokenDoc, changes = {}, options = {}) {
+  const token = tokenDoc?.object ?? globalThis.canvas?.tokens?.get?.(tokenDoc?.id);
+  const doc = token?.document ?? tokenDoc;
+  if (!doc) return null;
+  return {
+    triggerTokenUuid: doc.uuid ?? null,
+    destination: {
+      x: changes?.x ?? doc.x,
+      y: changes?.y ?? doc.y,
+      elevation: changes?.elevation ?? doc.elevation ?? 0
+    },
+    teleport: Boolean(options.teleport),
+    forced: Boolean(options.forced),
+    moverDisengaging: hasDisengageEffect(token?.actor ?? doc.actor)
+  };
+}
+
+/**
+ * Hold is already stashed. One reaction window, then the move is released.
+ */
+export async function openLeaveReachWindow(tokenDoc, baseCtx = {}) {
+  const token = tokenDoc?.object ?? globalThis.canvas?.tokens?.get?.(tokenDoc?.id);
+  const parentLogId = getPendingMove(tokenDoc?.id)?.logId ?? null;
+  const ctx = {
+    ...baseCtx,
+    parentId: parentLogId,
+    triggerTokenUuid: baseCtx.triggerTokenUuid ?? token?.document?.uuid ?? tokenDoc?.uuid ?? null
+  };
+  try {
+    const { openReactionWindow } = await import("./reactions/window.mjs");
+    await openReactionWindow({
+      windowId: "on-leave-reach",
+      detached: true,
+      parentId: parentLogId,
+      baseCtx: ctx
+    });
+  } finally {
+    await settleReactionPrompt({
+      pendingMoveTokenId: tokenDoc?.id ?? null,
+      moverUuid: ctx.triggerTokenUuid
+    }, { used: false });
+  }
+}
+
 /**
  * Prompt reactors for a leave-reach move (after the move was held).
  * Each owning player gets their creatures. The GM gets the rest. Then the move is released.
@@ -389,7 +421,7 @@ export async function promptOpportunityReactions({ candidates, observers, token 
         oaLog("skip", { name: actorName, reason: "observer has no actor" });
         continue;
       }
-      if (!isEconomyAvailable(observer.token.actor, "reaction")) {
+      if (!isEconomyAvailable(observer.token.actor, "reaction", observer.token)) {
         oaLog("skip", { name: actorName, reason: "reaction already spent" });
         continue;
       }
@@ -490,17 +522,6 @@ export async function promptOpportunityReactions({ candidates, observers, token 
   }, { used });
 
   return { prompted: true };
-}
-
-/**
- * Inspect a token document update that changes x/y.
- * When provoked, callers should cancel the update and call stashPendingMove.
- */
-export async function handleTokenMoveOpportunity({ tokenDoc, changes, options = {} }) {
-  const preview = previewTokenMoveOpportunity({ tokenDoc, changes, options });
-  if (!preview.provoked) return { provoked: false, candidates: [] };
-  await promptOpportunityReactions(preview);
-  return { provoked: true, candidates: preview.candidates };
 }
 
 export function stashPendingMove(tokenDoc, changes, options = {}) {

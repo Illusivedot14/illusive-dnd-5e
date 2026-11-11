@@ -9,7 +9,10 @@
  */
 
 import { linkActivityItem, listActivities } from "../../domain/combat/activity-kind.mjs";
+import { actorReachFeet, leftReach } from "../../domain/combat/opportunity-attack.mjs";
 import { MODULE_ID } from "../../constants.mjs";
+import { featureEnabled } from "../levels.mjs";
+import { meleeWeaponAttacks } from "../triggers/derived.mjs";
 import { runSoftDeclarationUse } from "../triggers/engine.mjs";
 import { getReadiedAction, setReadiedAction } from "./reaction-state.mjs";
 
@@ -41,7 +44,28 @@ export const READY_TRIGGER_WINDOWS = Object.freeze({
  */
 
 /** @type {Record<string, ReactionSpec>} */
+function opportunityEligible(ctx) {
+  if (!featureEnabled("opportunityAttacks")) return false;
+  if (ctx.teleport || ctx.forced || ctx.moverDisengaging) return false;
+  if (ctx.hostile === false) return false;
+  if (ctx.canSeeTrigger === false) return false;
+  const from = ctx.distanceToTrigger;
+  const to = ctx.destinationFeet;
+  if (from == null || to == null) return false;
+  return leftReach({ fromFeet: from, toFeet: to, reachFeet: actorReachFeet(ctx.actor) });
+}
+
 export const REACTION_REGISTRY = Object.freeze({
+  opportunity: {
+    id: "opportunity",
+    window: "on-leave-reach",
+    mode: "hard",
+    rule: "combat.opportunity-attack.2024",
+    rewriteKeys: [],
+    match: () => false,
+    offer: (actor) => meleeWeaponAttacks(actor),
+    eligible: opportunityEligible
+  },
   ready: {
     id: "ready",
     windows: Object.values(READY_TRIGGER_WINDOWS),
@@ -138,6 +162,9 @@ export function mergePatches(patches = []) {
     attackBonus: 0,
     attackAdvantage: false,
     attackDisadvantage: false,
+    replaceD20: null,
+    saveSuccess: false,
+    redirectUuid: null,
     acBonusByTarget: new Map(),
     damageMultiplierByTarget: new Map(),
     damageReduceByTarget: new Map(),
@@ -171,6 +198,15 @@ export function mergePatches(patches = []) {
         break;
       case "attackDisadvantage":
         out.attackDisadvantage = true;
+        break;
+      case "d20Replace":
+        if (Number.isFinite(Number(p.value))) out.replaceD20 = Number(p.value);
+        break;
+      case "saveSuccess":
+        out.saveSuccess = true;
+        break;
+      case "redirect":
+        if (p.targetUuid) out.redirectUuid = p.targetUuid;
         break;
       case "acBonus":
         if (key) out.acBonusByTarget.set(key, (out.acBonusByTarget.get(key) ?? 0) + (Number(p.value) || 0));

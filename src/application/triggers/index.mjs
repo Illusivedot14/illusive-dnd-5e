@@ -15,35 +15,13 @@
 
 import { MODULE_ID } from "../../constants.mjs";
 import { CONTENT } from "../../content/declarations.mjs";
+import { contentMatchesEffect, contentMatchesItem } from "../../content/match.mjs";
 import { normalizeDeclaration, declarationErrors } from "../../domain/triggers/declarations.mjs";
 import { resolveRulesContext } from "../../foundry/dnd5e-adapter.mjs";
-import { listActivities } from "../../domain/combat/activity-kind.mjs";
 
 /** @type {Map<string, { all: object[], byMoment: Map<string, object[]> }>} */
 const cache = new Map();
 const warned = new Set();
-
-function idOf(item) {
-  return String(item?.system?.identifier ?? item?.identifier ?? "").toLowerCase();
-}
-
-/** 2014 and 2024 share names where only the 2024 feature is a Reaction (Countercharm, Hunter's Defense). */
-function usesReaction(item) {
-  if (item?.system?.activation?.type === "reaction") return true;
-  return listActivities(item).some((a) => a?.activation?.type === "reaction");
-}
-
-function contentMatchesItem(content, item) {
-  const m = content.match ?? {};
-  if (m.types && !m.types.includes(item?.type)) return false;
-  if (m.reactionOnly && !usesReaction(item)) return false;
-  if (m.identifiers?.includes(idOf(item))) return true;
-  return (m.names ?? []).some((re) => re.test(String(item?.name ?? "")));
-}
-
-function contentMatchesEffect(content, effect) {
-  return (content.match?.effects ?? []).some((re) => re.test(String(effect?.name ?? "")));
-}
 
 function appliedEffects(actor) {
   const list = actor?.appliedEffects ?? [...(actor?.effects ?? [])];

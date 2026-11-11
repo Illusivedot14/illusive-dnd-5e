@@ -229,6 +229,7 @@
   "illusive-dnd-5e.opportunity.pass": "Pass",
   "illusive-dnd-5e.reaction.banner": "Reaction available — {trigger}",
   "illusive-dnd-5e.reaction.pass": "Pass",
+  "illusive-dnd-5e.reaction.batch": "Choose a reaction for each creature.",
   "illusive-dnd-5e.reaction.allPass": "All pass",
   "illusive-dnd-5e.reaction.confirm": "Confirm",
   "illusive-dnd-5e.reaction.notTriggered": "Not available for this trigger",

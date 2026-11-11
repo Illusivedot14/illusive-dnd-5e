@@ -70,11 +70,21 @@ export function meleeWeaponAttacks(actor) {
   for (const item of actor?.items ?? []) {
     if (item.type !== "weapon") continue;
     if (item.system?.equipped === false) continue;
-    for (const act of listActivities(item)) {
-      if (act?.type !== "attack" || !isMeleeAttack(act, item)) continue;
-      linkActivityItem(act, item);
-      out.push(act);
+    const attacks = listActivities(item).filter((act) => act?.type === "attack" && isMeleeAttack(act, item));
+    if (attacks.length) {
+      for (const act of attacks) {
+        linkActivityItem(act, item);
+        out.push(act);
+      }
+      continue;
     }
+    if (!isMeleeAttack(null, item)) continue;
+    out.push({
+      id: `${item.id}-melee`,
+      type: "attack",
+      item,
+      attack: { type: { value: "melee" } }
+    });
   }
   return out;
 }

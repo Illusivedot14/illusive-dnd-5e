@@ -19,6 +19,7 @@ import { tokenFromUuid } from "../foundry/token-lookup.mjs";
 import { isElementalType } from "../domain/combat/activity-kind.mjs";
 import { openReactionWindow, damageTargetsFromPatches } from "./reactions/window.mjs";
 import { rollAsOwner } from "./dice.mjs";
+import { emitCombatFx } from "./combat-fx.mjs";
 
 function saveAbility(activity) {
   const set = activity?.save?.ability;
@@ -118,6 +119,15 @@ export async function rollActivitySave(actor, activity, {
       windowId: outcome.success ? "on-save-success" : "on-save-fail",
       baseCtx: { triggerTokenUuid: tokenUuid, charmOrFear }
     });
+    if (Number.isFinite(patches.replaceD20)) {
+      total = patches.replaceD20;
+      outcome = evaluateSaveVsDc({ total, dc });
+      reactions.push(...patches.sources);
+    }
+    if (!outcome.success && patches.saveSuccess) {
+      outcome = { success: true, reason: "legendary" };
+      reactions.push(...patches.sources);
+    }
     if (patches.rerollD20) {
       const next = await rollOnce(patches.rerollD20.advantage ? { advantage: true } : {});
       if (Number.isFinite(next.total) && (patches.rerollD20.keep === "new" || next.total < total)) {
@@ -256,6 +266,13 @@ export async function resolveSaveActivity({
           }
         })
         : null;
+      emitCombatFx({
+        kind: "damage",
+        resolutionId,
+        tokenUuid: casterUuid,
+        targetUuids: targets.map((target) => target.uuid),
+        outcome: { totals: result.damageRolls.map((roll) => roll?.total), riders: [] }
+      });
       const trail = await applyDamageWithTrail({
         rolls: result.damageRolls,
         targets: damageTargetsFromPatches(targets, patches)

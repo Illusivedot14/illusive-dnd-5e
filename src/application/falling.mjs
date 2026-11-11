@@ -7,6 +7,12 @@
 import { openReactionWindow, damageTargetsFromPatches } from "./reactions/window.mjs";
 import { applyDamageWithTrail } from "./damage-apply.mjs";
 import { tokenFromUuid } from "../foundry/token-lookup.mjs";
+import { MODULE_ID } from "../constants.mjs";
+
+function hasFeatherFall(tokenUuid) {
+  const actor = tokenFromUuid(tokenUuid)?.actor;
+  return [...(actor?.effects ?? [])].some((effect) => effect?.flags?.[MODULE_ID]?.featherFall && !effect.disabled);
+}
 
 const FALL_MATCH_MS = 5000;
 
@@ -42,6 +48,9 @@ export async function resolveFallDamage(fall, rolls) {
     detached: true,
     baseCtx: { triggerTokenUuid: fall.tokenUuid, targetUuids: [fall.tokenUuid], fallDistance: fall.distance }
   });
+  if (hasFeatherFall(fall.tokenUuid)) {
+    patches?.damageMultiplierByTarget?.set?.(fall.tokenUuid, 0);
+  }
   const targets = damageTargetsFromPatches([{ uuid: fall.tokenUuid }], patches);
   const out = await applyDamageWithTrail({ rolls, targets, tag: { fall: true } });
   const pool = (hp) => (Number(hp?.value) || 0) + (Number(hp?.temp) || 0);

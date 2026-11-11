@@ -17,8 +17,23 @@
  *   { type: "status", actorUuid, statusId, prior }
  */
 
+import { MODULE_ID } from "../constants.mjs";
 import { registerQuery, askGm, canAskGm } from "./gm-query.mjs";
 import { debugLog, DEBUG_CHANNELS } from "./debug.mjs";
+
+function publishStatus(actor, statusId, origin) {
+  if (!actor || !statusId) return;
+  try {
+    globalThis.Hooks?.callAll?.(`${MODULE_ID}.statusToggled`, {
+      actor,
+      statusId,
+      active: true,
+      origin: origin ?? null
+    });
+  } catch {
+    /* the write stands */
+  }
+}
 
 const OPS = new Set(["update", "setFlag", "unsetFlag", "create", "delete", "applyDamage", "toggleStatus"]);
 
@@ -165,6 +180,11 @@ async function execUnsetFlag(doc, op) {
 async function execCreate(parent, op) {
   const made = await parent.createEmbeddedDocuments(op.embedded, op.data ?? [], op.options ?? {});
   const uuids = (made ?? []).map((d) => d?.uuid).filter(Boolean);
+  if (op.embedded === "ActiveEffect") {
+    for (const data of op.data ?? []) {
+      for (const statusId of data?.statuses ?? []) publishStatus(parent, statusId, data?.origin ?? null);
+    }
+  }
   const undo = !uuids.length ? []
     : op.embedded === "ActiveEffect"
       ? [{ type: "effect", actorUuid: parent.uuid, effectUuids: uuids }]
@@ -207,6 +227,13 @@ async function execApplyDamage(actor, op) {
   const prior = hpSnapshot(actor);
   await actor.applyDamage(damages, { ...(op.options ?? {}), isDelta: true });
   const next = hpSnapshot(actor);
+  if ((Number(next?.value) || 0) > (Number(prior?.value) || 0)) {
+    try {
+      globalThis.Hooks?.callAll?.(`${MODULE_ID}.healed`, { actor });
+    } catch {
+      /* the heal stands */
+    }
+  }
   return { ok: true, prior, next, undo: [{ type: "actor-hp", actorUuid: actor.uuid, prior, next }] };
 }
 
@@ -216,6 +243,7 @@ async function execToggleStatus(actor, op) {
   if (want === prior) return { ok: true, active: prior, effectUuids: [], undo: [] };
   const made = await actor.toggleStatusEffect(op.statusId, { active: want, overlay: Boolean(op.overlay) });
   const effectUuids = made && typeof made === "object" && made.uuid ? [made.uuid] : [];
+  if (want) publishStatus(actor, op.statusId, made?.origin ?? op.origin ?? null);
   return {
     ok: true,
     active: want,

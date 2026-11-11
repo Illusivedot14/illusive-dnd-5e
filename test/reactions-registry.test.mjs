@@ -21,7 +21,8 @@ import { saveResolution } from "../src/foundry/workflow-store.mjs";
 
 describe("reaction registry", () => {
   it("holds only Ready; item reactions are declarations", () => {
-    expect(Object.keys(REACTION_REGISTRY)).toEqual(["ready"]);
+    expect(Object.keys(REACTION_REGISTRY)).toEqual(["opportunity", "ready"]);
+    expect(listReactionsForWindow("on-leave-reach").map((s) => s.id)).toEqual(["opportunity"]);
     expect(listReactionsForWindow("after-move").map((s) => s.id)).toEqual(["ready"]);
     expect(listReactionsForWindow("on-attack-hit")).toEqual([]);
   });

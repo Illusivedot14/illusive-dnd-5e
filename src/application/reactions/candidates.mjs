@@ -116,7 +116,24 @@ export function candidateContext(scope, token, extra = {}) {
       get: () => (isTrigger || !trigger ? true : scope.sees(token, trigger))
     },
     nearTargetUuid: { enumerable: true, get: () => nearOnce()?.uuid ?? null },
-    nearTargetFeet: { enumerable: true, get: () => nearOnce()?.feet ?? null }
+    nearTargetFeet: { enumerable: true, get: () => nearOnce()?.feet ?? null },
+    destinationFeet: {
+      enumerable: true,
+      get: () => {
+        const dest = baseCtx.destination;
+        if (!dest || !trigger || isTrigger) return null;
+        const facts = getTokenFacts(trigger);
+        if (!facts) return null;
+        return feetBetween(token, {
+          document: {
+            ...facts,
+            x: dest.x ?? facts.x,
+            y: dest.y ?? facts.y,
+            elevation: dest.elevation ?? facts.elevation
+          }
+        });
+      }
+    }
   });
   return ctx;
 }

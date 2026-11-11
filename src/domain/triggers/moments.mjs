@@ -11,12 +11,12 @@ export const MOMENTS = Object.freeze({
   attackDeclared: {
     window: "on-attack-declared",
     label: "An attack is declared (before the roll)",
-    patches: ["attackAdvantage", "attackDisadvantage", "attackBonus"]
+    patches: ["attackAdvantage", "attackDisadvantage", "attackBonus", "d20Replace"]
   },
   isHit: {
     window: "on-attack-hit",
     label: "An attack hits (before damage)",
-    patches: ["acBonus", "attackPenalty", "rerollAttack"]
+    patches: ["acBonus", "attackPenalty", "rerollAttack", "redirect"]
   },
   isMissed: {
     window: "on-attack-miss",
@@ -41,12 +41,12 @@ export const MOMENTS = Object.freeze({
   savedSave: {
     window: "on-save-success",
     label: "A saving throw succeeds",
-    patches: ["rerollD20"]
+    patches: ["rerollD20", "d20Replace"]
   },
   failedSave: {
     window: "on-save-fail",
     label: "A saving throw fails",
-    patches: ["rerollD20"]
+    patches: ["rerollD20", "d20Replace", "saveSuccess"]
   },
   checkSucceeded: {
     window: "on-check-success",
@@ -63,6 +63,26 @@ export const MOMENTS = Object.freeze({
     label: "A creature finishes a move",
     patches: []
   },
+  leavesReach: {
+    window: "on-leave-reach",
+    label: "A creature leaves another creature's reach",
+    patches: []
+  },
+  hitDamage: {
+    window: null,
+    label: "A hit is about to add rider damage",
+    patches: ["bonusDamage"]
+  },
+  weaponMastery: {
+    window: null,
+    label: "A weapon mastery is applied",
+    patches: []
+  },
+  aura: {
+    window: null,
+    label: "An aura the creature carries",
+    patches: []
+  },
   turnStart: {
     window: null,
     label: "A creature's turn starts",
@@ -71,6 +91,31 @@ export const MOMENTS = Object.freeze({
   turnEnd: {
     window: null,
     label: "A creature's turn ends",
+    patches: []
+  },
+  isTargeted: {
+    window: "on-targeted",
+    label: "A creature is chosen as a target, before the roll",
+    patches: ["attackAdvantage", "attackDisadvantage"]
+  },
+  preDamageRoll: {
+    window: "on-pre-damage",
+    label: "Damage is about to be rolled",
+    patches: ["damageReduce"]
+  },
+  gainsCondition: {
+    window: null,
+    label: "A creature gains a condition",
+    patches: []
+  },
+  disengages: {
+    window: null,
+    label: "A creature takes the Disengage action",
+    patches: []
+  },
+  rest: {
+    window: null,
+    label: "A creature finishes a rest",
     patches: []
   }
 });

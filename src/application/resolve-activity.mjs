@@ -23,7 +23,10 @@ import { applyDamageWithTrail, flatDamageRoll } from "./damage-apply.mjs";
 import { markEconomyUsed, resolveEconomySection } from "./economy.mjs";
 import { spendLegendaryAction, spendLairAction, isTokenInCombat } from "./action-economy.mjs";
 import { resolveSaveActivity } from "./save-resolve.mjs";
-import { checkAbilityRange } from "./range.mjs";
+import { checkAbilityRange, doubleRange } from "./range.mjs";
+import { componentBlock, componentsForCast, castIsPerceptible } from "../domain/combat/spell-components.mjs";
+import { igniteTerrain } from "./zones.mjs";
+import { runPassiveTriggers } from "./triggers/engine.mjs";
 import { evaluateForCombat as evaluateCover } from "./cover.mjs";
 import { bakeCoverIntoAc } from "../domain/combat/cover.mjs";
 import { applyWeaponMastery, consumeVexAdvantage, consumeSapDisadvantage } from "./mastery.mjs";
@@ -37,13 +40,16 @@ import {
   consumeHelpAdvantage,
   consumeRollAdvantage
 } from "./roll-modifiers.mjs";
-import { takePendingHitRiders } from "./reactions/reaction-state.mjs";
+import { getReadiedAction, setReadiedAction, takePendingHitRiders } from "./reactions/reaction-state.mjs";
 import { rollVisible } from "./dice.mjs";
 import {
+  expireOnAction,
   expireOnAttack,
   expireOnAttacked,
   expireOnDamaged
 } from "./special-duration.mjs";
+import { clearMetamagic, readMetamagic } from "./triggers/feature-steps.mjs";
+import { chaMod, empowerRolls, releaseReadiedConcentration } from "./triggers/lifecycle.mjs";
 import {
   listPassiveHitRiders,
   wasPassiveRiderUsed,
@@ -215,6 +221,35 @@ function damageTypesOf(rolls) {
  * The one damage step: on-damage-known window (hard), then the trail write.
  * @param {{ rollsByTarget: Map<string, object[]>, resolutionId, token, attackRoll, ranged, weaponAttack, melee }} input
  */
+function weaponIsMagical(item) {
+  const props = item?.system?.properties;
+  if (!props) return false;
+  if (typeof props.has === "function") return props.has("mgc") === true;
+  if (Array.isArray(props)) return props.includes("mgc");
+  return Boolean(props.mgc);
+}
+
+function twinTarget(targetUuids) {
+  if (targetUuids.length !== 1) return;
+  const selected = [...(globalThis.game?.user?.targets ?? [])];
+  const extra = selected
+    .map((token) => token?.document?.uuid ?? token?.uuid ?? null)
+    .find((uuid) => uuid && uuid !== targetUuids[0]);
+  if (extra) targetUuids.push(extra);
+}
+
+function consumeProtectionDisadvantage(attacker, defenderUuid) {
+  const marked = attacker?.getFlag?.(MODULE_ID, "protectionDisadvantage");
+  if (!marked || !defenderUuid || marked !== defenderUuid) return false;
+  void attacker.unsetFlag?.(MODULE_ID, "protectionDisadvantage");
+  return true;
+}
+
+async function maybeEmpower(actor, rolls) {
+  if (readMetamagic(actor) !== "empowered") return rolls;
+  return empowerRolls(rolls, chaMod(actor));
+}
+
 async function applyDamageStep({
   rollsByTarget,
   resolutionId,
@@ -223,6 +258,7 @@ async function applyDamageStep({
   ranged = false,
   weaponAttack = false,
   melee = false,
+  magical = false,
   tag = null
 }) {
   const uuids = [...rollsByTarget.keys()].filter((u) => rollsByTarget.get(u)?.length);
@@ -242,7 +278,8 @@ async function applyDamageStep({
         ranged,
         weaponAttack,
         elemental: damageTypes.some(isElementalType),
-        damageTypes
+        damageTypes,
+        magical
       }
     });
   }
@@ -252,6 +289,12 @@ async function applyDamageStep({
     patches
   );
   const out = await applyDamageWithTrail({ targets, melee, tag });
+  if (damageTypes.includes("fire")) {
+    for (const uuid of out.damagedUuids ?? uuids) {
+      const hit = tokenFromUuid(uuid);
+      if (hit) await igniteTerrain(hit, { onlyFlammable: true });
+    }
+  }
   markDamageApplied(resolutionId);
   for (const uuid of out.damagedUuids) {
     const actor = tokenFromUuid(uuid)?.actor;
@@ -350,6 +393,26 @@ export async function resolveActivity({
   const drive = isDrivenType(type)
     || Boolean(type === "utility" && activity?.target?.template?.type);
 
+  if (actor && isSpellUse(item, rawActivity)) {
+    const components = componentsForCast(item, readMetamagic(actor));
+    const blocked = componentBlock(actor, components);
+    if (blocked) {
+      globalThis.ui?.notifications?.warn?.(`The spell's ${blocked} component can't be provided.`);
+      return {
+        attackRolls: [],
+        damageRolls: [],
+        outcomes: [],
+        applied: [],
+        hitUuids: [],
+        driven: drive,
+        cancelled: true,
+        component: blocked,
+        displayItem: item,
+        displayName: item?.name ?? rawItem?.name ?? null
+      };
+    }
+  }
+
   const result = {
     attackRolls: [],
     damageRolls: [],
@@ -369,7 +432,8 @@ export async function resolveActivity({
     displayName: item?.name ?? rawItem?.name ?? null
   };
 
-  const economyType = resolveEconomySection(section);
+  let economyType = resolveEconomySection(section);
+  if (readMetamagic(actor) === "quickened" && economyType === "action") economyType = "bonus";
   const isWeaponAttack = Boolean(
     economyType === "action"
     && (item?.type === "weapon" || type === "attack")
@@ -390,8 +454,9 @@ export async function resolveActivity({
         weaponAttack: isWeaponAttack,
         lightWeapon
       },
-      { attacksPerAction: isWeaponAttack ? getWeaponAttackCount(actor) : 1 }
+      { attacksPerAction: isWeaponAttack ? getWeaponAttackCount(actor) : 1, token }
     );
+    if (economyType === "action" && result.economySpend) await expireOnAction(actor);
   }
 
   // Legendary / lair actions spend their creature resources (not A/B/R).
@@ -411,15 +476,23 @@ export async function resolveActivity({
   const suppressFollowups = unwrapped.unwrapped
     || suppressSubsequentActions(type)
     || hasTemplate;
+  const castOptions = {
+    ...useOptions,
+    subsequentActions: suppressFollowups ? false : true,
+    createMeasuredTemplate: hasTemplate ? false : undefined
+  };
+  const readied = actor ? getReadiedAction(actor) : null;
+  const heldId = consumptionItem?.id ?? item?.id ?? null;
+  if (readied?.slotHeld && heldId && readied.itemId === heldId) {
+    castOptions.consume = false;
+    await releaseReadiedConcentration(actor);
+    await setReadiedAction(actor, { ...readied, slotHeld: false });
+  }
   const usageResults = await foundryUseActivity({
     item: consumptionItem,
     activity: consumptionActivity,
     event,
-    useOptions: {
-      ...useOptions,
-      subsequentActions: suppressFollowups ? false : true,
-      createMeasuredTemplate: hasTemplate ? false : undefined
-    }
+    useOptions: castOptions
   });
 
   // dnd5e resolves undefined when the use was dismissed, refused, or failed to consume.
@@ -428,12 +501,25 @@ export async function resolveActivity({
     return result;
   }
 
-  // Hard on-cast: Counterspell may stop the spell before attack/save/template drive.
-  if (resolutionId && isSpellUse(item, rawActivity)) {
+  const endCast = async (value) => {
+    if (isSpellUse(item, rawActivity)) await clearMetamagic(actor);
+    return value;
+  };
+
+  // Hard on-cast: Counterspell hears a cast that still has a verbal, somatic, or material component.
+  // Subtle Spell removes verbal and somatic, so only a material component stays perceptible.
+  const castCtx = {
+    triggerTokenUuid: attackerUuid,
+    itemId: item?.id ?? null,
+    activation: activity?.activation?.type ?? economyType ?? null,
+    isSpell: isSpellUse(item, rawActivity)
+  };
+  const perceptible = castCtx.isSpell && castIsPerceptible(componentsForCast(item, readMetamagic(actor)));
+  if (resolutionId && perceptible) {
     const castPatches = await openReactionWindow({
       parentId: resolutionId,
       windowId: "on-cast",
-      baseCtx: { triggerTokenUuid: attackerUuid },
+      baseCtx: castCtx,
       patchCtx: { caster: actor, spellLevel: spellLevelOf(item, useOptions) }
     });
     if (castPatches.cancelCast) {
@@ -442,11 +528,15 @@ export async function resolveActivity({
         ? await refundSpellSlot(actor, usageResults, consumptionActivity ?? activity)
         : false;
       result.reactions.push({ trigger: "counterspell", countered: true, slotRefunded: result.slotRefunded });
-      return result;
+      return endCast(result);
     }
+  } else if (item) {
+    await runPassiveTriggers("castsSpell", { baseCtx: castCtx });
   }
 
-  if (!drive || !activity) return result;
+  if (readMetamagic(actor) === "twinned") twinTarget(targetUuids);
+
+  if (!drive || !activity) return endCast(result);
 
   if (type === "attack" && typeof activity.rollAttack === "function") {
     // Owned: the rollDamageV2 fallback in hooks.mjs must not apply our rolls again.
@@ -456,17 +546,17 @@ export async function resolveActivity({
     } finally {
       endOwnedResolve();
     }
-    return result;
+    return endCast(result);
   }
 
   if ((type === "damage" || type === "heal") && typeof activity.rollDamage === "function") {
     beginOwnedResolve();
     try {
-      await resolveDamageActivity({ result, token, item, activity, targets, targetUuids, event, resolutionId });
+      await resolveDamageActivity({ result, token, actor, item, activity, targets, targetUuids, event, resolutionId });
     } finally {
       endOwnedResolve();
     }
-    return result;
+    return endCast(result);
   }
 
   if (type === "save" || (activity?.target?.template?.type && (type === "utility" || type === "damage"))) {
@@ -481,7 +571,7 @@ export async function resolveActivity({
         // Placer dismissed / failed — cancel instead of "Spellcasting finished".
         if (!placed?.length) {
           result.cancelled = true;
-          return result;
+          return endCast(result);
         }
         result.templates = placed.map((d) => d?.uuid).filter(Boolean);
         applyTo = await collectTemplateTargetUuids(placed, {
@@ -502,6 +592,13 @@ export async function resolveActivity({
       }
       saveResult = { ...(saveResult ?? {}), hitUuids: saveResult?.hitUuids ?? applyTo };
     } else if (type === "save") {
+      if (resolutionId && applyTo.length) {
+        await openReactionWindow({
+          parentId: resolutionId,
+          windowId: "on-targeted",
+          baseCtx: { triggerTokenUuid: attackerUuid, targetUuids: applyTo }
+        });
+      }
       saveResult = await resolveSaveActivity({
         activity,
         targetUuids: applyTo,
@@ -532,7 +629,7 @@ export async function resolveActivity({
       if (saveResult.applied?.length || saveResult.effects?.length) markDamageApplied(resolutionId);
       await offerAfterDamage({ changes: saveResult.applied ?? [], token, resolutionId });
     }
-    if (activity?.target?.template?.type) return result;
+    if (activity?.target?.template?.type) return endCast(result);
   }
 
   if (type === "check") {
@@ -568,7 +665,7 @@ export async function resolveActivity({
     }
   }
 
-  return result;
+  return endCast(result);
 }
 
 /**
@@ -612,9 +709,21 @@ async function resolveCheck({ result, token, actor, activity, event, resolutionI
 }
 
 /** Damage / heal activity (no attack roll). Magic Missile-style rolls once per target. */
-async function resolveDamageActivity({ result, token, item, activity, targets, targetUuids, event, resolutionId }) {
+async function resolveDamageActivity({ result, token, actor, item, activity, targets, targetUuids, event, resolutionId }) {
   const applyTo = targetUuids.length ? targetUuids : targets.map((t) => t.uuid);
   result.hitUuids = applyTo;
+  if (resolutionId && applyTo.length) {
+    await openReactionWindow({
+      parentId: resolutionId,
+      windowId: "on-targeted",
+      baseCtx: { triggerTokenUuid: tokenUuidOf(token), targetUuids: applyTo }
+    });
+    await openReactionWindow({
+      parentId: resolutionId,
+      windowId: "on-pre-damage",
+      baseCtx: { triggerTokenUuid: tokenUuidOf(token), targetUuids: applyTo }
+    });
+  }
   const rollsByTarget = new Map();
   if (applyTo.length > 1 && /magic\s*missile/i.test(item?.name ?? "")) {
     for (const uuid of applyTo) {
@@ -626,7 +735,13 @@ async function resolveDamageActivity({ result, token, item, activity, targets, t
     result.damageRolls = rollList(await activity.rollDamage({ event }, { configure: false }));
     for (const uuid of applyTo) rollsByTarget.set(uuid, result.damageRolls);
   }
-  const step = await applyDamageStep({ rollsByTarget, resolutionId, token });
+  if (actor) result.damageRolls = await maybeEmpower(actor, result.damageRolls);
+  const step = await applyDamageStep({
+    rollsByTarget,
+    resolutionId,
+    token,
+    magical: weaponIsMagical(item)
+  });
   result.applied = step.changes;
   await offerAfterDamage({ changes: step.changes, token, resolutionId });
 }
@@ -634,7 +749,12 @@ async function resolveDamageActivity({ result, token, item, activity, targets, t
 /** Attack roll → hard on-attack-hit window → mastery / riders → one damage step per target. */
 async function resolveAttack({ result, token, actor, item, activity, targets, targetUuids, event, resolutionId }) {
   const attackerUuid = tokenUuidOf(token);
-  const rangeCheck = checkAbilityRange(token, item, activity);
+  let rangeItem = item;
+  let rangeActivity = activity;
+  if (readMetamagic(actor) === "distant") {
+    ({ activity: rangeActivity, item: rangeItem } = doubleRange(activity, item));
+  }
+  const rangeCheck = checkAbilityRange(token, rangeItem, rangeActivity);
   result.rangeBand = rangeCheck.result;
   const attackOpts = { event };
   const primaryTargetUuid = targetUuids[0] ?? null;
@@ -659,6 +779,10 @@ async function resolveAttack({ result, token, actor, item, activity, targets, ta
     mods.disadvantage = true;
     mods.reasons.push("sap");
   }
+  if (consumeProtectionDisadvantage(actor, primaryTargetUuid)) {
+    mods.disadvantage = true;
+    mods.reasons.push("protection");
+  }
   if (mods.reasons.includes("help") && defender) {
     await consumeHelpAdvantage(defender);
   }
@@ -682,6 +806,22 @@ async function resolveAttack({ result, token, actor, item, activity, targets, ta
 
   // Hard on-attack-declared: Protection imposes disadvantage. Readied "attack" triggers prompt (soft).
   // Passive declarations (Blur, Protection from Evil and Good) patch the same roll.
+  let replaceD20 = null;
+  if (resolutionId && targetUuids.length) {
+    const targeted = await openReactionWindow({
+      parentId: resolutionId,
+      windowId: "on-targeted",
+      baseCtx: { triggerTokenUuid: attackerUuid, targetUuids, attackRoll: true, melee, ranged, weaponAttack }
+    });
+    if (targeted.attackAdvantage) mods.advantage = true;
+    if (targeted.attackDisadvantage) mods.disadvantage = true;
+    if (targeted.sources?.length) mods.reasons.push(...targeted.sources);
+    const advNow = mods.advantage && !mods.disadvantage;
+    const disNow = mods.disadvantage && !mods.advantage;
+    attackOpts.advantage = advNow;
+    attackOpts.disadvantage = disNow;
+    if (disNow) attackOpts.advantageMode = 0;
+  }
   if (resolutionId && targetUuids.length) {
     const declared = await openReactionWindow({
       parentId: resolutionId,
@@ -704,6 +844,7 @@ async function resolveAttack({ result, token, actor, item, activity, targets, ta
       attackOpts.parts = [...(attackOpts.parts ?? []).filter((p) => p !== String(attackOpts.bonus)), String(mods.attackBonus)];
       attackOpts.bonus = mods.attackBonus;
     }
+    if (Number.isFinite(declared.replaceD20)) replaceD20 = declared.replaceD20;
   }
 
   // Reckless opens the attacker to advantage against them
@@ -714,6 +855,7 @@ async function resolveAttack({ result, token, actor, item, activity, targets, ta
   await expireOnAttack(actor);
 
   const readTotal = (roll) => {
+    if (Number.isFinite(replaceD20)) return replaceD20;
     let total = Number(roll?.total);
     // If the roll API ignored parts, nudge total for the hit check only.
     if (mods.attackBonus && Number.isFinite(total) && !Number.isFinite(Number(roll?.options?.illusiveBonus))) {
@@ -771,6 +913,7 @@ async function resolveAttack({ result, token, actor, item, activity, targets, ta
   }
 
   // Hard on-attack-hit: Shield / Silvery Barbs / Cutting Words before damage.
+  let redirected = null;
   if (result.hitUuids.length && resolutionId) {
     const hitPatches = await openReactionWindow({
       parentId: resolutionId,
@@ -806,10 +949,15 @@ async function resolveAttack({ result, token, actor, item, activity, targets, ta
     }
     // Shield: +5 AC until the start of the reactor's next turn (cannot turn a crit into a miss).
     if (hitPatches.acBonusByTarget.size) changed = true;
+    if (hitPatches.redirectUuid) redirected = hitPatches.redirectUuid;
     if (changed) {
       result.outcomes = adjudicate(coveredTargets, attack, hitPatches.acBonusByTarget);
       result.hitUuids = result.outcomes.filter((o) => o.hit).map((o) => o.uuid);
     }
+  }
+  if (redirected) {
+    result.hitUuids = result.hitUuids.map(() => redirected);
+    result.outcomes = result.outcomes.map((o) => (o.hit ? { ...o, uuid: redirected } : o));
   }
 
   result.critical = attack.isCritical;
@@ -837,7 +985,15 @@ async function resolveAttack({ result, token, actor, item, activity, targets, ta
     });
   }
 
-  const stepOpts = { resolutionId, token, attackRoll: true, ranged, weaponAttack, melee };
+  const stepOpts = {
+    resolutionId,
+    token,
+    attackRoll: true,
+    ranged,
+    weaponAttack,
+    melee,
+    magical: weaponIsMagical(item)
+  };
 
   result.mastery = await applyWeaponMastery({
     mastery: masteryKey,
@@ -861,10 +1017,17 @@ async function resolveAttack({ result, token, actor, item, activity, targets, ta
   }
 
   if (anyHit && typeof activity.rollDamage === "function") {
-    result.damageRolls = rollList(await activity.rollDamage(
+    if (resolutionId) {
+      await openReactionWindow({
+        parentId: resolutionId,
+        windowId: "on-pre-damage",
+        baseCtx: { triggerTokenUuid: attackerUuid, targetUuids: result.hitUuids, attackRoll: true }
+      });
+    }
+    result.damageRolls = await maybeEmpower(actor, rollList(await activity.rollDamage(
       { event, isCritical: attack.isCritical },
       { configure: false, options: attack.isCritical ? { defaultButton: "critical" } : {} }
-    ));
+    )));
     const mainType = result.damageRolls[0]?.options?.type ?? primaryDamageType(item);
     const rollsByTarget = new Map(result.hitUuids.map((uuid) => [uuid, [...result.damageRolls]]));
     const firstHit = result.hitUuids[0];
@@ -924,18 +1087,34 @@ async function resolveAttack({ result, token, actor, item, activity, targets, ta
       result.riders.push({ rider: "bonus", totals: [bonusDamage] });
     }
 
-    const step = await applyDamageStep({ rollsByTarget, ...stepOpts });
-    result.applied = step.changes;
-    result.reactionPatches = { ...(result.reactionPatches ?? {}), onDamageKnown: step.patches };
+    for (const rider of result.riders) {
+      emitCombatFx({
+        kind: "hitRider",
+        subtype: rider.rider,
+        resolutionId,
+        actorUuid: actor?.uuid ?? null,
+        tokenUuid: attackerUuid,
+        targetUuids: rider.targetUuid ? [rider.targetUuid] : result.hitUuids,
+        outcome: { totals: rider.totals ?? [] },
+        origin: { itemUuid: item?.uuid ?? null, activityId: activity?.id ?? null }
+      });
+    }
     emitCombatFx({
       kind: "damage",
       resolutionId,
       actorUuid: actor?.uuid ?? null,
       tokenUuid: attackerUuid,
       targetUuids: result.hitUuids,
-      outcome: { totals: result.damageRolls.map((r) => r?.total) },
+      outcome: {
+        totals: result.damageRolls.map((r) => r?.total),
+        riders: result.riders.map((rider) => rider.rider)
+      },
       origin: { itemUuid: item?.uuid ?? null, activityId: activity?.id ?? null }
     });
+
+    const step = await applyDamageStep({ rollsByTarget, ...stepOpts });
+    result.applied = step.changes;
+    result.reactionPatches = { ...(result.reactionPatches ?? {}), onDamageKnown: step.patches };
   }
 
   // Mastery writes (Push, Sap, Slow, Topple, Vex) join the undo trail.

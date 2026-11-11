@@ -214,7 +214,7 @@ function activityItemName(activity) {
 }
 
 /** dnd5e names most weapon activities "Attack". The weapon name is what the player can tell apart. */
-function reactionChoiceLabel(activity) {
+export function reactionChoiceLabel(activity) {
   const itemName = activityItemName(activity);
   const activityName = activity?.name || activity?.label || null;
   const generic = !activityName || /^(attack|use|action)$/i.test(String(activityName).trim());

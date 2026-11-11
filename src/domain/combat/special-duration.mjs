@@ -11,9 +11,11 @@ export const SPECIAL_DURATIONS = Object.freeze([
   "currentTurnEnd",   // expires when the turn in progress ends, whoever's it is
   "turnStartSource",  // expires when the creature that applied it starts its turn
   "turnEndSource",    // expires when the creature that applied it ends its turn
+  "action",           // expires when this actor takes an action
   "nextAttack",       // expires after this actor attacks
   "isAttacked",       // expires after this actor is attacked (hit or miss)
   "isDamaged",        // expires after this actor takes damage
+  "healed",           // expires after this actor regains hit points
   "shortRest",
   "longRest",
   "combatEnd"

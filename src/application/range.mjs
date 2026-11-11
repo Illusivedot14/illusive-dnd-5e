@@ -237,3 +237,23 @@ export function checkAbilityRange(token, item, activity, { attackMode = null } =
   }
   return { inRange: true, reason: worst === "long" ? "longRange" : "normal", result: worst };
 }
+
+function doubled(range) {
+  if (!range || typeof range !== "object") return range;
+  const next = { ...range };
+  for (const key of ["value", "long", "reach"]) {
+    if (Number(next[key]) > 0) next[key] = Number(next[key]) * 2;
+  }
+  return next;
+}
+
+/** Distant Spell: a copy of the activity and item whose range is doubled. */
+export function doubleRange(activity, item) {
+  const nextActivity = activity?.range
+    ? { ...activity, range: doubled(activity.range) }
+    : activity;
+  const nextItem = item?.system?.range
+    ? { ...item, system: { ...item.system, range: doubled(item.system.range) } }
+    : item;
+  return { activity: nextActivity, item: nextItem };
+}

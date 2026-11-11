@@ -36,16 +36,24 @@ export function resolveEconomySection(section, activationType) {
   return costOf(activationType);
 }
 
-/** Combatant for an actor in the viewed started combat, if any. */
-export function combatantForActor(actor) {
+/** Combatant for this token. Unlinked copies share an actor id, so the token comes first. */
+export function combatantForActor(actor, token = null) {
   const combat = getViewedCombat();
   if (!combat?.started || !actor) return null;
+  const list = [...(combat.combatants ?? [])];
+  const tokenId = token?.id ?? token?.document?.id ?? actor?.token?.id ?? null;
+  if (tokenId) {
+    const byToken = list.find((c) => c.tokenId === tokenId || c.token?.id === tokenId);
+    if (byToken) return byToken;
+  }
+  const uuid = actor.uuid ?? null;
+  if (uuid) {
+    const byUuid = list.find((c) => c.actor?.uuid === uuid);
+    if (byUuid) return byUuid;
+  }
   const id = actor.id ?? actor._id;
-  return combat.combatants.find((c) =>
-    c.actorId === id
-    || c.actor?.id === id
-    || c.actor?.uuid === actor.uuid
-  ) ?? null;
+  const byId = list.filter((c) => c.actorId === id || c.actor?.id === id);
+  return byId.length === 1 ? byId[0] : null;
 }
 
 export function readBudget(combatant) {
@@ -114,9 +122,11 @@ export function getEconomyActions(actor) {
   };
 }
 
-export function isEconomyAvailable(actor, type) {
+export function isEconomyAvailable(actor, type, token = null) {
+  const denied = actor?.getFlag?.(MODULE_ID, "control");
+  if (Array.isArray(denied) && denied.includes(type)) return false;
   if (!ECONOMY_SECTIONS.has(type)) return true;
-  const combatant = combatantForActor(actor);
+  const combatant = combatantForActor(actor, token);
   if (!combatant) return true;
   const budget = readBudget(combatant);
   return (budget?.[type] ?? 0) > 0;
@@ -137,7 +147,7 @@ export function getEconomyAvailability(actor) {
  * @returns {Promise<{ before: object, after: object }|null>}
  */
 export async function markEconomyUsed(actor, type, request = null, context = {}) {
-  const combatant = combatantForActor(actor);
+  const combatant = combatantForActor(actor, context.token);
   if (!combatant || !ECONOMY_SECTIONS.has(type)) return null;
 
   const before = await ensureBudget(combatant);
@@ -178,6 +188,20 @@ export async function toggleEconomySpent(actor, economyType) {
   return true;
 }
 
+/** The creature's next reaction is available again. */
+export async function grantFreeReaction(actor, token = null) {
+  const combatant = combatantForActor(actor, token);
+  if (combatant) {
+    const budget = readBudget(combatant) ?? freshBudget();
+    if ((Number(budget.reaction) || 0) >= 1) return true;
+    await writeBudget(combatant, { ...budget, reaction: 1 });
+    emitEconomyChanged(actor);
+    return true;
+  }
+  if (typeof actor?.setFlag === "function") await actor.setFlag(MODULE_ID, "freeReaction", true);
+  return true;
+}
+
 /** Spend action + set basic flag (dash / disengage / dodge / ready). */
 export async function spendBasicAction(actor, kind) {
   const combatant = combatantForActor(actor);
@@ -186,6 +210,18 @@ export async function spendBasicAction(actor, kind) {
   const after = basicAction(before, kind);
   await writeBudget(combatant, after);
   emitEconomyChanged(actor);
+  if (kind === "disengage") {
+    try {
+      const { tokenForActor, tokenUuidOf } = await import("../foundry/token-lookup.mjs");
+      const { runPassiveTriggers } = await import("./triggers/engine.mjs");
+      const token = tokenForActor(actor);
+      await runPassiveTriggers("disengages", {
+        baseCtx: { triggerTokenUuid: token ? tokenUuidOf(token) : null }
+      });
+    } catch {
+      /* the spend stands */
+    }
+  }
   return { before, after };
 }
 

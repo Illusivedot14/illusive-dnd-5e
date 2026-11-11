@@ -234,6 +234,14 @@ export async function rollAsOwner(actor, kind, config = {}) {
 /** Owner-side handler (init). */
 export function bindOwnerRolls() {
   registerQuery("physicalSave", async (data) => gmPassFailDialog(data ?? {}));
+  registerQuery("reactionWindow", async (data) => {
+    const { adjudicateReactionQuery } = await import("./reactions/window.mjs");
+    return adjudicateReactionQuery(data ?? {});
+  });
+  registerQuery("reactionUse", async (data) => {
+    const { useReactionQuery } = await import("./reactions/window.mjs");
+    return useReactionQuery(data ?? {});
+  });
   registerQuery("opportunityAttack", async (data) => {
     console.info("illusive-dnd-5e | oa | GM handler", {
       reactor: data?.reactorName ?? null,

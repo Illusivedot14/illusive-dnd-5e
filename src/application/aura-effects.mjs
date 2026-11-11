@@ -154,7 +154,28 @@ function activeDeclaredAuras(actor) {
   return out;
 }
 
-async function ensureDeclaredAuraEffect(targetActor, { sourceUuid, auraId, name, img, changes, statuses, overTime }) {
+/**
+ * Copy one aura onto the tokens `include` accepts within `feet`.
+ * Catalog auras, declared auras, and the aura step all use this.
+ * @returns {Promise<number>} creatures copied onto
+ */
+export async function copyAura({ sourceToken, tokens, feet, include, apply, selfIgnoresDistance = false }) {
+  let copied = 0;
+  for (const other of tokens ?? []) {
+    if (!other?.actor) continue;
+    const isSelf = other.id === sourceToken?.id;
+    const friendly = isSelf || dispositionsFriendly(sourceToken, other);
+    if (!include({ other, isSelf, friendly })) continue;
+    const inRange = isSelf && selfIgnoresDistance
+      || feetBetween(sourceToken, other) <= Number(feet) + 1e-6;
+    if (!inRange) continue;
+    await apply(other, { isSelf, friendly });
+    copied += 1;
+  }
+  return copied;
+}
+
+async function ensureDeclaredAuraEffect(targetActor, { sourceUuid, auraId, name, img, changes, statuses, overTime, undo }) {
   const signature = JSON.stringify({ changes, statuses, overTime });
   const flags = {
     [MODULE_ID]: { auraId, sourceUuid, kind: "aura-buff", auraSignature: signature, overTime: overTime ?? null }
@@ -162,10 +183,11 @@ async function ensureDeclaredAuraEffect(targetActor, { sourceUuid, auraId, name,
   const existing = findAuraEffect(targetActor, sourceUuid, auraId);
   if (existing) {
     if (existing.flags?.[MODULE_ID]?.auraSignature === signature) return existing;
-    await updateDoc(existing, { changes, statuses, flags });
+    const result = await updateDoc(existing, { changes, statuses, flags });
+    if (undo && result?.undo?.length) undo.push(...result.undo);
     return existing;
   }
-  const { docs: [created] = [] } = await createEmbedded(targetActor, "ActiveEffect", [{
+  const made = await createEmbedded(targetActor, "ActiveEffect", [{
     name,
     img: img || "icons/magic/light/explosion-star-glow-blue.webp",
     transfer: false,
@@ -174,7 +196,8 @@ async function ensureDeclaredAuraEffect(targetActor, { sourceUuid, auraId, name,
     statuses,
     flags
   }]);
-  return created;
+  if (undo && made.undo?.length) undo.push(...made.undo);
+  return made.docs?.[0] ?? null;
 }
 
 /**
@@ -198,26 +221,26 @@ async function spreadDeclaredAura(sourceToken, tokens, { effect, aura }, validBy
     ? Object.fromEntries(Object.entries(aura.overTime).map(([k, v]) => [k, resolveSourceFormula(v, rollData)]))
     : null;
 
-  let ensured = 0;
-  for (const other of tokens) {
-    if (!other.actor) continue;
-    const isSelf = other.id === sourceToken.id;
-    const friendly = isSelf || dispositionsFriendly(sourceToken, other);
-    if (!declaredAuraReaches(aura, { isSelf, friendly })) continue;
-    if (!isSelf && !(feetBetween(sourceToken, other) <= feet + 1e-6)) continue;
-    if (!validByActor.has(other.actor.uuid)) validByActor.set(other.actor.uuid, new Set());
-    validByActor.get(other.actor.uuid).add(`${source.uuid}:${auraId}`);
-    await ensureDeclaredAuraEffect(other.actor, {
-      sourceUuid: source.uuid,
-      auraId,
-      name: `${effect.name} (${source.name})`,
-      img: effect.img,
-      changes,
-      statuses: aura.statuses,
-      overTime
-    });
-    ensured += 1;
-  }
+  const ensured = await copyAura({
+    sourceToken,
+    tokens,
+    feet,
+    selfIgnoresDistance: true,
+    include: ({ isSelf, friendly }) => declaredAuraReaches(aura, { isSelf, friendly }),
+    apply: async (other) => {
+      if (!validByActor.has(other.actor.uuid)) validByActor.set(other.actor.uuid, new Set());
+      validByActor.get(other.actor.uuid).add(`${source.uuid}:${auraId}`);
+      await ensureDeclaredAuraEffect(other.actor, {
+        sourceUuid: source.uuid,
+        auraId,
+        name: `${effect.name} (${source.name})`,
+        img: effect.img,
+        changes,
+        statuses: aura.statuses,
+        overTime
+      });
+    }
+  });
   emitCombatFx({
     kind: "aura",
     subtype: auraId,
@@ -279,16 +302,16 @@ export async function syncAllAuras() {
         }
       }
 
-      for (const other of tokens) {
-        if (!other.actor) continue;
-        if (spec.affects === "ally") {
-          if (other.id !== sourceToken.id && !dispositionsFriendly(sourceToken, other)) continue;
-        } else if (spec.affects === "enemy") {
-          if (other.id === sourceToken.id || dispositionsFriendly(sourceToken, other)) continue;
-        }
-        const dist = feetBetween(sourceToken, other);
-        if (!(dist <= feet + 1e-6)) continue;
-
+      await copyAura({
+        sourceToken,
+        tokens,
+        feet,
+        include: ({ isSelf, friendly }) => {
+          if (spec.affects === "ally") return isSelf || friendly;
+          if (spec.affects === "enemy") return !isSelf && !friendly;
+          return true;
+        },
+        apply: async (other) => {
         // Damaging auras (Spirit Guardians) — tag a marker effect; damage ticks on turn start
         if (spec.damaging) {
           const sourceUuid = source.uuid;
@@ -308,7 +331,7 @@ export async function syncAllAuras() {
                 ))
           });
           buffs += 1;
-          continue;
+          return;
         }
 
         const sourceUuid = source.uuid;
@@ -337,7 +360,8 @@ export async function syncAllAuras() {
           });
           buffs += 1;
         }
-      }
+        }
+      });
 
       emitCombatFx({
         kind: "aura",
@@ -361,4 +385,35 @@ export async function syncAllAuras() {
     /* ignore */
   }
   return { sources, buffs };
+}
+
+/** The aura step: one copy, the same function the sync uses. */
+export async function copyAuraFromStep({ token, label, step }) {
+  const source = token?.actor;
+  if (!source) return [];
+  const undo = [];
+  const affects = step.affects ?? "ally";
+  await copyAura({
+    sourceToken: token,
+    tokens: globalThis.canvas?.tokens?.placeables ?? [],
+    feet: Number(step.feet) || 0,
+    include: ({ isSelf, friendly }) => {
+      if (affects === "self") return isSelf;
+      if (affects === "ally") return isSelf || friendly;
+      if (affects === "enemy") return !isSelf && !friendly;
+      return true;
+    },
+    apply: async (other) => {
+      await ensureDeclaredAuraEffect(other.actor, {
+        sourceUuid: source.uuid,
+        auraId: `step-${label}`,
+        name: label,
+        changes: step.changes ?? [],
+        statuses: step.statuses ?? [],
+        overTime: step.overTime ?? null,
+        undo
+      });
+    }
+  });
+  return undo;
 }

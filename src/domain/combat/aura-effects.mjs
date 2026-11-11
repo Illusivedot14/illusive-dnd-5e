@@ -1,101 +1,51 @@
 /**
- * Mechanical aura catalog — which features buff allies in range.
+ * Auras the creature carries. The catalog is the `aura` declarations.
+ * A new aura is a declaration on the aura moment.
  */
+
+import { CONTENT } from "../../content/declarations.mjs";
+import { contentMatchesItem } from "../../content/match.mjs";
+import { declarationsFor } from "../../application/triggers/index.mjs";
 
 /** dnd5e 6 path for the all-saves bonus (was `system.bonuses.abilities.save`). */
 export const SAVE_BONUS_KEY = "system.rolls.ability.save.bonus";
 
-export const AURA_CATALOG = Object.freeze([
-  {
-    id: "aura-of-protection",
-    test: (item) => item?.system?.identifier === "aura-of-protection"
-      || /^aura of protection$/i.test(item?.name ?? ""),
-    affects: "ally",
-    /** Feet; overridden by scale value when present. */
-    defaultFeet: 10,
-    scalePath: "paladin.aura",
-    bonus: {
-      key: SAVE_BONUS_KEY,
-      type: "add",
-      /** Source actor Cha mod (min 1). */
-      from: "chaModMin1"
-    },
-    effectName: "Aura of Protection",
-    incapacitatedBlocks: true
-  },
-  {
-    id: "aura-of-courage",
-    test: (item) => item?.system?.identifier === "aura-of-courage"
-      || /^aura of courage$/i.test(item?.name ?? ""),
-    affects: "ally",
-    defaultFeet: 10,
-    scalePath: "paladin.aura",
-    immunities: ["frightened"],
-    effectName: "Aura of Courage",
-    incapacitatedBlocks: true
-  },
-  {
-    id: "aura-of-devotion",
-    test: (item) => item?.system?.identifier === "aura-of-devotion"
-      || /^aura of devotion$/i.test(item?.name ?? ""),
-    affects: "ally",
-    defaultFeet: 10,
-    scalePath: "paladin.aura",
-    immunities: ["charmed"],
-    effectName: "Aura of Devotion",
-    incapacitatedBlocks: true
-  },
-  {
-    id: "spirit-guardians",
-    test: (item) => item?.system?.identifier === "spirit-guardians"
-      || /^spirit\s*guardians$/i.test(item?.name ?? ""),
-    affects: "enemy",
-    defaultFeet: 15,
-    damaging: {
-      /** Formula; @abilities.wis.mod style resolved via roll data when possible. */
-      formula: "3d8",
-      type: "radiant",
-      saveAbility: "wis",
-      onSave: "half",
-      /** Also tick when an enemy starts turn inside. */
-      turn: "start"
-    },
-    effectName: "Spirit Guardians",
-    incapacitatedBlocks: false,
-    requiresConcentration: true
-  },
-  {
-    id: "aura-of-life",
-    test: (item) => item?.system?.identifier === "aura-of-life"
-      || /^aura\s*of\s*life$/i.test(item?.name ?? ""),
-    affects: "ally",
-    defaultFeet: 30,
-    immunities: [],
-    effectName: "Aura of Life",
-    incapacitatedBlocks: false,
-    requiresConcentration: true,
-    /** Resistance to necrotic — applied as CI-like trait change if supported. */
-    resistances: ["necrotic"]
-  },
-  {
-    id: "aura-of-purity",
-    test: (item) => item?.system?.identifier === "aura-of-purity"
-      || /^aura\s*of\s*purity$/i.test(item?.name ?? ""),
-    affects: "ally",
-    defaultFeet: 30,
-    immunities: ["blinded", "charmed", "deafened", "frightened", "paralyzed", "poisoned", "stunned"],
-    effectName: "Aura of Purity",
-    incapacitatedBlocks: false,
-    requiresConcentration: true
+function momentIds(decl) {
+  return Array.isArray(decl?.on) ? decl.on : (decl?.on ? [decl.on] : []);
+}
+
+function catalogFromContent() {
+  const out = [];
+  for (const content of CONTENT) {
+    for (const raw of content.declarations ?? []) {
+      if (!momentIds(raw).includes("aura") || !raw.aura) continue;
+      out.push({
+        id: raw.id,
+        ...raw.aura,
+        effectName: raw.aura.effectName ?? raw.label ?? raw.id,
+        test: (item) => contentMatchesItem(content, item)
+      });
+    }
   }
-]);
+  return out;
+}
+
+export const AURA_CATALOG = Object.freeze(catalogFromContent());
+
+function specFromDecl(decl) {
+  const aura = decl.aura ?? {};
+  return {
+    id: decl.id,
+    ...aura,
+    effectName: aura.effectName ?? decl.label ?? decl.id
+  };
+}
 
 export function findAuraFeatures(actor) {
   const out = [];
-  if (!actor?.items) return out;
-  for (const item of actor.items) {
-    const spec = AURA_CATALOG.find((a) => a.test(item));
-    if (spec) out.push({ spec, item });
+  for (const entry of declarationsFor(actor, "aura")) {
+    if (!entry.decl.aura || !entry.item) continue;
+    out.push({ spec: specFromDecl(entry.decl), item: entry.item });
   }
   return out;
 }

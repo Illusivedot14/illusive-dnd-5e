@@ -96,6 +96,7 @@ export const HUD_FALLBACKS = {
   "target.list": "Targets: {names}",
   "reaction.title": "Reaction",
   "reaction.prompt": "{name} can use a reaction.",
+  "reaction.batch": "Choose a reaction for each creature.",
   "reaction.forceTitle": "End reaction",
   "reaction.forceBody": "{name} is choosing a reaction.",
   "reaction.force": "End reaction",

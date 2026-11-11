@@ -57,6 +57,32 @@ describe("activity economy (combatant budget)", () => {
     });
   });
 
+  it("unlinked copies of one actor keep separate reactions", () => {
+    const firstActor = makeActor({ id: "treant", name: "Treant" });
+    firstActor.uuid = "Scene.1.Token.t1";
+    const secondActor = makeActor({ id: "treant", name: "Treant" });
+    secondActor.uuid = "Scene.1.Token.t2";
+    const firstToken = makeToken({ id: "t1", actor: firstActor });
+    const secondToken = makeToken({ id: "t2", actor: secondActor });
+    const spent = makeCombatant({
+      actor: firstActor,
+      token: firstToken,
+      tokenId: "t1",
+      flags: { [MODULE_ID]: { turn: { ...freshBudget(), reaction: 0 } } }
+    });
+    const ready = makeCombatant({
+      actor: secondActor,
+      token: secondToken,
+      tokenId: "t2",
+      flags: { [MODULE_ID]: { turn: freshBudget() } }
+    });
+    const combat = makeCombat({ started: true, combatants: [spent, ready] });
+    installFoundry({ combat, tokens: [firstToken, secondToken] });
+
+    expect(isEconomyAvailable(firstActor, "reaction", firstToken)).toBe(false);
+    expect(isEconomyAvailable(secondActor, "reaction", secondToken)).toBe(true);
+  });
+
   it("markEconomyUsed spends the combatant budget", async () => {
     const actor = makeActor({ id: "a1" });
     const token = makeToken({ id: "t1", actor });

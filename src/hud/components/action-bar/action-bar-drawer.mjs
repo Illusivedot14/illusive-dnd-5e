@@ -116,6 +116,23 @@ function applyCheckMods(config, mods) {
   return config;
 }
 
+async function offerCheckWindow(actor, rolls) {
+  const list = Array.isArray(rolls) ? rolls : (rolls ? [rolls] : []);
+  const roll = list[0];
+  if (!roll) return;
+  const total = Number(roll.total);
+  const target = Number(roll.options?.target);
+  if (Number.isFinite(target) && !(total >= target)) return;
+  const { openReactionWindow } = await import("../../../application/reactions/window.mjs");
+  const { tokenForActor, tokenUuidOf } = await import("../../../foundry/token-lookup.mjs");
+  const token = tokenForActor(actor);
+  await openReactionWindow({
+    windowId: "on-check-success",
+    detached: true,
+    baseCtx: { triggerTokenUuid: token ? tokenUuidOf(token) : null }
+  });
+}
+
 export async function rollDrawerEntry(actor, entry, event = null) {
   if (!actor?.isOwner) {
     ui.notifications.warn(illusiveDnd.warning("noOwner"));
@@ -137,6 +154,7 @@ export async function rollDrawerEntry(actor, entry, event = null) {
       ? await actor.rollAbilityCheck(config, dialog, message)
       : await actor.rollAbilityTest?.(config, dialog, message);
     if (rolls) await consumeRollAdvantage(actor, mods.reasons);
+    await offerCheckWindow(actor, rolls);
     return true;
   }
 
@@ -144,7 +162,11 @@ export async function rollDrawerEntry(actor, entry, event = null) {
     const ability = skillAbility(actor, entry.id);
     const mods = collectAbilityCheckModifiers({ actor, ability });
     const config = applyCheckMods({ skill: entry.id, event }, mods);
-    if (await actor.rollSkill(config, dialog, message)) await consumeRollAdvantage(actor, mods.reasons);
+    const rolls = await actor.rollSkill(config, dialog, message);
+    if (rolls) {
+      await consumeRollAdvantage(actor, mods.reasons);
+      await offerCheckWindow(actor, rolls);
+    }
     return true;
   }
 

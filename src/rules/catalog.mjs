@@ -262,7 +262,7 @@ export const RULES = Object.freeze({
     },
     errata: { checked: false, version: null },
     automation: "partial",
-    notes: "Detached hard on-fall (dnd5e plummet), 60 ft + sight, self or other; no fall damage and no prone. The faller only; extra creatures: manual"
+    notes: "Detached hard on-fall (dnd5e plummet), 60 ft + sight; no fall damage and no prone. Up to 5 creatures within 60 ft, including a later fall that round"
   },
   "combat.reaction.slow-fall": {
     id: "combat.reaction.slow-fall",
@@ -346,7 +346,7 @@ export const RULES = Object.freeze({
     },
     errata: { checked: false, version: null },
     automation: "partial",
-    notes: "Pick a trigger (hostile moves within range / casts / attacks) and an activity; a soft reaction prompt offers it when the trigger fires; lapses at the readier's next turn start. A readied spell spends its slot on release (no concentration hold)"
+    notes: "Pick a trigger (hostile moves within range / casts / attacks) and an activity; a soft reaction prompt offers it when the trigger fires; lapses at the readier's next turn start. A readied spell spends its slot and starts concentration when readied; release does not spend the slot again; a lapse keeps the slot spent and ends concentration"
   },
   "combat.reaction.cutting-words": {
     id: "combat.reaction.cutting-words",
@@ -578,7 +578,7 @@ export const RULES = Object.freeze({
     },
     errata: { checked: false, version: null },
     automation: "partial",
-    notes: "Passive damageKnown; 2024 reduces B/P/S from attacks by PB, 2014 by 3 from weapons (non-magical check not automated)"
+    notes: "Passive damageKnown; 2024 reduces B/P/S from attacks by PB, 2014 by 3 from nonmagical weapons"
   },
   "combat.trigger.dark-ones-blessing": {
     id: "combat.trigger.dark-ones-blessing",
@@ -592,7 +592,7 @@ export const RULES = Object.freeze({
     },
     errata: { checked: false, version: null },
     automation: "partial",
-    notes: "Passive isDamaged; temp HP when the warlock drops a hostile creature to 0 (2024 'enemy within 10 ft' wording not range-checked)"
+    notes: "Passive isDamaged; temp HP when the warlock drops a hostile creature to 0 within 10 ft"
   },
   "combat.trigger.defensive-duelist": {
     id: "combat.trigger.defensive-duelist",
@@ -607,8 +607,44 @@ export const RULES = Object.freeze({
     errata: { checked: false, version: null },
     automation: "partial",
     notes: "Hard isHit reaction; +PB AC against a melee hit while wielding a Finesse weapon (lasts for that attack only)"
-  }
+  },
+  ...cited("combat.rider.divine-smite", "Divine Smite", "Spells — Divine Smite", "Prompted hitDamage; rolls the spell's damage into the hit"),
+  ...cited("combat.rider.sneak-attack", "Sneak Attack", "Rogue — Sneak Attack", "Prompted hitDamage; rolls the feature's damage into the hit"),
+  ...cited("combat.rider.eldritch-smite", "Eldritch Smite", "Warlock — Eldritch Smite", "Prompted hitDamage; rolls the invocation's damage into the hit"),
+  ...cited("combat.rider.hex", "Hex", "Spells — Hex", "Automatic hitDamage on the creature the caster marked"),
+  ...cited("combat.rider.hunters-mark", "Hunter's Mark", "Spells — Hunter's Mark", "Automatic hitDamage on the creature the caster marked"),
+  ...cited("combat.rider.colossus-slayer", "Colossus Slayer", "Ranger — Hunter", "Passive hitDamage; 1d8 once a turn"),
+  ...cited("combat.rider.divine-fury", "Divine Fury", "Barbarian — Zealot", "Passive hitDamage; 1d6 + half level once a turn"),
+  ...cited("combat.aura.aura-of-protection", "Aura of Protection", "Paladin — Aura of Protection", "Aura declaration; save bonus for allies in range"),
+  ...cited("combat.aura.aura-of-courage", "Aura of Courage", "Paladin — Aura of Courage", "Aura declaration; frightened immunity for allies in range"),
+  ...cited("combat.aura.aura-of-devotion", "Aura of Devotion", "Paladin — Aura of Devotion", "Aura declaration; charmed immunity for allies in range"),
+  ...cited("combat.aura.spirit-guardians", "Spirit Guardians", "Spells — Spirit Guardians", "Aura declaration; damages enemies who start their turn inside"),
+  ...cited("combat.aura.aura-of-life", "Aura of Life", "Spells — Aura of Life", "Aura declaration; necrotic resistance for allies in range"),
+  ...cited("combat.aura.aura-of-purity", "Aura of Purity", "Spells — Aura of Purity", "Aura declaration; condition immunity for allies in range"),
+  ...cited("combat.spell.moonbeam", "Moonbeam", "Spells — Moonbeam", "Movable zone; Constitution save for 2d10 radiant on enter or turn start; bonus action moves it 60 feet"),
+  ...cited("combat.spell.web", "Web", "Spells — Web", "Dexterity save or restrained; difficult terrain; fire burns the webs for 2d4"),
+  ...cited("combat.spell.oil", "Oil", "Equipment — Oil", "Flammable ground; fire lights it for 5 fire damage when a creature enters or starts its turn there"),
+  ...cited("combat.spell.caltrops", "Caltrops", "Equipment — Caltrops", "Dexterity save DC 15 or 1 piercing and −10 speed until healed")
 });
+
+function cited(id, name, section, notes) {
+  return {
+    [id]: {
+      id,
+      name,
+      edition: "2024",
+      source: {
+        book: "Player's Handbook (2024)",
+        section,
+        page: null,
+        locator: "https://www.dndbeyond.com/sources/dnd/phb-2024"
+      },
+      errata: { checked: false, version: null },
+      automation: "full",
+      notes
+    }
+  };
+}
 
 export function getRule(id) {
   return RULES[id] ?? null;

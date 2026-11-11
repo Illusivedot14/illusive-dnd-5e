@@ -25,11 +25,15 @@ import { onceKey } from "../../domain/triggers/declarations.mjs";
 import { expandRefs, averageDice, hasDice, evaluateArithmetic } from "../../domain/triggers/formula.mjs";
 import { isElementalType } from "../../domain/combat/activity-kind.mjs";
 import { declarationsFor, allDeclarations, bindTriggerIndex } from "./index.mjs";
-import { createFactReader, selectActors } from "./facts.mjs";
+import { createFactReader, selectActors, nearbyTokenUuids } from "./facts.mjs";
 import { derivedRollData, offeredActivities, usesItem } from "./derived.mjs";
 import { createMomentScope, candidateContext } from "../reactions/candidates.mjs";
 import { counterspellPatches } from "../reactions/counterspell.mjs";
 import { rollVisible } from "../dice.mjs";
+import { settleSave } from "./settle-save.mjs";
+import { featurePatch, featureWrite, metamagicSave } from "./feature-steps.mjs";
+import { placeZone } from "../zones.mjs";
+import { pushDestination } from "../../domain/spatial/push.mjs";
 import { writeNextD20Advantage, writePendingHitRider } from "../reactions/reaction-state.mjs";
 import { tokenForActor, tokenUuidOf } from "../../foundry/token-lookup.mjs";
 import { debugLog, DEBUG_CHANNELS } from "../../foundry/debug.mjs";
@@ -144,13 +148,14 @@ function isAttackRerollMoment(ctx) {
 
 /* --------------------------------------------------------------- selection */
 
-function targetUuidsFor(selector, ctx, scope) {
+function targetUuidsFor(selector, ctx, scope, step) {
   switch (selector) {
     case "trigger": return scope.triggerUuid ? [scope.triggerUuid] : [];
     case "target": return scope.targetList.slice(0, 1);
     case "targets": return [...scope.targetList];
     case "damaged": return [...scope.damaged];
     case "nearTarget": return ctx.nearTargetUuid ? [ctx.nearTargetUuid] : [];
+    case "nearby": return nearbyTokenUuids(ctx, step);
     case "ally": return ctx.allyUuid ? [ctx.allyUuid] : selfUuids(ctx);
     case "self":
     default:
@@ -166,6 +171,9 @@ function selfUuids(ctx) {
 
 async function runPatchStep(step, def, ctx, scope, entry, label) {
   const source = entry.decl.id;
+  if (step.step === "portent" || step.step === "redirect" || step.step === "legendaryResistance") {
+    return await featurePatch(step, ctx, source) ?? [];
+  }
   if (step.step === "counterspell") return counterspellPatches(ctx, source);
   if (step.step === "reroll") {
     const keep = step.keep === "new" ? "new" : "lower";
@@ -178,18 +186,18 @@ async function runPatchStep(step, def, ctx, scope, entry, label) {
   const extra = resolved.formula ? { formula: resolved.formula } : {};
   if (def.patch === "resistTypes") {
     const types = typesFor(step.types, ctx);
-    return targetUuidsFor(step.to ?? defaultSelector(step), ctx, scope)
+    return targetUuidsFor(step.to ?? defaultSelector(step), ctx, scope, step)
       .map((targetUuid) => ({ type: "resistTypes", targetUuid, value: types, source }));
   }
   if (def.targeted) {
-    return targetUuidsFor(step.to ?? defaultSelector(step), ctx, scope)
+    return targetUuidsFor(step.to ?? defaultSelector(step), ctx, scope, step)
       .map((targetUuid) => ({ type: def.patch, targetUuid, value: resolved.value, source, ...extra }));
   }
   return [{ type: def.patch, value: resolved.value, source, ...extra }];
 }
 
 async function runWriteStep(step, ctx, scope, entry, label) {
-  const actors = selectActors(step.to ?? defaultSelector(step), ctx, scope);
+  const actors = selectActors(step.to ?? defaultSelector(step), ctx, scope, step);
   const changes = [];
   const push = (result) => { if (result?.undo?.length) changes.push(...result.undo); };
 
@@ -207,7 +215,9 @@ async function runWriteStep(step, ctx, scope, entry, label) {
     case "applyStatus":
     case "removeStatus":
       for (const actor of actors) {
-        push(await toggleActorStatus(actor, step.status, { active: step.step === "applyStatus" }));
+        const status = step.status === "condition" ? (ctx.status ?? null) : step.status;
+        if (!status) continue;
+        push(await toggleActorStatus(actor, status, { active: step.step === "applyStatus" }));
       }
       break;
     case "applyEffect":
@@ -222,7 +232,11 @@ async function runWriteStep(step, ctx, scope, entry, label) {
             [MODULE_ID]: { ...(step.effect?.flags?.[MODULE_ID] ?? {}), trigger: entry.key }
           }
         };
-        push(await createEmbedded(actor, "ActiveEffect", [data]));
+        try {
+          push(await createEmbedded(actor, "ActiveEffect", [data]));
+        } catch (err) {
+          console.warn(`${MODULE_ID} | effect step failed`, actor?.uuid, err);
+        }
       }
       break;
     case "endEffect":
@@ -277,6 +291,67 @@ async function runWriteStep(step, ctx, scope, entry, label) {
       }
       break;
     }
+    case "save": {
+      const dc = (await resolveValue(step.dc, ctx.actor, entry, label, ctx)).value;
+      const rolled = step.damage ? await resolveValue(step.damage, ctx.actor, entry, label, ctx) : { value: 0 };
+      for (const actor of actors) {
+        const meta = metamagicSave(ctx.actor, ctx.token, actor);
+        changes.push(...await settleSave({
+          actor,
+          ability: step.ability,
+          dc,
+          damage: rolled.value,
+          damageType: step.damageType ?? null,
+          onSave: step.onSave ?? "none",
+          onFail: step.onFail ?? null,
+          disadvantage: meta.disadvantage,
+          autoSuccess: meta.autoSuccess
+        }));
+      }
+      break;
+    }
+    case "push": {
+      const source = ctx.token;
+      const feet = Number(step.feet) || 0;
+      const grid = globalThis.canvas?.grid ?? globalThis.canvas?.scene?.grid ?? {};
+      if (!source || feet <= 0) break;
+      for (const actor of actors) {
+        const token = tokenForActor(actor);
+        const doc = token?.document;
+        if (!doc?.update) continue;
+        const next = pushDestination(source, token, feet, {
+          size: Number(grid.size) || 100,
+          distance: Number(grid.distance) || 5
+        });
+        push(await updateDoc(doc, { x: next.x, y: next.y }, { illusiveSkipOA: true, illusiveDndForced: true }));
+      }
+      break;
+    }
+    case "pull": {
+      const source = ctx.token;
+      const feet = Number(step.feet) || 0;
+      const grid = globalThis.canvas?.grid ?? globalThis.canvas?.scene?.grid ?? {};
+      if (!source || feet <= 0) break;
+      for (const actor of actors) {
+        const token = tokenForActor(actor);
+        const doc = token?.document;
+        if (!doc?.update) continue;
+        const next = pushDestination(source, token, -feet, {
+          size: Number(grid.size) || 100,
+          distance: Number(grid.distance) || 5
+        });
+        push(await updateDoc(doc, { x: next.x, y: next.y }, { illusiveSkipOA: true, illusiveDndForced: true }));
+      }
+      break;
+    }
+    case "zone": {
+      const placed = { ...step };
+      if (typeof step.dc === "string") {
+        placed.dc = (await resolveValue(step.dc, ctx.actor, entry, label, ctx)).value;
+      }
+      changes.push(...await placeZone({ token: ctx.token, label, step: placed }));
+      break;
+    }
     case "note": {
       const ChatCls = globalThis.ChatMessage;
       if (ChatCls?.create) {
@@ -289,8 +364,11 @@ async function runWriteStep(step, ctx, scope, entry, label) {
       }
       break;
     }
-    default:
+    default: {
+      const extra = await featureWrite(step, ctx, actors, label, scope);
+      if (extra?.length) changes.push(...extra);
       break;
+    }
   }
   return changes;
 }

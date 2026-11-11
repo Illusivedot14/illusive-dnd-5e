@@ -5,11 +5,12 @@
  *                        creatureType effects statuses armor.heavy armor.type
  *                        wieldsFinesse wieldsShield senses.<sense> prof level
  *                        isOwnTurn usesLeft.<item name pattern> system.<path> flags.<path>
- *   relation.*           hostile ally distance sees nearTarget (attacked creature within 5 ft)
- *   activity.*           isAttack isMelee isRanged isWeapon isSpell spellLevel elemental charmOrFear
+ *   relation.*           hostile ally targetAlly distance sees nearTarget (attacked creature within 5 ft)
+ *   activity.*           isAttack isMelee isRanged isWeapon isSpell spellLevel elemental charmOrFear magical
  *                        (isAttack / isWeapon are undefined when the moment doesn't say)
  *   damage.*             types typeCount total
- *   damaged.*            self dropped droppedHostile droppedAlly
+ *   damaged.*            self dropped droppedHostile droppedAlly droppedFeet
+ *   condition.*          name
  *   combat.*             round turn
  *   edition              "2014" | "2024"
  *
@@ -17,9 +18,10 @@
  * (conditions then fail closed).
  */
 
-import { isHostile } from "../../domain/combat/disposition.mjs";
+import { isFriendly, isHostile } from "../../domain/combat/disposition.mjs";
 import { actorFromUuid, tokenUuidOf } from "../../foundry/token-lookup.mjs";
 import { resolveRulesContext } from "../../foundry/dnd5e-adapter.mjs";
+import { feetBetween } from "../reactions/candidates.mjs";
 import { usesLeft } from "./derived.mjs";
 
 function dig(obj, path) {
@@ -175,6 +177,13 @@ export function createFactReader(ctx, scope, entry = null) {
         switch (rest[0]) {
           case "hostile": return ctx.hostile;
           case "ally": return ctx.isTrigger ? true : (ctx.hostile == null ? undefined : !ctx.hostile);
+          case "targetAlly": {
+            const uuid = scope.targetList[0];
+            if (!uuid || !ctx.token) return undefined;
+            if (tokenUuidOf(ctx.token) === uuid) return false;
+            const target = tokenForActorUuid(uuid);
+            return target ? isFriendly(ctx.token, target) : undefined;
+          }
           case "distance": return ctx.distanceToTrigger ?? undefined;
           case "sees": return ctx.canSeeTrigger;
           case "nearTarget": return ctx.nearTargetUuid ?? null;
@@ -190,6 +199,9 @@ export function createFactReader(ctx, scope, entry = null) {
           case "spellLevel": return ctx.spellLevel ?? undefined;
           case "elemental": return Boolean(ctx.elemental);
           case "charmOrFear": return Boolean(ctx.charmOrFear);
+          case "magical": return ctx.magical === true;
+          case "isSource": return Boolean(entry?.item?.id && ctx.itemId && ctx.itemId === entry.item.id);
+          case "activation": return ctx.activation ?? undefined;
           default: return undefined;
         }
       case "damage":
@@ -205,11 +217,25 @@ export function createFactReader(ctx, scope, entry = null) {
           case "dropped": return dropped().length;
           case "droppedHostile": return dropped().filter((d) => d.hostile).length;
           case "droppedAlly": return dropped().filter((d) => !d.hostile).length;
+          case "droppedFeet": {
+            let best = null;
+            for (const entry of dropped()) {
+              if (!entry.hostile || !ctx.token) continue;
+              const token = tokenForActorUuid(entry.uuid);
+              const feet = token ? feetBetween(ctx.token, token) : null;
+              if (feet == null) continue;
+              if (best == null || feet < best) best = feet;
+            }
+            return best ?? undefined;
+          }
           default: return undefined;
         }
       case "combat":
         if (rest[0] === "round") return globalThis.game?.combat?.round ?? undefined;
         if (rest[0] === "turn") return globalThis.game?.combat?.turn ?? undefined;
+        return undefined;
+      case "condition":
+        if (rest[0] === "name") return ctx.status ? String(ctx.status).toLowerCase() : undefined;
         return undefined;
       case "edition":
         if (ctx.rulesContext?.edition) return ctx.rulesContext.edition;
@@ -229,8 +255,27 @@ export function createFactReader(ctx, scope, entry = null) {
   };
 }
 
+/** Token uuids within `feet` of the listener (default 60), capped at `limit` (default 5). */
+export function nearbyTokenUuids(ctx, step = {}) {
+  const feet = Number(step?.feet) > 0 ? Number(step.feet) : 60;
+  const limit = Number(step?.limit) > 0 ? Number(step.limit) : 5;
+  const self = ctx?.token ?? null;
+  const out = [];
+  for (const token of globalThis.canvas?.tokens?.placeables ?? []) {
+    const uuid = token?.document?.uuid;
+    if (!uuid) continue;
+    if (self) {
+      const dist = feetBetween(self, token);
+      if (dist == null || dist > feet) continue;
+    }
+    out.push(uuid);
+    if (out.length >= limit) break;
+  }
+  return out;
+}
+
 /** Actors for a selector (domain/triggers/steps.mjs SELECTORS). */
-export function selectActors(selector, ctx, scope) {
+export function selectActors(selector, ctx, scope, step = null) {
   switch (selector) {
     case "trigger": return scope.trigger?.actor ? [scope.trigger.actor] : [];
     case "ally": {
@@ -248,6 +293,7 @@ export function selectActors(selector, ctx, scope) {
     }
     case "targets": return scope.targetList.map((u) => actorFromUuid(u)).filter(Boolean);
     case "damaged": return [...scope.damaged].map((u) => actorFromUuid(u)).filter(Boolean);
+    case "nearby": return nearbyTokenUuids(ctx, step).map((uuid) => actorFromUuid(uuid)).filter(Boolean);
     case "self":
     default:
       return ctx.actor ? [ctx.actor] : [];

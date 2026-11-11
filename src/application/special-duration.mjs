@@ -45,12 +45,20 @@ export async function expireOnAttack(attacker) {
   return expireEffects(attacker, "nextAttack");
 }
 
+export async function expireOnAction(actor) {
+  return expireEffects(actor, "action");
+}
+
 export async function expireOnAttacked(defender) {
   return expireEffects(defender, "isAttacked");
 }
 
 export async function expireOnDamaged(actor) {
   return expireEffects(actor, "isDamaged");
+}
+
+export async function expireOnHealed(actor) {
+  return expireEffects(actor, "healed");
 }
 
 export async function expireOnRest(actor, { long = false } = {}) {

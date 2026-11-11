@@ -86,7 +86,7 @@ const REACTIONS = [
         { "self.wieldsShield": true }
       ]
     },
-    do: [{ step: "disadvantage" }]
+    do: [{ step: "disadvantage" }, { step: "lingeringDisadvantage" }]
   }),
   reaction("countercharm", "Countercharm", {
     reactionOnly: true,
@@ -205,7 +205,20 @@ const REACTIONS = [
     range: 60,
     sight: true,
     selfTrigger: true,
-    do: [{ step: "damageMultiplier", to: "target", value: 0 }]
+    do: [
+      { step: "damageMultiplier", to: "target", value: 0 },
+      {
+        step: "applyEffect",
+        to: "nearby",
+        feet: 60,
+        limit: 5,
+        effect: {
+          name: "Feather Fall",
+          duration: { rounds: 1 },
+          flags: { "illusive-dnd-5e": { featherFall: true } }
+        }
+      }
+    ]
   }),
   reaction("slow-fall", "Slow Fall", { identifiers: ["slow-fall"], names: [/slow\s*fall/i] }, {
     on: "falls",
@@ -270,7 +283,7 @@ const REACTIONS = [
   })
 ];
 
-export const CONTENT = Object.freeze([
+const BASE_CONTENT = [
   ...REACTIONS,
   {
     id: "blur",
@@ -305,6 +318,19 @@ export const CONTENT = Object.freeze([
         ]
       },
       do: [{ step: "disadvantage" }]
+    }, {
+      id: "protection-from-evil-and-good-ward",
+      label: "Protection from Evil and Good",
+      rule: "combat.trigger.protection-from-evil-and-good",
+      on: "gainsCondition",
+      if: {
+        all: [
+          { "self.isTarget": true },
+          { "condition.name": { in: ["charmed", "frightened", "possessed"] } },
+          { "trigger.creatureType": { in: PFEG_TYPES } }
+        ]
+      },
+      do: [{ step: "removeStatus", to: "self", status: "condition" }]
     }]
   },
   {
@@ -323,6 +349,19 @@ export const CONTENT = Object.freeze([
         ]
       },
       do: [{ step: "damage", to: "trigger", value: "5 * @sourceLevel", damageType: "cold" }]
+    }, {
+      id: "armor-of-agathys-end",
+      label: "Armor of Agathys",
+      rule: "combat.trigger.armor-of-agathys",
+      on: "isDamaged",
+      if: {
+        all: [
+          { "self.isDamaged": true },
+          { "self.effects": { has: "armor of agathys" } },
+          { "self.hp.temp": { lte: 0 } }
+        ]
+      },
+      do: [{ step: "endEffect", to: "self", name: "Armor of Agathys" }]
     }]
   },
   {
@@ -356,7 +395,8 @@ export const CONTENT = Object.freeze([
             { "self.isTarget": true },
             { "activity.isWeapon": true },
             { "self.armor.heavy": true },
-            { "damage.types": { hasAny: PHYSICAL } }
+            { "damage.types": { hasAny: PHYSICAL } },
+            { not: { "activity.magical": true } }
           ]
         },
         do: [{ step: "damageReduce", to: "self", value: 3 }]
@@ -374,7 +414,8 @@ export const CONTENT = Object.freeze([
       if: {
         all: [
           { "self.isTrigger": true },
-          { "damaged.droppedHostile": { gt: 0 } }
+          { "damaged.droppedHostile": { gt: 0 } },
+          { "damaged.droppedFeet": { lte: 10 } }
         ]
       },
       do: [{ step: "tempHp", to: "self", value: "max(1, @abilities.cha.mod + @classes.warlock.levels)" }]
@@ -400,4 +441,256 @@ export const CONTENT = Object.freeze([
       do: [{ step: "acBonus", to: "self", value: "@prof" }]
     }]
   }
+];
+
+/** Bonus damage on a hit. `rider.passive` is automatic and once a turn; otherwise the player confirms. */
+const HIT_RIDERS = [
+  rider("divine-smite", "Divine Smite", {
+    identifiers: ["divine-smite"],
+    names: [/divine\s*smite/i]
+  }, { auto: false }),
+  rider("sneak-attack", "Sneak Attack", {
+    identifiers: ["sneak-attack"],
+    names: [/sneak\s*attack/i]
+  }, { auto: false }),
+  rider("eldritch-smite", "Eldritch Smite", {
+    identifiers: ["eldritch-smite"],
+    names: [/eldritch\s*smite/i]
+  }, { auto: false }),
+  rider("hex", "Hex", { identifiers: ["hex"], names: [/^hex$/i] }, { auto: true, mark: true }),
+  rider("hunters-mark", "Hunter's Mark", {
+    identifiers: ["hunters-mark"],
+    names: [/hunter'?s\s*mark/i]
+  }, { auto: true, mark: true }),
+  rider("colossus-slayer", "Colossus Slayer", {
+    identifiers: ["colossus-slayer"],
+    names: [/colossus\s*slayer/i]
+  }, { auto: true, passive: true, formula: "1d8", oncePerTurn: true }),
+  rider("divine-fury", "Divine Fury", {
+    identifiers: ["divine-fury"],
+    names: [/divine\s*fury/i]
+  }, { auto: true, passive: true, formula: "1d6+@halfLevel", oncePerTurn: true, type: "radiant" })
+];
+
+function rider(id, label, match, riderSpec) {
+  const formula = riderSpec.formula ?? "0";
+  return {
+    id,
+    match,
+    declarations: [{
+      id,
+      label,
+      rule: `combat.rider.${id}`,
+      on: "hitDamage",
+      rider: riderSpec,
+      do: [{ step: "bonusDamage", to: "target", value: formula }]
+    }]
+  };
+}
+
+const SAVE_BONUS_KEY = "system.rolls.ability.save.bonus";
+
+/** Auras the creature carries. The sync reads `aura`. */
+const AURAS = [
+  aura("aura-of-protection", "Aura of Protection", {
+    identifiers: ["aura-of-protection"],
+    names: [/^aura of protection$/i]
+  }, {
+    affects: "ally",
+    defaultFeet: 10,
+    scalePath: "paladin.aura",
+    bonus: { key: SAVE_BONUS_KEY, type: "add", from: "chaModMin1" },
+    incapacitatedBlocks: true
+  }),
+  aura("aura-of-courage", "Aura of Courage", {
+    identifiers: ["aura-of-courage"],
+    names: [/^aura of courage$/i]
+  }, {
+    affects: "ally",
+    defaultFeet: 10,
+    scalePath: "paladin.aura",
+    immunities: ["frightened"],
+    incapacitatedBlocks: true
+  }),
+  aura("aura-of-devotion", "Aura of Devotion", {
+    identifiers: ["aura-of-devotion"],
+    names: [/^aura of devotion$/i]
+  }, {
+    affects: "ally",
+    defaultFeet: 10,
+    scalePath: "paladin.aura",
+    immunities: ["charmed"],
+    incapacitatedBlocks: true
+  }),
+  aura("spirit-guardians", "Spirit Guardians", {
+    identifiers: ["spirit-guardians"],
+    names: [/^spirit\s*guardians$/i]
+  }, {
+    affects: "enemy",
+    defaultFeet: 15,
+    damaging: {
+      formula: "3d8",
+      type: "radiant",
+      saveAbility: "wis",
+      onSave: "half",
+      turn: "start"
+    },
+    incapacitatedBlocks: false,
+    requiresConcentration: true
+  }),
+  aura("aura-of-life", "Aura of Life", {
+    identifiers: ["aura-of-life"],
+    names: [/^aura\s*of\s*life$/i]
+  }, {
+    affects: "ally",
+    defaultFeet: 30,
+    immunities: [],
+    resistances: ["necrotic"],
+    incapacitatedBlocks: false,
+    requiresConcentration: true
+  }),
+  aura("aura-of-purity", "Aura of Purity", {
+    identifiers: ["aura-of-purity"],
+    names: [/^aura\s*of\s*purity$/i]
+  }, {
+    affects: "ally",
+    defaultFeet: 30,
+    immunities: ["blinded", "charmed", "deafened", "frightened", "paralyzed", "poisoned", "stunned"],
+    incapacitatedBlocks: false,
+    requiresConcentration: true
+  })
+];
+
+function aura(id, label, match, auraSpec) {
+  return {
+    id,
+    match,
+    declarations: [{
+      id,
+      label,
+      rule: `combat.aura.${id}`,
+      on: "aura",
+      aura: { ...auraSpec, effectName: label },
+      do: [{ step: "note", text: label }]
+    }]
+  };
+}
+
+const SPELL_DC = "8 + @abilities.wis.mod + @prof";
+
+/** Spells and items that place a zone: a beam you move, or terrain. */
+const ZONES = [
+  {
+    id: "moonbeam",
+    match: { types: ["spell"], identifiers: ["moonbeam"], names: [/^moonbeam$/i] },
+    declarations: [
+      {
+        id: "moonbeam",
+        label: "Moonbeam",
+        rule: "combat.spell.moonbeam",
+        on: "castsSpell",
+        if: { all: [{ "activity.isSource": true }, { not: { "activity.activation": "bonus" } }] },
+        do: [{
+          step: "zone",
+          feet: 5,
+          when: "enterOrTurn",
+          follow: false,
+          movable: true,
+          move: "bonus",
+          moveFeet: 60,
+          ability: "con",
+          dc: SPELL_DC,
+          damage: "2d10",
+          damageType: "radiant",
+          onSave: "half"
+        }]
+      },
+      {
+        id: "moonbeam-move",
+        label: "Move Moonbeam",
+        rule: "combat.spell.moonbeam",
+        on: "castsSpell",
+        if: { all: [{ "activity.isSource": true }, { "activity.activation": "bonus" }] },
+        do: [{ step: "moveZone", feet: 60, to: "target" }]
+      }
+    ]
+  },
+  {
+    id: "web",
+    match: { types: ["spell"], identifiers: ["web"], names: [/^web$/i] },
+    declarations: [{
+      id: "web",
+      label: "Web",
+      rule: "combat.spell.web",
+      on: "castsSpell",
+      if: { "activity.isSource": true },
+      do: [{
+        step: "zone",
+        feet: 20,
+        when: "enter",
+        follow: false,
+        ability: "dex",
+        dc: SPELL_DC,
+        onFail: "restrained",
+        difficult: true,
+        terrain: true,
+        flammable: true,
+        igniteDamage: "2d4",
+        igniteWhen: "turnStart",
+        burnAway: true
+      }]
+    }]
+  },
+  {
+    id: "oil",
+    match: { identifiers: ["oil"], names: [/^oil( flask)?$/i] },
+    declarations: [{
+      id: "oil",
+      label: "Oil",
+      rule: "combat.spell.oil",
+      on: "castsSpell",
+      if: { "activity.isSource": true },
+      do: [{
+        step: "zone",
+        feet: 5,
+        when: "enterOrTurn",
+        follow: false,
+        terrain: true,
+        flammable: true,
+        damage: "0",
+        igniteDamage: "5",
+        igniteWhen: "enterOrTurn"
+      }]
+    }]
+  },
+  {
+    id: "caltrops",
+    match: { identifiers: ["caltrops"], names: [/^caltrops$/i] },
+    declarations: [{
+      id: "caltrops",
+      label: "Caltrops",
+      rule: "combat.spell.caltrops",
+      on: "castsSpell",
+      if: { "activity.isSource": true },
+      do: [{
+        step: "zone",
+        feet: 5,
+        when: "enter",
+        follow: false,
+        terrain: true,
+        ability: "dex",
+        dc: 15,
+        damage: "1",
+        damageType: "piercing",
+        slowFeet: 10
+      }]
+    }]
+  }
+];
+
+export const CONTENT = Object.freeze([
+  ...BASE_CONTENT,
+  ...HIT_RIDERS,
+  ...AURAS,
+  ...ZONES
 ]);
