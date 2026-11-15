@@ -4,7 +4,8 @@
 
 import { MODULE_ID } from "./constants.mjs";
 import {
-  registerDebugSettings
+  registerDebugSettings,
+  DEBUG_SETTING_KEY
 } from "./foundry/debug.mjs";
 import { bindHudInit } from "./hud/boot.mjs";
 import * as writeGateway from "./foundry/write-gateway.mjs";
@@ -12,6 +13,7 @@ import { bindGameLogJournal } from "./application/combat-game-log.mjs";
 import { bindOwnerRolls } from "./application/dice.mjs";
 import { isIllusiveMobileMode } from "./hud/lib/mobile-client.mjs";
 import { ensureCombatRuntime } from "./foundry/combat-runtime.mjs";
+import { registerDndBeyondSync, startDndBeyondSync } from "./dnd-beyond-sync/index.mjs";
 
 bindHudInit();
 
@@ -37,6 +39,7 @@ Hooks.once("init", () => {
     default: true
   });
   registerDebugSettings();
+  registerDndBeyondSync();
   // Query handlers must exist before any other client asks.
   writeGateway.bindWriteGateway();
   bindGameLogJournal();
@@ -44,7 +47,10 @@ Hooks.once("init", () => {
 });
 
 Hooks.once("ready", () => {
+  // Existing worlds stored the old default of off. Leave the console on.
+  void game.settings?.set?.(MODULE_ID, DEBUG_SETTING_KEY, true);
   bindOwnerRolls();
+  startDndBeyondSync();
   if (isIllusiveMobileMode()) {
     console.info(`${MODULE_ID} | ready | combat deferred`);
     return;

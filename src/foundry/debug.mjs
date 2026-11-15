@@ -1,8 +1,8 @@
 /**
  * Client-gated diagnostic logger.
  *
- * Off by default. Enable **Configure Settings → Illusive D&D 5e → Debug logging**.
- * Filter DevTools by `[illusive-dnd-5e:<channel>]`.
+ * On by default. Filter DevTools by `[illusive-dnd-5e:<channel>]`.
+ * The action bar channel is `action-bar`. The Beyond sync channel is `beyond`.
  */
 
 import { MODULE_ID } from "../constants.mjs";
@@ -14,7 +14,9 @@ export const DEBUG_CHANNELS = Object.freeze({
   TEMPLATE: "template",
   GAME_LOG: "game-log",
   MOVEMENT: "movement",
-  COMBAT: "combat"
+  COMBAT: "combat",
+  ACTION_BAR: "action-bar",
+  BEYOND: "beyond"
 });
 
 export function isDebugLoggingEnabled() {
@@ -61,6 +63,6 @@ export function registerDebugSettings() {
     scope: "client",
     config: true,
     type: Boolean,
-    default: false
+    default: true
   });
 }

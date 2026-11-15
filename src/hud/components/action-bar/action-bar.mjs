@@ -43,6 +43,7 @@ import {
   ensureActorStableFlag
 } from "../../../application/party-combat.mjs";
 import { planAndUseAbility, fireAfterTargetPick } from "../../../application/use-ability-command.mjs";
+import { debugLog, DEBUG_CHANNELS } from "../../../foundry/debug.mjs";
 import {
   computeActionBarScale,
   getHudBand,
@@ -1350,12 +1351,30 @@ async function onActionBarClick(event) {
   }
 
   const button = event.target.closest("#illusive-dnd-action-bar .illusive-dnd-ability-btn");
-  if (!button || button.dataset.disabled === "true") return;
+  if (!button || button.dataset.disabled === "true") {
+    if (button?.dataset.disabled === "true") {
+      debugLog(DEBUG_CHANNELS.ACTION_BAR, "click.disabled", {
+        name: button.dataset.name || null,
+        itemId: button.dataset.itemId || null
+      });
+    }
+    return;
+  }
 
   event.preventDefault();
   event.stopPropagation();
 
   if (!token?.actor) return;
+
+  const click = {
+    name: button.dataset.name || button.getAttribute("aria-label") || "Ability",
+    itemId: button.dataset.itemId || null,
+    activityId: button.dataset.activityId || "",
+    section: button.dataset.section || null,
+    activationType: button.dataset.activationType || "",
+    standard: button.dataset.standard === "true"
+  };
+  debugLog(DEBUG_CHANNELS.ACTION_BAR, "click", click);
 
   try {
     const plan = await planAndUseAbility({
@@ -1366,8 +1385,16 @@ async function onActionBarClick(event) {
       activationType: button.dataset.activationType || "",
       isStandard: button.dataset.standard === "true",
       event,
-      abilityName: button.dataset.name || button.getAttribute("aria-label") || "Ability",
+      abilityName: click.name,
       pickCastSlotLevel
+    });
+
+    debugLog(DEBUG_CHANNELS.ACTION_BAR, "click.result", {
+      name: click.name,
+      ok: plan.ok,
+      action: plan.action ?? null,
+      reason: plan.reason ?? null,
+      required: plan.pick?.required ?? null
     });
 
     if (!plan.ok) {
@@ -1375,6 +1402,10 @@ async function onActionBarClick(event) {
       return;
     }
     if (plan.action === "pick-targets") {
+      debugLog(DEBUG_CHANNELS.ACTION_BAR, "target-picker.open", {
+        name: click.name,
+        required: plan.pick?.required ?? null
+      });
       await startTargetPick(plan.pick);
       return;
     }

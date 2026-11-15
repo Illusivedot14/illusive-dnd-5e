@@ -12,7 +12,8 @@ const MENU_KEYS = {
   actionBarMenu: "actionBar",
   bossBarMenu: "bossBar",
   cameraPadMenu: "cameraPad",
-  mobileMenu: "mobile"
+  mobileMenu: "mobile",
+  ddbMenu: "dndBeyond"
 };
 
 /** Desired main-config order: enable checkbox, then its settings menu. */
@@ -32,7 +33,8 @@ const MAIN_CONFIG_ORDER = [
   "enableCameraPad",
   "cameraPadMenu",
   "enableMobileSheet",
-  "mobileMenu"
+  "mobileMenu",
+  "ddbMenu"
 ];
 
 let settingsPatchBound = false;

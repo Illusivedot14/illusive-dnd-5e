@@ -3,7 +3,7 @@ import { illusiveDnd } from "../i18n/index.mjs";
 import { hasAvailableSpellSlot } from "../foundry/actor-resources.mjs";
 import { isEconomyAvailable, resolveEconomySection, remainingBudgetAttacks } from "./economy.mjs";
 import { checkAbilityRange } from "./targeting.mjs";
-import { listActivities } from "../domain/combat/activity-kind.mjs";
+import { listActivities, pickPrimarySpellActivity } from "../domain/combat/activity-kind.mjs";
 import { getViewedCombat, getActiveCombatant } from "../foundry/combat.mjs";
 import {
   getAbilityAttackCount,
@@ -34,25 +34,29 @@ export function allowsExtraAttackSwing(item, activity, economySection, actor = n
   return getWeaponAttackCount(actor) > 1 && remainingWeaponAttacks(actor, budget) > 0;
 }
 
+function specifiedTarget(target) {
+  if (!target) return null;
+  if (
+    target.template?.type
+    || target.affects?.type
+    || target.type
+    || target.value
+    || target.affects?.count
+  ) return target;
+  return null;
+}
+
+/** The attack or save a Cast activity actually resolves, else the activity itself. */
+export function drivingActivity(activity) {
+  if (activity?.type !== "cast") return activity ?? null;
+  return pickPrimarySpellActivity(listActivities(getLinkedSpell(activity))) ?? activity;
+}
+
 export function getTargetConfig(item, activity) {
-  const activityTarget = activity?.target;
-  if (activityTarget && (
-    activityTarget.template?.type
-    || activityTarget.affects?.type
-    || activityTarget.type
-    || activityTarget.value
-    || activityTarget.affects?.count
-  )) {
-    return activityTarget;
-  }
-
-  if (activity?.type === "cast") {
-    const spellActivities = listActivities(getLinkedSpell(activity));
-    const spellActivity = spellActivities.find((entry) => entry.canUse !== false) ?? spellActivities[0];
-    if (spellActivity?.target) return spellActivity.target;
-  }
-
-  return item?.system?.target ?? null;
+  return specifiedTarget(activity?.target)
+    ?? specifiedTarget(drivingActivity(activity)?.target)
+    ?? specifiedTarget(item?.system?.target)
+    ?? null;
 }
 
 export function requiresTargeting(item, activity) {
@@ -74,15 +78,17 @@ export function requiresTargeting(item, activity) {
 
 /** True when the player must pick canvas targets before launching (not templates or self). */
 export function requiresCanvasTargets(item, activity) {
+  const driving = drivingActivity(activity);
   const target = getTargetConfig(item, activity);
   if (target?.template?.type) return false;
 
   const affectsType = target?.affects?.type ?? target?.type;
   if (affectsType === "self") return false;
 
-  // Weapons / attack rolls always need a canvas target, even when
-  // dnd5e leaves the target block empty on the activity.
-  if (item?.type === "weapon" || activity?.type === "attack") return true;
+  // Weapons and attack rolls always need a canvas target, even when
+  // dnd5e leaves the target block empty. A feat that casts Scorching Ray
+  // is that attack, not the empty Cast activity wrapped around it.
+  if (item?.type === "weapon" || activity?.type === "attack" || driving?.type === "attack") return true;
 
   if (!target) return false;
   return requiresTargeting(item, activity);
@@ -97,7 +103,11 @@ export function shouldForceTargetPick(item, activity) {
 /** How many canvas targets this use needs. Extra Attack / Eldritch Blast scale this. */
 export function getRequiredTargetCount(item, activity, actor = null) {
   if (!requiresCanvasTargets(item, activity)) return null;
-  return Math.max(1, getAbilityAttackCount(actor, item, activity));
+  const driving = drivingActivity(activity);
+  const spell = activity?.type === "cast" ? getLinkedSpell(activity) : null;
+  const countItem = spell && driving && driving !== activity ? spell : item;
+  const countActivity = driving ?? activity;
+  return Math.max(1, getAbilityAttackCount(actor, countItem, countActivity));
 }
 
 function resourceRemaining(res) {

@@ -68,6 +68,7 @@
     "src/hud/components/camera-pad/camera-pad.css",
     "src/hud/components/token-aura/token-aura.css",
     "src/hud/components/boss-bar/boss-bar.css",
-    "src/hud/styles/panel-polish.css"
+    "src/hud/styles/panel-polish.css",
+    "src/dnd-beyond-sync/menu.css"
   ]
 }

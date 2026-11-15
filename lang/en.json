@@ -1,6 +1,6 @@
 {
   "illusive-dnd-5e.settings.debugLogging.name": "Debug logging",
-  "illusive-dnd-5e.settings.debugLogging.hint": "Log Illusive diagnostics to the browser console (templates, game-log undo, movement). Filter by [illusive-dnd-5e:]. Off by default.",
+  "illusive-dnd-5e.settings.debugLogging.hint": "Log Illusive diagnostics to the browser console (action bar, templates, game-log undo, movement, D&D Beyond sync). Filter by [illusive-dnd-5e:]. On by default.",
   "illusive-dnd-5e.settings.enablePartyStatus.name": "Enable Party Status",
   "illusive-dnd-5e.settings.enablePartyStatus.hint": "Show the party portrait rail on the left side of the screen.",
   "illusive-dnd-5e.settings.enableTurnTracker.name": "Enable Turn Tracker",

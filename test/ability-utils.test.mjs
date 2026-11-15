@@ -2,6 +2,7 @@ import { describe, it, expect, beforeEach } from "vitest";
 import { installFoundry, makeActor, makeToken, makeCombat, makeCombatant } from "./helpers.mjs";
 import {
   getTargetConfig,
+  getRequiredTargetCount,
   requiresTargeting,
   requiresCanvasTargets,
   evaluateAbilityState,
@@ -17,6 +18,24 @@ describe("getTargetConfig", () => {
     expect(getTargetConfig({}, { target: { type: "creature" } })).toEqual({ type: "creature" });
     expect(getTargetConfig({ system: { target: { type: "self" } } }, null)).toEqual({ type: "self" });
     expect(getTargetConfig({}, {})).toBeNull();
+  });
+
+  it("reads the linked spell attack when a cast activity has no target", () => {
+    const spell = {
+      name: "Scorching Ray",
+      type: "spell",
+      system: {
+        activities: [
+          { type: "utility", canUse: true, target: {} },
+          { type: "attack", canUse: true, target: { affects: { type: "creature", count: "3" } } }
+        ]
+      }
+    };
+    const activity = { type: "cast", target: {}, cachedSpell: spell };
+    const item = { type: "feat", name: "Spellcasting" };
+    expect(getTargetConfig(item, activity).affects).toEqual({ type: "creature", count: "3" });
+    expect(requiresCanvasTargets(item, activity)).toBe(true);
+    expect(getRequiredTargetCount(item, activity, null)).toBe(3);
   });
 });
 

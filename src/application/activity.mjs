@@ -5,9 +5,8 @@
 import { settingOn } from "../hud/lib/hud-settings.mjs";
 import { illusiveDnd } from "../i18n/index.mjs";
 import {
-  getLinkedSpell,
+  drivingActivity,
   getTargetConfig,
-  listActivities,
   requiresCanvasTargets
 } from "./ability.mjs";
 import { clearUserTargets } from "../foundry/token-actions.mjs";
@@ -26,15 +25,12 @@ export {
 } from "./targeting.mjs";
 
 export function getEffectiveTargetType(activity) {
-  let effectiveTargetType = activity?.target?.affects?.type ?? activity?.target?.type;
-  if (activity?.type !== "cast") return effectiveTargetType;
-
-  const override = activity._source?.target?.override ?? activity.target?.override;
-  if (override) return effectiveTargetType;
-
-  const spellActivities = listActivities(getLinkedSpell(activity));
-  const spellActivity = spellActivities.find((entry) => entry.canUse) ?? spellActivities[0];
-  return spellActivity?.target?.affects?.type ?? spellActivity?.target?.type ?? effectiveTargetType;
+  if (activity?.type === "cast") {
+    const override = activity._source?.target?.override ?? activity.target?.override;
+    if (override) return activity?.target?.affects?.type ?? activity?.target?.type;
+  }
+  const driving = drivingActivity(activity) ?? activity;
+  return driving?.target?.affects?.type ?? driving?.target?.type ?? null;
 }
 
 function tokenUuid(token) {
@@ -73,8 +69,10 @@ export function resolveActivityTargetUuids(token, activity, context = {}, sectio
 
   const uuids = targets.map((entry) => entry.document?.uuid ?? entry.uuid).filter(Boolean);
   const item = activity?.item ?? activity?.parent;
-  if (isSingleUseMultiHit(item, activity)) {
-    return padTargetUuids(uuids, getAbilityAttackCount(token.actor, item, activity));
+  const driving = drivingActivity(activity);
+  const countItem = driving && driving !== activity ? (driving.item ?? item) : item;
+  if (isSingleUseMultiHit(item, activity) || isSingleUseMultiHit(countItem, driving)) {
+    return padTargetUuids(uuids, getAbilityAttackCount(token.actor, countItem, driving ?? activity));
   }
   return uuids;
 }

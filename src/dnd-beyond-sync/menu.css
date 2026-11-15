@@ -1,0 +1,70 @@
+.illusive-dnd-beyond-window {
+  border: 2px solid #b89a5c;
+}
+
+.illusive-dnd-beyond-window .window-header {
+  background: #1a1428;
+  color: #f0ddb0;
+  border-bottom: 1px solid #b89a5c;
+}
+
+.illusive-dnd-beyond-window .window-content {
+  background: #1a1428;
+  color: #f0ddb0;
+}
+
+.illusive-dnd-beyond-window input,
+.illusive-dnd-beyond-window select,
+.illusive-dnd-beyond-window textarea {
+  background: #120e1c;
+  color: #f0ddb0;
+  border: 1px solid #b89a5c;
+}
+
+.illusive-dnd-beyond-window button {
+  background: #2a2218;
+  color: #f0ddb0;
+  border: 1px solid #b89a5c;
+}
+
+.illusive-dnd-beyond-window .hint,
+.illusive-dnd-beyond-window .notes {
+  color: #c8b48a;
+}
+
+.illusive-dnd-beyond-window h3 {
+  margin: 0.75rem 0 0.4rem;
+  color: #f0ddb0;
+  border-bottom: 1px solid #b89a5c;
+}
+
+.illusive-dnd-beyond-add,
+.illusive-dnd-beyond-row {
+  display: flex;
+  gap: 0.4rem;
+  align-items: center;
+  margin: 0.35rem 0;
+}
+
+.illusive-dnd-beyond-add input,
+.illusive-dnd-beyond-add select {
+  flex: 1;
+}
+
+.illusive-dnd-beyond-row span {
+  flex: 1;
+}
+
+.illusive-dnd-beyond-reimport {
+  margin: 0 0 0.5rem;
+  padding: 0.35rem 0.5rem;
+  border-left: 3px solid #d08a3a;
+  color: #f0ddb0;
+}
+
+.illusive-dnd-beyond-reimport ul {
+  margin: 0.25rem 0 0;
+  padding-left: 1.2rem;
+  max-height: 8rem;
+  overflow-y: auto;
+}

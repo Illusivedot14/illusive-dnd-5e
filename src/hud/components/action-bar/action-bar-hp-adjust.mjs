@@ -107,9 +107,10 @@ async function promptHpAmount(actor, mode) {
         <input type="text" name="amount" value="1" inputmode="numeric" pattern="[0-9]*" autocomplete="off" class="illusive-dnd-hp-amount-input">
       </div>
     `,
-    render: (_event, html) => {
+    render: (event, dialog) => {
       requestAnimationFrame(() => {
-        focusInputAtEnd(html.querySelector(".illusive-dnd-hp-amount-input"));
+        const root = dialog?.element ?? event?.target ?? null;
+        focusInputAtEnd(root?.querySelector?.(".illusive-dnd-hp-amount-input"));
       });
     },
     ok: {

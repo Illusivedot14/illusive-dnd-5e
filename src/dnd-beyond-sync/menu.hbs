@@ -1,0 +1,55 @@
+<form class="illusive-dnd-subsettings-form illusive-dnd-beyond-menu">
+  {{#each fields}}
+  <div class="form-group">
+    <label>{{name}}</label>
+    <div class="form-fields">
+      {{#if isBoolean}}
+      <input type="checkbox" name="{{key}}" {{checked value}}>
+      {{else if isPassword}}
+      <input type="password" name="{{key}}" value="{{value}}" autocomplete="off">
+      {{else}}
+      <input type="text" name="{{key}}" value="{{value}}">
+      {{/if}}
+    </div>
+    {{#if hint}}<p class="hint">{{hint}}</p>{{/if}}
+  </div>
+  {{/each}}
+
+  <h3>Players</h3>
+  <p class="hint">Add a Beyond character id, then choose that player's token.</p>
+  <div class="illusive-dnd-beyond-add">
+    <input type="text" name="newCharacterId" placeholder="Character id" autocomplete="off">
+    <select name="newActorId">
+      <option value="">Token</option>
+      {{#each choices}}
+      <option value="{{id}}">{{name}}</option>
+      {{/each}}
+    </select>
+    <button type="button" data-action="add-mapping"><i class="fas fa-plus"></i> Add</button>
+  </div>
+  {{#each mappings}}
+  <div class="illusive-dnd-beyond-row">
+    <span>{{actorName}}</span>
+    <span>{{characterId}}</span>
+    <button type="button" data-action="remove-mapping" data-character-id="{{characterId}}">Remove</button>
+  </div>
+  {{#if reimport.length}}
+  <div class="illusive-dnd-beyond-reimport">
+    <strong>Re-import needed</strong> with ddb-importer:
+    <ul>
+      {{#each reimport}}<li>{{this}}</li>{{/each}}
+    </ul>
+  </div>
+  {{/if}}
+  {{else}}
+  <p class="hint">No players added yet.</p>
+  {{/each}}
+
+  <h3>Debug</h3>
+  <p class="hint beyond-status">{{status}}</p>
+  <textarea class="illusive-dnd-beyond-log" readonly rows="8">{{log}}</textarea>
+  <footer class="form-footer">
+    <button type="button" data-action="clear-beyond-log"><i class="fas fa-eraser"></i> Clear log</button>
+    <button type="submit"><i class="fas fa-save"></i> {{saveLabel}}</button>
+  </footer>
+</form>

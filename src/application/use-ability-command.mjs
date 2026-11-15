@@ -7,8 +7,12 @@ import { illusiveDnd } from "../i18n/index.mjs";
 import {
   allowsExtraAttackSwing,
   shouldForceTargetPick,
-  getRequiredTargetCount
+  getRequiredTargetCount,
+  getLinkedSpell,
+  getTargetConfig,
+  requiresCanvasTargets
 } from "./ability.mjs";
+import { debugLog, DEBUG_CHANNELS } from "../foundry/debug.mjs";
 import { isEconomyAvailable, resolveEconomySection } from "./economy.mjs";
 import { useAbility } from "./action-data.mjs";
 import { executeStandardAction } from "./standard-actions.mjs";
@@ -18,6 +22,10 @@ import { isTokenInCombat } from "./action-economy.mjs";
 import { recordGameLogEvent } from "./combat-game-log.mjs";
 
 const ECONOMY_KEYS = Object.freeze({ action: "A", bonus: "B", reaction: "R" });
+
+function logPlan(tag, data) {
+  debugLog(DEBUG_CHANNELS.ACTION_BAR, tag, data);
+}
 
 function resolveItemActivity(actor, itemId, activityId) {
   const item = actor?.items?.get?.(itemId) ?? null;
@@ -46,7 +54,10 @@ export async function planAndUseAbility({
   targetCount = null
 } = {}) {
   const actor = token?.actor;
-  if (!actor) return { ok: false, reason: "no-actor" };
+  if (!actor) {
+    logPlan("plan", { itemId, reason: "no-actor" });
+    return { ok: false, reason: "no-actor" };
+  }
 
   if (String(itemId).startsWith("zone:")) {
     const selected = targetCount ?? (globalThis.game?.user?.targets?.size ?? 0);
@@ -147,7 +158,23 @@ export async function planAndUseAbility({
   const required = getRequiredTargetCount(item, activity, actor);
   const forcePick = shouldForceTargetPick(item, activity);
   const selected = targetCount ?? (game.user?.targets?.size ?? 0);
-  if (required && (forcePick || selected === 0)) {
+  const target = getTargetConfig(item, activity);
+  const linked = getLinkedSpell(activity);
+  logPlan("target", {
+    name: item?.name ?? abilityName,
+    itemType: item?.type ?? null,
+    activityType: activity?.type ?? null,
+    activityId: activity?.id ?? activityId ?? null,
+    linkedSpell: linked?.name ?? null,
+    affects: target?.affects?.type ?? target?.type ?? null,
+    count: target?.affects?.count ?? target?.value ?? null,
+    template: target?.template?.type ?? null,
+    requiresCanvas: requiresCanvasTargets(item, activity),
+    required,
+    forcePick,
+    selected
+  });
+  if (required && (forcePick || selected < required)) {
     return {
       ok: true,
       action: "pick-targets",
@@ -167,6 +194,11 @@ export async function planAndUseAbility({
   }
 
   const used = await useAbility(token, itemId, activityId, event, section, { spellLevel });
+  logPlan("fire", {
+    name: item?.name ?? abilityName,
+    result: used !== false,
+    spellLevel
+  });
   return { ok: true, action: "fire", result: used !== false };
 }
 
