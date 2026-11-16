@@ -1,3 +1,6 @@
+import { PHASE_PACKS } from "./phase-packs.mjs";
+import { REST_PACKS } from "./phase-packs-rest.mjs";
+
 /**
  * Shipped rule declarations, keyed to dnd5e items or active effects.
  *
@@ -155,7 +158,13 @@ const REACTIONS = [
     ...reaction("deflect", "Deflect Energy", { identifiers: ["deflect-energy"], names: [/deflect\s*energy/i] }, {
       on: "damageKnown",
       mode: "hard",
-      if: { all: [{ "self.isTarget": true }, { "activity.isAttack": true }] },
+      if: {
+        all: [
+          { "self.isTarget": true },
+          { "activity.isAttack": true },
+          { "damage.types": { hasAny: ["acid", "cold", "fire", "force", "lightning", "thunder"] } }
+        ]
+      },
       do: [{ step: "damageReduce", to: "self", value: DEFLECT_REDUCE }]
     }),
     id: "deflect-energy"
@@ -549,6 +558,15 @@ const AURAS = [
     incapacitatedBlocks: false,
     requiresConcentration: true
   }),
+  aura("aura-of-alacrity", "Aura of Alacrity", {
+    identifiers: ["aura-of-alacrity"],
+    names: [/^aura of alacrity$/i]
+  }, {
+    affects: "ally",
+    defaultFeet: 10,
+    speed: 10,
+    incapacitatedBlocks: true
+  }),
   aura("aura-of-purity", "Aura of Purity", {
     identifiers: ["aura-of-purity"],
     names: [/^aura\s*of\s*purity$/i]
@@ -692,5 +710,7 @@ export const CONTENT = Object.freeze([
   ...BASE_CONTENT,
   ...HIT_RIDERS,
   ...AURAS,
-  ...ZONES
+  ...ZONES,
+  ...PHASE_PACKS,
+  ...REST_PACKS
 ]);

@@ -19,6 +19,7 @@
  */
 
 import { isFriendly, isHostile } from "../../domain/combat/disposition.mjs";
+import { actorReachFeet, enteredReach } from "../../domain/combat/opportunity-attack.mjs";
 import { actorFromUuid, tokenUuidOf } from "../../foundry/token-lookup.mjs";
 import { resolveRulesContext } from "../../foundry/dnd5e-adapter.mjs";
 import { feetBetween } from "../reactions/candidates.mjs";
@@ -124,6 +125,19 @@ function creatureFact(actor, rest, { isTrigger, isTarget, isDamaged, tokenId }) 
   }
 }
 
+function packMate(ctx, scope) {
+  const uuid = scope.targetList[0];
+  const target = uuid ? tokenForActorUuid(uuid) : null;
+  if (!target || !ctx.token) return false;
+  for (const token of globalThis.canvas?.tokens?.placeables ?? []) {
+    if (!token || token === ctx.token || token === target) continue;
+    if (!isFriendly(ctx.token, token)) continue;
+    const feet = feetBetween(target, token);
+    if (feet != null && feet <= 5) return true;
+  }
+  return false;
+}
+
 function tokenForActorUuid(uuid) {
   for (const t of globalThis.canvas?.tokens?.placeables ?? []) {
     if (t?.actor?.uuid === uuid || tokenUuidOf(t) === uuid) return t;
@@ -187,8 +201,26 @@ export function createFactReader(ctx, scope, entry = null) {
           case "distance": return ctx.distanceToTrigger ?? undefined;
           case "sees": return ctx.canSeeTrigger;
           case "nearTarget": return ctx.nearTargetUuid ?? null;
+          case "enteringReach": {
+            const from = ctx.distanceToTrigger;
+            const to = ctx.destinationFeet;
+            if (from == null || to == null) return false;
+            return enteredReach({ fromFeet: from, toFeet: to, reachFeet: actorReachFeet(ctx.actor) });
+          }
+          case "targetSurprised": {
+            const uuid = scope.targetList[0];
+            const target = uuid ? actorFromUuid(uuid) : null;
+            return Boolean(target?.statuses?.has?.("surprised"));
+          }
+          case "packMate": return packMate(ctx, scope);
           default: return undefined;
         }
+      case "target": {
+        const uuid = scope.targetList[0];
+        const target = uuid ? actorFromUuid(uuid) : null;
+        if (!target) return undefined;
+        return creatureFact(target, rest, { isTrigger: false, isTarget: true, isDamaged: false, tokenId: null });
+      }
       case "activity":
         switch (rest[0]) {
           case "isAttack": return ctx.attackRoll == null ? undefined : Boolean(ctx.attackRoll);
@@ -202,6 +234,11 @@ export function createFactReader(ctx, scope, entry = null) {
           case "magical": return ctx.magical === true;
           case "isSource": return Boolean(entry?.item?.id && ctx.itemId && ctx.itemId === entry.item.id);
           case "activation": return ctx.activation ?? undefined;
+          case "window": return ctx.windowId ?? undefined;
+          case "saveAbility": return ctx.saveAbility ?? undefined;
+          case "identifier": return ctx.itemIdentifier ?? undefined;
+          case "name": return ctx.itemName ?? undefined;
+          case "critical": return ctx.critical === true;
           default: return undefined;
         }
       case "damage":
@@ -267,6 +304,7 @@ export function nearbyTokenUuids(ctx, step = {}) {
     if (self) {
       const dist = feetBetween(self, token);
       if (dist == null || dist > feet) continue;
+      if (step.allies && token !== self && !isFriendly(self, token)) continue;
     }
     out.push(uuid);
     if (out.length >= limit) break;

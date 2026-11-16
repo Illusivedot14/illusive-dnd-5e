@@ -2,7 +2,7 @@ import { settingOn } from "../hud/lib/hud-settings.mjs";
 import { getViewedCombat } from "./combat.mjs";
 import { canControlToken, selectToken, selectTokenForTurn } from "./token-actions.mjs";
 import { combatantToken } from "../hud/components/turn-tracker/turn-tracker-combatant.mjs";
-import { resetCombatantBudget, freshBudget, writeBudget } from "../application/economy.mjs";
+import { resetCombatantBudget, freshBudget, readBudget, writeBudget } from "../application/economy.mjs";
 import { MODULE_ID } from "../constants.mjs";
 import { isPrimaryWriter } from "./gm-query.mjs";
 
@@ -17,9 +17,29 @@ function getTurnCombatant(combat, current) {
   return combat.turns?.[turn] ?? combat.combatant ?? null;
 }
 
+function namedEffect(actor, pattern) {
+  return [...(actor?.effects ?? []), ...(actor?.appliedEffects ?? [])].some((effect) =>
+    !effect?.disabled && pattern.test(String(effect?.name ?? "")));
+}
+
+function hasItem(actor, id) {
+  return [...(actor?.items ?? [])].some((item) =>
+    item?.system?.identifier === id || new RegExp(`^${id.replace(/-/g, "\\s*")}$`, "i").test(String(item?.name ?? "")));
+}
+
 async function refreshTurnEconomy(combatant) {
   if (!combatant) return;
   await resetCombatantBudget(combatant);
+  const actor = combatant.actor;
+  if (!actor) return;
+  const budget = readBudget(combatant);
+  if (!budget) return;
+  const next = { ...budget };
+  if (namedEffect(actor, /^haste$/i)) next.action = (Number(next.action) || 0) + 1;
+  if (hasItem(actor, "reactive")) next.reaction = (Number(next.reaction) || 0) + 1;
+  if (next.action !== budget.action || next.reaction !== budget.reaction) {
+    await writeBudget(combatant, next);
+  }
   try {
     Hooks.callAll(`${MODULE_ID}.economyChanged`, combatant.actor);
   } catch {

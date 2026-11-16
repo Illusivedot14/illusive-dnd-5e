@@ -49,6 +49,14 @@ export function leftReach({ fromFeet, toFeet, reachFeet }) {
   return wasIn && nowOut;
 }
 
+/** Did the mover step into the observer's reach? */
+export function enteredReach({ fromFeet, toFeet, reachFeet }) {
+  const reach = resolveReachFeet({ reachFeet });
+  const wasOut = fromFeet > reach + 0.05;
+  const nowIn = toFeet <= reach + 0.05;
+  return wasOut && nowIn;
+}
+
 /**
  * @param {object} input
  * @param {Edition} [input.edition]

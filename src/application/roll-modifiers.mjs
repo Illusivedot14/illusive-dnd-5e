@@ -150,6 +150,11 @@ export function collectAttackModifiers({
   if (sight.advantage) advantage = true;
   if (sight.disadvantage) disadvantage = true;
 
+  if (outlinedTarget(defender)) {
+    advantage = true;
+    reasons.push("outlined");
+  }
+
   // Feature toggles (Reckless / GWM / SS)
   const toggles = collectToggleAttackModifiers(attacker, item);
   if (toggles.advantage) {
@@ -316,7 +321,15 @@ function applySightPairModifiers({
   return out;
 }
 
-export function collectSaveModifiers({ actor, ability = null } = {}) {
+function outlinedTarget(actor) {
+  if (actor?.statuses?.has?.("outlined")) return true;
+  return [...(actor?.effects ?? []), ...(actor?.appliedEffects ?? [])].some((effect) => {
+    if (effect?.disabled) return false;
+    return /^(faerie fire|guiding bolt)$/i.test(String(effect?.name ?? ""));
+  });
+}
+
+export function collectSaveModifiers({ actor, ability = null, magical = false } = {}) {
   const reasons = [];
   let advantage = false;
   let disadvantage = false;
@@ -335,6 +348,12 @@ export function collectSaveModifiers({ actor, ability = null } = {}) {
     reasons.push("restrained-dex");
   }
   if (applyGrantedAdvantage(actor, reasons)) advantage = true;
+  if (magical && [...(actor?.effects ?? []), ...(actor?.appliedEffects ?? [])].some((effect) =>
+    !effect?.disabled && (effect?.flags?.["illusive-dnd-5e"]?.circleOfPower
+      || /^circle of power$/i.test(String(effect?.name ?? ""))))) {
+    advantage = true;
+    reasons.push("circle-of-power");
+  }
 
   return { advantage, disadvantage, reasons };
 }

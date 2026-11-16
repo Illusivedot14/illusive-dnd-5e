@@ -9,7 +9,7 @@ import { debugLog, DEBUG_CHANNELS, isDebugLoggingEnabled } from "../foundry/debu
 import { isDashed } from "./economy.mjs";
 import { movementSpeed } from "../domain/combat/actor-paths.mjs";
 import { tokenFromUuid } from "../foundry/token-lookup.mjs";
-import { movementCostMultiplier } from "./zones.mjs";
+import { movementCostMultiplier, moveBlockedByZone } from "./zones.mjs";
 
 function dbgMove(tag, data = {}) {
   debugLog(DEBUG_CHANNELS.GAME_LOG, tag, data);
@@ -462,6 +462,19 @@ export function enforceCombatMovementBudget(tokenDoc, changes, options = {}) {
       if (order.order === "approach" && after > before + 1) return false;
       if (order.order === "flee" && after < before - 1) return false;
     }
+  }
+  if (moveBlockedByZone(tokenDoc, changes, options)) {
+    try {
+      globalThis.ui?.notifications?.warn?.("A barrier blocks that move.");
+    } catch {
+      /* the move is still blocked */
+    }
+    return false;
+  }
+  const free = Number(tokenDoc?.actor?.getFlag?.(MODULE_ID, "freeMoveFeet")) || 0;
+  if (free > 0) {
+    const cost = estimateProposedMoveCostFeet(tokenDoc, changes);
+    if (cost > 0 && cost <= free + 0.01) return true;
   }
   if (!combatMoveExceedsBudget(tokenDoc, changes, options)) return true;
   try {

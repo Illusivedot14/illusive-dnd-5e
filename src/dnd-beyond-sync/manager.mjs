@@ -2,6 +2,7 @@ import { beyondDebug, setBeyondStatus } from "./debug.mjs";
 import { MessageDeduplicator } from "./dedupe.mjs";
 import { MessageDispatcher } from "./dispatcher.mjs";
 import { readHandler } from "./read.mjs";
+import { rollHandler } from "./roll.mjs";
 import { messageKey } from "./message.mjs";
 import { connectionConfig, missingConnectionFields } from "./settings.mjs";
 import { BeyondSocket } from "./websocket.mjs";
@@ -18,6 +19,7 @@ export class BeyondSyncManager {
     this.dedupe = new MessageDeduplicator();
     this.dispatcher = new MessageDispatcher();
     this.dispatcher.register(readHandler());
+    this.dispatcher.register(rollHandler());
     this.socket = null;
     this.down = false;
     this.mode = "";

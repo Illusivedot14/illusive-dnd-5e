@@ -40,11 +40,12 @@ export async function offerHitRiders({
   critical = false,
   event = null,
   resolutionId = null,
-  token = null
+  token = null,
+  attackItem = null
 } = {}) {
   if (!actor || !hitUuids.length) return [];
 
-  const riders = listAvailableHitRiders(actor);
+  const riders = listAvailableHitRiders(actor, { attackItem });
   if (!riders.length) return [];
 
   const out = [];

@@ -2,6 +2,9 @@
  * Stable rule IDs, source citations, edition/errata metadata.
  */
 
+import { PHASE_PACKS } from "../content/phase-packs.mjs";
+import { REST_PACKS } from "../content/phase-packs-rest.mjs";
+
 export const RULES = Object.freeze({
   "combat.activity-use": {
     id: "combat.activity-use",
@@ -624,8 +627,31 @@ export const RULES = Object.freeze({
   ...cited("combat.spell.moonbeam", "Moonbeam", "Spells — Moonbeam", "Movable zone; Constitution save for 2d10 radiant on enter or turn start; bonus action moves it 60 feet"),
   ...cited("combat.spell.web", "Web", "Spells — Web", "Dexterity save or restrained; difficult terrain; fire burns the webs for 2d4"),
   ...cited("combat.spell.oil", "Oil", "Equipment — Oil", "Flammable ground; fire lights it for 5 fire damage when a creature enters or starts its turn there"),
-  ...cited("combat.spell.caltrops", "Caltrops", "Equipment — Caltrops", "Dexterity save DC 15 or 1 piercing and −10 speed until healed")
+  ...cited("combat.spell.caltrops", "Caltrops", "Equipment — Caltrops", "Dexterity save DC 15 or 1 piercing and −10 speed until healed"),
+  ...packRules(PHASE_PACKS),
+  ...packRules(REST_PACKS),
+  ...cited("combat.feature.evasion", "Evasion", "Rogue — Evasion", "Dexterity saves: no damage on a success, half on a failure"),
+  ...cited("combat.feature.potent-cantrip", "Potent Cantrip", "Wizard — Evocation", "A cantrip that deals no damage on a successful save deals half"),
+  ...cited("combat.feature.sculpt-spells", "Sculpt Spells", "Wizard — Evocation", "Allies in the area take no damage from the evocation"),
+  ...cited("combat.aura.aura-of-alacrity", "Aura of Alacrity", "Paladin — Aura of Alacrity", "Allies in the aura gain +10 walk speed"),
+  ...cited("combat.feature.haste-action", "Haste", "Spells — Haste", "While an effect named Haste is on the creature, the turn budget starts with one extra action"),
+  ...cited("combat.feature.reactive", "Reactive", "Monster — Reactive", "A creature with Reactive starts each turn with one extra reaction"),
+  ...cited("combat.feature.flyby", "Flyby", "Monster — Flyby", "A creature with Flyby and a fly speed does not provoke. The move does not record whether the step was a fly or a walk"),
+  ...cited("combat.feature.spell-sniper", "Spell Sniper", "Feats — Spell Sniper", "A spell attack ignores half cover and three-quarters cover. Total cover still blocks the target"),
+  ...cited("combat.zone.replay", "Zone replay", "Zones", "When a zone that deals damage or forces a save is created, every creature already inside takes that effect once"),
+  ...cited("combat.feature.alert-swap", "Alert", "Feats — Alert", "After dnd5e.rollInitiative, a dialog can swap your total with an ally")
 });
+
+function packRules(packs) {
+  const out = {};
+  for (const content of packs) {
+    for (const decl of content.declarations ?? []) {
+      if (!decl.rule || out[decl.rule]) continue;
+      Object.assign(out, cited(decl.rule, decl.label ?? decl.id, "Combat", decl.note ?? decl.label ?? decl.id));
+    }
+  }
+  return out;
+}
 
 function cited(id, name, section, notes) {
   return {

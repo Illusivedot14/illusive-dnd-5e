@@ -188,6 +188,40 @@ export async function toggleEconomySpent(actor, economyType) {
   return true;
 }
 
+/** Dash, Disengage, or Dodge for the rest of this turn. */
+export async function markBudgetFlag(actor, key, token = null) {
+  if (!["dashed", "disengaged", "dodging"].includes(key)) return null;
+  const combatant = combatantForActor(actor, token);
+  if (!combatant) return null;
+  const budget = await ensureBudget(combatant);
+  const next = { ...budget, [key]: true };
+  await writeBudget(combatant, next);
+  emitEconomyChanged(actor);
+  return next;
+}
+
+/** One more reaction this turn (Commander's Strike, Reactive is separate). */
+export async function grantExtraReaction(actor, token = null) {
+  const combatant = combatantForActor(actor, token);
+  if (!combatant) return null;
+  const budget = await ensureBudget(combatant);
+  const next = { ...budget, reaction: (Number(budget.reaction) || 0) + 1 };
+  await writeBudget(combatant, next);
+  emitEconomyChanged(actor);
+  return next;
+}
+
+/** One more action this turn (Action Surge). */
+export async function grantExtraAction(actor, token = null) {
+  const combatant = combatantForActor(actor, token);
+  if (!combatant) return null;
+  const budget = await ensureBudget(combatant);
+  const next = { ...budget, action: (Number(budget.action) || 0) + 1 };
+  await writeBudget(combatant, next);
+  emitEconomyChanged(actor);
+  return next;
+}
+
 /** The creature's next reaction is available again. */
 export async function grantFreeReaction(actor, token = null) {
   const combatant = combatantForActor(actor, token);
@@ -215,9 +249,9 @@ export async function spendBasicAction(actor, kind) {
       const { tokenForActor, tokenUuidOf } = await import("../foundry/token-lookup.mjs");
       const { runPassiveTriggers } = await import("./triggers/engine.mjs");
       const token = tokenForActor(actor);
-      await runPassiveTriggers("disengages", {
-        baseCtx: { triggerTokenUuid: token ? tokenUuidOf(token) : null }
-      });
+      const baseCtx = { triggerTokenUuid: token ? tokenUuidOf(token) : null };
+      await runPassiveTriggers("disengages", { baseCtx });
+      await runPassiveTriggers("enemyDisengages", { baseCtx });
     } catch {
       /* the spend stands */
     }

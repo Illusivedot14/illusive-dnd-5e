@@ -25,7 +25,8 @@ import { spendLegendaryAction, spendLairAction, isTokenInCombat } from "./action
 import { resolveSaveActivity } from "./save-resolve.mjs";
 import { checkAbilityRange, doubleRange } from "./range.mjs";
 import { componentBlock, componentsForCast, castIsPerceptible } from "../domain/combat/spell-components.mjs";
-import { igniteTerrain } from "./zones.mjs";
+import { igniteTerrain, fieldAt } from "./zones.mjs";
+import { bypassTypes, spellBlocked } from "../domain/combat/field.mjs";
 import { runPassiveTriggers } from "./triggers/engine.mjs";
 import { evaluateForCombat as evaluateCover } from "./cover.mjs";
 import { bakeCoverIntoAc } from "../domain/combat/cover.mjs";
@@ -259,7 +260,8 @@ async function applyDamageStep({
   weaponAttack = false,
   melee = false,
   magical = false,
-  tag = null
+  tag = null,
+  ignoreResistance = []
 }) {
   const uuids = [...rollsByTarget.keys()].filter((u) => rollsByTarget.get(u)?.length);
   if (!uuids.length) return { changes: [], damagedUuids: [] };
@@ -288,7 +290,7 @@ async function applyDamageStep({
     uuids.map((uuid) => ({ uuid, rolls: rollsByTarget.get(uuid) })),
     patches
   );
-  const out = await applyDamageWithTrail({ targets, melee, tag });
+  const out = await applyDamageWithTrail({ targets, melee, tag, ignoreResistance });
   if (damageTypes.includes("fire")) {
     for (const uuid of out.damagedUuids ?? uuids) {
       const hit = tokenFromUuid(uuid);
@@ -413,6 +415,25 @@ export async function resolveActivity({
     }
   }
 
+  if (actor && (item?.type === "feat" || item?.type === "feature")) {
+    try {
+      const { runPassiveTriggers } = await import("./triggers/engine.mjs");
+      await runPassiveTriggers("usesFeature", {
+        baseCtx: {
+          triggerTokenUuid: attackerUuid,
+          itemId: item.id ?? null,
+          itemIdentifier: item.system?.identifier ?? null,
+          itemName: item.name ?? null,
+          targetUuids,
+          activation: item.system?.activation?.type ?? activity?.activation?.type ?? null
+        },
+        parentId: resolutionId
+      });
+    } catch {
+      /* the feature still resolves */
+    }
+  }
+
   const result = {
     attackRolls: [],
     damageRolls: [],
@@ -508,9 +529,12 @@ export async function resolveActivity({
 
   // Hard on-cast: Counterspell hears a cast that still has a verbal, somatic, or material component.
   // Subtle Spell removes verbal and somatic, so only a material component stays perceptible.
-  const castCtx = {
+    const castCtx = {
     triggerTokenUuid: attackerUuid,
+    targetUuids,
     itemId: item?.id ?? null,
+    itemIdentifier: item?.system?.identifier ?? null,
+    itemName: item?.name ?? null,
     activation: activity?.activation?.type ?? economyType ?? null,
     isSpell: isSpellUse(item, rawActivity)
   };
@@ -532,6 +556,22 @@ export async function resolveActivity({
     }
   } else if (item) {
     await runPassiveTriggers("castsSpell", { baseCtx: castCtx });
+  }
+
+  if (castCtx.isSpell && fieldAt(token).suppress) {
+    result.countered = true;
+    result.reactions.push({ trigger: "antimagic", countered: true });
+    return endCast(result);
+  }
+  if (castCtx.isSpell) {
+    const level = spellLevelOf(item, useOptions);
+    for (let i = targetUuids.length - 1; i >= 0; i -= 1) {
+      const target = tokenFromUuid(targetUuids[i]);
+      const field = fieldAt(target);
+      if (spellBlocked({ targetInsideWard: field.wardLevel != null, spellLevel: level, wardLevel: field.wardLevel }) === "ward") {
+        targetUuids.splice(i, 1);
+      }
+    }
   }
 
   if (readMetamagic(actor) === "twinned") twinTarget(targetUuids);
@@ -740,7 +780,8 @@ async function resolveDamageActivity({ result, token, actor, item, activity, tar
     rollsByTarget,
     resolutionId,
     token,
-    magical: weaponIsMagical(item)
+    magical: weaponIsMagical(item),
+    ignoreResistance: bypassTypes(actor?.getFlag?.(MODULE_ID, "resistBypass"), { spell: item?.type === "spell" })
   });
   result.applied = step.changes;
   await offerAfterDamage({ changes: step.changes, token, resolutionId });
@@ -755,6 +796,9 @@ async function resolveAttack({ result, token, actor, item, activity, targets, ta
     ({ activity: rangeActivity, item: rangeItem } = doubleRange(activity, item));
   }
   const rangeCheck = checkAbilityRange(token, rangeItem, rangeActivity);
+  if (Number(actor?.getFlag?.(MODULE_ID, "reachBonus")) > 0) {
+    try { await actor.unsetFlag(MODULE_ID, "reachBonus"); } catch { /* the attack stands */ }
+  }
   result.rangeBand = rangeCheck.result;
   const attackOpts = { event };
   const primaryTargetUuid = targetUuids[0] ?? null;
@@ -797,6 +841,11 @@ async function resolveAttack({ result, token, actor, item, activity, targets, ta
   if (mods.attackBonus) {
     attackOpts.parts = [...(attackOpts.parts ?? []), String(mods.attackBonus)];
     attackOpts.bonus = mods.attackBonus;
+  }
+  const pendingDie = actor?.getFlag?.(MODULE_ID, "pendingDie");
+  if (pendingDie) {
+    attackOpts.parts = [...(attackOpts.parts ?? []), String(pendingDie)];
+    try { await actor.unsetFlag(MODULE_ID, "pendingDie"); } catch { /* the die was offered */ }
   }
   result.attackMods = mods.reasons;
 
@@ -845,6 +894,7 @@ async function resolveAttack({ result, token, actor, item, activity, targets, ta
       attackOpts.bonus = mods.attackBonus;
     }
     if (Number.isFinite(declared.replaceD20)) replaceD20 = declared.replaceD20;
+    if (declared.cancelAttack) result.cancelledAttack = true;
   }
 
   // Reckless opens the attacker to advantage against them
@@ -864,7 +914,7 @@ async function resolveAttack({ result, token, actor, item, activity, targets, ta
     return total;
   };
 
-  result.attackRolls = rollList(await activity.rollAttack(attackOpts));
+  result.attackRolls = result.cancelledAttack ? [] : rollList(await activity.rollAttack(attackOpts));
   if (result.attackRolls.length) await consumeRollAdvantage(actor, mods.reasons);
   let primary = result.attackRolls[0];
   const attack = {
@@ -881,7 +931,10 @@ async function resolveAttack({ result, token, actor, item, activity, targets, ta
     if (attackerUuid && t.uuid) {
       const cover = await evaluateCover({ attackerUuid, targetUuid: t.uuid });
       const baked = bakeCoverIntoAc(ac, cover);
-      ac = baked.ac;
+      const sniper = item?.type === "spell" && [...(actor?.items ?? [])].some((entry) =>
+        entry?.system?.identifier === "spell-sniper" || /^spell sniper$/i.test(String(entry?.name ?? "")));
+      const sniperCover = sniper && (baked.level === "half" || baked.level === "three-quarters");
+      ac = sniperCover ? ac : baked.ac;
       if (baked.level === "total" || baked.canTarget === false) {
         blocked = true;
         result.coverNotes.push({
@@ -905,7 +958,9 @@ async function resolveAttack({ result, token, actor, item, activity, targets, ta
     coveredTargets.push({ uuid: t.uuid, ac, name: t.name, blocked });
   }
 
-  result.outcomes = adjudicate(coveredTargets, attack);
+  result.outcomes = result.cancelledAttack
+    ? coveredTargets.map((t) => ({ uuid: t.uuid, hit: false, ac: t.ac, critical: false }))
+    : adjudicate(coveredTargets, attack);
   result.hitUuids = result.outcomes.filter((o) => o.hit).map((o) => o.uuid);
 
   for (const t of targets) {
@@ -923,7 +978,10 @@ async function resolveAttack({ result, token, actor, item, activity, targets, ta
         triggerTokenUuid: attackerUuid,
         attackRoll: true,
         melee,
-        ranged
+        ranged,
+        itemIdentifier: item?.system?.identifier ?? null,
+        itemName: item?.name ?? null,
+        critical: attack.isCritical === true
       }
     });
     result.reactionPatches = { onAttackHit: hitPatches };
@@ -950,8 +1008,15 @@ async function resolveAttack({ result, token, actor, item, activity, targets, ta
     // Shield: +5 AC until the start of the reactor's next turn (cannot turn a crit into a miss).
     if (hitPatches.acBonusByTarget.size) changed = true;
     if (hitPatches.redirectUuid) redirected = hitPatches.redirectUuid;
+    if (hitPatches.uncrit) attack.isCritical = false;
     if (changed) {
       result.outcomes = adjudicate(coveredTargets, attack, hitPatches.acBonusByTarget);
+      result.hitUuids = result.outcomes.filter((o) => o.hit).map((o) => o.uuid);
+    }
+    if (hitPatches.forceMissUuids?.size) {
+      result.outcomes = result.outcomes.map((o) => (
+        hitPatches.forceMissUuids.has(o.uuid) ? { ...o, hit: false, critical: false } : o
+      ));
       result.hitUuids = result.outcomes.filter((o) => o.hit).map((o) => o.uuid);
     }
   }
@@ -962,6 +1027,29 @@ async function resolveAttack({ result, token, actor, item, activity, targets, ta
 
   result.critical = attack.isCritical;
   result.fumble = attack.isFumble;
+
+  const missedUuids = result.outcomes.filter((o) => !o.hit && o.reason !== "total-cover").map((o) => o.uuid);
+  if (missedUuids.length && resolutionId) {
+    const missPatches = await openReactionWindow({
+      parentId: resolutionId,
+      windowId: "on-attack-miss",
+      baseCtx: {
+        triggerTokenUuid: attackerUuid,
+        targetUuids: missedUuids,
+        attackRoll: true,
+        melee,
+        ranged,
+        itemIdentifier: item?.system?.identifier ?? null,
+        itemName: item?.name ?? null
+      }
+    });
+    if (missPatches.forceHit) {
+      const uuid = missedUuids[0];
+      result.outcomes = result.outcomes.map((o) => (o.uuid === uuid ? { ...o, hit: true } : o));
+      result.hitUuids = result.outcomes.filter((o) => o.hit).map((o) => o.uuid);
+    }
+  }
+
   const anyHit = result.hitUuids.length > 0;
 
   emitCombatFx({
@@ -975,14 +1063,9 @@ async function resolveAttack({ result, token, actor, item, activity, targets, ta
     origin: { itemUuid: item?.uuid ?? null, activityId: activity?.id ?? null }
   });
 
-  // Soft on-attack-miss: Riposte against a melee attacker that missed.
-  const missedUuids = result.outcomes.filter((o) => !o.hit && o.reason !== "total-cover").map((o) => o.uuid);
-  if (melee && missedUuids.length && resolutionId) {
-    await openReactionWindow({
-      parentId: resolutionId,
-      windowId: "on-attack-miss",
-      baseCtx: { triggerTokenUuid: attackerUuid, targetUuids: missedUuids, attackRoll: true, melee }
-    });
+  // Miss reactions ran before the hit flag was frozen, so a Boon of Combat Prowess connect can still deal damage.
+  if (actor?.getFlag?.(MODULE_ID, "sentinelPending")) {
+    try { await actor.unsetFlag(MODULE_ID, "sentinelPending"); } catch { /* the attack stands */ }
   }
 
   const stepOpts = {
@@ -992,7 +1075,11 @@ async function resolveAttack({ result, token, actor, item, activity, targets, ta
     ranged,
     weaponAttack,
     melee,
-    magical: weaponIsMagical(item)
+    magical: weaponIsMagical(item),
+    ignoreResistance: bypassTypes(actor?.getFlag?.(MODULE_ID, "resistBypass"), {
+      spell: item?.type === "spell",
+      attack: item?.type === "weapon" || isMeleeAttack(activity, item) || isRangedAttack(activity, item)
+    })
   };
 
   result.mastery = await applyWeaponMastery({
@@ -1039,7 +1126,8 @@ async function resolveAttack({ result, token, actor, item, activity, targets, ta
       critical: attack.isCritical,
       event,
       resolutionId,
-      token
+      token,
+      attackItem: item
     });
     for (const rider of riders) {
       const uuid = rider.targetUuids[0];

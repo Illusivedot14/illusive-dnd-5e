@@ -183,6 +183,8 @@ export const HUD_FALLBACKS = {
   "settings.menus.dndBeyond.title": "D&D Beyond",
   "settings.ddbEnabled.name": "Sync hit points",
   "settings.ddbEnabled.hint": "While this world is open, one GM listens for hit point changes. Closing the world stops the listener.",
+  "settings.ddbShowRolls.name": "Show D&D Beyond rolls",
+  "settings.ddbShowRolls.hint": "Every roll in the campaign game log appears in Foundry chat with D&D Beyond's dice. Dice So Nice rolls them on screen.",
   "settings.ddbDebug.name": "Console log",
   "settings.ddbDebug.hint": "Also print sync events in the browser console. The log below keeps them either way. Filter by [illusive-dnd-5e:beyond].",
   "settings.ddbUpdateDamage.name": "Sync hit points",

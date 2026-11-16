@@ -7,6 +7,7 @@ import { readSetting, SETTING } from "./settings.mjs";
 
 const FIELDS = [
   SETTING.enabled,
+  SETTING.showRolls,
   SETTING.debug,
   SETTING.userId,
   SETTING.campaignId,

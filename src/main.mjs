@@ -51,6 +51,12 @@ Hooks.once("ready", () => {
   void game.settings?.set?.(MODULE_ID, DEBUG_SETTING_KEY, true);
   bindOwnerRolls();
   startDndBeyondSync();
+  const conflict = ["midi-qol", "dnd5e-combat"].find((id) => globalThis.game?.modules?.get?.(id)?.active);
+  if (conflict) {
+    console.error(`${MODULE_ID} | exclusive combat | ${conflict} is active; Illusive combat will not start`);
+    globalThis.ui?.notifications?.error?.(`Illusive combat is exclusive. Turn off ${conflict}.`);
+    return;
+  }
   if (isIllusiveMobileMode()) {
     console.info(`${MODULE_ID} | ready | combat deferred`);
     return;

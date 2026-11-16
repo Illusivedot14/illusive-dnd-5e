@@ -11,6 +11,7 @@ export const SETTING = {
   userId: "ddbUserId",
   campaignId: "ddbCampaignId",
   updateDamage: "ddbUpdateDamage",
+  showRolls: "ddbShowRolls",
   debug: "ddbDebug",
   characterMapping: "ddbCharacterMapping"
 };
@@ -78,6 +79,12 @@ export function registerBeyondSettings() {
   world(SETTING.updateDamage, {
     name: "Sync play state with D&D Beyond",
     hint: "Hit points, slots, uses, conditions, death saves, inspiration, currency, XP, hit dice, equipped, and attuned move both ways between Beyond and the linked actor.",
+    type: Boolean,
+    default: true
+  });
+  world(SETTING.showRolls, {
+    name: "Show D&D Beyond rolls",
+    hint: "Every roll in the campaign game log appears in Foundry chat with D&D Beyond's dice. Dice So Nice rolls them on screen.",
     type: Boolean,
     default: true
   });

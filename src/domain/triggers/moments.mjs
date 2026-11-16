@@ -68,6 +68,17 @@ export const MOMENTS = Object.freeze({
     label: "A creature leaves another creature's reach",
     patches: []
   },
+  entersReach: {
+    window: "on-enter-reach",
+    label: "A creature enters another creature's reach",
+    patches: []
+  },
+  /** A feat or class feature activity is being used. */
+  usesFeature: {
+    window: null,
+    label: "A creature uses a feature",
+    patches: []
+  },
   hitDamage: {
     window: null,
     label: "A hit is about to add rider damage",
@@ -117,17 +128,78 @@ export const MOMENTS = Object.freeze({
     window: null,
     label: "A creature finishes a rest",
     patches: []
+  },
+  /** Same window as attackDeclared. Listeners are not the target (Lucky, Sanctuary, Warding Flare). */
+  isAttacked: {
+    window: "on-attack-declared",
+    label: "A creature is attacked, before the roll",
+    patches: ["attackDisadvantage", "cancelAttack"]
+  },
+  /** Same window as attackDeclared. Pre-roll bonuses. */
+  preAttackRoll: {
+    window: "on-attack-declared",
+    label: "An attack roll is about to be made",
+    patches: ["attackAdvantage", "attackDisadvantage", "attackBonus", "d20Replace"]
+  },
+  /** Same window as isHit. The listener is an ally of the creature that was hit. */
+  allyIsHit: {
+    window: "on-attack-hit",
+    label: "An ally is hit",
+    patches: ["acBonus", "attackPenalty", "rerollAttack"]
+  },
+  allyIsDamaged: {
+    window: "after-damage-applied",
+    label: "An ally took damage",
+    patches: []
+  },
+  allyAttacks: {
+    window: "on-attack-declared",
+    label: "An ally declares an attack",
+    patches: ["attackAdvantage", "attackDisadvantage", "attackBonus"]
+  },
+  enemyAttacks: {
+    window: "on-attack-declared",
+    label: "An enemy declares an attack",
+    patches: ["attackDisadvantage"]
+  },
+  enemyAttacked: {
+    window: "on-attack-hit",
+    label: "An enemy is hit",
+    patches: []
+  },
+  enemyDisengages: {
+    window: null,
+    label: "An enemy takes the Disengage action",
+    patches: []
+  },
+  /** A creature enters a placed zone. Published by zones.mjs. */
+  enter: {
+    window: null,
+    label: "A creature enters a zone",
+    patches: []
+  },
+  startOfTurn: {
+    window: null,
+    label: "A creature's turn starts (alias of turnStart)",
+    patches: []
+  },
+  endOfTurn: {
+    window: null,
+    label: "A creature's turn ends (alias of turnEnd)",
+    patches: []
   }
 });
 
 export const MOMENT_IDS = Object.freeze(Object.keys(MOMENTS));
 
-const BY_WINDOW = new Map(
-  Object.entries(MOMENTS).filter(([, m]) => m.window).map(([id, m]) => [m.window, id])
-);
+/** Every moment published by a reaction window. Several moments can share one window. */
+export function momentsForWindow(windowId) {
+  if (!windowId) return [];
+  return Object.entries(MOMENTS).filter(([, moment]) => moment.window === windowId).map(([id]) => id);
+}
 
 export function momentForWindow(windowId) {
-  return BY_WINDOW.get(windowId) ?? null;
+  return momentsForWindow(windowId)[0] ?? null;
 }
 
 export function windowForMoment(momentId) {

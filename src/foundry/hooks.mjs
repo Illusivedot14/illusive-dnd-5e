@@ -34,6 +34,7 @@ import { featureEnabled } from "../application/levels.mjs";
 import { syncAllAuras } from "../application/aura-effects.mjs";
 import { onCombatTurnChange } from "../application/overtime.mjs";
 import { tickZoneMove, tickZonesOnTurn } from "../application/zones.mjs";
+import { attachPendingDie, prepareInitiativeRoll, prepareSkillRoll, offerInitiativeSwap, spendFreeMove } from "../application/field-hooks.mjs";
 import { dragGrappled } from "../application/triggers/feature-steps.mjs";
 import {
   onCombatTurnChangeSpecial,
@@ -80,6 +81,22 @@ export function bindAutomationHooks() {
     void resumePending();
   }, { once: true });
 
+  route("dnd5e.preRollAbilityCheck", "Add a stored die to an ability check", (config) => {
+    void attachPendingDie(config);
+  });
+  route("dnd5e.preRollSkill", "Add a stored die to a skill check", (config) => {
+    prepareSkillRoll(config);
+    void attachPendingDie(config);
+  });
+  route("dnd5e.preRollSavingThrow", "Add a stored die to a save", (config) => {
+    void attachPendingDie(config);
+  });
+  route("dnd5e.preRollInitiative", "Ambush and Remarkable Athlete", (actor, roll) => {
+    prepareInitiativeRoll(actor, roll);
+  });
+  route("dnd5e.rollInitiative", "Alert may swap initiative", (actor) => {
+    void offerInitiativeSwap(actor);
+  });
   route("dnd5e.rollAttackV2", "Trace attack roll", (rolls) => {
     if (!featureEnabled("resolutionTrace")) return;
     void noteRoll({ kind: "attack", rolls: serializeRolls(rolls), summary: "Attack roll" });
@@ -147,7 +164,9 @@ export function bindAutomationHooks() {
     if (!globalThis.game?.combat?.started) return;
     const baseCtx = leaveReachContext(tokenDoc, changes, options);
     if (!baseCtx?.triggerTokenUuid) return;
-    const groups = collectWindowCandidates("on-leave-reach", baseCtx);
+    const leaving = collectWindowCandidates("on-leave-reach", baseCtx);
+    const entering = collectWindowCandidates("on-enter-reach", baseCtx);
+    const groups = [...leaving, ...entering];
     if (!groups.length) {
       oaLog("not provoked", { token: tokenDoc?.name ?? tokenDoc?.id ?? null });
       return;
@@ -184,6 +203,7 @@ export function bindAutomationHooks() {
     const prior = zonePrior.get(tokenDoc.id) ?? null;
     zonePrior.delete(tokenDoc.id);
     void tickZoneMove(tokenDoc, prior);
+    void spendFreeMove(tokenDoc, prior);
     void dragGrappled(tokenDoc, prior);
   });
   route("updateToken", "Resync auras on move", (doc, changes) => {

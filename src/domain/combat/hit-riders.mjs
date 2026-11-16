@@ -21,13 +21,19 @@ function damageActivity(item) {
  * @param {object} actor
  * @param {{ includeMarks?: boolean }} [opts]
  */
-export function listAvailableHitRiders(actor, { includeMarks = true } = {}) {
+export function listAvailableHitRiders(actor, { includeMarks = true, attackItem = null } = {}) {
   const out = [];
   if (!actor) return out;
   for (const entry of declarationsFor(actor, "hitDamage")) {
     const rider = entry.decl.rider;
     if (!rider || rider.passive) continue;
     if (rider.mark && !includeMarks) continue;
+    if (rider.attackIdentifier) {
+      const id = String(attackItem?.system?.identifier ?? "");
+      const name = String(attackItem?.name ?? "");
+      const wanted = String(rider.attackIdentifier);
+      if (id !== wanted && name.toLowerCase() !== wanted.replace(/-/g, " ")) continue;
+    }
     const item = entry.item;
     const activity = item ? damageActivity(item) : null;
     if (!activity && !rider.formula) continue;

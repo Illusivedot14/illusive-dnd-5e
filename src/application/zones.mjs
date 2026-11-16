@@ -13,6 +13,7 @@ import { tokenForActor } from "../foundry/token-lookup.mjs";
 import { isEconomyAvailable, markEconomyUsed } from "./economy.mjs";
 import { isTokenInCombat } from "./action-economy.mjs";
 import { averageDice, evaluateArithmetic } from "../domain/triggers/formula.mjs";
+import { barrierBlocks } from "../domain/combat/field.mjs";
 import { rollVisible } from "./dice.mjs";
 
 export const ZONE_FLAG = "zone";
@@ -128,7 +129,11 @@ export async function placeZone({ token, label, step }) {
     igniteDamage: step.igniteDamage ?? null,
     igniteWhen: step.igniteWhen ?? null,
     burnAway: Boolean(step.burnAway),
-    slowFeet: Number(step.slowFeet) || null
+    slowFeet: Number(step.slowFeet) || null,
+    blocks: step.blocks ?? null,
+    exceptSource: Boolean(step.exceptSource),
+    suppress: Boolean(step.suppress),
+    wardLevel: Number.isFinite(Number(step.wardLevel)) ? Number(step.wardLevel) : null
   };
   const data = {
     name: label,
@@ -137,7 +142,63 @@ export async function placeZone({ token, label, step }) {
   };
   if (follow) data.attachment = { token: tokenId };
   const made = await createEmbedded(scene, "Region", [data]);
+  const region = made.docs?.[0];
+  if (region && (spec.damage || spec.onFail || spec.ability || spec.slowFeet) && ticks(spec, "enter")) {
+    for (const token of globalThis.canvas?.tokens?.placeables ?? []) {
+      if (!token?.actor) continue;
+      if (spec.exceptSource && (token.id === tokenId || token.document?.id === tokenId)) continue;
+      if (!isTokenInsideTemplate(region, token)) continue;
+      await applySpec(token.actor, spec, 1);
+    }
+  }
   return made.undo ?? [];
+}
+
+function specAt(token) {
+  const found = { suppress: false, wardLevel: null };
+  if (!token) return found;
+  for (const { region, spec } of zoneRegions()) {
+    if (!isTokenInsideTemplate(region, token)) continue;
+    if (spec.suppress) found.suppress = true;
+    if (spec.wardLevel != null) found.wardLevel = spec.wardLevel;
+  }
+  return found;
+}
+
+/** Antimagic and globe facts for the token currently standing in a zone. */
+export function fieldAt(token) {
+  return specAt(token);
+}
+
+/** True when this position change would cross a closed circle this module placed. */
+export function moveBlockedByZone(tokenDoc, changes, options = {}) {
+  if (!tokenDoc) return false;
+  if (options?.isUndo || options?.teleport || options?.illusiveDndForced) return false;
+  if (changes?.x == null && changes?.y == null) return false;
+  const token = placeableFor(tokenDoc);
+  const prior = { ...token, document: { ...(token?.document ?? tokenDoc) } };
+  const next = {
+    ...token,
+    document: {
+      ...(token?.document ?? tokenDoc),
+      x: changes.x ?? tokenDoc.x,
+      y: changes.y ?? tokenDoc.y
+    }
+  };
+  for (const { region, spec } of zoneRegions()) {
+    if (!spec.blocks) continue;
+    const fromInside = isTokenInsideTemplate(region, prior);
+    const toInside = isTokenInsideTemplate(region, next);
+    const isSource = Boolean(spec.sourceId) && (tokenDoc.id === spec.sourceId);
+    if (barrierBlocks({
+      fromInside,
+      toInside,
+      blocks: spec.blocks,
+      exceptSource: spec.exceptSource,
+      isSource
+    })) return true;
+  }
+  return false;
 }
 
 function shiftShape(shape, dx, dy) {
@@ -268,6 +329,13 @@ export async function tickZoneMove(tokenDoc, prior) {
     const insideThen = isTokenInsideTemplate(region, priorToken);
     if (ticks(spec, "enter") && insideNow && !insideThen) {
       changes.push(...await applySpec(actor, spec, 1));
+      try {
+        const { runPassiveTriggers } = await import("./triggers/engine.mjs");
+        const { tokenUuidOf } = await import("../foundry/token-lookup.mjs");
+        await runPassiveTriggers("enter", { baseCtx: { triggerTokenUuid: tokenUuidOf(token) } });
+      } catch {
+        /* the zone tick stands */
+      }
     }
     if (spec.when === "square" && (insideNow || insideThen)) {
       const times = squaresCrossed(feet);

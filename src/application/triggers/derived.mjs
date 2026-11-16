@@ -89,8 +89,38 @@ export function meleeWeaponAttacks(actor) {
   return out;
 }
 
+/** Spells a War Caster can cast in place of an opportunity attack. */
+export function reactionSpells(actor) {
+  const out = [];
+  for (const item of actor?.items ?? []) {
+    if (item?.type !== "spell") continue;
+    const activation = item.system?.activation?.type;
+    if (["bonus", "minute", "hour", "day"].includes(activation)) continue;
+    const activities = listActivities(item).filter((act) => {
+      const type = act?.target?.affects?.type ?? act?.target?.type;
+      return type !== "self";
+    });
+    const chosen = activities.length ? activities : listActivities(item);
+    for (const act of chosen) {
+      linkActivityItem(act, item);
+      out.push(act);
+    }
+  }
+  return out;
+}
+
+export function spellSaveDc(actor) {
+  const data = rollData(actor);
+  const recorded = Number(data?.attributes?.spell?.dc ?? data?.attributes?.spelldc);
+  if (recorded > 0) return recorded;
+  const prof = Number(actor?.system?.attributes?.prof) || 0;
+  const wis = Number(actor?.system?.abilities?.wis?.mod) || 0;
+  return 8 + prof + wis;
+}
+
 export const OFFER_ACTIVITIES = Object.freeze({
-  meleeWeapons: meleeWeaponAttacks
+  meleeWeapons: meleeWeaponAttacks,
+  reactionSpells
 });
 
 /** Activities an `offer` declaration puts in the prompt. */
@@ -105,6 +135,7 @@ export function derivedRollData(actor, entry, ctx = {}) {
     superiorityDie: superiorityDie(actor),
     monkLevel: monkLevel(actor),
     parryBonus: parryBonus(actor, entry?.item),
-    slotLevel: Number(ctx.slotLevel) || Number(entry?.item?.system?.level) || 1
+    slotLevel: Number(ctx.slotLevel) || Number(entry?.item?.system?.level) || 1,
+    spellSave: spellSaveDc(actor)
   };
 }

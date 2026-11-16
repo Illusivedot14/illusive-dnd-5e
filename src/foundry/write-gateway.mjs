@@ -225,7 +225,10 @@ async function execApplyDamage(actor, op) {
   })).filter((d) => d.value !== 0);
   if (!damages.length) return { ok: false, reason: "no-damage", undo: [] };
   const prior = hpSnapshot(actor);
-  await actor.applyDamage(damages, { ...(op.options ?? {}), isDelta: true });
+  const ignore = Array.isArray(op.ignoreResistance) ? op.ignoreResistance.filter(Boolean) : [];
+  const damageOptions = { ...(op.options ?? {}), isDelta: true };
+  if (ignore.length) damageOptions.ignore = { resistance: new Set(ignore.map((type) => String(type).toLowerCase())) };
+  await actor.applyDamage(damages, damageOptions);
   const next = hpSnapshot(actor);
   if ((Number(next?.value) || 0) > (Number(prior?.value) || 0)) {
     try {
@@ -353,7 +356,8 @@ export function deleteDocs(docsOrUuids = []) {
 }
 
 export function applyActorDamage(actor, damages, options = {}) {
-  return write({ type: "applyDamage", uuid: actor, damages, options });
+  const { ignoreResistance = [], ...rest } = options ?? {};
+  return write({ type: "applyDamage", uuid: actor, damages, options: rest, ignoreResistance });
 }
 
 export function toggleActorStatus(actor, statusId, { active = undefined, overlay = false } = {}) {

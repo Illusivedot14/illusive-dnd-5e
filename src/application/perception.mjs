@@ -92,6 +92,24 @@ export function evaluateVisibilityBetween({ observerUuid, targetUuid }) {
   };
 }
 
+/** Bright, dim, or dark at a token. Null when the scene has no recorded lights. */
+export function lightLevelAtToken(token) {
+  const facts = collectLightFacts();
+  if (!facts?.lights?.length && !facts?.globalDarkness) return null;
+  const grid = getGridFacts();
+  const doc = token?.document ?? token;
+  const size = Number(grid.size) || 100;
+  return evaluateLightAt({
+    point: {
+      x: (Number(doc?.x) || 0) + size / 2,
+      y: (Number(doc?.y) || 0) + size / 2
+    },
+    lights: facts.lights,
+    gridSize: size,
+    globalDarkness: facts.globalDarkness
+  }).level;
+}
+
 export function performLighting({ operation, point } = {}) {
   if (!featureEnabled("lightingEval")) {
     return { operation, status: "disabled", reason: "automation-level" };

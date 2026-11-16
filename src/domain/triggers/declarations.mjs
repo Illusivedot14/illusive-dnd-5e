@@ -31,7 +31,7 @@ import { conditionErrors } from "./conditions.mjs";
 import { stepErrors } from "./steps.mjs";
 
 export const MODES = Object.freeze(["passive", "soft", "hard"]);
-export const OFFERS = Object.freeze(["meleeWeapons"]);
+export const OFFERS = Object.freeze(["meleeWeapons", "reactionSpells"]);
 const ONCE = new Set(["turn", "round"]);
 
 export function normalizeDeclaration(decl = {}) {

@@ -15,6 +15,7 @@ import { featureEnabled } from "../levels.mjs";
 import { meleeWeaponAttacks } from "../triggers/derived.mjs";
 import { runSoftDeclarationUse } from "../triggers/engine.mjs";
 import { getReadiedAction, setReadiedAction } from "./reaction-state.mjs";
+import { setDocFlag } from "../../foundry/write-gateway.mjs";
 
 /** Ready trigger → the window that releases it. */
 export const READY_TRIGGER_WINDOWS = Object.freeze({
@@ -64,7 +65,14 @@ export const REACTION_REGISTRY = Object.freeze({
     rewriteKeys: [],
     match: () => false,
     offer: (actor) => meleeWeaponAttacks(actor),
-    eligible: opportunityEligible
+    eligible: opportunityEligible,
+    beforeUse: async (actor) => {
+      const has = [...(actor?.items ?? [])].some((item) => {
+        const id = String(item?.system?.identifier ?? "");
+        return id === "sentinel" || /^sentinel$/i.test(String(item?.name ?? ""));
+      });
+      if (has) await setDocFlag(actor, MODULE_ID, "sentinelPending", true);
+    }
   },
   ready: {
     id: "ready",
@@ -165,6 +173,11 @@ export function mergePatches(patches = []) {
     replaceD20: null,
     saveSuccess: false,
     redirectUuid: null,
+    cancelAttack: false,
+    uncrit: false,
+    saveEvasion: false,
+    forceHit: false,
+    forceMissUuids: new Set(),
     acBonusByTarget: new Map(),
     damageMultiplierByTarget: new Map(),
     damageReduceByTarget: new Map(),
@@ -207,6 +220,22 @@ export function mergePatches(patches = []) {
         break;
       case "redirect":
         if (p.targetUuid) out.redirectUuid = p.targetUuid;
+        break;
+      case "cancelAttack":
+        out.cancelAttack = true;
+        break;
+      case "uncrit":
+        out.uncrit = true;
+        break;
+      case "saveEvasion":
+        out.saveEvasion = true;
+        break;
+      case "forceHit":
+        out.forceHit = true;
+        break;
+      case "forceMiss":
+        if (key) out.forceMissUuids.add(key);
+        else out.cancelAttack = true;
         break;
       case "acBonus":
         if (key) out.acBonusByTarget.set(key, (out.acBonusByTarget.get(key) ?? 0) + (Number(p.value) || 0));

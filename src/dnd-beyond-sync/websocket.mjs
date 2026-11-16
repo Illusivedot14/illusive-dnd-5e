@@ -1,4 +1,5 @@
 import { SHEET_UPDATE, isHealthUpdate } from "./message.mjs";
+import { ROLL_FULFILLED } from "./roll.mjs";
 import { gameLogUrl } from "./settings.mjs";
 import { beyondDebug } from "./debug.mjs";
 import { beyondFetch, describeFetchFailure } from "./fetch.mjs";
@@ -84,7 +85,7 @@ export class BeyondSocket extends EventTarget {
     } catch {
       return;
     }
-    if (!isHealthUpdate(message.eventType)) {
+    if (!isHealthUpdate(message.eventType) && message.eventType !== ROLL_FULFILLED) {
       if (!this.seenTypes) this.seenTypes = new Set();
       const eventType = message.eventType ?? null;
       if (!this.seenTypes.has(eventType)) {
@@ -98,8 +99,10 @@ export class BeyondSocket extends EventTarget {
     const detail = {
       ...data,
       eventType: message.eventType === "character-sheet/character-update" ? SHEET_UPDATE : message.eventType,
-      id: message.id ?? message.rollId ?? data.id,
-      characterId: message.entityId ?? message.characterId ?? data.characterId ?? data.entityId ?? data.character?.id
+      id: message.id ?? message.rollId ?? data.rollId ?? data.id,
+      characterId: message.entityId ?? message.characterId ?? data.characterId ?? data.entityId ?? data.character?.id,
+      entityType: message.entityType ?? data.entityType ?? null,
+      messageScope: message.messageScope ?? null
     };
     beyondDebug("forward", { eventType: detail.eventType, id: detail.id ?? null });
     this.dispatchEvent(new CustomEvent("message", { detail }));

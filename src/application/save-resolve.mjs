@@ -20,6 +20,33 @@ import { isElementalType } from "../domain/combat/activity-kind.mjs";
 import { openReactionWindow, damageTargetsFromPatches } from "./reactions/window.mjs";
 import { rollAsOwner } from "./dice.mjs";
 import { emitCombatFx } from "./combat-fx.mjs";
+import { isFriendly } from "../domain/combat/disposition.mjs";
+import { MODULE_ID } from "../constants.mjs";
+import { bypassTypes } from "../domain/combat/field.mjs";
+
+function actorHasIdentifier(actor, id) {
+  return [...(actor?.items ?? [])].some((item) => item.system?.identifier === id);
+}
+
+function isCantripActivity(activity) {
+  const level = activity?.spell?.level ?? activity?.item?.system?.level;
+  return level === 0;
+}
+
+function hasCircleOfPower(actor) {
+  return [...(actor?.effects ?? []), ...(actor?.appliedEffects ?? [])].some((effect) => {
+    if (effect?.disabled) return false;
+    return effect?.flags?.["illusive-dnd-5e"]?.circleOfPower
+      || /^circle of power$/i.test(String(effect?.name ?? ""));
+  });
+}
+
+function isSculptedAlly(caster, target) {
+  const casterToken = caster.getActiveTokens?.(true)?.[0] ?? null;
+  const targetToken = target.getActiveTokens?.(true)?.[0] ?? null;
+  if (!casterToken || !targetToken) return false;
+  return isFriendly(casterToken, targetToken);
+}
 
 function saveAbility(activity) {
   const set = activity?.save?.ability;
@@ -76,7 +103,11 @@ export async function rollActivitySave(actor, activity, {
   }
   const ability = saveAbility(activity);
   const dc = saveDc(activity);
-  const mods = collectSaveModifiers({ actor, ability });
+  const mods = collectSaveModifiers({
+    actor,
+    ability,
+    magical: activity?.item?.type === "spell" || activity?.magical === true
+  });
   const bonus = Number(coverBonus) || 0;
   const rollConfig = {
     event,
@@ -112,12 +143,13 @@ export async function rollActivitySave(actor, activity, {
     ? { success: Boolean(roll.success), reason: roll.success ? "saved" : "failed" }
     : evaluateSaveVsDc({ total, dc });
   const reactions = [];
+  let saveEvasion = false;
 
   if (resolutionId && tokenUuid && Number.isFinite(dc) && Number.isFinite(total)) {
     const patches = await openReactionWindow({
       parentId: resolutionId,
       windowId: outcome.success ? "on-save-success" : "on-save-fail",
-      baseCtx: { triggerTokenUuid: tokenUuid, charmOrFear }
+      baseCtx: { triggerTokenUuid: tokenUuid, charmOrFear, saveAbility: ability }
     });
     if (Number.isFinite(patches.replaceD20)) {
       total = patches.replaceD20;
@@ -128,6 +160,7 @@ export async function rollActivitySave(actor, activity, {
       outcome = { success: true, reason: "legendary" };
       reactions.push(...patches.sources);
     }
+    if (patches.saveEvasion) saveEvasion = true;
     if (patches.rerollD20) {
       const next = await rollOnce(patches.rerollD20.advantage ? { advantage: true } : {});
       if (Number.isFinite(next.total) && (patches.rerollD20.keep === "new" || next.total < total)) {
@@ -147,7 +180,8 @@ export async function rollActivitySave(actor, activity, {
     dc,
     coverBonus: bonus,
     roll,
-    reactions
+    reactions,
+    saveEvasion
   };
 }
 
@@ -216,7 +250,7 @@ export async function resolveSaveActivity({
         tokenUuid: uuid,
         charmOrFear
       });
-      savedByUuid.set(uuid, save.success);
+      savedByUuid.set(uuid, save);
       rolledUuids.push(uuid);
       result.saveOutcomes.push({
         uuid,
@@ -242,11 +276,23 @@ export async function resolveSaveActivity({
     for (const uuid of rolledUuids) {
       const actor = tokenFromUuid(uuid)?.actor;
       if (!actor) continue;
-      const saved = Boolean(savedByUuid.get(uuid));
+      const record = savedByUuid.get(uuid);
+      const saved = Boolean(record?.success ?? record);
       let multiplier = damageFactorOnSave({ saved, onSave });
       const ability = result.saveOutcomes.find((o) => o.uuid === uuid)?.ability;
       const evasion = evasionDamageFactor(actor, { ability, success: saved });
       if (evasion != null && damages.length) multiplier = evasion;
+      if (record?.saveEvasion) multiplier = saved ? 0 : 0.5;
+      const caster = activity.item?.actor ?? activity.actor ?? null;
+      if (saved && multiplier === 0 && isCantripActivity(activity) && actorHasIdentifier(caster, "potent-cantrip")) {
+        multiplier = 0.5;
+      }
+      if (activity.item?.type === "spell" && hasCircleOfPower(actor)) {
+        multiplier = saved ? 0 : Math.min(multiplier, 0.5);
+      }
+      if (actorHasIdentifier(caster, "sculpt-spells") && caster && isSculptedAlly(caster, actor)) {
+        multiplier = 0;
+      }
       if (multiplier > 0) targets.push({ uuid, multiplier, tag: { saved } });
     }
 
@@ -273,9 +319,11 @@ export async function resolveSaveActivity({
         targetUuids: targets.map((target) => target.uuid),
         outcome: { totals: result.damageRolls.map((roll) => roll?.total), riders: [] }
       });
+      const caster = activity?.item?.actor ?? activity?.actor ?? null;
       const trail = await applyDamageWithTrail({
         rolls: result.damageRolls,
-        targets: damageTargetsFromPatches(targets, patches)
+        targets: damageTargetsFromPatches(targets, patches),
+        ignoreResistance: bypassTypes(caster?.getFlag?.(MODULE_ID, "resistBypass"), { spell: true })
       });
       result.applied.push(...trail.changes);
       damagedUuids = trail.damagedUuids;

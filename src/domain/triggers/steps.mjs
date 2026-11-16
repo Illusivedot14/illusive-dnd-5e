@@ -27,6 +27,42 @@ export const STEPS = Object.freeze({
   acBonus: { kind: "patch", patch: "acBonus", inverse: "none-needed", params: ["value"], targeted: true },
   damageReduce: { kind: "patch", patch: "damageReduce", inverse: "none-needed", params: ["value"], targeted: true },
   damageMultiplier: { kind: "patch", patch: "damageMultiplier", inverse: "none-needed", params: ["value"], targeted: true },
+  /** Half the damage of this hit or save. */
+  halve: { kind: "patch", patch: "damageMultiplier", inverse: "none-needed", params: [], targeted: true },
+  /** This attack misses the reactor. */
+  miss: { kind: "patch", patch: "forceMiss", inverse: "none-needed", params: [], targeted: true },
+  /** The attacker saves or the attack is wasted. */
+  ward: { kind: "patch", patch: "cancelAttack", inverse: "none-needed", params: ["ability", "dc"] },
+  /** A critical hit becomes a normal hit. */
+  uncrit: { kind: "patch", patch: "uncrit", inverse: "none-needed", params: [] },
+  /** The attack strikes the reactor instead. */
+  intercept: { kind: "patch", patch: "redirect", inverse: "none-needed", params: [] },
+  /** This save deals no damage on a success and half on a failure. */
+  evade: { kind: "patch", patch: "saveEvasion", inverse: "none-needed", params: [] },
+  /** One extra action this turn. */
+  grantAction: { kind: "write", inverse: "gateway", params: [] },
+  /** Set dashed, disengaged, or dodging on this turn's budget. */
+  budget: { kind: "write", inverse: "gateway", params: ["key"] },
+  /** Drop the target to 0 when its current hit points are at or under `hp`. */
+  slayBelow: { kind: "write", inverse: "gateway", params: ["hp"], targeted: true },
+  /** A miss becomes a hit. */
+  connect: { kind: "patch", patch: "forceHit", inverse: "none-needed", params: [] },
+  /** Move to 5 feet from the selected creature, when that space is within `feet`. */
+  teleport: { kind: "write", inverse: "gateway", params: ["feet"] },
+  /** Trade places with the nearest ally within 5 feet. */
+  swap: { kind: "write", inverse: "gateway", params: [] },
+  /** The creature may move up to `feet` without spending speed or provoking. */
+  grantMove: { kind: "write", inverse: "gateway", params: ["feet"], targeted: true },
+  /** One extra reaction this turn. */
+  grantReaction: { kind: "write", inverse: "gateway", params: [], targeted: true },
+  /** Restore the highest expended slot at or under `level`. */
+  restoreSlot: { kind: "write", inverse: "gateway", params: ["level"] },
+  /** Store a die on the next attack roll, check, or save. */
+  pendingDie: { kind: "write", inverse: "gateway", params: ["value"], targeted: true },
+  /** Ask once, then resist that type or ignore resistance to it. */
+  chooseType: { kind: "write", inverse: "gateway", params: ["key"] },
+  /** Apply or remove a status from the light at this token. */
+  veil: { kind: "write", inverse: "gateway", params: ["status"], targeted: true },
   resist: { kind: "patch", patch: "resistTypes", inverse: "none-needed", params: ["types"], targeted: true },
   // On an attack hit this rerolls the attack; on a save or check, the d20.
   reroll: { kind: "patch", patch: "rerollD20", inverse: "none-needed", params: ["keep", "advantage"] },
@@ -151,7 +187,16 @@ export function stepErrors(step, path = "do") {
   if (step.keep != null && !["lower", "new"].includes(step.keep)) {
     errors.push(`${path}: "keep" must be "lower" or "new"`);
   }
-  if (step.step === "save") {
+  if (step.step === "budget" && !["dashed", "disengaged", "dodging"].includes(step.key)) {
+    errors.push(`${path}: "key" must be "dashed", "disengaged", or "dodging"`);
+  }
+  if (step.step === "slayBelow" && !(Number(step.hp) > 0)) {
+    errors.push(`${path}: "hp" must be greater than 0`);
+  }
+  if (step.step === "chooseType" && !Array.isArray(step.types)) {
+    errors.push(`${path}: "types" must be a list`);
+  }
+  if (step.step === "save" || step.step === "ward") {
     if (!SAVE_ABILITIES.has(step.ability)) errors.push(`${path}: "ability" must be a saving throw`);
     if (!isValue(step.dc)) errors.push(`${path}: "dc" must be a number or formula`);
   }

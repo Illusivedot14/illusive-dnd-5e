@@ -80,7 +80,15 @@ export function isSilenced(actor) {
  * A free hand for a somatic component. Each equipped weapon or shield uses one
  * hand. A two-handed weapon can be held in one hand while casting.
  */
+function hasWarCaster(actor) {
+  return [...(actor?.items ?? [])].some((item) => {
+    const id = String(item?.system?.identifier ?? "");
+    return id === "war-caster" || /^war\s*caster$/i.test(String(item?.name ?? ""));
+  });
+}
+
 export function hasFreeHand(actor) {
+  if (hasWarCaster(actor)) return true;
   let hands = 0;
   for (const item of actor?.items ?? []) {
     if (item?.system?.equipped === false) continue;

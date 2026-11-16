@@ -6,9 +6,9 @@
  *   soft / hard  declarationSpecsForWindow: offered as reaction-registry specs, so
  *                they share the reaction window's prompt, wait and pause
  *
- * Moments map 1:1 onto reaction windows (domain/triggers/moments.mjs); the
- * window calls runPassiveTriggers before it prompts anyone. Turn moments are
- * published by the primary writer from the combatTurnChange hook.
+ * Several moments can share one reaction window. The window runs every passive
+ * moment on that window before it prompts anyone. Turn moments are published
+ * by the primary writer from the combatTurnChange hook.
  *
  * Undo: every write's inverse lands in the game log — onto the causing
  * resolution when there is one, else on a system row. A declaration that comes
@@ -18,7 +18,7 @@
 
 import { MODULE_ID } from "../../constants.mjs";
 import { featureEnabled } from "../levels.mjs";
-import { momentForWindow as windowMoment } from "../../domain/triggers/moments.mjs";
+import { momentForWindow as windowMoment, momentsForWindow } from "../../domain/triggers/moments.mjs";
 import { evaluateCondition } from "../../domain/triggers/conditions.mjs";
 import { stepDef, defaultSelector } from "../../domain/triggers/steps.mjs";
 import { onceKey } from "../../domain/triggers/declarations.mjs";
@@ -36,6 +36,11 @@ import { placeZone } from "../zones.mjs";
 import { pushDestination } from "../../domain/spatial/push.mjs";
 import { writeNextD20Advantage, writePendingHitRider } from "../reactions/reaction-state.mjs";
 import { tokenForActor, tokenUuidOf } from "../../foundry/token-lookup.mjs";
+import { grantExtraAction, grantExtraReaction, markBudgetFlag } from "../economy.mjs";
+import { teleportBeside, swappedPoints, slotRestoreKey, lightHides } from "../../domain/combat/field.mjs";
+import { gridFeetBetween } from "../../domain/spatial/geometry.mjs";
+import { isFriendly } from "../../domain/combat/disposition.mjs";
+import { lightLevelAtToken } from "../perception.mjs";
 import { debugLog, DEBUG_CHANNELS } from "../../foundry/debug.mjs";
 import {
   applyActorDamage,
@@ -103,6 +108,7 @@ function rollDataFor(actor, entry, ctx) {
   }
   Object.assign(data, derivedRollData(actor, entry, ctx));
   data.prof = Number(actor?.system?.attributes?.prof) || 0;
+  data.relentless = Number(actor?.getFlag?.(MODULE_ID, "relentlessRage")) || 0;
   data.sourceLevel = sourceLevel(entry);
   return data;
 }
@@ -171,8 +177,16 @@ function selfUuids(ctx) {
 
 async function runPatchStep(step, def, ctx, scope, entry, label) {
   const source = entry.decl.id;
-  if (step.step === "portent" || step.step === "redirect" || step.step === "legendaryResistance") {
-    return await featurePatch(step, ctx, source) ?? [];
+  if (step.step === "halve") {
+    return targetUuidsFor(step.to ?? defaultSelector(step), ctx, scope, step)
+      .map((targetUuid) => ({ type: "damageMultiplier", targetUuid, value: 0.5, source }));
+  }
+  if (step.step === "ward") {
+    const dc = (await resolveValue(step.dc, ctx.actor, entry, label, ctx)).value;
+    return await featurePatch({ ...step, dc }, ctx, source, scope) ?? [];
+  }
+  if (["portent", "redirect", "legendaryResistance", "intercept"].includes(step.step)) {
+    return await featurePatch(step, ctx, source, scope) ?? [];
   }
   if (step.step === "counterspell") return counterspellPatches(ctx, source);
   if (step.step === "reroll") {
@@ -249,6 +263,140 @@ async function runWriteStep(step, ctx, scope, entry, label) {
     case "setFlag":
       for (const actor of actors) push(await setDocFlag(actor, MODULE_ID, step.key, step.value ?? true));
       break;
+    case "grantAction":
+      if (ctx.actor) await grantExtraAction(ctx.actor);
+      break;
+    case "budget":
+      if (ctx.actor) await markBudgetFlag(ctx.actor, step.key);
+      break;
+    case "grantReaction":
+      for (const actor of actors) await grantExtraReaction(actor);
+      break;
+    case "grantMove":
+      for (const actor of actors) {
+        const current = Number(actor?.getFlag?.(MODULE_ID, "freeMoveFeet")) || 0;
+        const next = Math.max(current, Number(step.feet) || 0);
+        if (next > 0) push(await setDocFlag(actor, MODULE_ID, "freeMoveFeet", next));
+      }
+      break;
+    case "pendingDie": {
+      const data = rollDataFor(ctx.actor, entry, ctx);
+      const formula = expandRefs(step.value, data);
+      for (const actor of actors) push(await setDocFlag(actor, MODULE_ID, "pendingDie", formula));
+      break;
+    }
+    case "restoreSlot": {
+      const key = slotRestoreKey(ctx.actor?.system?.spells, step.level);
+      if (!key || !ctx.actor) break;
+      const pool = ctx.actor.system.spells[key];
+      const value = Math.min(Number(pool.max) || 0, (Number(pool.value) || 0) + 1);
+      push(await updateDoc(ctx.actor, { [`system.spells.${key}.value`]: value }));
+      break;
+    }
+    case "teleport": {
+      const dest = actors[0] ? tokenForActor(actors[0]) : null;
+      const self = ctx.token?.document;
+      const grid = globalThis.canvas?.scene?.grid ?? {};
+      const next = teleportBeside(self, dest?.document ?? dest, step.feet, {
+        size: Number(grid.size) || 100,
+        distance: Number(grid.distance) || 5
+      });
+      if (self && next) {
+        push(await updateDoc(self, next, { teleport: true, illusiveSkipOA: true, illusiveDndForced: true }));
+      }
+      break;
+    }
+    case "swap": {
+      const self = ctx.token;
+      const grid = globalThis.canvas?.scene?.grid ?? {};
+      let nearest = null;
+      let nearestFeet = Infinity;
+      for (const token of globalThis.canvas?.tokens?.placeables ?? []) {
+        if (!token || token === self || !isFriendly(self, token)) continue;
+        const feet = gridFeetBetween(
+          { x: self.document?.x, y: self.document?.y },
+          { x: token.document?.x, y: token.document?.y },
+          {
+            gridSize: Number(grid.size) || 100,
+            gridDistance: Number(grid.distance) || 5
+          }
+        );
+        if (feet != null && feet <= 5 && feet < nearestFeet) {
+          nearest = token;
+          nearestFeet = feet;
+        }
+      }
+      if (self?.document && nearest?.document) {
+        const points = swappedPoints(self.document, nearest.document);
+        push(await updateDoc(self.document, points.a, { teleport: true, illusiveSkipOA: true, illusiveDndForced: true }));
+        push(await updateDoc(nearest.document, points.b, { teleport: true, illusiveSkipOA: true, illusiveDndForced: true }));
+      }
+      break;
+    }
+    case "chooseType": {
+      if (!ctx.actor) break;
+      const existing = ctx.actor.getFlag?.(MODULE_ID, step.key);
+      if (existing) break;
+      if (step.all) {
+        const list = [...(ctx.actor.getFlag?.(MODULE_ID, "resistBypass") ?? [])];
+        for (const entryType of step.types ?? []) {
+          list.push({ type: entryType, spells: step.spells === true, attacks: step.attacks === true });
+        }
+        push(await setDocFlag(ctx.actor, MODULE_ID, "resistBypass", list));
+        push(await setDocFlag(ctx.actor, MODULE_ID, step.key, "all"));
+        break;
+      }
+      let type = step.types?.[0] ?? null;
+      const dialog = globalThis.foundry?.applications?.api?.DialogV2;
+      if (dialog?.wait && (step.types?.length ?? 0) > 1) {
+        try {
+          const choice = await dialog.wait({
+            window: { title: label },
+            buttons: step.types.map((entryType) => ({
+              action: entryType,
+              label: entryType,
+              callback: () => entryType
+            }))
+          });
+          if (step.types.includes(choice)) type = choice;
+        } catch {
+          /* keep the first type */
+        }
+      }
+      if (!type) break;
+      push(await setDocFlag(ctx.actor, MODULE_ID, step.key, type));
+      if (step.resist) {
+        push(await createEmbedded(ctx.actor, "ActiveEffect", [{
+          name: label,
+          transfer: false,
+          changes: [{ key: "system.traits.dr.value", mode: 2, value: type }]
+        }]));
+      }
+      if (step.bypass) {
+        const list = [...(ctx.actor.getFlag?.(MODULE_ID, "resistBypass") ?? [])];
+        list.push({ type, spells: step.spells === true, attacks: step.attacks === true });
+        push(await setDocFlag(ctx.actor, MODULE_ID, "resistBypass", list));
+      }
+      break;
+    }
+    case "veil": {
+      const level = lightLevelAtToken(ctx.token);
+      const hide = lightHides(level);
+      for (const actor of actors) {
+        push(await toggleActorStatus(actor, step.status, { active: hide }));
+      }
+      break;
+    }
+    case "slayBelow": {
+      const limit = Number(step.hp) || 0;
+      for (const actor of actors) {
+        const current = Number(actor?.system?.attributes?.hp?.value) || 0;
+        if (current > 0 && current <= limit) {
+          push(await applyActorDamage(actor, [{ value: current, type: step.damageType }]));
+        }
+      }
+      break;
+    }
     case "spendUses": {
       const item = step.item ? usesItem(ctx.actor, step.item) : entry.item;
       const amount = Number(step.amount ?? 1) || 1;
@@ -304,6 +452,14 @@ async function runWriteStep(step, ctx, scope, entry, label) {
           damageType: step.damageType ?? null,
           onSave: step.onSave ?? "none",
           onFail: step.onFail ?? null,
+          failEffect: step.failEffect ?? null,
+          endOnSuccess: step.endOnSuccess ?? null,
+          endStatusOnSuccess: step.endStatusOnSuccess ?? null,
+          endStatusesOnFail: step.endStatusesOnFail ?? null,
+          healOnSuccess: step.healOnSuccess ?? null,
+          flagOnFail: step.flagOnFail ?? null,
+          banishOnFail: step.banishOnFail === true,
+          climbFlag: step.climbFlag ?? null,
           disadvantage: meta.disadvantage,
           autoSuccess: meta.autoSuccess
         }));
@@ -477,9 +633,9 @@ export async function runPassiveTriggers(momentId, { baseCtx = {}, parentId = nu
  * The spec id is the declaration id ("shield"), which is also the patch source.
  */
 export function declarationSpecsForWindow(windowId, actor) {
-  const moment = windowMoment(windowId);
-  if (!moment || !actor || !featureEnabled("declaredTriggers")) return [];
-  return declarationsFor(actor, moment)
+  const moments = momentsForWindow(windowId);
+  if (!moments.length || !actor || !featureEnabled("declaredTriggers")) return [];
+  return moments.flatMap((moment) => declarationsFor(actor, moment))
     .filter((e) => e.decl.mode !== "passive" && e.item)
     .map((entry) => ({
       id: entry.decl.id,
@@ -553,9 +709,15 @@ export async function publishTurnMoments(combat, prior = {}, current = {}) {
   if (!featureEnabled("declaredTriggers")) return;
   try {
     const ended = tokenUuidForCombatant(combat, prior?.combatantId);
-    if (ended) await publishMoment("turnEnd", { triggerTokenUuid: ended });
+    if (ended) {
+      await publishMoment("turnEnd", { triggerTokenUuid: ended });
+      await publishMoment("endOfTurn", { triggerTokenUuid: ended });
+    }
     const started = tokenUuidForCombatant(combat, current?.combatantId);
-    if (started) await publishMoment("turnStart", { triggerTokenUuid: started });
+    if (started) {
+      await publishMoment("turnStart", { triggerTokenUuid: started });
+      await publishMoment("startOfTurn", { triggerTokenUuid: started });
+    }
   } catch (err) {
     console.warn(`${MODULE_ID} | turn triggers failed`, err);
   }

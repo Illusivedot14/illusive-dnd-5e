@@ -253,6 +253,10 @@ ddb-importer sends its writes to its hosted proxy. This module calls D&D Beyond 
 
 `removedHitPoints = Beyond max + hp.tempmax − hp.value`, using Beyond's maximum from the last read. A read of that result gives back the same current hit points, even when dnd5e's maximum differs from Beyond's. A difference is logged as `max-differs`.
 
+### 5.3 Rolls
+
+`dice/roll/fulfilled` from the game log becomes a Foundry chat message (`roll.mjs`), when the world setting `ddbShowRolls` is on (default). Each Beyond roll carries `diceNotation.set[]` (`dieType`, `count`, `operation` 1 keep lowest / 2 keep highest, `dice[].dieValue`), `diceNotation.constant`, `rollType`, `rollKind`, and `result.total`. It is rebuilt with `Roll.fromData` as evaluated `Die`, `OperatorTerm`, and `NumericTerm` terms holding Beyond's values, so nothing is re-rolled. Dice So Nice animates chat rolls with those values. The speaker is the linked actor, or `context.name`. `messageScope: "userId"` rolls are whispered to GMs. Shape source: Beyond20 `src/dndbeyond/page-scripts/message-broker.js`.
+
 **Conflicts**: last change wins. While a write for a character is queued, reads for that character are skipped (`reason: "writing"`).
 
 ## 6. B. The server

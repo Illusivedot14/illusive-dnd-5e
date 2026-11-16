@@ -114,6 +114,23 @@ async function ensureDamagingAuraEffect(targetActor, {
   return created;
 }
 
+async function ensureSpeedEffect(targetActor, { sourceUuid, auraId, name, speed }) {
+  const existing = findAuraEffect(targetActor, sourceUuid, `${auraId}-speed`);
+  const changes = [{ key: "system.attributes.movement.walk", mode: 2, value: String(speed) }];
+  if (existing) {
+    await updateDoc(existing, { changes });
+    return existing;
+  }
+  const { docs: [created] = [] } = await createEmbedded(targetActor, "ActiveEffect", [{
+    name,
+    img: "icons/magic/movement/trail-streak-pink.webp",
+    transfer: false,
+    changes,
+    flags: { [MODULE_ID]: { auraId: `${auraId}-speed`, sourceUuid, kind: "aura-buff", speed } }
+  }]);
+  return created;
+}
+
 async function ensureImmunityEffect(targetActor, {
   sourceUuid,
   auraId,
@@ -357,6 +374,17 @@ export async function syncAllAuras() {
             auraId: spec.id,
             name: `${spec.effectName} (${source.name})`,
             immunities: spec.immunities
+          });
+          buffs += 1;
+        }
+        if (Number(spec.speed) > 0) {
+          if (!validByActor.has(other.actor.uuid)) validByActor.set(other.actor.uuid, new Set());
+          validByActor.get(other.actor.uuid).add(`${sourceUuid}:${spec.id}-speed`);
+          await ensureSpeedEffect(other.actor, {
+            sourceUuid,
+            auraId: spec.id,
+            name: `${spec.effectName} (${source.name})`,
+            speed: Number(spec.speed)
           });
           buffs += 1;
         }

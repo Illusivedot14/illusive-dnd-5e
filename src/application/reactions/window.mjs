@@ -25,7 +25,8 @@ import { MODULE_ID } from "../../constants.mjs";
 import { isIncapacitated } from "../../domain/combat/conditions.mjs";
 import { actorFromUuid, tokenFromUuid, tokenUuidOf } from "../../foundry/token-lookup.mjs";
 import { createMomentScope, candidateContext, initiativeOf } from "./candidates.mjs";
-import { momentForWindow, runPassiveTriggers, declarationSpecsForWindow } from "../triggers/engine.mjs";
+import { momentsForWindow } from "../../domain/triggers/moments.mjs";
+import { runPassiveTriggers, declarationSpecsForWindow } from "../triggers/engine.mjs";
 import {
   remoteOwnerFor,
   sendReactionPrompt,
@@ -405,7 +406,10 @@ export async function openReactionWindow({
 } = {}) {
   if (!windowId) return mergePatches([]);
   const scope = createMomentScope(baseCtx);
-  const passive = await runPassiveTriggers(momentForWindow(windowId), { baseCtx, parentId, scope });
+  const passive = [];
+  for (const momentId of momentsForWindow(windowId)) {
+    passive.push(...await runPassiveTriggers(momentId, { baseCtx, parentId, scope }));
+  }
   const done = (collected = []) => mergePatches([...passive, ...collected]);
   if (!featureEnabled("reactionPause")) return done();
 

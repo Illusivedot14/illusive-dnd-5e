@@ -4,6 +4,7 @@
  * measure closest-square footprint (+ elevation), adjudicate bands.
  */
 
+import { MODULE_ID } from "../constants.mjs";
 import { spaceFeetBetween } from "../domain/spatial/geometry.mjs";
 import { rangeIssue, tooClose } from "../domain/spatial/range.mjs";
 import { isMeleeAttack, isRangedAttack } from "../domain/combat/activity-kind.mjs";
@@ -180,7 +181,11 @@ export function evaluateTargetRange(originDoc, targetDoc, activity, item, {
   scene = canvas?.scene,
   attackMode = null
 } = {}) {
-  const spec = resolveRangeSpec(activity, item, { attackMode });
+  let spec = resolveRangeSpec(activity, item, { attackMode });
+  const reachBonus = Number(originDoc?.actor?.getFlag?.(MODULE_ID, "reachBonus")) || 0;
+  if (reachBonus > 0 && (spec.kind === "melee" || spec.kind === "touch") && spec.value != null) {
+    spec = { ...spec, value: spec.value + reachBonus };
+  }
   const measured = measureTokenDistance(originDoc, targetDoc, scene);
   const feet = measured.value;
 

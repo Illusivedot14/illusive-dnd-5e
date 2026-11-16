@@ -151,20 +151,21 @@ function nearestAlly(self) {
   }) ?? null;
 }
 
-/** Patches: portent, legendary resistance, redirect. */
-export async function featurePatch(step, ctx, source) {
+/** Patches: portent, legendary resistance, redirect, ward, intercept. */
+export async function featurePatch(step, ctx, source, scope = null) {
   if (step.step === "portent") {
+    const flag = step.flag || "portent";
     if (step.mode === "store") {
       const count = Math.max(1, Number(step.dice) || 2);
       const stored = [];
       for (let i = 0; i < count; i += 1) stored.push(await die(20, "Portent"));
-      await setDocFlag(ctx.actor, MODULE_ID, "portent", stored.filter((n) => n > 0));
+      await setDocFlag(ctx.actor, MODULE_ID, flag, stored.filter((n) => n > 0));
       return [];
     }
-    const stored = [...(ctx.actor?.getFlag?.(MODULE_ID, "portent") ?? [])];
+    const stored = [...(ctx.actor?.getFlag?.(MODULE_ID, flag) ?? [])];
     const value = Number(stored.shift());
     if (!Number.isFinite(value) || value <= 0) return [];
-    await setDocFlag(ctx.actor, MODULE_ID, "portent", stored);
+    await setDocFlag(ctx.actor, MODULE_ID, flag, stored);
     return [{ type: "d20Replace", value, source }];
   }
   if (step.step === "legendaryResistance") {
@@ -176,6 +177,19 @@ export async function featurePatch(step, ctx, source) {
     const targetUuid = ally?.document?.uuid;
     if (!targetUuid) return [];
     return [{ type: "redirect", targetUuid, source }];
+  }
+  if (step.step === "intercept") {
+    const targetUuid = ctx.token?.document?.uuid ?? ctx.tokenUuid ?? null;
+    if (!targetUuid) return [];
+    return [{ type: "redirect", targetUuid, source }];
+  }
+  if (step.step === "ward") {
+    const trigger = scope?.trigger?.actor ?? null;
+    const dc = Number(step.dc);
+    if (!trigger || !Number.isFinite(dc)) return [{ type: "cancelAttack", source }];
+    const total = await saveTotal(trigger, step.ability || "wis", dc);
+    if (total == null || total < dc) return [{ type: "cancelAttack", source }];
+    return [];
   }
   return null;
 }

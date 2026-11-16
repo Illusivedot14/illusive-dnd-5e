@@ -43,7 +43,16 @@ function feetBetween(aFacts, bFacts, grid) {
   });
 }
 
+function hasFlyby(actor) {
+  const fly = Number(actor?.system?.attributes?.movement?.fly) || 0;
+  if (fly <= 0) return false;
+  return [...(actor?.items ?? [])].some((item) =>
+    item?.system?.identifier === "flyby" || /^flyby$/i.test(String(item?.name ?? "")));
+}
+
 function hasDisengageEffect(actor) {
+  if (hasFlyby(actor)) return true;
+  if ((Number(actor?.getFlag?.(MODULE_ID, "freeMoveFeet")) || 0) > 0) return true;
   if (actor?.statuses?.has?.("disengage")) return true;
   if (isDisengaged(actor)) return true;
   try {
@@ -385,6 +394,12 @@ export async function openLeaveReachWindow(tokenDoc, baseCtx = {}) {
     const { openReactionWindow } = await import("./reactions/window.mjs");
     await openReactionWindow({
       windowId: "on-leave-reach",
+      detached: true,
+      parentId: parentLogId,
+      baseCtx: ctx
+    });
+    await openReactionWindow({
+      windowId: "on-enter-reach",
       detached: true,
       parentId: parentLogId,
       baseCtx: ctx

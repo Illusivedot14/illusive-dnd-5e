@@ -85,7 +85,7 @@ export function adjustDamages(damages, { reduce = 0, resistTypes = [], actor = n
  * @param {{ multiplier?: number }} [opts]
  * @returns {Promise<false|{ ok: true, prior: object, next: object }>}
  */
-export async function applyDamagesToActor(actor, damages, { multiplier = 1 } = {}) {
+export async function applyDamagesToActor(actor, damages, { multiplier = 1, ignoreResistance = [] } = {}) {
   if (!actor || typeof actor.applyDamage !== "function") return false;
   if (!Array.isArray(damages) || !damages.length) return false;
   if (!(Number(multiplier) > 0)) return false;
@@ -98,7 +98,7 @@ export async function applyDamagesToActor(actor, damages, { multiplier = 1 } = {
 
   if (!payload.length) return false;
 
-  const result = await applyActorDamage(actor, payload, { multiplier: Number(multiplier) });
+  const result = await applyActorDamage(actor, payload, { multiplier: Number(multiplier), ignoreResistance });
   if (!result?.ok) return false;
   return { ok: true, prior: result.prior ?? null, next: result.next ?? null };
 }
@@ -124,7 +124,7 @@ function hpPool(snapshot) {
  * @param {{ rolls?: object[], targets: Array<string|DamageTarget>, melee?: boolean, tag?: object }} input
  * @returns {Promise<{ changes: object[], damagedUuids: string[], applied: number, concentration: object[], knockouts: object[] }>}
  */
-export async function applyDamageWithTrail({ rolls = [], targets = [], melee = false, tag = null } = {}) {
+export async function applyDamageWithTrail({ rolls = [], targets = [], melee = false, tag = null, ignoreResistance = [] } = {}) {
   const out = { changes: [], damagedUuids: [], applied: 0, concentration: [], knockouts: [] };
   const waitUuids = [];
   for (const raw of targets) {
@@ -149,7 +149,7 @@ export async function applyDamageWithTrail({ rolls = [], targets = [], melee = f
     let prior = snapshotHp(actor);
     let written = false;
     try {
-      written = await applyDamagesToActor(actor, damages, { multiplier });
+      written = await applyDamagesToActor(actor, damages, { multiplier, ignoreResistance });
     } catch (err) {
       console.warn("illusive-dnd-5e | applyDamage failed", actor?.uuid, err);
     }

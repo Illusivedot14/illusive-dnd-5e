@@ -9,13 +9,14 @@ vi.mock("../src/application/combat-game-log.mjs", () => journal);
 import { installFoundry } from "./helpers.mjs";
 import { evaluateCondition, conditionErrors } from "../src/domain/triggers/conditions.mjs";
 import { declarationErrors } from "../src/domain/triggers/declarations.mjs";
-import { momentForWindow, MOMENTS } from "../src/domain/triggers/moments.mjs";
+import { momentForWindow, momentsForWindow, MOMENTS } from "../src/domain/triggers/moments.mjs";
 import { evaluateArithmetic, substituteRefs, expandRefs, averageDice } from "../src/domain/triggers/formula.mjs";
 import { CONTENT } from "../src/content/declarations.mjs";
 import { getRule } from "../src/rules/catalog.mjs";
 import { declarationsFor, _resetTriggerIndex, invalidateActor } from "../src/application/triggers/index.mjs";
 import { runPassiveTriggers, declarationSpecsForWindow } from "../src/application/triggers/engine.mjs";
 import { mergePatches } from "../src/application/reactions/registry.mjs";
+import { enteredReach } from "../src/domain/combat/opportunity-attack.mjs";
 import { squaresCrossed, tickZoneMove } from "../src/application/zones.mjs";
 import { doubleRange } from "../src/application/range.mjs";
 import { zoneBonusActions, igniteTerrain, movementCostMultiplier } from "../src/application/zones.mjs";
@@ -129,8 +130,24 @@ describe("declarations", () => {
 
   it("every wired moment maps to its reaction window", () => {
     for (const [id, m] of Object.entries(MOMENTS)) {
-      if (m.window) expect(momentForWindow(m.window)).toBe(id);
+      if (!m.window) continue;
+      expect(momentsForWindow(m.window)).toContain(id);
+      expect(momentsForWindow(m.window)).toContain(momentForWindow(m.window));
     }
+    expect(momentsForWindow("on-attack-hit")).toEqual(expect.arrayContaining(["isHit", "allyIsHit"]));
+    expect(momentsForWindow("on-attack-declared")).toEqual(
+      expect.arrayContaining(["attackDeclared", "isAttacked", "enemyAttacks"])
+    );
+  });
+
+  it("force a miss, cancel an attack, and notice a creature entering reach", () => {
+    const missed = mergePatches([{ type: "forceMiss", targetUuid: "Scene.s.Token.a", source: "illusory-self" }]);
+    expect([...missed.forceMissUuids]).toEqual(["Scene.s.Token.a"]);
+    expect(mergePatches([{ type: "cancelAttack", source: "sanctuary" }]).cancelAttack).toBe(true);
+    expect(mergePatches([{ type: "uncrit" }]).uncrit).toBe(true);
+    expect(mergePatches([{ type: "saveEvasion" }]).saveEvasion).toBe(true);
+    expect(enteredReach({ fromFeet: 15, toFeet: 5, reachFeet: 10 })).toBe(true);
+    expect(enteredReach({ fromFeet: 5, toFeet: 15, reachFeet: 10 })).toBe(false);
   });
 
   it("formulas: refs and arithmetic", () => {
