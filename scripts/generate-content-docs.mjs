@@ -1,6 +1,8 @@
 import fs from "fs";
 import path from "path";
 
+throw new Error("docs/phb-coverage.md is the spell, feature, and mastery list. This script would recreate the old dnd5e 5.3.3 inventories.");
+
 const dump = path.resolve("docs/_pack-dump");
 const docs = path.resolve("docs");
 const ref = path.join(docs, "reference");

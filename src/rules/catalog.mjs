@@ -69,7 +69,7 @@ export const RULES = Object.freeze({
     },
     errata: { checked: false, version: null },
     automation: "full",
-    notes: "Spend + hard/soft reaction windows (docs/combat-engine.md)"
+    notes: "Spend + hard/soft reaction windows (docs/design-doc.md)"
   },
   "combat.reaction.shield": {
     id: "combat.reaction.shield",

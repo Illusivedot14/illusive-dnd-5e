@@ -135,6 +135,31 @@ describe("dnd beyond sync", () => {
         ]
       }
     })).toEqual({ max: 102, tempmax: -6, value: 96, temp: 0, overridden: false });
+    expect(hitPointsFromSheet({
+      baseHitPoints: 48,
+      removedHitPoints: 3,
+      stats: [{ id: 3, value: 16 }],
+      classes: [{ level: 9 }],
+      inventory: [
+        { id: 1101168698, equipped: false, definition: { id: 5133, name: "Potion of Healing (Greater)" } },
+        { id: 900149065, equipped: false, definition: { id: 8960641, name: "Potion of Healing" } }
+      ],
+      modifiers: {
+        item: [
+          { type: "bonus", subType: "hit-points", value: null, fixedValue: 4, isGranted: true, componentId: 5133, dice: { diceCount: 4, diceString: "4d4 + 4" } },
+          { type: "bonus", subType: "hit-points", value: null, fixedValue: 2, isGranted: true, componentId: 8960641, dice: { diceCount: 2, diceString: "2d4 + 2" } }
+        ]
+      }
+    })).toEqual({ max: 75, tempmax: 0, value: 72, temp: 0, overridden: false });
+    expect(hitPointsFromSheet({
+      baseHitPoints: 48,
+      stats: [{ id: 3, value: 16 }],
+      classes: [{ level: 9 }],
+      inventory: [{ id: 1, equipped: true, isAttuned: true, definition: { id: 99 } }],
+      modifiers: {
+        item: [{ type: "bonus", subType: "hit-points", value: 5, isGranted: true, componentId: 99, requiresAttunement: true }]
+      }
+    })).toMatchObject({ max: 80 });
     expect(hpFromRemoved(28, 6)).toBe(22);
     expect(actorIdFor({ "103508287": "paladin" }, 103508287)).toBe("paladin");
   });

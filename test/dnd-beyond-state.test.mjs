@@ -3,6 +3,7 @@ import { installFoundry } from "./helpers.mjs";
 import {
   beyondState,
   foundryState,
+  hpMaxGap,
   linkItems,
   readChanges,
   structureGaps,
@@ -298,6 +299,33 @@ describe("dnd beyond play state", () => {
     delete globalThis.ActiveEffect;
   });
 
+  it("does not create poisoned again when Brother Broccoli already has dnd5epoisoned000", async () => {
+    const actor = balrus({ statuses: [] });
+    actor.effects = [{ id: "dnd5epoisoned000", disabled: false, statuses: [] }];
+    actor.update = vi.fn(async () => {});
+    actor.updateEmbeddedDocuments = vi.fn(async () => {});
+    actor.createEmbeddedDocuments = vi.fn(async () => {});
+    actor.deleteEmbeddedDocuments = vi.fn(async () => {});
+    const character = sheet({ conditions: [{ id: 11, level: null }] });
+    const changes = readChanges(actor, beyondState(character), linkItems(actor, character));
+    expect(changes.statuses).not.toContainEqual({ status: "poisoned", active: true });
+    installFoundry({ actors: [actor] });
+    globalThis.ActiveEffect = {
+      implementation: { fromStatusEffect: vi.fn(async () => ({ toObject: () => ({ _id: "dnd5epoisoned000", name: "Poisoned", statuses: ["poisoned"] }) })) }
+    };
+    const result = await applyBeyondSheet({
+      message: { eventType: "character-sheet/character-update/fulfilled", characterId: "149491494" },
+      config: { updateDamage: true, campaignId: "6846437" },
+      mapping: { "149491494": "balrus" },
+      actors: game.actors,
+      fetchCharacter: async () => ({ success: true, ddb: { character } }),
+      now: 7
+    });
+    expect(result.ok).toBe(true);
+    expect(actor.createEmbeddedDocuments).not.toHaveBeenCalled();
+    delete globalThis.ActiveEffect;
+  });
+
   it("gives Foundry a fresh options object on every call, as Foundry writes parent into it", async () => {
     const actor = balrus();
     const seen = [];
@@ -328,5 +356,49 @@ describe("dnd beyond play state", () => {
     expect(new Set(seen).size).toBe(seen.length);
     expect(result.changed).not.toContain("_id");
     delete globalThis.ActiveEffect;
+  });
+
+  it("writes Brother Broccoli at 72 of 75 and leaves the potion healing out of his maximum", async () => {
+    const actor = balrus({ statuses: ["prone"] });
+    actor.name = "Brother Broccoli";
+    actor.system.attributes.hp.max = 75;
+    actor.system.attributes.hp.value = 75;
+    actor.system.attributes.hp.tempmax = 0;
+    actor._source.system.attributes.hp.value = 75;
+    actor._source.system.attributes.hp.tempmax = 0;
+    actor._source.system.attributes.exhaustion = 2;
+    actor.effects = [];
+    const character = sheet({
+      id: 149491494,
+      baseHitPoints: 48,
+      bonusHitPoints: null,
+      removedHitPoints: 3,
+      temporaryHitPoints: 0,
+      stats: [{ id: 3, value: 16 }],
+      classes: [{ id: 240333990, level: 9, hitDiceUsed: 3, definition: { name: "Warlock" } }],
+      modifiers: {
+        item: [
+          { type: "bonus", subType: "hit-points", value: null, fixedValue: 4, isGranted: true, componentId: 5133, dice: { diceCount: 4, diceString: "4d4 + 4" } },
+          { type: "bonus", subType: "hit-points", value: null, fixedValue: 2, isGranted: true, componentId: 8960641, dice: { diceCount: 2, diceString: "2d4 + 2" } }
+        ]
+      }
+    });
+    expect(hpMaxGap(actor, beyondState(character))).toBe(0);
+    actor.update = vi.fn(async () => {});
+    actor.updateEmbeddedDocuments = vi.fn(async () => {});
+    actor.createEmbeddedDocuments = vi.fn(async () => {});
+    actor.deleteEmbeddedDocuments = vi.fn(async () => {});
+    installFoundry({ actors: [actor] });
+    const result = await applyBeyondSheet({
+      message: { eventType: "character-sheet/character-update/fulfilled", characterId: "149491494" },
+      config: { updateDamage: true, campaignId: "6846437" },
+      mapping: { "149491494": "balrus" },
+      actors: game.actors,
+      fetchCharacter: async () => ({ success: true, ddb: { character } }),
+      now: 7
+    });
+    expect(result).toMatchObject({ ok: true, value: 72, max: 75 });
+    expect(actor.update.mock.calls[0][0]["system.attributes.hp.value"]).toBe(72);
+    expect(actor.createEmbeddedDocuments).not.toHaveBeenCalled();
   });
 });

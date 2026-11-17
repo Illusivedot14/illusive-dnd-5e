@@ -16,9 +16,15 @@
 .illusive-dnd-beyond-window input,
 .illusive-dnd-beyond-window select,
 .illusive-dnd-beyond-window textarea {
-  background: #120e1c;
+  background: #000;
   color: #f0ddb0;
   border: 1px solid #b89a5c;
+  color-scheme: dark;
+}
+
+.illusive-dnd-beyond-window select option {
+  background: #000;
+  color: #f0ddb0;
 }
 
 .illusive-dnd-beyond-window button {

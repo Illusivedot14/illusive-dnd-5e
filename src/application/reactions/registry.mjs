@@ -5,7 +5,7 @@
  * Item reactions (Shield, Counterspell, Deflect, Riposte, …) are declarations in
  * src/content/declarations.mjs, offered through triggers/engine.mjs
  * declarationSpecsForWindow. Ready stays here: it reads the readier's flag, not an item.
- * See docs/combat-engine.md §9. Citations: src/rules/catalog.mjs.
+ * See docs/design-doc.md. Citations: src/rules/catalog.mjs.
  */
 
 import { linkActivityItem, listActivities } from "../../domain/combat/activity-kind.mjs";

@@ -3,7 +3,7 @@
  *
  * Consumes dnd5e for item data + dice. Illusive owns:
  * economy spend, hit adjudication, damage application to tokens, change trail.
- * Every HP write goes through applyDamageWithTrail (docs/combat-engine.md §7).
+ * Every HP write goes through applyDamageWithTrail (docs/design-doc.md).
  */
 
 import { evaluateAttackTargets } from "../domain/combat/attack-outcome.mjs";

@@ -23,7 +23,7 @@ export class BeyondSyncMenu extends IllusiveDndSubsettingsForm {
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["illusive-dnd-subsettings", "illusive-dnd-beyond-window"],
-      width: 520,
+      width: 780,
       closeOnSubmit: false
     });
   }

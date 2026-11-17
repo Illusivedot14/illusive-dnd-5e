@@ -1,367 +1,218 @@
-# D&D 5e Combat Automation Module for Foundry VTT
+# Engine
 
-**Status:** Discovery complete · slices C1–C4, M1, V1, L1, Q1 implemented  
-**Version:** 0.9  
-**Last updated:** 2026-11-09
+**Module:** `illusive-dnd-5e` 0.2.0  
+**Foundry:** 14.370 · **dnd5e:** 6.0.0–6.0.6  
+**Rules:** 2024. A 2014 item is labeled on that item.
 
-## 1. Purpose
+Illusive owns the combat loop. dnd5e owns the dice, the activity, the spell slot, and the condition. This module does not fork the system. `module.json` conflicts with Midi-QOL and with `dnd5e-combat`.
 
-Design an integrated, easier-to-use automation module for Foundry VTT’s D&D 5e system. Its scope includes combat, movement and pathfinding, vision simulation, lighting, and loot, presented through the reworked Illusive D&D HUD. It should provide this broad capability set through a clear, maintainable architecture and a simple user experience. The module should rely on the system for rules and data wherever possible, preserve 2014/2024 source distinctions, and cite each rules ruling it implements.
+A spell or feature that is still missing is another instruction in `src/content/`. The steps that run it are already here.
 
-**Implementation form (confirmed):** one Foundry add-on module (`illusive-dnd-5e`) over the official D&D 5e system. Not a system fork.
+## What each layer owns
 
-### Confirmed user needs
-
-- Automation should be no more complex than the table needs.
-- The UI should be pleasant to use.
-- Behavior should be transparent: the user wants to understand what the module did and why.
-- Customization should be clear: each available control should explain what it changes and how to use it.
-- The Illusive D&D HUD is the frontend; do not create a separate HUD.
-- Desired automation domains: combat, movement/pathfinding, vision simulation, lighting, and loot.
-
-### Product requirements
-
-- Publish a plain list of what the module handles vs what stays manual (see §12).
-- Keep HUD presentation separate from the rule-resolution engine.
-- For each automated action, show trigger, target, result, and applied changes; provide a correction path.
-- Make customization discoverable and outcome-based.
-- Zero Foundry **module** dependencies. System relationship: `dnd5e` only.
-
-### Confirmed project target
-
-| Item | Value |
-|---|---|
-| Foundry | **14** (module `compatibility.verified`: 14) |
-| Installed dnd5e package | **5.3.3** (compatibility minimum 13.347, verified 14) |
-| Rules baseline | **2024**, with selected **2014 / Legacy** variants labeled |
-| Package | Single module `illusive-dnd-5e` |
-
-**Content to automate (inventory):** [content-inventory.md](content-inventory.md) — Weapon Masteries, Spells, Features from stock dnd5e 5.3.3 packs.
-
-> Note: DAS advertises dnd5e **6.0+**. This world currently runs **5.3.3**. v1 integrates against 5.3.3 public hooks (`dnd5e.preUseActivity`, `dnd5e.postUseActivity`, `dnd5e.rollAttackV2`, `dnd5e.rollDamageV2`, death-save hooks). Re-verify when upgrading the system package.
-
----
-
-## 2. Source and citation policy
-
-1. Controlling source: official rulebook + errata; record book, section/glossary, printed page.
-2. D&D Beyond locators are helpers, not replacements for book citations.
-3. Keep 2014 and 2024 distinct; never silently substitute.
-4. Table/house rules labeled as such.
-5. Unsettled questions stay unresolved and prompt the DM — never present implementation as a rules ruling.
-
-### Official source register
-
-| Rules source | Official locator | Use |
-|---|---|---|
-| *Player’s Handbook* (2014) | [compendium](https://www.dndbeyond.com/sources/dnd/phb-2014) | 2014 / Legacy |
-| *Player’s Handbook* (2024) | [compendium](https://www.dndbeyond.com/sources/dnd/phb-2024) | 2024 baseline |
-| *Player’s Handbook* (2024) errata | [PDF](https://media.dndbeyond.com/compendium-images/errata/PHB-24/PHB-2024_v1.pdf) | Required when implementing affected text |
-| DMG / Monster Manual | To be added when those behaviors are selected | Deferred |
-
----
-
-## 3. Product decisions
-
-| Decision | Status | Selection |
-|---|---|---|
-| Rules mode | **Confirmed** | 2024 baseline; 2014 labeled `2014 / Legacy`; use system rulesVersion |
-| Domains | **Confirmed** | Combat, movement/pathfinding, vision, lighting, loot |
-| Package | **Confirmed** | One add-on module over dnd5e |
-| Foundry | **Confirmed** | v14 |
-| dnd5e package | **Recorded** | Installed **5.3.3** |
-| Frontend | **Confirmed** | Illusive D&D HUD in-repo |
-| Automation level (v1) | **Selected** | **Full** always — no essentials/assisted setting; all shipped features on |
-| v1 combat automation | **Selected** | Activity use from HUD → track resolution → show explanation → GM correction stub |
-| Class/spell library automation | **Out of v1** | Rely on dnd5e item/activity data; no DAS-scale premade library |
-| Homebrew authoring UI | **Out of scope** | Not confirmed |
-| Animations / ambience FX | **Out of scope** | Not confirmed |
-
----
-
-## 4. Design principles
-
-- Version each rule; preserve provenance; separate rules from automation.
-- Expose uncertainty; avoid destructive migration; prefer small testable rule units.
-- Do not ship copied rulebook prose without a permitted basis.
-
----
-
-## 5. Rule record format
-
-Each implemented rule: `id`, `name`, `edition`, `source`, `errata`, `trigger`, `inputs`, `procedure`, `outcomes`, `dm_decisions`, `automation`, `notes`.
-
----
-
-## 6. Architecture (confirmed)
-
-```text
-src/
-  main.mjs
-  constants.mjs
-  domain/          # pure state & spatial math
-  application/     # use cases, view models
-  foundry/         # hooks + document/system adapters
-  rules/           # citations / metadata
-  i18n/
-  hud/             # presentation only (boot, settings, lib, components, styles, templates)
+```mermaid
+flowchart LR
+  hud["hud and phone sheet"] --> app["application"]
+  beyond["dnd-beyond-sync"] --> foundry["foundry adapters"]
+  app --> domain["domain"]
+  app --> foundry
+  foundry --> dnd5e["dnd5e activities, rolls, slots, conditions"]
+  content["src/content instructions"] --> app
+  rules["src/rules/catalog.mjs"] --> content
 ```
 
-| Boundary | Owns | Must not own |
-|---|---|---|
-| `domain/` | Pure transitions, spatial math, rule-context shapes | Foundry, DOM, document writes |
-| `application/` | Start/resume workflows, view models, correction commands | Presentation markup, direct Foundry globals |
-| `foundry/` | Hooks, dnd5e/document reads/writes, scene facts | Independent rule decisions |
-| `hud/` | Controls, prompts, displays | Rule logic, mechanical document updates for resolutions |
-| `rules/` | IDs, citations, edition/errata metadata | Copied prose / duplicate procedures |
+| Folder | Owns | Does not own |
+| --- | --- | --- |
+| `src/domain/` | Pure checks: hit, cover, budget, moments, step shapes, mastery plan | Foundry documents, dice, the DOM |
+| `src/application/` | Resolve an activity, open a reaction window, apply damage, move a token, run an instruction | Markup |
+| `src/foundry/` | Hooks, the GM write gateway, the reaction socket, document undo | A second copy of a rule |
+| `src/content/` | The instruction for a named spell or feature | A new dice pipeline |
+| `src/rules/` | The citation for each instruction | The procedure |
+| `src/hud/`, `src/tabletop/`, `src/animation/` | The bar, the tracker, the phone, the effect | Hit points |
+| `src/dnd-beyond-sync/` | Live Beyond reads and writes. The relay sees ciphertext only | Combat rules |
 
-### Runtime contracts (v1)
+The HUD does not call `setFlag`, `applyDamage`, or `activity.use`. A click goes through `src/application/`.
 
-```text
-combat.startHudAction({ token, item, activity, section, event, useOptions }) -> resolutionId
-combat.submitEvent({ resolutionId, event }) -> ActionResolution
-combat.correctResolution({ resolutionId, correction }) -> ActionResolution
-combat.getHudView({ workflowId }) -> HudViewModel
-combat.getLastResolutionView() -> HudViewModel | null
+## One activity
 
-activity.useActivityFromHud(...)     # HUD entry; validates targets then startHudAction
-economy.*                            # combatant turn budget (flags.illusive-dnd-5e.turn)
+```mermaid
+sequenceDiagram
+  participant Bar as Action bar
+  participant Resolve as resolve-activity
+  participant Window as Reaction window
+  participant System as dnd5e
+  participant Write as applyDamageWithTrail
+
+  Bar->>Resolve: use item activity
+  Resolve->>Window: on-cast
+  Window-->>Resolve: pass or cancel
+  Resolve->>System: roll the attack or the save
+  Resolve->>Window: on-attack-hit or on-save
+  Window-->>Resolve: patch the roll
+  Resolve->>System: roll the damage
+  Resolve->>Window: on-damage-known
+  Window-->>Resolve: halve, reduce, or resist
+  Resolve->>Write: one hit point write
+  Write->>Window: after-damage-applied
 ```
 
-Deferred until their slices: `movement.preview/commit`, `vision.evaluate`, `lighting.perform`, `loot.perform`.
+`src/application/resolve-activity.mjs` is that sequence. Every hit point write goes through `applyDamageWithTrail` in `src/application/damage-apply.mjs`, then the GM write gateway in `src/foundry/write-gateway.mjs` when the player does not own the document.
 
-**Combat engine (authoritative):** [combat-engine.md](combat-engine.md) — ActionResolution FSM, hybrid reaction windows (hard pause vs soft sibling), irreversibility, registry, implementation slices R1+.
+## Resolution states
 
-### Action lifecycle (v1)
-
-```text
-created → awaiting-attack → awaiting-damage-or-save → ready-to-apply → completed
-                                                         ↘ cancelled | corrected
-                         ↘ awaiting-reaction (hard window / OA) ↗
+```mermaid
+stateDiagram-v2
+  state "created" as created
+  state "awaiting-attack" as awaitingAttack
+  state "awaiting-reaction" as awaitingReaction
+  state "awaiting-damage-or-save" as awaitingDamage
+  state "ready-to-apply" as ready
+  state "completed" as completed
+  state "cancelled" as cancelled
+  state "corrected" as corrected
+  [*] --> created
+  created --> awaitingAttack: attack activity
+  created --> awaitingDamage: save or damage activity
+  awaitingAttack --> awaitingReaction: hard window
+  awaitingDamage --> awaitingReaction: hard window
+  awaitingReaction --> awaitingAttack: resume
+  awaitingReaction --> awaitingDamage: resume
+  awaitingAttack --> awaitingDamage: attack rolled
+  awaitingDamage --> ready: damage known
+  ready --> completed: hit points written
+  created --> cancelled: dismissed or countered
+  completed --> corrected: undo
 ```
 
-Leave-reach **OA** holds movement until Pass or a reaction resolves. Other rewrite reactions use **hard windows** on the parent (see combat-engine.md); pure retaliations (e.g. Hellish Rebuke) stay soft siblings.
+The phase strings in `src/domain/combat/action-state.mjs` are `created`, `awaiting-attack`, `awaiting-reaction`, `awaiting-damage-or-save`, `ready-to-apply`, `completed`, `cancelled`, and `corrected`. The diagram uses those eight. A save and a damage roll share `awaiting-damage-or-save`.
 
----
+The record is an `ActionResolution`: phase, targets, rolls, the undo list, the parent id when this roll is a reaction, and the window patch. Events live in `src/domain/combat/advance-action.mjs`. Start, pause, and correct live in `src/application/combat.mjs`.
 
-## 7. Domain inventory — capabilities, exclusions, order
+A hard window sets the parent to `awaitingReaction` until Pass or Use. A soft window prompts and does not wait. The default mode on an instruction is hard. Ready is soft. The miss window opens before the hit is frozen, so an instruction can turn that miss into a hit.
 
-### Implementation order
+## An instruction
 
-1. **Combat v1** — HUD activity use, resolution tracking, explanation, correction stub  
-2. **Movement v1** — path preview + commit + budget (reuse HUD movement ring)  
-3. **Vision v1** — observer→target visibility result for HUD feedback  
-4. **Lighting v1** — normalize scene lights; feed vision; keep HUD light presets as UI  
-5. **Loot v1** — drop / pick up / transfer with permission checks  
+```mermaid
+flowchart TD
+  item["Sheet item"] --> match["Match the short name or the item name"]
+  match --> moment["Moment fires"]
+  moment --> facts["Facts: self, target, ally, distance"]
+  facts --> cond{"Condition passes"}
+  cond -->|no| skip["Nothing"]
+  cond -->|yes| step["Run the steps"]
+  step --> patch["Patch the open roll"]
+  step --> gateway["Write through the gateway"]
+```
 
-### Combat
+An instruction is data, not a new file per spell.
 
-| In v1 | Stays manual / deferred |
-|---|---|
-| Launch item activity from HUD via dnd5e `activity.use` | Full class-feature / spell premade library |
-| Combatant turn budget (`action`/`bonus`/`reaction` + basic flags) | |
-| Resolution record + trace + HUD explanation strip | Per-spell special-case scripts beyond activity data |
-| Save activities: auto saves, `damage.onSave`, effect profiles | Player-prompted save UX (always auto under full automation) |
-| Opportunity attacks on leave-reach + held move + reaction prompt | Auto-fire OA without owner choice |
-| Cover matrix into hit AC; long-range disadvantage | Obscurement / three-quarters soft adjudication UI |
-| GM undo of recorded HP (+ economy refund) | Blind actor snapshot restore |
-| Concentration check after damaging apply | |
-| Death save button / concentration drop (existing HUD) | Merchants / CR treasure |
+```js
+{
+  id: "shield",
+  match: { types: ["spell"], identifiers: ["shield"], names: [/^shield$/i] },
+  declarations: [{
+    id: "shield",
+    rule: "combat.reaction.shield",
+    on: "isHit",
+    mode: "hard",
+    do: [{ step: "acBonus", to: "self", value: 5 }]
+  }]
+}
+```
 
-### Movement / pathfinding
+`match.identifiers` is the short name Foundry stores on the item (`misty-step` for Misty Step). `match.names` is the import fallback. `match.effects` matches an effect name, which is how Sanctuary avoids warding every cleric who prepared the spell. `rule` is a key in `src/rules/catalog.mjs`. The declaration `note` is the sentence the catalog shows.
 
-| Later (order 2) | Excluded for now |
-|---|---|
-| Grid path preview, cost, Dash, undo (HUD already undoes) | 3D climb/ceiling traversal, DAS-style click-to-path |
+Shipped instructions are `src/content/declarations.mjs`, which spreads `src/content/phase-packs.mjs` and `src/content/phase-packs-rest.mjs`. The runner is `src/application/triggers/engine.mjs`. Several moments can share one window. `momentsForWindow` in `src/domain/triggers/moments.mjs` returns every moment for that window.
 
-### Vision
+### Moments
 
-| Later (order 3) | Excluded for now |
-|---|---|
-| visible / not / indeterminate + factors | BG3-style faction vision cones productization |
+35 moments. A blank window means the moment is published by the turn, the rest, or the feature use, not by a reaction window.
 
-### Lighting
+| Window | Moments |
+| --- | --- |
+| `on-attack-declared` | attackDeclared, isAttacked, preAttackRoll, allyAttacks, enemyAttacks |
+| `on-targeted` | isTargeted |
+| `on-attack-hit` | isHit, allyIsHit, enemyAttacked |
+| `on-attack-miss` | isMissed |
+| `on-pre-damage` | preDamageRoll |
+| `on-damage-known` | damageKnown |
+| `after-damage-applied` | isDamaged, allyIsDamaged |
+| `on-cast` | castsSpell |
+| `on-save-success` | savedSave |
+| `on-save-fail` | failedSave |
+| `on-check-success` | checkSucceeded |
+| `on-fall` | falls |
+| `after-move` | moves |
+| `on-leave-reach` | leavesReach |
+| `on-enter-reach` | entersReach |
+| none | usesFeature, hitDamage, weaponMastery, aura, turnStart, turnEnd, startOfTurn, endOfTurn, gainsCondition, disengages, enemyDisengages, rest, enter |
 
-| Later (order 4) | Notes |
-|---|---|
-| Domain lighting eval owned once; vision consumes it | HUD light presets remain presentation calling foundry token light updates |
+### Steps
 
-### Loot
+A step either patches the roll that is already open, or writes a document. Patches merge in `src/application/reactions/registry.mjs`. Writes go through the gateway. The step ids are the keys of `STEPS` in `src/domain/triggers/steps.mjs`:
 
-| Later (order 5) | Excluded for now |
-|---|---|
-| drop / pickup / transfer | Merchants, CR treasure tables, pickpocket minigame |
+`advantage`, `disadvantage`, `attackBonus`, `attackPenalty`, `acBonus`, `damageReduce`, `damageMultiplier`, `halve`, `miss`, `ward`, `uncrit`, `intercept`, `evade`, `connect`, `reroll`, `cancelCast`, `counterspell`, `resist`, `bonusDamage`, `portent`, `legendaryResistance`, `redirect`, `grantAction`, `grantReaction`, `freeReaction`, `budget`, `grantMove`, `teleport`, `swap`, `push`, `pull`, `slayBelow`, `damage`, `heal`, `tempHp`, `applyStatus`, `removeStatus`, `applyEffect`, `endEffect`, `setFlag`, `spendUses`, `grantAdvantage`, `hitRider`, `resistEffect`, `save`, `zone`, `moveZone`, `aura`, `grapple`, `contest`, `control`, `metamagic`, `wildShape`, `inspiration`, `layOnHands`, `recharge`, `split`, `mark`, `repeatSave`, `endOnAction`, `lingeringDisadvantage`, `ignite`, `restoreSlot`, `pendingDie`, `chooseType`, `veil`, `note`.
 
----
+`setFlag` takes a number or a formula. Omitting `value` stores true. `value: true` is rejected.
 
-## 8. HUD control → application contract map
+## Who is asked, and what cannot be undone
 
-Controls map as follows.
+```mermaid
+sequenceDiagram
+  participant Parent as Parent resolution
+  participant Win as openReactionWindow
+  participant Owner as Owning player
+  participant GM as Active GM
 
-### Action bar / mobile sheet (combat)
+  Parent->>Win: window id and facts
+  Win->>Owner: prompt on that player's client
+  Owner-->>Win: Pass or Use
+  Win->>Parent: merged patch, then the parent continues
+  Note over GM: A player never writes a document they do not own
+```
 
-| Control | Current behavior | Owning API |
-|---|---|---|
-| Ability / activity click | `useActivityFromHud` | `application/activity` → `application/combat` → `foundry/dnd5e-adapter` |
-| Target pick confirm | same | same |
-| Economy gems (action/bonus/reaction) | toggle flags | `application/economy` |
-| Death save | `actor.rollDeathSave` | stays foundry/actor until combat slice owns it |
-| Drop concentration | combat-actions helper | `application/combat-actions` |
-| Standard actions (dash/disengage/…) | standard-actions | `application/standard-actions` |
-| Reaction prompt chrome | reaction-context | `application/reaction-context` (prompt only in v1) |
+Reactors are grouped per creature, one reaction each, highest initiative first. The prompt is a socket message to the owner. An NPC prompt goes to the active GM. A timeout is a Pass. A disconnected owner does not freeze a hard window past the grace timer.
 
-### Movement
+Committed, in order:
 
-| Control | Current behavior | Future owner |
-|---|---|---|
-| Movement mode / undo | `action-economy` / token updates | `application/movement` + `domain/movement` |
-| Mobile step pad | `foundry/token-step` | same |
-| Speed ring display | HUD read of token movement | view model from movement app |
+| After this | The window that can still change it |
+| --- | --- |
+| `activity.use` spends the slot | `on-cast`. A countered 2024 spell gets the slot back. The action stays spent |
+| Attack roll | `on-attack-declared` |
+| Hit list | `on-attack-hit`, then `on-attack-miss` before the hit is frozen |
+| Save or check | `on-save-success`, `on-save-fail`, `on-check-success` |
+| Damage total | `on-damage-known` |
+| Hit points | none. `after-damage-applied` can retaliate. It cannot un-apply the hit |
+| Token position | `on-leave-reach` holds the move until the opportunity attack is taken or passed |
 
-### Lighting / aura / vision display
+Undo of a parent undoes its reactions first. The game log is stored on the combat by the GM. Turn ticks, aura copies, and effect expiry run on one client, the active GM, else the lowest-id active player.
 
-| Control | Current behavior | Future owner |
-|---|---|---|
-| Light presets | token light update in HUD util | `application` lighting perform → foundry |
-| Aura picker | module flags + canvas paint | presentation + foundry flags |
-| Passive vision summary | `foundry/actor-stats` | later `vision.evaluate` feed |
+## Turn budget
 
-### Loot / inventory
+`src/application/economy.mjs` tracks action, bonus, reaction, and the flags `dashed`, `disengaged`, and `dodging`. `src/foundry/combat-turn.mjs` resets that budget on `combatTurnChange`. After the reset, an effect named Haste adds one action, and an item whose short name is `reactive` adds one reaction. Those two are not also granted by a turn-start instruction.
 
-| Control | Current behavior | Future owner |
-|---|---|---|
-| Item interactions / suitcase | `foundry/item-interactions` | `application/loot` |
-| Mobile sheet inventory | sheet presentation | loot perform |
+Leaving reach provokes unless the creature has the disengage status, the disengaged budget flag, Flyby with a fly speed, or `freeMoveFeet` still above 0. A push from this module does not provoke.
 
-### Presentation-only (no domain)
+## Areas, light, and masteries
 
-Turn tracker, party rail, boss bar, camera pad, connection QR, mobile chrome, panel theme, layout.
+A zone instruction places a filled circle. Wall of Force and Wall of Stone are 10-foot circles centered on the caster and block entering and leaving. Forcecage is the same at 20 feet. They are not a wall line and not a cage of bars. Antimagic Field cancels a spell cast inside it. The slot is already spent. Globe of Invulnerability drops targets inside it for a spell of level 1 through 5. Cantrips are not warded.
 
----
+`src/content/masteries.mjs` lists Cleave, Graze, Nick, Push, Sap, Slow, Topple, and Vex. `src/application/mastery.mjs` applies them after the hit or the miss. dnd5e shows the name on the attack dialog and does not apply the effect.
 
-## 9. Shared facts and subsystem ownership
+Night Spirit and Skulker read the light already recorded on the scene. No recorded lights means the status does not change.
 
-| Fact / calculation | Owner | Consumers |
-|---|---|---|
-| Grid size, distance, unit conversion | `domain/spatial/grid` | movement, vision, range checks |
-| Footprints, pixel distance | `domain/spatial/geometry` | movement, vision, activity range |
-| Normalized walls/doors/tokens/lights | `foundry/scene-adapter` | movement, vision, lighting |
-| Lighting evaluation | `domain/lighting` (order 4) | vision, HUD indicators |
-| Visibility decision | `domain/vision` (order 3) | HUD, combat range/LOS assists |
-| Path + move legality | `domain/movement` (order 2) | HUD movement, mobile step |
-| Action resolution state | `domain/combat` | application/combat, HUD view |
-| Rules edition context | `domain/rule-context` + `foundry/dnd5e-adapter.resolveRulesContext` | all rule-bearing procedures |
-| Economy flags | `application/economy` on `flags.illusive-dnd-5e` | HUD gems, ability disable |
+## D&D Beyond
 
----
+`src/dnd-beyond-sync/` is the only folder that knows Beyond's payload. Combat reads Foundry actors. The live socket is the game log. A sheet edit arrives as `character-update`, then a character read. A Beyond roll becomes a Foundry chat roll. A long rest and a short rest write back. The transport is the vendored relay. Nothing outside the module folder has to be started.
 
-## 10. v1 combat rules matrix (first slice)
+## Not an instruction
 
-| id | Name | Edition | Source | Automation | Notes |
-|---|---|---|---|---|---|
-| `combat.activity-use` | Use item activity | system | dnd5e activity API | assisted | Rolls/damage via system; Illusive owns workflow + explanation |
-| `combat.economy.action` | Action economy — Action | 2024 / system | PHB action economy (cite on expand) | assisted | Module flags |
-| `combat.economy.bonus` | Action economy — Bonus | 2024 / system | same | assisted | |
-| `combat.economy.reaction` | Action economy — Reaction | 2024 / system | same | assisted | Spend + hard/soft pause (see combat-engine.md) |
-| `combat.range.check` | Activity range gate | convenience | Closest-square + elevation; melee/ranged/thrown bands | assisted | Long range allowed (band flagged); cover gate on attacks |
-| `combat.opportunity-attack.2024` | Opportunity Attacks | 2024 | PHB 2024 glossary | assisted | Leave reach → reaction melee; Disengage / teleport / forced cancel |
-| `combat.opportunity-attack.2014` | Opportunity Attacks | 2014 | PHB 2014 Combat | assisted | Same leave-reach; must see mover |
-| `combat.cover.2024` | Cover | 2024 | PHB 2024 glossary | assisted | half +2 / ¾ +5; total blocks targeting |
-| `combat.cover.2014` | Cover | 2014 | PHB 2014 Combat | assisted | Same bonus matrix; wall-ray sample |
-| `combat.correction` | GM correction / undo | convenience | n/a | assisted | `appliedChanges` trail + `correctLastCompleted` |
+These four are outside the steps above.
 
-Reaction timing, knock-out, soft cover, and sight-pair advantage are specified in [combat-engine.md](combat-engine.md) and recent combat backlog work. **Grappling** remains design-only — not in implementation order.
-
----
-
-## 11. Public dnd5e hooks used (5.3.3)
-
-| Hook | Use |
-|---|---|
-| `dnd5e.preUseActivity` | Optional cancel / annotate |
-| `dnd5e.postUseActivity` | Complete resolution / refresh HUD |
-| `dnd5e.rollAttackV2` / `dnd5e.postRollAttack` | Trace attack rolls into active resolution |
-| `dnd5e.rollDamageV2` | Trace damage into active resolution |
-| `dnd5e.rollDeathSave` / `V2` / `postRollDeathSave` | Existing HUD death-save UX |
-| `preUpdateToken` | Opportunity attacks when leave-reach |
-
-Prefer these public hooks; do not depend on other modules or private Foundry APIs.
-
----
-
-## 12. What is automated vs manual (plain list)
-
-**Automated now**
-
-- Fire the selected activity from the HUD through dnd5e; track resolution (phase + roll trace + explanation); GM correction stub  
-- Owned attack workflow: spend economy → `activity.use` → await attack → hit vs AC → damage → apply HP to hit tokens; record applied changes  
-- Owned save workflow (DAS-like): roll saves vs activity DC → scale damage by `damage.onSave` (none/half/full) → apply activity effects by failed/saved/`onSave` profile  
-- Action / bonus / reaction economy flags (reset on turn); reaction pause + persist/resume  
-- Opportunity attacks on leave-reach → reaction prompt (Disengage / teleport / forced skip)  
-- Hybrid reaction windows (hard pause for rewrite reactions; soft siblings for retaliations) — see [combat-engine.md](combat-engine.md)  
-- Cover into AC/Dex (incl. soft ¾ GM prompt); obscurement / sight-pair attack mods; melee knock-out at 0 HP  
-- Range / reach gate on HUD attacks (melee uses weapon reach, default 5 ft, square-grid distance)  
-- Standard actions (Dash, Disengage, Dodge, Help, Hide, Ready)  
-- Path preview / commit / undo with movement budget  
-- Visibility + lighting evaluation for HUD feedback  
-- Loot transfer / drop validate + apply  
-
-**Still manual / not owned**
-
-- Choosing tactics and most adjudication  
-- Auto-firing opportunity attacks without the owner choosing  
-- Ready-as-trigger, fall reactions, full class/spell premade libraries beyond dnd5e activity data  
-- Merchants, CR treasure, climb/ceilings pathfinding, animations, homebrew authoring UI 
-
----
-
-## 13. Vertical slices — status
-
-Each slice: domain + application + foundry adapter + HUD/API surface.
-
-| Slice | Status | Deliverable |
-|---|---|---|
-| **C1** | **Done** | Activity use → resolution → explanation strip → correct API |
-| **C2** | **Done** | Persist/resume pending; reaction pause; scoped undo plan |
-| **C3** | **Done** | Opportunity attacks (`preUpdateToken` leave-reach → reaction prompt) |
-| **C4** | **Done** | Cover matrix (wall-ray sample → none/half/¾/total; attack gate + preview) |
-| **R0+** | **See combat-engine.md** | Hybrid reaction windows + registry (slices R1–R5) |
-| **M1** | **Done** | `movement.preview` / `commit` / `undoLastMove` (A* + budget) |
-| **V1** | **Done** | `perception.evaluateVisibilityBetween` |
-| **L1** | **Done** | `perception.performLighting` / `evaluateLightAt` feeds vision |
-| **Q1** | **Done** | `loot.perform` transfer/drop validate + inventory adapter |
-
-**Still not DAS-parity (explicit exclusions):** class/spell premade library (beyond dnd5e activity data), merchants/CR treasure, climb-ceilings, animations, homebrew authoring UI. Save/damage/effect orchestration for `SaveActivity` **is** in scope. Expand via new cited slices only.
-
----
-
-## 14. Reference: Darshyne Automation Suite
-
-Architecture lessons adopted (action state, trail, adapters, inspectable routes, persist-before-wait). Automation is always full. Feature scale is intentionally smaller than DAS Core.
-
----
-
-## 15. Code architecture rules for Cursor
-
-1. HUD stays presentation-only.  
-2. No second rules engine inside the HUD.  
-3. Do not add empty domain frameworks — extend an existing slice or open a cited new one.  
-4. Cite rules when implementing rule-bearing behavior.  
-5. If a behavior lacks a public integration point on dnd5e 5.3.3, report the gap before private APIs or a fork.  
-6. Prefer vertical slices over horizontal scaffolding.
-
----
-
-## 16. Discovery + delivery checklist
-
-| Step | Status |
-|---|---|
-| 1. Inventory HUD; incorporate HUD | **Done** |
-| 2. Capabilities, exclusions, order | **Done** (§7) |
-| 3. HUD → application contract map | **Done** (§8) |
-| 4. Record dnd5e version + hooks | **Done** — **5.3.3** |
-| 5. Rules matrix for selected behaviors | **Done** (§10 + catalog) |
-| 6. Shared facts / ownership | **Done** (§9) |
-| 7. Implement vertical slices C1–C4, M1, V1, L1, Q1 | **Done** (§13) |
-| Automation always full | **Done** (no level setting; all features on) |
-| Inspectable hook router | **Done** (`diagnostics.listRoutes`) |
+| Behavior | What happens today |
+| --- | --- |
+| A second plane | Blink and Etherealness set the ethereal status. The token stays on this scene |
+| A door | Knock and Arcane Lock do not change a lock |
+| A wall line or a cage of bars | Wall of Force, Wall of Stone, and Forcecage are circles |
+| A teleport to a point you pick | Dimension Door and the other six teleport spells use dnd5e's Teleport button. Misty Step moves you to 5 feet from the selected creature when that space is within 30 feet |
+| A creature this module places | 34 spell items have a summon activity. dnd5e places that profile. This module does not create the actor |

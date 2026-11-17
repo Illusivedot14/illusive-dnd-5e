@@ -2,7 +2,7 @@
 
 Standalone D&D 5e combat automation for Foundry VTT. The Illusive D&D HUD is built in.
 
-**Foundry:** v14 · **System:** dnd5e **5.3.3** · **Module deps:** none
+**Foundry:** 14.370 · **System:** dnd5e **6.0.0–6.0.6** · **Module deps:** none
 
 Illusive owns the combat loop: economy → activity use → attack vs AC → damage → apply HP to tokens, plus opportunity attacks, cover, movement, vision, lighting, and loot.
 

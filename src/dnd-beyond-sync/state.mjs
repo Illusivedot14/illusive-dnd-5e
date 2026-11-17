@@ -161,10 +161,37 @@ export function beyondState(character) {
   };
 }
 
+/** dnd5e gives every condition effect a fixed id, `dnd5epoisoned000` for poisoned. */
+export function conditionEffectId(status) {
+  const raw = `dnd5e${status}`;
+  return raw.length >= 16 ? raw.slice(0, 16) : raw.padEnd(16, "0");
+}
+
+function effectsOf(actor) {
+  const effects = actor?.effects;
+  if (!effects) return [];
+  if (typeof effects[Symbol.iterator] === "function") return [...effects];
+  return [];
+}
+
+/** The actor's effect for this condition, including one Foundry has not copied into `actor.statuses`. */
+export function conditionEffect(actor, status) {
+  const id = conditionEffectId(status);
+  const direct = actor?.effects?.get?.(id);
+  if (direct) return direct;
+  return effectsOf(actor).find((effect) => effect.id === id || effect._id === id) ?? null;
+}
+
 function actorStatuses(actor) {
+  const found = new Set();
   const statuses = actor?.statuses;
-  if (statuses instanceof Set) return statuses;
-  return new Set(statuses ?? []);
+  if (statuses instanceof Set) for (const status of statuses) found.add(status);
+  else if (statuses) for (const status of statuses) found.add(status);
+  for (const status of Object.values(CONDITION_STATUS)) {
+    const effect = conditionEffect(actor, status);
+    if (effect && !effect.disabled) found.add(status);
+  }
+  return found;
 }
 
 /** The actor's play state, in `beyondState` terms. `view` supplies Beyond's maximum hit points. */
@@ -228,6 +255,47 @@ export function foundryState(actor, links, view) {
 export function maxFromClasses(actor, hp) {
   if (hp?.overridden) return false;
   return itemsOf(actor).some((item) => item?.type === "class");
+}
+
+/** Fixed id for the effect that raises Foundry's class maximum to Beyond's maximum. */
+export const HP_MAX_GAP_ID = "illusivehpmaxgap";
+
+export function effectById(actor, id) {
+  return actor?.effects?.get?.(id)
+    ?? effectsOf(actor).find((effect) => effect.id === id || effect._id === id)
+    ?? null;
+}
+
+const HP_MAX_GAP_KEY = "system.attributes.hp.bonuses.overall";
+
+/** How many hit points the gap effect is already adding on top of the class maximum. */
+export function appliedHpMaxGap(actor) {
+  const effect = effectById(actor, HP_MAX_GAP_ID);
+  const changes = effect?.system?.changes ?? effect?.changes ?? [];
+  const change = changes.find((entry) => entry?.key === HP_MAX_GAP_KEY);
+  return whole(change?.value);
+}
+
+/**
+ * Hit points to add through the class maximum's overall bonus when Beyond's maximum is higher.
+ * The class formula still runs. The next read subtracts this effect before comparing again.
+ */
+export function hpMaxGap(actor, beyond) {
+  if (!beyond?.hp || !maxFromClasses(actor, beyond.hp)) return 0;
+  const preparedMax = Number(actor?.system?.attributes?.hp?.max);
+  if (!Number.isFinite(preparedMax)) return 0;
+  return beyond.hp.max - (preparedMax - appliedHpMaxGap(actor));
+}
+
+export function hpMaxGapEffect(gap) {
+  return {
+    _id: HP_MAX_GAP_ID,
+    name: "Beyond hit point maximum",
+    img: "icons/svg/heal.svg",
+    transfer: false,
+    disabled: false,
+    changes: [{ key: HP_MAX_GAP_KEY, type: "add", value: String(gap) }]
+  };
 }
 
 /**

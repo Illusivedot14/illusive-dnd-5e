@@ -1,6 +1,6 @@
 /**
  * Hybrid reaction windows — hard pause on the parent, soft prompts elsewhere.
- * See docs/combat-engine.md §6.
+ * See docs/design-doc.md.
  *
  * Every reactor for a moment shares one checkbox window. The owning player
  * sees their creatures; the GM sees the rest. Chosen reactions resolve in

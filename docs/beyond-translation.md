@@ -1,6 +1,10 @@
-# D&D Beyond ↔ Foundry: data structures and module structure
+# Beyond
 
-Status: proposal. Nothing below is built unless the "Today" column says so.
+Combat does not read this payload. It reads Foundry actors.
+
+Live in `src/dnd-beyond-sync/`: the vendored relay, character reads, condition ids 1 through 15, long rest and short rest write-back, and a Beyond dice roll shown as a Foundry chat roll. The relay sees ciphertext only. The field tables below are the payload map. A row that describes a future write is not a second implementation.
+
+# D&D Beyond ↔ Foundry: data structures and module structure
 
 ## 0. Rules this design keeps
 

@@ -79,6 +79,38 @@ function characterLevel(character) {
   return (character?.classes ?? []).reduce((sum, entry) => sum + (sheetNumber(entry.level) ?? 0), 0);
 }
 
+function hasDice(mod) {
+  const dice = mod?.dice;
+  return Boolean(dice && (dice.diceCount || dice.diceString));
+}
+
+function itemIsApplied(character, mod) {
+  return (character?.inventory ?? []).some((row) => {
+    const definitionId = row?.definition?.id;
+    if (definitionId !== mod?.componentId && row?.id !== mod?.componentId) return false;
+    if (!row.equipped) return false;
+    if (mod.requiresAttunement && !row.isAttuned) return false;
+    return true;
+  });
+}
+
+/** Flat maximum bonuses. A modifier with dice is a healing roll, and an item bonus counts only while that item is equipped. */
+function flatHitPoints(character) {
+  const chosen = chosenComponentIds(character);
+  let total = 0;
+  for (const [group, list] of Object.entries(character?.modifiers ?? {})) {
+    if (!Array.isArray(list)) continue;
+    for (const mod of list) {
+      if (mod?.type !== "bonus" || mod?.subType !== "hit-points") continue;
+      if (mod.isGranted === false && !chosen.has(mod.componentId)) continue;
+      if (hasDice(mod)) continue;
+      if (group === "item" && !itemIsApplied(character, mod)) continue;
+      total += sheetNumber(mod.value) ?? sheetNumber(mod.fixedValue) ?? 0;
+    }
+  }
+  return total;
+}
+
 /**
  * Beyond is the source of truth.
  * The maximum is hit dice, Constitution, and hit points per level.
@@ -94,8 +126,7 @@ export function hitPointsFromSheet(character) {
   const constitution = Math.floor((constitutionScore(character) - 10) / 2);
   const perLevel = modifiers(character, "bonus", "hit-points-per-level")
     .reduce((sum, mod) => sum + (sheetNumber(mod.value) ?? 0) * level, 0);
-  const flat = modifiers(character, "bonus", "hit-points")
-    .reduce((sum, mod) => sum + (sheetNumber(mod.value) ?? sheetNumber(mod.fixedValue) ?? 0), 0);
+  const flat = flatHitPoints(character);
   const replaced = override != null && override !== 0;
   const max = Math.max(0, replaced ? override : (base ?? 0) + (constitution * level) + perLevel + flat);
   const tempmax = replaced ? 0 : bonus;

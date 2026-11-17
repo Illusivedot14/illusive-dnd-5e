@@ -1,6 +1,6 @@
-# Live testing
+# Testing
 
-Click-through for a Foundry world. The unit suite covers the same rules in isolation (95 files, 921 tests). A box here means a person saw the result on the table.
+Click-through for a Foundry world. The last recorded unit run is 100 files, 971 tests: `npx vitest run` from the module root. A box here means a person saw the result on the table. Foundry 14.370, dnd5e 6.0.6.
 
 Use a player client and a GM client, with at least two creatures in combat. Where a rule names an edition, run it once on a 2024 item and once on a 2014 item. Advantage and disadvantage from two different sources cancel.
 
@@ -304,6 +304,6 @@ These have no feature on a character sheet. Attach the flag from the top of this
 - [ ] Casting Hex or Hunter's Mark does not place the mark. Only the `mark` step, or an effect that already exists, does.
 - [ ] A spell whose only rule is its dnd5e activity needs no extra result from this module. Fireball is the save activity. Cure Wounds is the heal activity.
 - [ ] No sheet button spends sorcery points, enters Wild Shape, uses Portent, uses Lay on Hands, or spends Legendary Resistance. The checks above are the flag, not the class feature.
-- [ ] There is no 3D path, jump, climb onto a ledge, or teleport rule.
+- [ ] There is no 3D path, jump, or climb onto a ledge. Misty Step moves you to 5 feet from the selected creature when that space is within 30 feet. Dimension Door and the other teleport spells use dnd5e's Teleport button.
 - [ ] Hide does not set a hiding DC, and there is no Search action.
-- [ ] Doors, locks, merchants, and a homebrew rules editor are not part of this module.
+- [ ] Knock and Arcane Lock do not change a lock. Merchants and a homebrew rules editor are not part of this module. Blink and Etherealness set the ethereal status and leave the token on this scene.
