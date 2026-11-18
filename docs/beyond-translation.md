@@ -259,7 +259,7 @@ ddb-importer sends its writes to its hosted proxy. This module calls D&D Beyond 
 
 ### 5.3 Rolls
 
-`dice/roll/fulfilled` from the game log becomes a Foundry chat message (`roll.mjs`), when the world setting `ddbShowRolls` is on (default). Each Beyond roll carries `diceNotation.set[]` (`dieType`, `count`, `operation` 1 keep lowest / 2 keep highest, `dice[].dieValue`), `diceNotation.constant`, `rollType`, `rollKind`, and `result.total`. It is rebuilt with `Roll.fromData` as evaluated `Die`, `OperatorTerm`, and `NumericTerm` terms holding Beyond's values, so nothing is re-rolled. Dice So Nice animates chat rolls with those values. The speaker is the linked actor, or `context.name`. `messageScope: "userId"` rolls are whispered to GMs. Shape source: Beyond20 `src/dndbeyond/page-scripts/message-broker.js`.
+`dice/roll/fulfilled` from the game log becomes a Foundry chat message (`roll.mjs`), when the world setting `ddbShowRolls` is on (default). Each Beyond roll carries `diceNotation.set[]` (`dieType`, `count`, `operation` 1 keep lowest / 2 keep highest, `dice[].dieValue`), `diceNotation.constant`, `rollType`, `rollKind`, and `result.total`. It is rebuilt with `Roll.fromData` as evaluated `Die`, `OperatorTerm`, and `NumericTerm` terms holding Beyond's values, so nothing is re-rolled. The chat card is public, including `messageScope: "userId"` sheet rolls, so Dice So Nice's chat hook throws the dice on every client. The speaker is the linked actor, or `context.name`. Shape source: Beyond20 `src/dndbeyond/page-scripts/message-broker.js`.
 
 **Conflicts**: last change wins. While a write for a character is queued, reads for that character are skipped (`reason: "writing"`).
 

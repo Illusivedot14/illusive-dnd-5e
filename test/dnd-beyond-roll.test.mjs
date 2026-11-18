@@ -88,11 +88,11 @@ describe("dnd beyond game-log rolls", () => {
     expect(data.whisper).toBeUndefined();
   });
 
-  it("whispers a private roll to the GMs and names an unlinked roller", async () => {
+  it("posts a sheet roll in public chat so every client can throw it", async () => {
     installFoundry({ settings: {} });
     globalThis.ChatMessage = { getSpeaker: vi.fn(), getWhisperRecipients: vi.fn(() => [{ id: "gm1" }]) };
-    const createMessage = vi.fn(async () => {});
-    await showBeyondRoll({
+    const createMessage = vi.fn(async () => ({ id: "m1" }));
+    const result = await showBeyondRoll({
       message: { eventType: "dice/roll/fulfilled", characterId: "9", context: { name: "Mira" }, rolls: [advantageAttack], messageScope: "userId" },
       enabled: true,
       mapping: {},
@@ -100,7 +100,13 @@ describe("dnd beyond game-log rolls", () => {
       RollClass: fakeRoll(),
       createMessage
     });
-    expect(createMessage.mock.calls[0][0]).toMatchObject({ speaker: { alias: "Mira" }, whisper: ["gm1"] });
+    const data = createMessage.mock.calls[0][0];
+    expect(result.private).toBe(false);
+    expect(data.speaker).toEqual({ alias: "Mira" });
+    expect(data.whisper).toBeUndefined();
+    expect(data.flags["dice-so-nice"]).toBeUndefined();
+    expect(data.sound).toBeUndefined();
+    expect(data.rolls).toHaveLength(1);
   });
 
   it("does nothing when turned off", async () => {

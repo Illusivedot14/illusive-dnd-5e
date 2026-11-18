@@ -107,8 +107,10 @@ function speakerFor(message, { mapping, actors }) {
 }
 
 /**
- * A finished game-log roll → a Foundry chat message carrying Beyond's dice.
- * Dice animation modules play chat rolls, so the dice roll on screen with Beyond's results.
+ * A finished sheet roll → a public Foundry chat message carrying Beyond's dice.
+ * Dice So Nice throws chat rolls on every client that can see the message.
+ * Sheet rolls arrive as messageScope "userId"; whispering those hid the 3D throw
+ * from everyone except the GM.
  */
 export async function showBeyondRoll({
   message,
@@ -130,7 +132,6 @@ export async function showBeyondRoll({
     sound: globalThis.CONFIG?.sounds?.dice,
     flags: { "illusive-dnd-5e": { beyondRoll: { rollId: message?.rollId ?? message?.id ?? null } } }
   };
-  if (message?.messageScope === "userId") data.whisper = ChatMessage.getWhisperRecipients?.("GM")?.map((user) => user.id) ?? [];
   await createMessage(data);
   return finish({
     ok: true,
@@ -138,7 +139,7 @@ export async function showBeyondRoll({
     flavor: data.flavor,
     formulas: rolls.map((roll) => roll.formula),
     totals: rolls.map((roll) => roll.total),
-    private: Boolean(data.whisper)
+    private: false
   });
 }
 
